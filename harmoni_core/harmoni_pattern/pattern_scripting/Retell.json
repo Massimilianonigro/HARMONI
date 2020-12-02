@@ -1,0 +1,28 @@
+[
+    {
+        "set": "sequence",
+        "steps": [
+            {
+                "web_default": { 
+                    "action_goal": "DO",
+                    "resource_type": "actuator",
+                    "wait_for": ""
+                }
+            },
+            {
+                "microphone_default": { 
+                    "action_goal": "ON",
+                    "resource_type": "actuator",
+                    "wait_for": "" 
+                }
+            },
+            {
+                "stt_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "detector",
+                    "wait_for": "new"
+                }
+            }
+        ]
+    }
+]

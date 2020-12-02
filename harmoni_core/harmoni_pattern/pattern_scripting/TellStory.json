@@ -1,0 +1,37 @@
+[
+    {
+        "set": "loop",
+        "steps": [ 
+            [
+                {
+                   "web_default": { 
+                    "action_goal": "DO",
+                    "resource_type": "actuator",
+                    "wait_for": ""
+                   }
+                    
+                },
+                {
+                    "set": "sequence",
+		     "steps": [
+		        {
+				"tts_default": {
+				    "action_goal": "REQUEST",
+				    "resource_type": "service",
+				    "wait_for": "new"
+				}
+			 },
+			 {
+				"speaker_default": {
+				    "action_goal": "DO",
+				    "resource_type": "actuator",
+				    "wait_for": ""
+				}
+			 }
+		
+		     ]
+                }
+            ]
+        ]  
+    }
+]        

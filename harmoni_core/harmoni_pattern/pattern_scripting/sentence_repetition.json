@@ -1,0 +1,72 @@
+[
+    {
+        "set": "sequence",
+        "steps": [
+            {
+                "web_default": { 
+                    "action_goal": "DO",
+                    "resource_type": "actuator",
+                    "wait_for": ""
+                }
+            },
+            {
+                "tts_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "service",
+                    "wait_for": "new"
+                }
+            },
+            [
+                {
+                    "speaker_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": ""
+                    }
+                },
+                {
+                    "face_mouth_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": "new"
+                    }
+                }
+            ],
+            {
+                "web_default": { 
+                    "action_goal": "REQUEST",
+                    "resource_type": "actuator",
+                    "wait_for": "new"
+                }
+            },
+            {
+                "microphone_default": { 
+                    "action_goal": "ON",
+                    "resource_type": "actuator",
+                    "wait_for": "" 
+                }
+            },
+            {
+                "web_default": { 
+                    "action_goal": "REQUEST",
+                    "resource_type": "actuator",
+                    "wait_for": "new" 
+                }
+            },
+            {
+                "microphone_default": { 
+                    "action_goal": "OFF",
+                    "resource_type": "actuator",
+                    "wait_for": "" 
+                }
+            },
+            {
+                "stt_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "detector",
+                    "wait_for": "new"
+                }
+            }
+        ]
+    }
+]
