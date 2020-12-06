@@ -13,7 +13,8 @@
                 "tts_default": {
                     "action_goal": "REQUEST",
                     "resource_type": "service",
-                    "wait_for": "new"
+                    "wait_for": "new",
+                    "trigger":"ciao Violeta e Corrado, sono Tharu e ora funziona qualcosa"
                 }
             },
             [
@@ -58,13 +59,6 @@
                     "action_goal": "OFF",
                     "resource_type": "actuator",
                     "wait_for": "" 
-                }
-            },
-            {
-                "stt_default": {
-                    "action_goal": "REQUEST",
-                    "resource_type": "detector",
-                    "wait_for": "new"
                 }
             }
         ]

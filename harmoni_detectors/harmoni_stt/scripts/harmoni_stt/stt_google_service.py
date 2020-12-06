@@ -13,6 +13,8 @@ import harmoni_common_lib.helper_functions as hf
 from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
 from audio_common_msgs.msg import AudioData
 from google.cloud import speech
+from google.cloud.speech import enums
+from google.cloud.speech import types
 from std_msgs.msg import String
 import numpy as np
 import os
@@ -72,14 +74,25 @@ class STTGoogleService(HarmoniServiceManager):
             language_code=self.language,
             audio_channel_count=self.audio_channel,
         )
-        config = speech.RecognitionConfig(
-            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=self.sample_rate,
-            language_code=self.language,
+        # config = speech.RecognitionConfig(
+        #     encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        #     sample_rate_hertz=self.sample_rate,
+        #     language_code=self.language,
+        # )
+        # self.streaming_config = speech.StreamingRecognitionConfig(
+        #     config=config, interim_results=True
+        # )
+        config = types.RecognitionConfig(
+            encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
+            sample_rate_hertz=SAMPLE_RATE,
+            language_code="en-US",
+            max_alternatives=1,
         )
-        self.streaming_config = speech.StreamingRecognitionConfig(
+        streaming_config = types.StreamingRecognitionConfig(
             config=config, interim_results=True
         )
+
+
         return
 
     def callback(self, data):
@@ -96,8 +109,12 @@ class STTGoogleService(HarmoniServiceManager):
         # TODO: streaming transcription https://github.com/googleapis/python-speech/blob/master/samples/microphone/transcribe_streaming_infinite.py
         stream = data
         rospy.loginfo("Transcribing Stream")
+        # requests = (
+        #     speech.StreamingRecognizeRequest(audio_content=chunk) for chunk in stream
+        # )
         requests = (
-            speech.StreamingRecognizeRequest(audio_content=chunk) for chunk in stream
+            types.StreamingRecognizeRequest(audio_content=content)
+            for content in audio_generator
         )
         responses = self.client.streaming_recognize(
             config=self.streaming_config, requests=requests

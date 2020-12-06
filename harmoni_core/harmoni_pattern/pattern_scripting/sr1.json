@@ -6,37 +6,17 @@
                 "tts_default": {
                     "action_goal": "REQUEST",
                     "resource_type": "service",
-                    "wait_for": "new"
+                    "wait_for": "new",
+                    "trigger":"la zia mangia la pera e la mela"
                 }
             },
             {
-                    "speaker_default": {
-                        "action_goal": "DO",
-                        "resource_type": "actuator",
-                        "wait_for": ""
-                    }
-             },
-            {
-                "microphone_default": { 
-                    "action_goal": "ON",
+                "speaker_default": {
+                    "action_goal": "DO",
                     "resource_type": "actuator",
-                    "wait_for": "" 
+                    "wait_for": ""
                 }
-            },
-            {
-                "microphone_default": { 
-                    "action_goal": "OFF",
-                    "resource_type": "actuator",
-                    "wait_for": "" 
-                }
-            },
-            {
-                "stt_default": {
-                    "action_goal": "REQUEST",
-                    "resource_type": "detector",
-                    "wait_for": "new"
-                }
-            }
+             }
         ]
     }
 ]
