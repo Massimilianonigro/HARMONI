@@ -69,7 +69,13 @@ function viewListener(view) {
 function setValueButton(clicked_button, value_item){
     console.log(value_item)
     var selected_butt = clicked_button.id;
-    var input_value = document.getElementById(value_item.id).value;
+    if (value_item!=null){
+        var input_value = document.getElementById(value_item.id).value;
+    }
+    else{
+        var input_value = true;
+    }
+    
     //$("#"+value_item).attr("value")
     $("#"+selected_butt).attr("value",input_value);
 }

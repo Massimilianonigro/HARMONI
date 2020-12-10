@@ -161,6 +161,24 @@
         },
         {
             "component": "container",
+            "id": "sentence_repetition_container",
+            "children": [
+                {
+                    "component": "row",
+                    "id": "row_sr",
+                    "children": [
+                     
+                        {
+                            "component": "button",
+                            "children": "Record",
+                            "id": "button_sr"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "component": "container",
             "id": "multiple_choice_full_container",
             "children": [
                 {

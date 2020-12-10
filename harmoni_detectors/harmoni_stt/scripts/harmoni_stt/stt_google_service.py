@@ -67,13 +67,13 @@ class STTGoogleService(HarmoniServiceManager):
     def setup_google(self):
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = self.credential_path
         self.client = speech.SpeechClient()
-        encoding = speech.RecognitionConfig.AudioEncoding.LINEAR16
-        self.config = speech.RecognitionConfig(
-            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=self.sample_rate,
-            language_code=self.language,
-            audio_channel_count=self.audio_channel,
-        )
+        #encoding = speech.RecognitionConfig.AudioEncoding.LINEAR16
+        # self.config = speech.RecognitionConfig(
+        #     encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        #     sample_rate_hertz=self.sample_rate,
+        #     language_code=self.language,
+        #     audio_channel_count=self.audio_channel,
+        # )
         # config = speech.RecognitionConfig(
         #     encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         #     sample_rate_hertz=self.sample_rate,
@@ -82,9 +82,11 @@ class STTGoogleService(HarmoniServiceManager):
         # self.streaming_config = speech.StreamingRecognitionConfig(
         #     config=config, interim_results=True
         # )
-        config = types.RecognitionConfig(
-            encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=SAMPLE_RATE,
+        rospy.loginfo("violeta")
+        rospy.loginfo(speech)
+        config = speech.RecognitionConfig(
+            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            sample_rate_hertz=16000,
             language_code="en-US",
             max_alternatives=1,
         )
