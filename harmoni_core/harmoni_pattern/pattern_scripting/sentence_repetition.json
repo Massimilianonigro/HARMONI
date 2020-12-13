@@ -16,7 +16,7 @@
                     "action_goal": "REQUEST",
                     "resource_type": "service",
                     "wait_for": "new",
-                    "trigger":"ciao Violeta e Corrado, sono Tharu e ora funziona qualcosa"
+                    "trigger":"Ciao Menik, come stai?"
                 }
             },
             [
