@@ -67,47 +67,30 @@ class STTGoogleService(HarmoniServiceManager):
     def setup_google(self):
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = self.credential_path
         self.client = speech.SpeechClient()
-        #encoding = speech.RecognitionConfig.AudioEncoding.LINEAR16
-        #gcs_uri="./harmoni_detectors/harmoni_stt/temp_data/test.wav"
-        #audio = speech.RecognitionAudio(uri=gcs_uri)
-        # self.config = types.RecognitionConfig(
-        #      encoding=enumes.RecognitionConfig.AudioEncoding.LINEAR16,
-        #      sample_rate_hertz=16000,
-        #      language_code="en-US",
-        #      #audio_channel_count=self.audio_channel,
-        #  )
-        # config = speech.RecognitionConfig(
-        #     encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        #     sample_rate_hertz=self.sample_rate,
-        #     language_code=self.language,
-        # )
-        # self.streaming_config = speech.StreamingRecognitionConfig(
-        #     config=config, interim_results=True
-        # )
-        # rospy.loginfo("violeta")
-        # rospy.loginfo(speech)
-        # config = speech.RecognitionConfig(
-        #     encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        #     sample_rate_hertz=16000,
-        #     language_code="en-US",
-        #     max_alternatives=1,
-        # )
-        # streaming_config = types.StreamingRecognitionConfig(
-        #     config=config, interim_results=True
-        # )
-
-        #---
+        """encoding = speech.RecognitionConfig.AudioEncoding.LINEAR16
+        self.config = speech.RecognitionConfig(
+            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            sample_rate_hertz=self.sample_rate,
+            language_code=self.language,
+            audio_channel_count=self.audio_channel,
+        )
+        config = speech.RecognitionConfig(
+            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            sample_rate_hertz=self.sample_rate,
+            language_code=self.language,
+        )
+        self.streaming_config = speech.StreamingRecognitionConfig(
+            config=config, interim_results=True
+        )"""
         self.config = types.RecognitionConfig(
             encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=16000,
-            language_code="en-US",
+            sample_rate_hertz=self.sample_rate,
+            language_code=self.language,
             max_alternatives=1,
         )
         streaming_config = types.StreamingRecognitionConfig(
             config=self.config, interim_results=True
         )
-
-
         return
 
     def callback(self, data):
@@ -124,18 +107,12 @@ class STTGoogleService(HarmoniServiceManager):
         # TODO: streaming transcription https://github.com/googleapis/python-speech/blob/master/samples/microphone/transcribe_streaming_infinite.py
         stream = data
         rospy.loginfo("Transcribing Stream")
-        # requests = (
-        #     speech.StreamingRecognizeRequest(audio_content=chunk) for chunk in stream
-        # )
         requests = (
-            types.StreamingRecognizeRequest(audio_content=content)
-            for content in audio_generator
+            speech.StreamingRecognizeRequest(audio_content=chunk) for chunk in stream
         )
-        # responses = self.client.streaming_recognize(
-        #     config=self.streaming_config, requests=requests
-        # )
-
-        responses = self.client.recognize(config=config, audio=audio)
+        responses = self.client.streaming_recognize(
+            config=self.streaming_config, requests=requests
+        )
         rospy.loginfo(f"Responses: {responses}")
         for response in responses:
             rospy.loginfo(f"Response items: {response}")
