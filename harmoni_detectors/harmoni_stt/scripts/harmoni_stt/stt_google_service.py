@@ -10,7 +10,7 @@ from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
-from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
+from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace, ActuatorNameSpace
 from audio_common_msgs.msg import AudioData
 from google.cloud import speech
 from google.cloud.speech import enums
@@ -53,11 +53,22 @@ class STTGoogleService(HarmoniServiceManager):
         )
         rospy.Subscriber("/audio/audio", AudioData, None)
         self.text_pub = rospy.Publisher(
-            DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
+            DetectorNameSpace.stt.value + self.service_id, 
+            String, 
+            queue_size=10
+        )
+        rospy.Subscriber(
+            ActuatorNameSpace.web.value + self.subscriber_id,
+            String,
+            self._web_callback,
         )
         """Setup the stt service as server """
         self.state = State.INIT
         return
+    def _web_callback(self, data):
+        rospy.loginfo("DATA FROM WEB: " + data + " +++++++++")
+        if data == "STOP":
+            self.finished_message = True
 
     def pause_back(self, data):
         rospy.loginfo(f"pausing for data: {len(data.data)}")
