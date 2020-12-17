@@ -4,7 +4,7 @@
 	<arg name="use_w2l" default="false"/>
 	<arg name="use_google" default="true"/>
 	<arg name="test" default="false"/>
-	<arg name="test_input" default="$(find harmoni_stt)/temp_data/test.wav"/>
+	<arg name="test_input" default="$(find harmoni_stt)/temp_data/test3.wav"/>
 	<arg name="test_id" default="default"/>
   	<group if="$(arg use_w2l)">
 			<rosparam file="$(find harmoni_stt)/config/configuration.yaml"/>

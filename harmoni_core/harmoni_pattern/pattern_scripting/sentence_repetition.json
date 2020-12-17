@@ -51,6 +51,13 @@
                 }
             },
             {
+                "stt_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "detector",
+                    "wait_for": ""
+                }
+            },
+            {
                 "web_page_default": { 
                     "action_goal": "REQUEST",
                     "resource_type": "actuator",
@@ -63,13 +70,6 @@
                     "action_goal": "OFF",
                     "resource_type": "actuator",
                     "wait_for": "" 
-                }
-            },
-            {
-                "stt_default": {
-                    "action_goal": "REQUEST",
-                    "resource_type": "detector",
-                    "wait_for": "new"
                 }
             }
         ]

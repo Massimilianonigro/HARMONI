@@ -43,13 +43,15 @@ class STTGoogleService(HarmoniServiceManager):
         self.response_text = ""
         self.data = b""
 
+        #self.state = State.INIT
+
         """Setup publishers and subscribers"""
         rospy.Subscriber(
             SensorNameSpace.microphone.value + self.subscriber_id,
             AudioData,
             self.callback,
         )
-        rospy.Subscriber("/audio/audio", AudioData, self.pause_back)
+        rospy.Subscriber("/audio/audio", AudioData, None)
         self.text_pub = rospy.Publisher(
             DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
         )
@@ -67,28 +69,13 @@ class STTGoogleService(HarmoniServiceManager):
     def setup_google(self):
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = self.credential_path
         self.client = speech.SpeechClient()
-        """encoding = speech.RecognitionConfig.AudioEncoding.LINEAR16
-        self.config = speech.RecognitionConfig(
-            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=self.sample_rate,
-            language_code=self.language,
-            audio_channel_count=self.audio_channel,
-        )
-        config = speech.RecognitionConfig(
-            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-            sample_rate_hertz=self.sample_rate,
-            language_code=self.language,
-        )
-        self.streaming_config = speech.StreamingRecognitionConfig(
-            config=config, interim_results=True
-        )"""
         self.config = types.RecognitionConfig(
             encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
             sample_rate_hertz=self.sample_rate,
             language_code=self.language,
             max_alternatives=1,
         )
-        streaming_config = types.StreamingRecognitionConfig(
+        self.streaming_config = types.StreamingRecognitionConfig(
             config=self.config, interim_results=True
         )
         return
@@ -98,14 +85,15 @@ class STTGoogleService(HarmoniServiceManager):
         data = np.fromstring(data.data, np.uint8)
         # self.data = self.data.join(data)
         # self.data = data.data
+        rospy.loginfo(self.state)
         if self.state == State.START:
-            self.transcribe_stream_request(self.data)
+            self.transcribe_stream_request(data)
         else:
             rospy.loginfo("Not Transcribing data")
 
     def transcribe_stream_request(self, data):
         # TODO: streaming transcription https://github.com/googleapis/python-speech/blob/master/samples/microphone/transcribe_streaming_infinite.py
-        stream = data
+        stream = self.data
         rospy.loginfo("Transcribing Stream")
         requests = (
             speech.StreamingRecognizeRequest(audio_content=chunk) for chunk in stream
