@@ -67,14 +67,29 @@ function viewListener(view) {
 };
 
 function setValueButton(clicked_button, value_item){
+    console.log(clicked_button.value)
     console.log(value_item)
     var selected_butt = clicked_button.id;
+    if(clicked_button.value == "Start"){
+        clicked_button.value = "Stop"
+        clicked_button.children = "Stop"
+        var input_value = "Stop";
+        document.getElementById(clicked_button.id).innerText = 'Stop';
+    }else{
+        clicked_button.value = "Start"
+        clicked_button.children = "Start"
+        var input_value = "Start";
+        document.getElementById(clicked_button.id).innerText = 'Start';
+    }
     if (value_item!=null){
         var input_value = document.getElementById(value_item.id).value;
     }
-    else{
-        var input_value = true;
-    }
+    console.log(clicked_button.value)
+    // else{
+    //     clicked_button.value = "StopCorry";
+    //     var input_value = "Start";
+    //     value_item = "StartCorry";
+    // }
     
     //$("#"+value_item).attr("value")
     $("#"+selected_butt).attr("value",input_value);

@@ -1,5 +1,17 @@
 [
     {
+        "set": "setup",
+        "steps": [
+            {
+                "microphone_default": {
+                    "action_goal": "ON",
+                    "resource_type": "sensor",
+                    "wait_for": ""
+                }
+            }
+        ]
+    },
+    {
         "set": "sequence",
         "steps": [
             {
@@ -44,13 +56,6 @@
                 }
             },
             {
-                "microphone_default": { 
-                    "action_goal": "ON",
-                    "resource_type": "actuator",
-                    "wait_for": "" 
-                }
-            },
-            {
                 "stt_default": {
                     "action_goal": "REQUEST",
                     "resource_type": "detector",
@@ -63,13 +68,6 @@
                     "resource_type": "actuator",
                     "wait_for": "new",
                     "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
-                }
-            },
-            {
-                "microphone_default": { 
-                    "action_goal": "OFF",
-                    "resource_type": "actuator",
-                    "wait_for": "" 
                 }
             }
         ]

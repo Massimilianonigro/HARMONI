@@ -170,7 +170,7 @@
                      
                         {
                             "component": "button",
-                            "children": "Record",
+                            "children": "Press to start",
                             "id": "button_sr"
                         }
                     ]
