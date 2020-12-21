@@ -10,12 +10,13 @@ from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
-from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace, ActuatorNameSpace
+from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
 from audio_common_msgs.msg import AudioData
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 from std_msgs.msg import String
+import json
 import numpy as np
 import os
 import io
@@ -35,6 +36,7 @@ class STTGoogleService(HarmoniServiceManager):
         self.credential_path = param["credential_path"]
         self.subscriber_id = param["subscriber_id"]
         self.service_id = hf.get_child_id(self.name)
+        self.finished_message = False
 
         """ Setup the google request """
         self.setup_google()
@@ -42,8 +44,6 @@ class STTGoogleService(HarmoniServiceManager):
         """Setup the google service as server """
         self.response_text = ""
         self.data = b""
-
-        #self.state = State.INIT
 
         """Setup publishers and subscribers"""
         rospy.Subscriber(
@@ -53,22 +53,17 @@ class STTGoogleService(HarmoniServiceManager):
         )
         rospy.Subscriber("/audio/audio", AudioData, None)
         self.text_pub = rospy.Publisher(
-            DetectorNameSpace.stt.value + self.service_id, 
-            String, 
-            queue_size=10
+            DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
         )
+        """aggiunta""" 
         rospy.Subscriber(
-            ActuatorNameSpace.web.value + self.subscriber_id,
+            "/harmoni/actuating/web/default/listen_click_event",
             String,
             self._web_callback,
         )
         """Setup the stt service as server """
         self.state = State.INIT
         return
-    def _web_callback(self, data):
-        rospy.loginfo("DATA FROM WEB: " + data + " +++++++++")
-        if data == "STOP":
-            self.finished_message = True
 
     def pause_back(self, data):
         rospy.loginfo(f"pausing for data: {len(data.data)}")
@@ -94,6 +89,7 @@ class STTGoogleService(HarmoniServiceManager):
     def callback(self, data):
         """ Callback function subscribing to the microphone topic"""
         data = np.fromstring(data.data, np.uint8)
+        rospy.loginfo(data)
         # self.data = self.data.join(data)
         # self.data = data.data
         rospy.loginfo(self.state)
@@ -102,9 +98,26 @@ class STTGoogleService(HarmoniServiceManager):
         else:
             rospy.loginfo("Not Transcribing data")
 
+    def _web_callback(self, data):
+        "DATA FROM WEB"
+        data = str(data)
+        x = data.split("set_view\\\":\\\"")
+        x = x[1].split("\\\"}\"")
+        buttonValue = x[0]
+        rospy.loginfo(buttonValue)
+        if buttonValue == "Stop":
+            self.finished_message = True
+            self.state = State.PAUSE
+        else:
+            self.state = State.START
+
     def transcribe_stream_request(self, data):
         # TODO: streaming transcription https://github.com/googleapis/python-speech/blob/master/samples/microphone/transcribe_streaming_infinite.py
+        if self.state == State.PAUSE:
+            return
         stream = self.data
+        rospy.loginfo("Lunghezza stream: ")
+        rospy.loginfo(stream)
         rospy.loginfo("Transcribing Stream")
         requests = (
             speech.StreamingRecognizeRequest(audio_content=chunk) for chunk in stream
@@ -164,7 +177,18 @@ class STTGoogleService(HarmoniServiceManager):
         self.data = self.data.join(input_data)
         rospy.loginfo("Start the %s request" % self.name)
         self.state = State.START
-        self.transcribe_stream_request(self.data)
+        try:
+            while not self.finished_message:
+                self.transcribe_stream_request(self.data)
+                self.state = State.SUCCESS
+                self.response_received = True
+                self.result_msg = self.stt_response
+                rospy.loginfo("Request successfully completed")
+        except:
+            rospy.logerr("The erros ")
+            self.state = State.FAILED
+            self.response_received = True
+            self.result_msg = ""
         return
 
     def wav_to_data(self, path):

@@ -105,7 +105,7 @@ function clickListener(clicked_component) {
     }
     console.log("Clicked")
     //$("#"+selected_item).css("opacity", "1");
-    var body =  {component_id:selected_item_id , set_view:clicked_component.getAttribute("value")}
+    var body =  {"component_id":selected_item_id , "set_view":clicked_component.getAttribute("value")}
     console.log("The response is", body)
     user_response_publisher.publish({data: JSON.stringify(body)})
     // Send the event clicked to the ROS package
