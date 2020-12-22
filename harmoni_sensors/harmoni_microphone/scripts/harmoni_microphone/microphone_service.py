@@ -45,6 +45,7 @@ class MicrophoneService(HarmoniServiceManager):
         self.file_path = param["test_outdir"]
         self.first_audio_frame = True
         self.service_id = hf.get_child_id(self.name)
+        self.finished_message=False
         """ Setup the microphone """
         self.p = pyaudio.PyAudio()
         self.audio_format = (
@@ -70,12 +71,15 @@ class MicrophoneService(HarmoniServiceManager):
         return
 
     def start(self, rate=""):
+        rospy.loginfo("ciao sono nel def start")
         rospy.loginfo("Start the %s service" % self.name)
         if self.state == State.INIT:
             self.state = State.START
             try:
-                self.open_stream()
-                self.listen()  # Start the microphone service at the INIT
+                #self.open_stream()
+                #self.listen()  # Start the microphone service at the INIT
+                self.save_data()
+
             except Exception:
                 self.state = State.FAILED
         else:
@@ -86,7 +90,8 @@ class MicrophoneService(HarmoniServiceManager):
         rospy.loginfo("Stop the %s service" % self.name)
         self.pub.publish("STOP")
         try:
-            self.close_stream()
+            self.finished_message=True
+            #self.close_stream()
             self.state = State.SUCCESS
         except Exception:
             self.state = State.FAILED
@@ -234,6 +239,7 @@ class MicrophoneService(HarmoniServiceManager):
         return
 
     def save_data(self):
+        rospy.loginfo("SAVE_DATA")
         """Init the subscriber """
         self.mic_sub = rospy.Subscriber(
             "/harmoni/sensing/microphone/default",
@@ -244,18 +250,25 @@ class MicrophoneService(HarmoniServiceManager):
         return
 
     def _record_audio_data_callback(self, data):
-        """Callback function to record data"""
-        data = np.fromstring(data.data, np.uint8)
-        if self.first_audio_frame:
-            self.wf = wave.open(self.file_path, "wb")
-            self.wf.setnchannels(self.total_channels)
-            self.wf.setsampwidth(self.p.get_sample_size(self.audio_format))
-            self.wf.setframerate(self.audio_rate)
-            self.wf.setnframes(self.chunk_size)
-            self.wf.writeframes(b"".join(data))
-            self.first_audio_frame = False
-        else:
-            self.wf.writeframes(b"".join(data))
+        rospy.loginfo("record audio")
+        try:
+            while not self.finished_message: 
+                """Callback function to record data"""
+                data = np.fromstring(data.data, np.uint8)
+
+                if self.first_audio_frame:
+                    self.wf = wave.open(self.file_path, "wb")
+                    self.wf.setnchannels(self.total_channels)
+                    self.wf.setsampwidth(self.p.get_sample_size(self.audio_format))
+                    self.wf.setframerate(self.audio_rate)
+                    self.wf.setnframes(self.chunk_size)
+                    self.wf.writeframes(b"".join(data))
+                    self.first_audio_frame = False
+                else:
+                    self.wf.writeframes(b"".join(data))
+        except:
+            self.state=State.FAILED
+            rospy.loginfo("err")
         return
 
 
