@@ -10,10 +10,9 @@ from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
 
 # Other Imports
-from harmoni_common_lib.constants import SensorNameSpace, ActuatorNameSpace
+from harmoni_common_lib.constants import SensorNameSpace
 from audio_common_msgs.msg import AudioData
 from collections import deque
-from std_msgs.msg import String
 import sys
 import pyaudio
 import math
@@ -45,7 +44,6 @@ class MicrophoneService(HarmoniServiceManager):
         self.file_path = param["test_outdir"]
         self.first_audio_frame = True
         self.service_id = hf.get_child_id(self.name)
-        self.finished_message=False
         """ Setup the microphone """
         self.p = pyaudio.PyAudio()
         self.audio_format = (
@@ -54,11 +52,6 @@ class MicrophoneService(HarmoniServiceManager):
         self.stream = None
         self.setup_microphone()
         """Init the publisher """
-        self.pub = rospy.Publisher(
-            ActuatorNameSpace.web.value + self.service_id,
-            String,
-            queue_size=5,
-        )
         self.mic_pub = rospy.Publisher(
             SensorNameSpace.microphone.value + self.service_id + "/talking",
             AudioData,
@@ -71,15 +64,13 @@ class MicrophoneService(HarmoniServiceManager):
         return
 
     def start(self, rate=""):
-        rospy.loginfo("ciao sono nel def start")
         rospy.loginfo("Start the %s service" % self.name)
         if self.state == State.INIT:
             self.state = State.START
             try:
-                #self.open_stream()
-                #self.listen()  # Start the microphone service at the INIT
                 self.save_data()
-
+                self.open_stream()
+                self.listen()  # Start the microphone service at the INIT
             except Exception:
                 self.state = State.FAILED
         else:
@@ -88,10 +79,8 @@ class MicrophoneService(HarmoniServiceManager):
 
     def stop(self):
         rospy.loginfo("Stop the %s service" % self.name)
-        self.pub.publish("STOP")
         try:
-            self.finished_message=True
-            #self.close_stream()
+            self.close_stream()
             self.state = State.SUCCESS
         except Exception:
             self.state = State.FAILED
@@ -239,7 +228,6 @@ class MicrophoneService(HarmoniServiceManager):
         return
 
     def save_data(self):
-        rospy.loginfo("SAVE_DATA")
         """Init the subscriber """
         self.mic_sub = rospy.Subscriber(
             "/harmoni/sensing/microphone/default",
@@ -250,25 +238,18 @@ class MicrophoneService(HarmoniServiceManager):
         return
 
     def _record_audio_data_callback(self, data):
-        rospy.loginfo("record audio")
-        try:
-            while not self.finished_message: 
-                """Callback function to record data"""
-                data = np.fromstring(data.data, np.uint8)
-
-                if self.first_audio_frame:
-                    self.wf = wave.open(self.file_path, "wb")
-                    self.wf.setnchannels(self.total_channels)
-                    self.wf.setsampwidth(self.p.get_sample_size(self.audio_format))
-                    self.wf.setframerate(self.audio_rate)
-                    self.wf.setnframes(self.chunk_size)
-                    self.wf.writeframes(b"".join(data))
-                    self.first_audio_frame = False
-                else:
-                    self.wf.writeframes(b"".join(data))
-        except:
-            self.state=State.FAILED
-            rospy.loginfo("err")
+        """Callback function to record data"""
+        data = np.fromstring(data.data, np.uint8)
+        if self.first_audio_frame:
+            self.wf = wave.open(self.file_path, "wb")
+            self.wf.setnchannels(self.total_channels)
+            self.wf.setsampwidth(self.p.get_sample_size(self.audio_format))
+            self.wf.setframerate(self.audio_rate)
+            self.wf.setnframes(self.chunk_size)
+            self.wf.writeframes(b"".join(data))
+            self.first_audio_frame = False
+        else:
+            self.wf.writeframes(b"".join(data))
         return
 
 

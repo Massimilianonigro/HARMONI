@@ -121,9 +121,11 @@ class STTGoogleService(HarmoniServiceManager):
         rospy.loginfo("Lunghezza stream: ")
         rospy.loginfo(stream)
         rospy.loginfo("Transcribing Stream")
+        """
         requests = (
             types.StreamingRecognizeRequest(audio_content=chunk) for chunk in stream
         )
+        """
         self.transcribe_file_request(data.tobytes())
         #response = client.recognize(config=config, audio=audio)
         #responses = self.client.streaming_recognize(
@@ -184,6 +186,14 @@ class STTGoogleService(HarmoniServiceManager):
         return
 
     def request(self, input_data):
+        service_name = DetectorNameSpace.stt.name
+        name = rospy.get_param("/name_" + service_name + "/")
+        test = rospy.get_param("/test_" + service_name + "/")
+        test_input = rospy.get_param("/test_input_" + service_name + "/")
+        test_id = rospy.get_param("/test_id_" + service_name + "/")
+        data = s.wav_to_data(test_input)
+        s.transcribe_file_request(data)
+        """
         self.data = self.data.join(input_data)
         rospy.loginfo("Start the %s request" % self.name)
         self.state = State.REQUEST
@@ -203,6 +213,7 @@ class STTGoogleService(HarmoniServiceManager):
             rospy.loginfo(self.state)
             self.response_received = True
             self.result_msg = ""
+        """
         return
 
     def wav_to_data(self, path):

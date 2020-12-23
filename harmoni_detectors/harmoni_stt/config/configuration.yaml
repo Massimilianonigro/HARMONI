@@ -6,7 +6,7 @@ w2l:
 
 google:
     default_param:
-        language_id: "en-US"
+        language_id: "it-IT"
         sample_rate: 16000 #44100 for wav audio file, 16000 for wav file from mic
         audio_channel: 1
         subscriber_id: "default"
