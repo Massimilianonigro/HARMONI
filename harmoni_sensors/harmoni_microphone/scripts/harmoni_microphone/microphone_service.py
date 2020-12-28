@@ -10,9 +10,10 @@ from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
 
 # Other Imports
-from harmoni_common_lib.constants import SensorNameSpace
+from harmoni_common_lib.constants import SensorNameSpace, ActuatorNameSpace
 from audio_common_msgs.msg import AudioData
 from collections import deque
+from std_msgs.msg import String
 import sys
 import pyaudio
 import math
@@ -52,6 +53,11 @@ class MicrophoneService(HarmoniServiceManager):
         self.stream = None
         self.setup_microphone()
         """Init the publisher """
+        self.pub = rospy.Publisher(
+            ActuatorNameSpace.web.value + self.service_id,
+            String,
+            queue_size=5,
+        )
         self.mic_pub = rospy.Publisher(
             SensorNameSpace.microphone.value + self.service_id + "/talking",
             AudioData,
@@ -68,7 +74,6 @@ class MicrophoneService(HarmoniServiceManager):
         if self.state == State.INIT:
             self.state = State.START
             try:
-                self.save_data()
                 self.open_stream()
                 self.listen()  # Start the microphone service at the INIT
             except Exception:
@@ -79,6 +84,7 @@ class MicrophoneService(HarmoniServiceManager):
 
     def stop(self):
         rospy.loginfo("Stop the %s service" % self.name)
+        self.pub.publish("STOP")
         try:
             self.close_stream()
             self.state = State.SUCCESS
@@ -283,3 +289,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
