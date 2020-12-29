@@ -124,6 +124,7 @@ class STTGoogleService(HarmoniServiceManager):
             for result in response.results:
                 if result.is_final:
                     rospy.loginfo(result.alternatives[0].transcript)
+                    print(result.alternatives[0].transcript)
         return
 
     def transcribe_file_request(self, data):
