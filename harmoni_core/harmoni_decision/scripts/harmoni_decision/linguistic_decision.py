@@ -80,6 +80,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         rospy.loginfo("Connection to the socket")
         #ip = "192.168.1.83"
         ip = "192.168.1.104"
+        #ip = "192.168.122.127" // ip corry pc
         port = 3210
         secure =False
         HarmoniWebsocketClient.__init__(self,ip, port, secure, self.message)
@@ -185,7 +186,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
     def start(self, service="code"):
         self.index = 0
         self.state = State.START
-        self.do_request(self.index,service)
+        rospy.loginfo("IL SERVIZIO-------------")
+        rospy.loginfo(service)
+        self.do_request(self.index,"sentence_repetition")
         return
 
 
@@ -237,8 +240,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         elif service=="code":
             if data:
                 optional_data = {"tts_default": data}
-        #elif service == "sentence_repetition":
-        #F    #TODO our things
+        elif service == "sentence_repetition":
+            if self.type_web == "repetition":
+                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"]}
         if optional_data!="":
             optional_data = str(optional_data)
         def daemon():

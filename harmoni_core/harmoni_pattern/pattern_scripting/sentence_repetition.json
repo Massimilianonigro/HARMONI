@@ -27,8 +27,7 @@
                 "tts_default": {
                     "action_goal": "REQUEST",
                     "resource_type": "service",
-                    "wait_for": "new",
-                    "trigger":"Ciao sono Quitty, come stai?"
+                    "wait_for": "new"
                 }
             },
             [
