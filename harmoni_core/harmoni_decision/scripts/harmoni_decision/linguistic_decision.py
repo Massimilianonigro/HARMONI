@@ -263,6 +263,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
 
     def _result_callback(self, result):
         """ Recieve and store result with timestamp """
+        rospy.loginfo(self.command)
         rospy.loginfo("The result of the request has been received")
         rospy.loginfo(
             f"The result callback message from {result['service']} was .... long"
@@ -275,6 +276,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             result_data = ast.literal_eval(result["message"])
         web_result = []
         if result_data != None or not result_data:
+            rospy.loginfo(result_data)
             for data in result_data:
                 if "w" in data:
                     web_result.append(data["w"]["data"])
@@ -302,8 +304,12 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         service = "sentence_repetition"
                         self.index+=1
                         self.do_request(self.index,service)
-                #elif result['service'] == "sentence_repetition":
-                #    #TODO altre cose da fare 
+                elif result['service'] == "sentence_repetition":
+                    if self.type_web == "repetition":
+                        rospy.loginfo("Stai ripetendo la seconda frase")
+                        service = "sentence_repetition"
+                        self.index+=1
+                        self.do_request(self.index,service)
             elif self.command=="TERMINATE" or self.command=="PAUSE":
                 rospy.loginfo("------------Terminate")
                 service="idle"
@@ -387,8 +393,12 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 res = res["patient_id"]
                             patient_id = res
                             self.connect_socket(patient_id)
-                #elif result['service'] == "sentence_repetition":
-                #    #TODO go on coding
+                elif result['service'] == "sentence_repetition":
+                    if self.type_web == "repetition":
+                        rospy.loginfo("Ultimo elif del sr")
+                        service = "sentence_repetition"
+                        self.index+=1
+                        self.do_request(self.index,service)
         else:
             if self.index==len(self.sequence_scenes["tasks"])-1:
                 service = "idle"
