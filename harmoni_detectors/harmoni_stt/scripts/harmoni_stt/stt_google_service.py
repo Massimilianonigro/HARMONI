@@ -50,7 +50,7 @@ class STTGoogleService(HarmoniServiceManager):
             AudioData,
             self.callback,
         )
-        rospy.Subscriber("/audio/audio", AudioData, self.pause_back)
+        rospy.Subscriber("/audio/audio", AudioData, None)
         self.text_pub = rospy.Publisher(
             DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
         )
@@ -123,8 +123,12 @@ class STTGoogleService(HarmoniServiceManager):
             rospy.loginfo(f"Response: {response}")
             for result in response.results:
                 if result.is_final:
-                    rospy.loginfo(result.alternatives[0].transcript)
-                    print(result.alternatives[0].transcript)
+                    #rospy.loginfo(result.alternatives[0].transcript)
+                    self.response_received = True
+                    self.response_text += result.alternatives[0].transcript
+                    self.response_text += "\n"
+                    rospy.loginfo("Questo è il response_text")
+                    rospy.loginfo(self.response_text)
         return
 
     def transcribe_file_request(self, data):

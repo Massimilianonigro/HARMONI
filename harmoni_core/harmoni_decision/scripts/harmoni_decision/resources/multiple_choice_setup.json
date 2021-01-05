@@ -4754,8 +4754,9 @@
                     {
                         "Pre-test": {
                             "intro": {
+                                "text": "Ciao! Ripeti le seguenti frasi",
                                 "audio": "",
-                                "img": "",
+                                "img": "background",
                                 "video": "Sr_0"
                             },
                             "tasks": [

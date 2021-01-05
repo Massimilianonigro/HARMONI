@@ -186,9 +186,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
     def start(self, service="code"):
         self.index = 0
         self.state = State.START
-        rospy.loginfo("IL SERVIZIO-------------")
+        rospy.loginfo("Parte il servizio-------------")
         rospy.loginfo(service)
-        self.do_request(self.index,"sentence_repetition")
+        self.do_request(self.index,service)
         return
 
 
@@ -243,6 +243,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         elif service == "sentence_repetition":
             if self.type_web == "repetition":
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"]}
+            else:
+                rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A REPETITION")
         if optional_data!="":
             optional_data = str(optional_data)
         def daemon():
@@ -263,17 +265,19 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         """ Recieve and store result with timestamp """
         rospy.loginfo("The result of the request has been received")
         rospy.loginfo(
-            f"The result callback message from {result['service']} was {len(result['message'])} long"
+            f"The result callback message from {result['service']} was .... long"
         )
         self.client_results[result["service"]].append(
             {"time": time(), "data": result["message"]}
         )
+        result_data = []
         if isinstance(result["message"], str) and result["message"]!="":
             result_data = ast.literal_eval(result["message"])
         web_result = []
-        for data in result_data:
-            if "w" in data:
-                web_result.append(data["w"]["data"])
+        if result_data != None or not result_data:
+            for data in result_data:
+                if "w" in data:
+                    web_result.append(data["w"]["data"])
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -291,6 +295,11 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     if self.type_web=="alt":
                         rospy.loginfo("Here")
                         service = "multiple_choice"
+                        self.index+=1
+                        self.do_request(self.index,service)
+                    elif self.type_web == "repetition":
+                        rospy.loginfo("Sei nel codice che abbiamo scritto noi")
+                        service = "sentence_repetition"
                         self.index+=1
                         self.do_request(self.index,service)
                 #elif result['service'] == "sentence_repetition":
@@ -346,6 +355,16 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         service = "multiple_choice"
                         if self.index==0 and self.sequence_scenes["tasks"][self.index]["main_img"]!="":
                             service = "display_image"
+                            self.index+=1
+                            self.do_request(0,service)
+                        else:
+                            self.index+=1
+                            self.do_request(self.index,service)
+                    elif self.type_web == "repetition":
+                        rospy.loginfo("Here Nostra")
+                        service = "sentence_repetition"
+                        if self.index==0:
+                            service = "sentence_repetition"
                             self.index+=1
                             self.do_request(0,service)
                         else:
