@@ -253,6 +253,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             result_msg = self.class_clients[service].request(optional_data)
             result = {"service":service, "message":result_msg}
             rospy.loginfo("Received result from class")
+            rospy.loginfo(result)
+            rospy.loginfo(result_msg)
             self._result_callback(result)
             rospy.loginfo('Exiting')
         d = threading.Thread(target=daemon)
@@ -397,6 +399,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     if self.type_web == "repetition":
                         rospy.loginfo("Ultimo elif del sr")
                         service = "sentence_repetition"
+                        #TODO collegare bottone 
                         self.index+=1
                         self.do_request(self.index,service)
         else:

@@ -35,6 +35,7 @@ class STTGoogleService(HarmoniServiceManager):
         self.credential_path = param["credential_path"]
         self.subscriber_id = param["subscriber_id"]
         self.service_id = hf.get_child_id(self.name)
+        self.result_msg=None
         #self.finished_message = False
 
         """ Setup the google request """
@@ -124,10 +125,12 @@ class STTGoogleService(HarmoniServiceManager):
             for result in response.results:
                 if result.is_final:
                     #rospy.loginfo(result.alternatives[0].transcript)
-                    self.response_received = True
+                    self.result_msg = str(result.alternatives[0].transcript)
+                    rospy.loginfo("Result msg "+ self.result_msg)
                     self.response_text += result.alternatives[0].transcript
                     self.response_text += "\n"
                     rospy.loginfo("Questo è il response_text")
+                    self.response_received = True
                     rospy.loginfo(self.response_text)
         return
 
