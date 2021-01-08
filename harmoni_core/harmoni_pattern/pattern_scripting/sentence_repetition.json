@@ -57,7 +57,7 @@
             {
                 "stt_default": {
                     "action_goal": "REQUEST",
-                    "resource_type": "detector",
+                    "resource_type": "service",
                     "wait_for": ""
                 }
             },

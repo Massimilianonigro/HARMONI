@@ -107,7 +107,7 @@ class STTGoogleService(HarmoniServiceManager):
         rospy.loginfo(buttonValue)
         if buttonValue == "Stop":
             #self.finished_message = True
-            self.state = State.PAUSE
+            self.state = State.SUCCESS
         else:
             self.state = State.START
 
@@ -127,11 +127,6 @@ class STTGoogleService(HarmoniServiceManager):
                     #rospy.loginfo(result.alternatives[0].transcript)
                     self.result_msg = str(result.alternatives[0].transcript)
                     rospy.loginfo("Result msg "+ self.result_msg)
-                    self.response_text += result.alternatives[0].transcript
-                    self.response_text += "\n"
-                    rospy.loginfo("Questo è il response_text")
-                    self.response_received = True
-                    rospy.loginfo(self.response_text)
         return
 
     def transcribe_file_request(self, data):
@@ -167,7 +162,7 @@ class STTGoogleService(HarmoniServiceManager):
         return
 
     def request(self, input_data):
-        self.data = self.data.join(input_data)
+        #self.data = self.data.join(input_data)
         rospy.loginfo("Start the %s request" % self.name)
         #self.state = State.REQUEST
         #self.transcribe_stream_request(self.data)
