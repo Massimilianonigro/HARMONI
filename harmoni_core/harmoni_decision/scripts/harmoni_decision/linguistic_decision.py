@@ -253,8 +253,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             result_msg = self.class_clients[service].request(optional_data)
             result = {"service":service, "message":result_msg}
             rospy.loginfo("Received result from class")
-            rospy.loginfo(result)
-            rospy.loginfo(result_msg)
             self._result_callback(result)
             rospy.loginfo('Exiting')
         d = threading.Thread(target=daemon)
@@ -265,11 +263,11 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
 
     def _result_callback(self, result):
         """ Recieve and store result with timestamp """
-        rospy.loginfo(self.command)
         rospy.loginfo("The result of the request has been received")
         rospy.loginfo(
-            f"The result callback message from {result['service']} was .... long"
+            f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
+        rospy.loginfo(result)
         self.client_results[result["service"]].append(
             {"time": time(), "data": result["message"]}
         )
@@ -278,7 +276,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             result_data = ast.literal_eval(result["message"])
         web_result = []
         if result_data != None or not result_data:
-            rospy.loginfo(result_data)
             for data in result_data:
                 if "w" in data:
                     web_result.append(data["w"]["data"])
@@ -368,20 +365,18 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         else:
                             self.index+=1
                             self.do_request(self.index,service)
+                    #elif self.sequence_scenes["tasks"][self.index]["first_img"]=="":
+                    #    service="display_image"
+                    #    self.index+=1
+                    #    self.do_request(self.index,service)
                     elif self.type_web == "repetition":
                         rospy.loginfo("Here Nostra")
                         service = "sentence_repetition"
                         if self.index==0:
-                            service = "sentence_repetition"
-                            self.index+=1
                             self.do_request(0,service)
                         else:
                             self.index+=1
                             self.do_request(self.index,service)
-                    elif self.sequence_scenes["tasks"][self.index]["first_img"]=="":
-                        service="display_image"
-                        self.index+=1
-                        self.do_request(self.index,service)
                     else:
                         rospy.loginfo("Here")
                         service = "multiple_choice"

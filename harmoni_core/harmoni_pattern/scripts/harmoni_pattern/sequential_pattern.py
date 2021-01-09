@@ -179,7 +179,7 @@ class SequentialPattern(HarmoniServiceManager):
         self.response_received = True
         self.actuation_completed = True
         self.state = State.SUCCESS
-        return
+        return self.result_msg
 
     def stop(self, service):
         """Stop the Behavior Pattern """

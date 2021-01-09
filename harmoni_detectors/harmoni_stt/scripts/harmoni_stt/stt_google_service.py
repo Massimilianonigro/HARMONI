@@ -35,9 +35,9 @@ class STTGoogleService(HarmoniServiceManager):
         self.credential_path = param["credential_path"]
         self.subscriber_id = param["subscriber_id"]
         self.service_id = hf.get_child_id(self.name)
-        self.result_msg=None
+        self.result_msg = ""
         self.stt_response = ""
-        #self.finished_message = False
+        self.finished_message = False
 
         """ Setup the google request """
         self.setup_google()
@@ -90,11 +90,11 @@ class STTGoogleService(HarmoniServiceManager):
 
     def callback(self, data):
         """ Callback function subscribing to the microphone topic"""
-        #data = np.fromstring(data.data, np.uint8)
+        # data = np.fromstring(data.data, np.uint8)
         # self.data = self.data.join(data)
         # self.data = data.data
         rospy.loginfo(self.state)
-        if self.state == State.REQUEST:
+        if self.state == State.START:
             self.transcribe_stream_request(data.data)
         else:
             rospy.loginfo("Not Transcribing data")
@@ -110,11 +110,11 @@ class STTGoogleService(HarmoniServiceManager):
             self.finished_message = True
             self.state = State.PAUSE
         else:
-            self.state = State.REQUEST
+            self.state = State.START
 
     def transcribe_stream_request(self, data):
         # TODO: streaming transcription https://github.com/googleapis/python-speech/blob/master/samples/microphone/transcribe_streaming_infinite.py
-        if self.state != State.REQUEST:
+        if self.state == State.PAUSE:
             return
         rospy.loginfo("Transcribing Stream")
         responses = self.client.streaming_recognize(
@@ -126,8 +126,7 @@ class STTGoogleService(HarmoniServiceManager):
             for result in response.results:
                 if result.is_final:
                     #rospy.loginfo(result.alternatives[0].transcript)
-                    self.stt_response += result.alternatives[0].transcript
-                    self.stt_response += "\n"
+                    self.stt_response = result.alternatives[0].transcript
                     rospy.loginfo("Questo è il response_text")
                     rospy.loginfo("Stt response text:  "+ self.stt_response)
                     self.response_received = True
@@ -169,7 +168,7 @@ class STTGoogleService(HarmoniServiceManager):
         self.finished_message = False
         #self.data = self.data.join(input_data)
         rospy.loginfo("Start the %s request" % self.name)
-        self.state = State.REQUEST
+        #self.state = State.REQUEST
         try:
             i = 0
             while not self.finished_message:
@@ -177,6 +176,8 @@ class STTGoogleService(HarmoniServiceManager):
             self.state = State.SUCCESS
             self.response_received = True
             self.result_msg = self.stt_response
+            self.message = self.stt_response
+            self.result = self.stt_response
             rospy.loginfo("Request successfully completed")
         except:
             rospy.logerr("The erros ")
