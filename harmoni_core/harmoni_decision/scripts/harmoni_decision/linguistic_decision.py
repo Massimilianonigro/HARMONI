@@ -267,7 +267,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         rospy.loginfo(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
-        rospy.loginfo(result)
         self.client_results[result["service"]].append(
             {"time": time(), "data": result["message"]}
         )
@@ -279,6 +278,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             for data in result_data:
                 if "w" in data:
                     web_result.append(data["w"]["data"])
+                if "s" in data:
+                    web_result.append(data["s"]["data"])
+        rospy.loginfo(f"Web result is: --> {web_result}")
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
