@@ -51,7 +51,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         self.command = None
         self.start_time = None
         self.state = State.INIT
-
+        self.robot_sentence = ''
     
 
     def _setup_classes(self):
@@ -243,6 +243,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         elif service == "sentence_repetition":
             if self.type_web == "repetition":
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"]}
+                self.robot_sentence = self.sequence_scenes["tasks"][index]["text"]
+                rospy.loginfo("DOVREBBE ESSERE LA FRASE GIUSTA QUESTA QUI -->")
+                rospy.loginfo(self.robot_sentence)
             else:
                 rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A REPETITION")
         if optional_data!="":
@@ -282,6 +285,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     web_result.append(data["s"]["data"])
         for res in web_result:
             rospy.loginfo(f"Web result is: --> {res}")
+        self.senteceRepetition(self.robot_sentence,web_result[0])
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -408,6 +412,113 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 self.index = -1
         return
 
+    def senteceRepetition(self, robot, child):
+        if robot == child:
+            return 1
+
+        resultRobot = []
+        resultChild = []
+
+        senteceRobot = robot.split()
+        senteceChild = child.split()
+
+        if  len(senteceRobot) != len(senteceChild):
+            print("Current senteces have different number of words \n")
+            resultRobot.append(robot)
+            resultChild.append(child)
+        else:
+            for i in range(len(senteceRobot)):
+                if senteceRobot[i] != senteceChild[i]:
+                    # resultRobot.append("\033[93m"+senteceRobot[i]+"\033[0m")
+                    resultRobot.append(senteceRobot[i].upper())
+                    # resultChild.append("\033[93m"+senteceChild[i]+"\033[0m")
+                    resultChild.append(senteceChild[i].upper())
+                else:
+                    resultRobot.append(senteceRobot[i])
+                    resultChild.append(senteceChild[i])
+
+        print(' '.join(resultRobot))
+        print(' '.join(resultChild))
+
+        return 0
+        
+    def retelling(self, child, partOfTheStory):
+
+        askQuestion = []
+        question = -1
+        found = 0
+        flag = 1 #chiedo la domanda con 1, non chiedo la domanda con 0
+        keyWords = open("KeywordDataset.txt", "r")
+        lines = keyWords.readlines()
+        for line in lines:
+            line = line.strip()
+            parts = line.split(";")
+            if (int(parts[0]) == partOfTheStory):
+                print(parts)
+                parts.pop(0)
+                question = int(parts[0]) # this is the number of the question
+                parts.pop(0)
+                for key in parts:
+                    synonymous = key.split(",")
+                    found = 0
+                    for syn in synonymous:
+                        if found == 1:
+                            break
+                        if child.find(syn) != -1:
+                            found = 1
+                    if found == 0:
+                        flag = 1
+                        break
+                    else:
+                        flag = 0
+                if flag == 1:
+                    askQuestion.append(question)
+        print("Questions without answer: ")
+        print(askQuestion)
+
+        return askQuestion
+
+    def askForQuestion(self, askQuestion):
+        questionS = open("question.txt", "r")
+        questionWithoutAnswer = []
+        lines = questionS.readlines()
+        for line in lines:
+            line = line.strip()
+            questions = line.split(";")
+
+            if int(questions[0]) in askQuestion:
+                print(questions[1])
+                answer = input("Risposta: ")
+                tmp = simpleRetelling(int(questions[0]),answer)
+                if tmp != 0:
+                    questionWithoutAnswer.append(tmp)
+        return questionWithoutAnswer
+
+    def simpleRetelling(self, question, answer):
+        questionWithoutAnswer = 0
+        keyWords = open("KeywordDataset.txt", "r")
+        lines = keyWords.readlines()
+        for line in lines:
+            line = line.strip()
+            parts = line.split(";")
+            parts.pop(0)
+            if question == int(parts[0]):
+                parts.pop(0)
+                for key in parts:
+                    synonymous = key.split(",")
+                    found = 0
+                    for syn in synonymous:
+                        if found == 1:
+                            break
+                        if answer.find(syn) != -1:
+                            found = 1
+                    if found == 0:
+                        questionWithoutAnswer = question
+                        f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
+                        break
+                    else:
+                        f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
+        return questionWithoutAnswer
 
     def setup_scene(self):
         """Setup the scene """
