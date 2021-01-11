@@ -8,15 +8,13 @@
                     "resource_type": "actuator",
                     "wait_for": "",
                     "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
-
                 }
             },
             {
                 "tts_default": {
                     "action_goal": "REQUEST",
                     "resource_type": "service",
-                    "wait_for": "new",
-                    "trigger":"Ciao sono Quitty, come stai?"
+                    "wait_for": "new"
                 }
             },
             [
@@ -42,36 +40,7 @@
                     "wait_for": "new",
                     "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
                 }
-            },
-            {
-                "microphone_default": { 
-                    "action_goal": "ON",
-                    "resource_type": "actuator",
-                    "wait_for": "" 
-                }
-            },
-            {
-                "web_page_default": { 
-                    "action_goal": "REQUEST",
-                    "resource_type": "actuator",
-                    "wait_for": "new",
-                    "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
-                }
-            },
-            {
-                "microphone_default": { 
-                    "action_goal": "OFF",
-                    "resource_type": "actuator",
-                    "wait_for": ""
-                }
-            },
-            {
-                "stt_default": {
-                    "action_goal": "REQUEST",
-                    "resource_type": "detector",
-                    "wait_for": ""
-                }
-            }    
+            }
         ]
     }
 ]

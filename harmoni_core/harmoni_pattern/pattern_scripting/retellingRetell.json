@@ -1,0 +1,50 @@
+[
+    {
+        "set": "setup",
+        "steps": [
+            {
+                "microphone_default": {
+                    "action_goal": "ON",
+                    "resource_type": "sensor",
+                    "wait_for": ""
+                }
+            }
+        ]
+    },
+    {
+        "set": "sequence",
+        "steps": [
+            {
+                "web_page_default": { 
+                    "action_goal": "DO",
+                    "resource_type": "actuator",
+                    "wait_for": "new",
+                    "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
+                }
+            },
+            {
+                "web_page_default": { 
+                    "action_goal": "REQUEST",
+                    "resource_type": "actuator",
+                    "wait_for": "new",
+                    "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
+                }
+            },
+            {
+                "stt_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "service",
+                    "wait_for": ""
+                }
+            },
+            {
+                "web_page_default": { 
+                    "action_goal": "REQUEST",
+                    "resource_type": "actuator",
+                    "wait_for": "new",
+                    "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
+                }
+            }
+        ]
+    }
+]
