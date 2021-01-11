@@ -281,11 +281,19 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             for data in result_data:
                 # if "w" in data:
                 #     web_result.append(data["w"]["data"])
-                if "s" in data:
+                if "s" in data and (data["s"]["data"])!='':
                     web_result.append(data["s"]["data"])
-        for res in web_result:
-            rospy.loginfo(f"Web result is: --> {res}")
-        self.senteceRepetition(self.robot_sentence,web_result[0])
+        if web_result:
+            for res in web_result:
+                rospy.loginfo("OH QUA c'è il RES")
+                rospy.loginfo(res)
+                if res != '' and res!= None: 
+                    rospy.loginfo("res NOT EMPTY")
+                    rospy.loginfo(res)
+                    # rospy.loginfo(f"Web result is: --> {res}")
+                    # rospy.loginfo(f"web result[0]{web_result}")
+                    self.senteceRepetition(self.robot_sentence,res)
+
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
