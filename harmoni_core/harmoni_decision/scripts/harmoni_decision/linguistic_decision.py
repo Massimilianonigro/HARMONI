@@ -247,7 +247,12 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 rospy.loginfo("DOVREBBE ESSERE LA FRASE GIUSTA QUESTA QUI -->")
                 rospy.loginfo(self.robot_sentence)
             else:
-                rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A REPETITION")
+                rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A repetition")
+        elif service == "retelling":
+            if self.type_web == "retelling":
+                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
+            else:
+                rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A retelling")
         if optional_data!="":
             optional_data = str(optional_data)
         def daemon():
@@ -290,10 +295,11 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 if res != '' and res!= None: 
                     rospy.loginfo("res NOT EMPTY")
                     rospy.loginfo(res)
-                    # rospy.loginfo(f"Web result is: --> {res}")
-                    # rospy.loginfo(f"web result[0]{web_result}")
-                    self.senteceRepetition(self.robot_sentence,res)
-
+                    if result['service'] == "sentence_repetition":
+                        self.senteceRepetition(self.robot_sentence,res)
+                    elif result['service'] == "retelling":
+                        #TODO vedi cosa passare alla funzione perchè dobbiamo cambiarla
+                        self.retelling()
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -407,8 +413,15 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             self.connect_socket(patient_id)
                 elif result['service'] == "sentence_repetition":
                     if self.type_web == "repetition":
-                        rospy.loginfo("Ultimo elif del sr")
+                        rospy.loginfo("Siamo in result_callback e stiamo caricando il nuovo sentence repetition")
                         service = "sentence_repetition"
+                        #TODO collegare bottone 
+                        self.index+=1
+                        self.do_request(self.index,service)
+                elif result['service'] == "retelling":
+                    if self.type_web == "retelling":
+                        rospy.loginfo("Siamo in result_callback e abbiamo  caricando il nuovo retelling")
+                        service = "retelling"
                         #TODO collegare bottone 
                         self.index+=1
                         self.do_request(self.index,service)
