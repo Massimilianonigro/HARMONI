@@ -186,7 +186,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
     def start(self, service="code"):
         self.index = 0
         self.state = State.START
-        rospy.loginfo("Parte il servizio-------------")
+        rospy.loginfo("Parte il servizio-------")
         rospy.loginfo(service)
         self.do_request(self.index,service)
         return
@@ -250,7 +250,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A repetition")
         elif service == "retelling":
             if self.type_web == "retelling":
-                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
+                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_full_1', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'retelling_container', 'set_content':''}]"}
             else:
                 rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A retelling")
         if optional_data!="":
@@ -391,8 +391,16 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     #    self.index+=1
                     #    self.do_request(self.index,service)
                     elif self.type_web == "repetition":
-                        rospy.loginfo("Here Nostra")
+                        rospy.loginfo("Here nostra repetition")
                         service = "sentence_repetition"
+                        if self.index==0:
+                            self.do_request(0,service)
+                        else:
+                            self.index+=1
+                            self.do_request(self.index,service)
+                    elif self.type_web == "retelling":
+                        rospy.loginfo("Here nostra retelling")
+                        service = "retelling"
                         if self.index==0:
                             self.do_request(0,service)
                         else:

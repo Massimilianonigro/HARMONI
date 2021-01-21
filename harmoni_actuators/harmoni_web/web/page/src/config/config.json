@@ -179,6 +179,44 @@
         },
         {
             "component": "container",
+            "id": "retelling_container",
+            "children": [
+                {
+                    "component": "row",
+                    "id": "row_rr",
+                    "children": [
+                     
+                        {
+                            "component": "button",
+                            "children": "Press to start",
+                            "id": "button_sr"
+                        },
+                        {
+                            "component": "img",
+                            "id": "main_img_full_1",
+                            "children": ""
+                        },
+                        {
+                            "component": "img",
+                            "id": "main_img_full_2",
+                            "children": ""
+                        },
+                        {
+                            "component": "img",
+                            "id": "main_img_full_3",
+                            "children": ""
+                        },
+                        {
+                            "component": "img",
+                            "id": "main_img_full_4",
+                            "children": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "component": "container",
             "id": "multiple_choice_full_container",
             "children": [
                 {

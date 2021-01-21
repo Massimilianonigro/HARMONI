@@ -2849,9 +2849,10 @@
                     {
                         "Il dolcetto": {
                             "intro": {
+                                "text": "Ciao! Ascolta bene questa storia e poi ripetila con me!",
                                 "audio": "",
-                                "img": "",
-                                "video": "Ret_0"
+                                "img": "background",
+                                "video": "Sr_0"
                             },
                             "tasks": [
                                 {
@@ -3024,9 +3025,10 @@
                     {
                         "Il Natale": {
                             "intro": {
+                                "text": "Ciao! Ascolta bene questa storia e poi ripetila con me!",
                                 "audio": "",
-                                "img": "",
-                                "video": "Ret_0"
+                                "img": "background",
+                                "video": "Sr_0"
                             },
                             "tasks": [
                                 {
@@ -3203,9 +3205,10 @@
                     {
                         "Il compleanno": {
                             "intro": {
+                                "text": "Ciao! Ascolta bene questa storia e poi ripetila con me!",
                                 "audio": "",
-                                "img": "",
-                                "video": "Ret_0"
+                                "img": "background",
+                                "video": "Sr_0"
                             },
                             "tasks": [
                                 {
@@ -3378,9 +3381,10 @@
                     {
                         "La palla": {
                             "intro": {
+                                "text": "Ciao! Ascolta bene questa storia e poi ripetila con me!",
                                 "audio": "",
-                                "img": "",
-                                "video": "Ret_0"
+                                "img": "background",
+                                "video": "Sr_0"
                             },
                             "tasks": [
                                 {

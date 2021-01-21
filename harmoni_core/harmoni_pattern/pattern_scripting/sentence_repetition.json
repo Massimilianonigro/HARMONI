@@ -20,7 +20,6 @@
                     "resource_type": "actuator",
                     "wait_for": "",
                     "trigger":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"
-
                 }
             },
             {
