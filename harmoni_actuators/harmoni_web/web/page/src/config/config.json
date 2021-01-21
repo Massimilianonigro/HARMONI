@@ -185,7 +185,6 @@
                     "component": "row",
                     "id": "row_rr",
                     "children": [
-                     
                         {
                             "component": "button",
                             "children": "Press to start",
@@ -195,20 +194,42 @@
                             "component": "img",
                             "id": "main_img_full_1",
                             "children": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "component": "container",
+            "id": "retelling_child_container",
+            "children": [
+                {
+                    "component": "row",
+                    "id": "row_rcc",
+                    "children": [
+                        {
+                            "component": "button",
+                            "children": "Press to start",
+                            "id": "button_child_rr"
                         },
                         {
                             "component": "img",
-                            "id": "main_img_full_2",
+                            "id": "main_img_full_c1",
                             "children": ""
                         },
                         {
                             "component": "img",
-                            "id": "main_img_full_3",
+                            "id": "main_img_full_c2",
                             "children": ""
                         },
                         {
                             "component": "img",
-                            "id": "main_img_full_4",
+                            "id": "main_img_full_c3",
+                            "children": ""
+                        },
+                        {
+                            "component": "img",
+                            "id": "main_img_full_c4",
                             "children": ""
                         }
                     ]
