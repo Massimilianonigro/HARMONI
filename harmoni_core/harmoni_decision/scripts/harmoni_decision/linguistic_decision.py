@@ -52,6 +52,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         self.start_time = None
         self.state = State.INIT
         self.robot_sentence = ''
+        self.askQuestions = [3,4,9]
     
 
     def _setup_classes(self):
@@ -246,8 +247,11 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 self.robot_sentence = self.sequence_scenes["tasks"][index]["text"]
                 rospy.loginfo("DOVREBBE ESSERE LA FRASE GIUSTA QUESTA QUI -->")
                 rospy.loginfo(self.robot_sentence)
+            elif self.type_web == "retelling":
+                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"],"web_page_default":"[{'component_id':'main_img_full_1', 'set_content':'"+self.url + self.sequence_scenes["tasks"][index]["img1"]+".png'},{'component_id':'main_img_full_2', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img2"]+".png'},{'component_id':'main_img_full_3', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img3"]+".png'},{'component_id':'main_img_full_4', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img4"]+".png'}, {'component_id':'retelling_container', 'set_content':''}]"}
+                rospy.loginfo("Qui siamo in sentence_repetition però con type_web retelling")
             else:
-                rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A repetition")
+                rospy.loginfo("Qui non dovresti mai arrivaci")
         elif service == "retelling":
             if self.type_web == "retelling":
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"],"web_page_default":"[{'component_id':'main_img_full_1', 'set_content':'"+self.url + self.sequence_scenes["tasks"][index]["img1"]+".png'},{'component_id':'main_img_full_2', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img2"]+".png'},{'component_id':'main_img_full_3', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img3"]+".png'},{'component_id':'main_img_full_4', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img4"]+".png'}, {'component_id':'retelling_container', 'set_content':''}]"}
@@ -301,7 +305,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         self.senteceRepetition(self.robot_sentence,res)
                     elif result['service'] == "retelling":
                         #TODO vedi cosa passare alla funzione perchè dobbiamo cambiarla
-                        self.retelling()
+                        self.senteceRepetition("","")
+                        #self.askQuestions = self.retelling()
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -404,15 +409,12 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         rospy.loginfo("Here nostra retelling")
                         rospy.loginfo(self)
                         service = "display_image"
-                        if self.index>7:
+                        if self.index >7:
                             service = "retelling"
-                        if self.index>8:
-                            #TODO vedi se fare questa parte, dipende dall'engine 
-                            service = "sentence_repetition"
                         if self.index==0:
                             self.do_request(0,service)
-                            self.index+=1
-                            #self.index = 7 # se vuoi skippare la parte in cui quitty parla
+                            #self.index+=1 # se vuoi skippare la parte in cui quitty parla
+                            self.index = 7 # decommenta questo e commenta quello sopra
                         else:
                             self.do_request(self.index,service)
                             self.index+=1
@@ -433,13 +435,24 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     if self.type_web == "repetition":
                         rospy.loginfo("Siamo in result_callback e stiamo caricando il nuovo sentence repetition")
                         service = "sentence_repetition"
-                        #TODO collegare bottone 
                         self.index+=1
                         self.do_request(self.index,service)
+                    elif self.type_web == "retelling":
+                        service = "sentence_repetition"
+                        if self.askQuestions:
+                            self.index = 9 + self.askQuestions[0]
+                            self.askQuestions.pop(0)
+                            self.do_request(self.index,service)
+                            print("Sono dentro al bellissimo if che abbiamo fatto con indice" + str(self.index))
                 elif result['service'] == "retelling":
                     if self.type_web == "retelling":
-                        rospy.loginfo("Siamo in result_callback e abbiamo  caricando il nuovo retelling")
+                        rospy.loginfo("Siamo in result_callback e abbiamo caricando il nuovo retelling")
                         service = "retelling"
+                        if self.index > 8:
+                            if self.askQuestions:
+                                self.index = 8 + self.askQuestions[0] - 1
+                                self.askQuestions.pop(0)
+                                print("Sono dentro al bellissimo if che abbiamo fatto con indice" + str(self.index))
                         #TODO collegare bottone 
                         self.index+=1
                         self.do_request(self.index,service)
