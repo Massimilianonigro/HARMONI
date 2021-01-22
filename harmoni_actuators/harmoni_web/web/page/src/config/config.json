@@ -183,54 +183,44 @@
             "children": [
                 {
                     "component": "row",
-                    "id": "row_rr",
+                    "id": "row_rr_1",
+                    "children": [
+                        {
+                            "component": "img",
+                            "id": "main_img_full_1",
+                            "children": ""
+                        },
+                        {
+                            "component": "img",
+                            "id": "main_img_full_2",
+                            "children": ""
+                        }
+                    ]
+                },
+                {
+                    "component": "row",
+                    "id": "row_rr_2",
+                    "children": [
+                        {
+                            "component": "img",
+                            "id": "main_img_full_3",
+                            "children": ""
+                        },
+                        {
+                            "component": "img",
+                            "id": "main_img_full_4",
+                            "children": ""
+                        }
+                    ]
+                },
+                {
+                    "component": "row",
+                    "id": "row_rr_3",
                     "children": [
                         {
                             "component": "button",
                             "children": "Press to start",
                             "id": "button_sr"
-                        },
-                        {
-                            "component": "img",
-                            "id": "main_img_full_1",
-                            "children": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "component": "container",
-            "id": "retelling_child_container",
-            "children": [
-                {
-                    "component": "row",
-                    "id": "row_rcc",
-                    "children": [
-                        {
-                            "component": "button",
-                            "children": "Press to start",
-                            "id": "button_child_rr"
-                        },
-                        {
-                            "component": "img",
-                            "id": "main_img_full_c1",
-                            "children": ""
-                        },
-                        {
-                            "component": "img",
-                            "id": "main_img_full_c2",
-                            "children": ""
-                        },
-                        {
-                            "component": "img",
-                            "id": "main_img_full_c3",
-                            "children": ""
-                        },
-                        {
-                            "component": "img",
-                            "id": "main_img_full_c4",
-                            "children": ""
                         }
                     ]
                 }

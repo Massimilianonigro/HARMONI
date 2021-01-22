@@ -2863,7 +2863,7 @@
                                 },
                                 {
                                     "audio": "Ret_3_2",
-                                    "text": "In questa storia ci sono una bambina e la sua mamma. ",
+                                    "text": "In questa storia ci sono una bambina e la sua mamma.",
                                     "main_img": "Ret_3_1",
                                     "flag":"story"
                                 },
@@ -2912,6 +2912,10 @@
                                         "Ret_3_3",
                                         "Ret_3_4"
                                     ],
+                                    "img1": "Ret_3_1",
+                                    "img2": "Ret_3_2",
+                                    "img3": "Ret_3_3",
+                                    "img4": "Ret_3_4",
                                     "flag":"challenge"
                                 },
                                 {

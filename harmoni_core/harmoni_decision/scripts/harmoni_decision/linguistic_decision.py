@@ -250,7 +250,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A repetition")
         elif service == "retelling":
             if self.type_web == "retelling":
-                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_full_1', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'retelling_container', 'set_content':''}]"}
+                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"],"web_page_default":"[{'component_id':'main_img_full_1', 'set_content':'"+self.url + self.sequence_scenes["tasks"][index]["img1"]+".png'},{'component_id':'main_img_full_2', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img2"]+".png'},{'component_id':'main_img_full_3', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img3"]+".png'},{'component_id':'main_img_full_4', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img4"]+".png'}, {'component_id':'retelling_container', 'set_content':''}]"}
+                #Questa è l'optional data che usa multiple choice full 
+                #optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_full', 'set_content':'"+self.url + self.sequence_scenes["tasks"][index]["img1"]+".png'},{'component_id':'target_img_full', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img2"]+".png'},{'component_id':'comp_img_full', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img3"]+".png'},{'component_id':'distr_img_full', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["img4"]+".png'}, {'component_id':'multiple_choice_full_container', 'set_content':''}]"}
             else:
                 rospy.loginfo("VEDI CHE IL TYPE WEB NON E UGUALE A retelling")
         if optional_data!="":
@@ -400,12 +402,20 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             self.do_request(self.index,service)
                     elif self.type_web == "retelling":
                         rospy.loginfo("Here nostra retelling")
-                        service = "retelling"
+                        rospy.loginfo(self)
+                        service = "display_image"
+                        if self.index>7:
+                            service = "retelling"
+                        if self.index>8:
+                            #TODO vedi se fare questa parte, dipende dall'engine 
+                            service = "sentence_repetition"
                         if self.index==0:
                             self.do_request(0,service)
-                        else:
                             self.index+=1
+                            #self.index = 7 # se vuoi skippare la parte in cui quitty parla
+                        else:
                             self.do_request(self.index,service)
+                            self.index+=1
                     else:
                         rospy.loginfo("Here")
                         service = "multiple_choice"
