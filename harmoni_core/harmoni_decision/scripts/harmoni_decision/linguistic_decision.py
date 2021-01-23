@@ -52,6 +52,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         self.start_time = None
         self.state = State.INIT
         self.robot_sentence = ''
+        self.robot_story = ''
         self.askQuestions = [3,4,9]
     
 
@@ -228,6 +229,12 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         elif service=="display_image":
             if self.type_web=="alt":
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
+            elif self.type_web == "retelling":
+                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
+                if self.index > 0 and self.index <8:
+                    self.robot_story += '\n' + self.sequence_scenes["tasks"][index]["text"]
+                    rospy.loginfo("Qui c'è la storia detta dal robot")
+                    rospy.loginfo(self.robot_story)
             else:
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
         elif service=="intro":
@@ -305,8 +312,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         self.senteceRepetition(self.robot_sentence,res)
                     elif result['service'] == "retelling":
                         #TODO vedi cosa passare alla funzione perchè dobbiamo cambiarla
-                        self.senteceRepetition("","")
-                        #self.askQuestions = self.retelling()
+                        self.askQuestions = self.retelling(self.robot_story,res)
+                        #Clear robot story after calling retelling()
+                        rospy.loginfo("robot_story è stata pulita")
+                        self.robot_story = ''
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -413,8 +422,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             service = "retelling"
                         if self.index==0:
                             self.do_request(0,service)
-                            #self.index+=1 # se vuoi skippare la parte in cui quitty parla
-                            self.index = 7 # decommenta questo e commenta quello sopra
+                            self.index+=1 # se vuoi skippare la parte in cui quitty parla
+                            #self.index = 7 # decommenta questo e commenta quello sopra
                         else:
                             self.do_request(self.index,service)
                             self.index+=1
@@ -493,8 +502,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         print(' '.join(resultChild))
 
         return 0
-        
-    def retelling(self, child, partOfTheStory):
+            
+    def retelling(self, robotStory, child):
 
         askQuestion = []
         question = -1
@@ -505,26 +514,23 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         for line in lines:
             line = line.strip()
             parts = line.split(";")
-            if (int(parts[0]) == partOfTheStory):
-                print(parts)
-                parts.pop(0)
-                question = int(parts[0]) # this is the number of the question
-                parts.pop(0)
-                for key in parts:
-                    synonymous = key.split(",")
-                    found = 0
-                    for syn in synonymous:
-                        if found == 1:
-                            break
-                        if child.find(syn) != -1:
-                            found = 1
-                    if found == 0:
-                        flag = 1
+            question = int(parts[0]) # this is the number of the question
+            parts.pop(0)
+            for key in parts:
+                synonymous = key.split(",")
+                found = 0
+                for syn in synonymous:
+                    if found == 1:
                         break
-                    else:
-                        flag = 0
-                if flag == 1:
-                    askQuestion.append(question)
+                    if child.find(syn) != -1:
+                        found = 1
+                if found == 0:
+                    flag = 1
+                    break
+                else:
+                    flag = 0
+            if flag == 1:
+                askQuestion.append(question)
         print("Questions without answer: ")
         print(askQuestion)
 
