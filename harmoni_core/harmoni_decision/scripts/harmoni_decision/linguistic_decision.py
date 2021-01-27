@@ -502,55 +502,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         print(' '.join(resultChild))
 
         return 0
-            
-    def retelling(self, robotStory, child):
-
-        askQuestion = []
-        question = -1
-        found = 0
-        flag = 1 #chiedo la domanda con 1, non chiedo la domanda con 0
-        keyWords = open("KeywordDataset.txt", "r")
-        lines = keyWords.readlines()
-        for line in lines:
-            line = line.strip()
-            parts = line.split(";")
-            question = int(parts[0]) # this is the number of the question
-            parts.pop(0)
-            for key in parts:
-                synonymous = key.split(",")
-                found = 0
-                for syn in synonymous:
-                    if found == 1:
-                        break
-                    if child.find(syn) != -1:
-                        found = 1
-                if found == 0:
-                    flag = 1
-                    break
-                else:
-                    flag = 0
-            if flag == 1:
-                askQuestion.append(question)
-        print("Questions without answer: ")
-        print(askQuestion)
-
-        return askQuestion
-
-    def askForQuestion(self, askQuestion):
-        questionS = open("question.txt", "r")
-        questionWithoutAnswer = []
-        lines = questionS.readlines()
-        for line in lines:
-            line = line.strip()
-            questions = line.split(";")
-
-            if int(questions[0]) in askQuestion:
-                print(questions[1])
-                answer = input("Risposta: ")
-                tmp = simpleRetelling(int(questions[0]),answer)
-                if tmp != 0:
-                    questionWithoutAnswer.append(tmp)
-        return questionWithoutAnswer
 
     def simpleRetelling(self, question, answer):
         questionWithoutAnswer = 0
@@ -576,6 +527,250 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         break
                     else:
                         f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
+        return questionWithoutAnswer
+
+    def retelling(child):
+
+        askQuestion = []
+        question = -1
+        found = 0
+        positionsStart = ""
+        positionsEnd = ""
+        chiediDomande = 1 #chiedo la domanda con 1, non chiedo la domanda con 0
+        keyWords = open("KeywordDataset.txt", "r")
+        lines = keyWords.readlines()
+        for line in lines:
+            line = line.strip()
+            parts = line.split(";")
+            question = int(parts[0]) # this is the number of the question
+            parts.pop(0)
+            for key in parts:
+                synonymous = key.split(",")
+                found = 0
+                for syn in synonymous:
+                    if child.find(syn) != -1:
+                        found = 1
+                        ll = list(find_all(child,syn))
+                        for l in ll:
+                            positionsStart += (str(l)+ ",")
+                            positionsEnd += (str(l + len(syn)) + ",")
+                        #print("Sto per cancellare la parola " + syn)
+                        #child = child.replace(syn, "", 1)
+                if found == 0:
+                    chiediDomande = 1
+                    break
+                else:
+                    chiediDomande = 0
+                    positionsStart += (";")
+                    positionsEnd += (";")
+            print("Puoi trovare la risposta alla domanda " + line)
+            if chiediDomande == 0:
+                newChild = checkDistances(child,positionsEnd,positionsStart)
+                if newChild == '1':
+                    print("Non ho trovato risposta, aggiungero la domanda alla lista di domande da chiedere\n"
+                        "non dovrei aver modificato il testo\n")
+                    askQuestion.append(question)
+                else:
+                    child = str(newChild)
+                    print("Il nuovo testo del child ora è:")
+                    print(child+"\n")
+            else:
+                print("Non ho trovato risposta, aggiungero la domanda alla lista di domande da chiedere\n"
+                    "non dovrei aver modificato il testo\n")
+                askQuestion.append(question)
+            positionsEnd = ""
+            positionsStart = ""
+        print("Questions without answer: ")
+        print(askQuestion)
+        return askQuestion
+
+    def find_all(a_str, sub):
+        start = 0
+        while True:
+            start = a_str.find(sub, start)
+            if start == -1: return
+            yield start
+            start += len(sub) # use start += 1 to find overlapping matches
+
+    def checkDistances(childStory, positionsEnd, positionsStart):
+        # [3, 23, 30, -1, 10, -1, 25, 37, -1, 16, -1]
+        # [0, 19, 25, -1, 5,  -1, 22, 33, -1, 11, -1]
+        distance = 21
+        positionsStart = positionsStart.strip()
+        arrayS = positionsStart.split(";")
+        arrayS.pop(len(arrayS)-1)
+        #print(arrayS)
+        positionsEnd = positionsEnd.strip()
+        arrayE = positionsEnd.split(";")
+        arrayE.pop(len(arrayE) - 1)
+        #print(arrayE)
+
+        dictionaryStart = dict()
+        tmpDic = dict()
+        dictionaryEnd = dict()
+        i = 0
+        for keyWordsSetStart in arrayS:
+            keyWordsStart = keyWordsSetStart.split(",")
+            keyWordsStart.pop(len(keyWordsStart) - 1)
+            tmpDic["vector_" + str(i)] = keyWordsStart
+            dictionaryStart.update(tmpDic)
+            i += 1
+        i = 0
+        for keyWordsSetEnd in arrayE:
+            keyWordsEnd = keyWordsSetEnd.split(",")
+            keyWordsEnd.pop(len(keyWordsEnd) - 1)
+            tmpDic["vector_" + str(i)] = keyWordsEnd
+            dictionaryEnd.update(tmpDic)
+            i += 1
+        #print(dictionaryStart)
+        #print(dictionaryEnd)
+        #print(dictionaryStart["vector_0"][0])
+
+        if len(arrayS) == 1:
+            print("Trovato! " + dictionaryEnd["vector_0"][0])
+            return cleanWordFromTo(childStory, dictionaryStart["vector_0"][0], dictionaryEnd["vector_0"][0])
+
+        if len(arrayS) == 2:
+            # Prima ricerca senza shiftata i vettori
+            for index1,parola1 in enumerate(dictionaryEnd["vector_0"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_1"]):
+                    if abs(int(parola1)-int(parola2)) < distance:
+                        print("Trovato! " + parola1 + " - " + parola2)
+                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
+                        return cleanWordFromTo(childStory1,dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
+            #Seconda ricerca shiftata di 1
+            for index1,parola1 in enumerate(dictionaryEnd["vector_1"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_0"]):
+                    if abs(int(parola1)-int(parola2)) < distance:
+                        print("Trovato! " + parola1 + " - " + parola2)
+                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
+                        return cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
+
+        if len(arrayS) == 3:
+            #Prima ricerca senza shiftata i vettori
+            for index1,parola1 in enumerate(dictionaryEnd["vector_0"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_1"]):
+                    if abs(int(parola1) - int(parola2)) < distance:
+                        parola3 = dictionaryEnd["vector_1"][index2]
+                        for index4,parola4 in enumerate(dictionaryStart["vector_2"]):
+                            if abs(int(parola3) - int(parola4)) < distance:
+                                print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4)
+                                childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_2"][index4], dictionaryEnd["vector_2"][index4])
+                                childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
+                                return cleanWordFromTo(childStory2, dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
+            #Seconda ricerca shiftata di 1
+            for index1,parola1 in enumerate(dictionaryEnd["vector_1"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_2"]):
+                    if abs(int(parola1) - int(parola2)) < distance:
+                        parola3 = dictionaryEnd["vector_2"][index2]
+                        for index4,parola4 in enumerate(dictionaryStart["vector_0"]):
+                            if abs(int(parola3) - int(parola4)) < distance:
+                                print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4)
+                                childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_0"][index4], dictionaryEnd["vector_0"][index4])
+                                childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_2"][index2], dictionaryEnd["vector_2"][index2])
+                                return cleanWordFromTo(childStory2, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
+            # Terza ricerca shiftata di 2
+            for index1,parola1 in enumerate(dictionaryEnd["vector_2"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_0"]):
+                    if abs(int(parola1) - int(parola2)) < distance:
+                        parola3 = dictionaryEnd["vector_0"][index2]
+                        for index4,parola4 in enumerate(dictionaryStart["vector_1"]):
+                            if abs(int(parola3) - int(parola4)) < distance:
+                                print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4)
+                                childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_1"][index4], dictionaryEnd["vector_1"][index4])
+                                childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
+                                return cleanWordFromTo(childStory2, dictionaryStart["vector_2"][index1], dictionaryEnd["vector_2"][index1])
+
+        if len(arrayS) == 4:
+            # Prima ricerca senza shiftata i vettori
+            for index1,parola1 in enumerate(dictionaryEnd["vector_0"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_1"]):
+                    if abs(int(parola1) - int(parola2)) < distance:
+                        parola3 = dictionaryEnd["vector_1"][index2]
+                        for index4,parola4 in enumerate(dictionaryStart["vector_2"]):
+                            if abs(int(parola3) - int(parola4)) < distance:
+                                parola4 = dictionaryEnd["vector_2"][index4]
+                                for index5,parola5 in enumerate(dictionaryEnd["vector_3"]):
+                                    if abs(int(parola4) - int(parola5)) < distance:
+                                        print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
+                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_3"][index5], dictionaryEnd["vector_3"][index5])
+                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_2"][index4], dictionaryEnd["vector_2"][index4])
+                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
+                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
+            # Seconda ricerca shiftata di 1
+            for index1,parola1 in enumerate(dictionaryEnd["vector_1"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_2"]):
+                    if abs(int(parola1) - int(parola2)) < distance:
+                        parola3 = dictionaryEnd["vector_2"][index2]
+                        for index4,parola4 in enumerate(dictionaryStart["vector_3"]):
+                            if abs(int(parola3) - int(parola4)) < distance:
+                                parola4 = dictionaryEnd["vector_3"][index4]
+                                for index5,parola5 in enumerate(dictionaryEnd["vector_0"]):
+                                    if abs(int(parola4) - int(parola5)) < distance:
+                                        print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
+                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_0"][index5], dictionaryEnd["vector_0"][index5])
+                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_3"][index4], dictionaryEnd["vector_3"][index4])
+                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_2"][index2], dictionaryEnd["vector_2"][index2])
+                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
+            # Seconda ricerca shiftata di 2
+            for index1,parola1 in enumerate(dictionaryEnd["vector_2"]):
+                for index2,parola2 in enumerate(dictionaryStart["vector_3"]):
+                    if abs(int(parola1) - int(parola2)) < distance:
+                        parola3 = dictionaryEnd["vector_3"][index2]
+                        for index4,parola4 in enumerate(dictionaryStart["vector_0"]):
+                            if abs(int(parola3) - int(parola4)) < distance:
+                                parola4 = dictionaryEnd["vector_0"][index4]
+                                for index5,parola5 in enumerate(dictionaryEnd["vector_1"]):
+                                    if abs(int(parola4) - int(parola5)) < distance:
+                                        print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
+                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_1"][index5], dictionaryEnd["vector_1"][index5])
+                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_0"][index4], dictionaryEnd["vector_0"][index4])
+                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_3"][index2], dictionaryEnd["vector_3"][index2])
+                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_2"][index1], dictionaryEnd["vector_2"][index1])
+            # Seconda ricerca shiftata di 3
+            for index1, parola1 in enumerate(dictionaryEnd["vector_3"]):
+                for index2, parola2 in enumerate(dictionaryStart["vector_0"]):
+                    if abs(int(parola1) - int(parola2)) < distance:
+                        parola3 = dictionaryEnd["vector_0"][index2]
+                        for index4,parola4 in enumerate(dictionaryStart["vector_1"]):
+                            if abs(int(parola3) - int(parola4)) < distance:
+                                parola4 = dictionaryEnd["vector_1"][index4]
+                                for index5,parola5 in enumerate(dictionaryEnd["vector_2"]):
+                                    if abs(int(parola4) - int(parola5)) < distance:
+                                        print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
+                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_2"][index5], dictionaryEnd["vector_2"][index5])
+                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index4], dictionaryEnd["vector_1"][index4])
+                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
+                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_3"][index1], dictionaryEnd["vector_3"][index1])
+        # return la storia corretta se hai trovato una distanza che ti soddisfa oppure 1 se devi chiedere la domanda
+        return "1"
+
+    def cleanWordFromTo(text, positionStart, positionEnd):
+        i = int(positionStart)
+        textList = list(text)
+        if int(positionStart) > int(positionEnd):
+            print("ERRORE NELLA CHIAMATA DI CLEAN WORD: POSIZIONE START (" + str(positionStart) +") > POSIZIONE END (" + str(positionEnd) + ")")
+            return text
+        while i < int(positionEnd):
+            textList[i] = ""
+            i += 1
+        text = "".join(textList)
+        return text
+
+    def askForQuestion(askQuestion):
+        questionS = open("question.txt", "r")
+        questionWithoutAnswer = []
+        lines = questionS.readlines()
+        for line in lines:
+            line = line.strip()
+            questions = line.split(";")
+
+            if int(questions[0]) in askQuestion:
+                print(questions[1])
+                answer = input("Risposta: ")
+                tmp = simpleRetelling(int(questions[0]),answer)
+                if tmp != 0:
+                    questionWithoutAnswer.append(tmp)
         return questionWithoutAnswer
 
     def setup_scene(self):
