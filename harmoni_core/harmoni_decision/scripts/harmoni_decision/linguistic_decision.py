@@ -53,7 +53,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         self.state = State.INIT
         self.robot_sentence = ''
         self.robot_story = ''
-        self.askQuestions = [3,4,9]
+        self.keyWordsStory = ''
+        self.askQuestions = []
     
 
     def _setup_classes(self):
@@ -311,11 +312,20 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     if result['service'] == "sentence_repetition":
                         self.senteceRepetition(self.robot_sentence,res)
                     elif result['service'] == "retelling":
-                        #TODO vedi cosa passare alla funzione perchè dobbiamo cambiarla
-                        self.askQuestions = self.retelling(self.robot_story,res)
-                        #Clear robot story after calling retelling()
-                        rospy.loginfo("robot_story è stata pulita")
-                        self.robot_story = ''
+                        print("\n\n\n\n\n\n\n\n\n\n\n")
+                        print(self.index)
+                        print("\n\n\n\n\n\n\n\n\n\n\n")
+                        if self.index == 9:
+                            rospy.loginfo("CI E' STATA RESTITUITA L'INTERA STORIA E CHIAMIAMO RETELLING")
+                            #TODO vedi cosa passare alla funzione perchè dobbiamo cambiarla
+                            self.askQuestions = self.retelling(res)
+                            #Clear robot story after calling retelling()
+                            #N.B. Non serve più self.robot_story TODO eliminalo
+                            rospy.loginfo("robot_story è stata pulita")
+                            self.robot_story = ''
+                        else:
+                            rospy.loginfo("CI E' STATA RESTITUITA LA RISPOSTA A UNA DOMANDA E CHIAMIAMO SIMPLE_RETELLING")
+                            self.simpleRetelling((self.index - 8), res)
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -420,10 +430,17 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         service = "display_image"
                         if self.index >7:
                             service = "retelling"
+                        if self.index == 8:
+                            #TODO prenditi le keyword
+                            for i in range(2,9):
+                                self.keyWordsStory += self.sequence_scenes["tasks"][self.index]["keyword"+str(i)] + "\n"
+                            self.keyWordsStory += self.sequence_scenes["tasks"][self.index]["keyword9"]
+                            rospy.loginfo("Ecco le keyword della storia")
+                            rospy.loginfo(self.keyWordsStory)
                         if self.index==0:
                             self.do_request(0,service)
-                            self.index+=1 # se vuoi skippare la parte in cui quitty parla
-                            #self.index = 7 # decommenta questo e commenta quello sopra
+                            #self.index+=1 # se vuoi skippare la parte in cui quitty parla
+                            self.index = 7 # decommenta questo e commenta quello sopra
                         else:
                             self.do_request(self.index,service)
                             self.index+=1
@@ -459,11 +476,15 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         service = "retelling"
                         if self.index > 8:
                             if self.askQuestions:
-                                self.index = 8 + self.askQuestions[0] - 1
+                                self.index = 9 + self.askQuestions[0] - 1
                                 self.askQuestions.pop(0)
-                                print("Sono dentro al bellissimo if che abbiamo fatto con indice" + str(self.index))
-                        #TODO collegare bottone 
-                        self.index+=1
+                                print("Sono dentro al bellissimo if che abbiamo fatto con indice " + str(self.index))
+                            else:
+                                #TODO sei stato bravissimo
+                                service = "idle"
+                                self.do_request(self.index,service,data="Ottimo lavoro. Sei stato bravissimo!")
+                                rospy.loginfo("End of activity")
+                                self.index = -1
                         self.do_request(self.index,service)
         else:
             if self.index==len(self.sequence_scenes["tasks"])-1:
@@ -476,13 +497,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
     def senteceRepetition(self, robot, child):
         if robot == child:
             return 1
-
         resultRobot = []
         resultChild = []
-
         senteceRobot = robot.split()
         senteceChild = child.split()
-
         if  len(senteceRobot) != len(senteceChild):
             print("Current senteces have different number of words \n")
             resultRobot.append(robot)
@@ -500,17 +518,15 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
 
         print(' '.join(resultRobot))
         print(' '.join(resultChild))
-
+        #TODO output json del terapista
         return 0
 
     def simpleRetelling(self, question, answer):
         questionWithoutAnswer = 0
-        keyWords = open("KeywordDataset.txt", "r")
-        lines = keyWords.readlines()
+        lines = self.keyWordsStory.split("\n")
         for line in lines:
             line = line.strip()
             parts = line.split(";")
-            parts.pop(0)
             if question == int(parts[0]):
                 parts.pop(0)
                 for key in parts:
@@ -523,22 +539,26 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             found = 1
                     if found == 0:
                         questionWithoutAnswer = question
-                        f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
+                        #f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
                         break
                     else:
-                        f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
+                        print("")
+                        #f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
+        #TODO output json del terapista
+        print("Questa è una risposta definitiva che il bimbo non ha dato e deve essere aggiunta al json")
+        print(questionWithoutAnswer)
         return questionWithoutAnswer
 
-    def retelling(child):
-
+    def retelling(self, child):
         askQuestion = []
         question = -1
         found = 0
         positionsStart = ""
         positionsEnd = ""
         chiediDomande = 1 #chiedo la domanda con 1, non chiedo la domanda con 0
-        keyWords = open("KeywordDataset.txt", "r")
-        lines = keyWords.readlines()
+        #keyWords = open("KeywordDataset.txt", "r")
+        #lines = keyWords.readlines()
+        lines = self.keyWordsStory.split("\n")
         for line in lines:
             line = line.strip()
             parts = line.split(";")
@@ -569,6 +589,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 if newChild == '1':
                     print("Non ho trovato risposta, aggiungero la domanda alla lista di domande da chiedere\n"
                         "non dovrei aver modificato il testo\n")
+                    if question == 2:
+                        askQuestion.append(1)
                     askQuestion.append(question)
                 else:
                     child = str(newChild)
@@ -577,6 +599,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             else:
                 print("Non ho trovato risposta, aggiungero la domanda alla lista di domande da chiedere\n"
                     "non dovrei aver modificato il testo\n")
+                if question == 2:
+                    askQuestion.append(1)
                 askQuestion.append(question)
             positionsEnd = ""
             positionsStart = ""
@@ -584,7 +608,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         print(askQuestion)
         return askQuestion
 
-    def find_all(a_str, sub):
+    def find_all(self, a_str, sub):
         start = 0
         while True:
             start = a_str.find(sub, start)
@@ -592,7 +616,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             yield start
             start += len(sub) # use start += 1 to find overlapping matches
 
-    def checkDistances(childStory, positionsEnd, positionsStart):
+    def checkDistances(self, childStory, positionsEnd, positionsStart):
         # [3, 23, 30, -1, 10, -1, 25, 37, -1, 16, -1]
         # [0, 19, 25, -1, 5,  -1, 22, 33, -1, 11, -1]
         distance = 21
@@ -745,7 +769,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         # return la storia corretta se hai trovato una distanza che ti soddisfa oppure 1 se devi chiedere la domanda
         return "1"
 
-    def cleanWordFromTo(text, positionStart, positionEnd):
+    def cleanWordFromTo(self, text, positionStart, positionEnd):
         i = int(positionStart)
         textList = list(text)
         if int(positionStart) > int(positionEnd):
@@ -756,22 +780,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             i += 1
         text = "".join(textList)
         return text
-
-    def askForQuestion(askQuestion):
-        questionS = open("question.txt", "r")
-        questionWithoutAnswer = []
-        lines = questionS.readlines()
-        for line in lines:
-            line = line.strip()
-            questions = line.split(";")
-
-            if int(questions[0]) in askQuestion:
-                print(questions[1])
-                answer = input("Risposta: ")
-                tmp = simpleRetelling(int(questions[0]),answer)
-                if tmp != 0:
-                    questionWithoutAnswer.append(tmp)
-        return questionWithoutAnswer
 
     def setup_scene(self):
         """Setup the scene """
