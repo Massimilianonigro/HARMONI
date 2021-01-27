@@ -232,10 +232,12 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
             elif self.type_web == "retelling":
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
-                if self.index > 0 and self.index <8:
-                    self.robot_story += '\n' + self.sequence_scenes["tasks"][index]["text"]
-                    rospy.loginfo("Qui c'è la storia detta dal robot")
-                    rospy.loginfo(self.robot_story)
+                if self.index == 0:
+                    for i in range(2,9):
+                        self.keyWordsStory += self.sequence_scenes["tasks"][self.index]["keyword"+str(i)] + "\n"
+                    self.keyWordsStory += self.sequence_scenes["tasks"][self.index]["keyword9"]
+                    rospy.loginfo("Ecco le keyword della storia")
+                    rospy.loginfo(self.keyWordsStory)
             else:
                 optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"], "web_page_default":"[{'component_id':'main_img_alt', 'set_content':'"+self.url +self.sequence_scenes["tasks"][index]["main_img"]+".png'},{'component_id':'display_image_container', 'set_content':''}]"}
         elif service=="intro":
@@ -312,10 +314,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     if result['service'] == "sentence_repetition":
                         self.senteceRepetition(self.robot_sentence,res)
                     elif result['service'] == "retelling":
-                        print("\n\n\n\n\n\n\n\n\n\n\n")
+                        print("\n\n\n")
                         print(self.index)
-                        print("\n\n\n\n\n\n\n\n\n\n\n")
-                        if self.index == 9:
+                        print("\n\n\n")
+                        if self.index == 8:
                             rospy.loginfo("CI E' STATA RESTITUITA L'INTERA STORIA E CHIAMIAMO RETELLING")
                             #TODO vedi cosa passare alla funzione perchè dobbiamo cambiarla
                             self.askQuestions = self.retelling(res)
@@ -428,16 +430,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         rospy.loginfo("Here nostra retelling")
                         rospy.loginfo(self)
                         service = "display_image"
-                        if self.index >7:
+                        if self.index > 7:
                             service = "retelling"
-                        if self.index == 8:
-                            #TODO prenditi le keyword
-                            for i in range(2,9):
-                                self.keyWordsStory += self.sequence_scenes["tasks"][self.index]["keyword"+str(i)] + "\n"
-                            self.keyWordsStory += self.sequence_scenes["tasks"][self.index]["keyword9"]
-                            rospy.loginfo("Ecco le keyword della storia")
-                            rospy.loginfo(self.keyWordsStory)
-                        if self.index==0:
+                            self.do_request(self.index,service)
+                        elif self.index==0:
                             self.do_request(0,service)
                             #self.index+=1 # se vuoi skippare la parte in cui quitty parla
                             self.index = 7 # decommenta questo e commenta quello sopra
@@ -463,21 +459,18 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         service = "sentence_repetition"
                         self.index+=1
                         self.do_request(self.index,service)
-                    elif self.type_web == "retelling":
-                        service = "sentence_repetition"
-                        if self.askQuestions:
-                            self.index = 9 + self.askQuestions[0]
-                            self.askQuestions.pop(0)
-                            self.do_request(self.index,service)
-                            print("Sono dentro al bellissimo if che abbiamo fatto con indice" + str(self.index))
                 elif result['service'] == "retelling":
                     if self.type_web == "retelling":
                         rospy.loginfo("Siamo in result_callback e abbiamo caricando il nuovo retelling")
                         service = "retelling"
-                        if self.index > 8:
+                        if self.index > 7: 
                             if self.askQuestions:
+                                print("prima")
+                                print(self.askQuestions)
                                 self.index = 9 + self.askQuestions[0] - 1
                                 self.askQuestions.pop(0)
+                                print("dopo")
+                                print(self.askQuestions)
                                 print("Sono dentro al bellissimo if che abbiamo fatto con indice " + str(self.index))
                             else:
                                 #TODO sei stato bravissimo
@@ -527,7 +520,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         for line in lines:
             line = line.strip()
             parts = line.split(";")
-            if question == int(parts[0]):
+            if question == int(str(parts[0])):
                 parts.pop(0)
                 for key in parts:
                     synonymous = key.split(",")
@@ -562,7 +555,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         for line in lines:
             line = line.strip()
             parts = line.split(";")
-            question = int(parts[0]) # this is the number of the question
+            question = int(str(parts[0])) # this is the number of the question
             parts.pop(0)
             for key in parts:
                 synonymous = key.split(",")

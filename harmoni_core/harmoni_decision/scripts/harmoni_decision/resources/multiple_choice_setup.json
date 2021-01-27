@@ -2859,7 +2859,15 @@
                                     "audio": "Ret_3_1",
                                     "text": "Che cosa succede in questa storia?",
                                     "main_img": "Ret_3_1",
-                                    "flag":"story"
+                                    "flag":"story",
+                                    "keyword2":"2;bambina,figlia,bimb;padre,pap,babb;madre,mami,mamm",
+                                    "keyword3":"3;appartamento,stanza,camera,dimora,cas,abitazione",
+                                    "keyword4":"4;celebr,fare festa,fest,compleanno;bambina,figlia,bimb,suo,lei",
+                                    "keyword5":"5;madre,mamm,mami;prepar,fa,cucin;torta,dolc",
+                                    "keyword6":"6;madre,mami,mamm;padre,pap,babb;felic,content,allegr",
+                                    "keyword7":"7;madre,mami,mamm;tagl,divid,fett;torta,dolc",
+                                    "keyword8":"8;torta,dolc;fett,mang,assagg",
+                                    "keyword9":"9;felic,content,allegr,buon,ottim"
                                 },
                                 {
                                     "audio": "Ret_3_2",
@@ -2916,15 +2924,7 @@
                                     "img2": "Ret_3_2",
                                     "img3": "Ret_3_3",
                                     "img4": "Ret_3_4",
-                                    "flag":"challenge",
-                                    "keyword2":"2;bambina,figlia,bimb;padre,pap,babb;madre,mami,mamm",
-                                    "keyword3":"3;appartamento,stanza,camera,dimora,cas,abitazione",
-                                    "keyword4":"4;celebr,fare festa,fest,compleanno;bambina,figlia,bimb,suo,lei",
-                                    "keyword5":"5;madre,mamm,mami;prepar,fa,cucin;torta,dolc",
-                                    "keyword6":"6;madre,mami,mamm;padre,pap,babb;felic,content,allegr",
-                                    "keyword7":"7;madre,mami,mamm;tagl,divid,fett;torta,dolc",
-                                    "keyword8":"8;torta,dolc;fett,mang,assagg",
-                                    "keyword9":"9;felic,content,allegr,buon,ottim"
+                                    "flag":"challenge"
                                 },
                                 {
                                     "audio": "Q1",
