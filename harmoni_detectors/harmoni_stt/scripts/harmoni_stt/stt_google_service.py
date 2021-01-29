@@ -111,6 +111,7 @@ class STTGoogleService(HarmoniServiceManager):
             self.state = State.PAUSE
         else:
             self.state = State.START
+            self.stt_response = ''
 
     def transcribe_stream_request(self, data):
         # TODO: streaming transcription https://github.com/googleapis/python-speech/blob/master/samples/microphone/transcribe_streaming_infinite.py
@@ -126,7 +127,8 @@ class STTGoogleService(HarmoniServiceManager):
             for result in response.results:
                 if result.is_final:
                     #rospy.loginfo(result.alternatives[0].transcript)
-                    self.stt_response = result.alternatives[0].transcript
+                    self.stt_response += result.alternatives[0].transcript
+                    self.stt_response += "\n"
                     rospy.loginfo("Questo è il response_text")
                     rospy.loginfo("Stt response text:  "+ self.stt_response)
                     self.response_received = True

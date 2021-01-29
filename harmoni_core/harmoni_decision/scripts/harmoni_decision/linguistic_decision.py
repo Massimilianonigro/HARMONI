@@ -601,7 +601,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         print(askQuestion)
         return askQuestion
 
-    def find_all(self, a_str, sub):
+    def find_all(a_str, sub):
         start = 0
         while True:
             start = a_str.find(sub, start)
