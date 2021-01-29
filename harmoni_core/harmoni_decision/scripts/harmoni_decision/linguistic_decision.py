@@ -563,7 +563,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 for syn in synonymous:
                     if child.find(syn) != -1:
                         found = 1
-                        ll = list(find_all(child,syn))
+                        ll = list(self.find_all(child,syn))
                         for l in ll:
                             positionsStart += (str(l)+ ",")
                             positionsEnd += (str(l + len(syn)) + ",")
@@ -601,7 +601,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         print(askQuestion)
         return askQuestion
 
-    def find_all(a_str, sub):
+    def find_all(self, a_str, sub):
         start = 0
         while True:
             start = a_str.find(sub, start)
@@ -609,7 +609,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             yield start
             start += len(sub) # use start += 1 to find overlapping matches
 
-    def checkDistances(self, childStory, positionsEnd, positionsStart):
+    def checkDistances(childStory, positionsEnd, positionsStart):
         # [3, 23, 30, -1, 10, -1, 25, 37, -1, 16, -1]
         # [0, 19, 25, -1, 5,  -1, 22, 33, -1, 11, -1]
         distance = 21

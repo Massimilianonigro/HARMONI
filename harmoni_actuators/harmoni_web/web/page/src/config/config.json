@@ -220,7 +220,7 @@
                         {
                             "component": "button",
                             "children": "Press to start",
-                            "id": "button_sr"
+                            "id": "button_rr"
                         }
                     ]
                 }
