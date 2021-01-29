@@ -253,7 +253,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 optional_data = {"tts_default": data}
         elif service == "sentence_repetition":
             if self.type_web == "repetition":
-                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"]}
+                optional_data = {"tts_default": self.sequence_scenes["tasks"][index]["text"],"web_page_default":"[{'component_id':'sentence_repetition_container', 'set_content':''}]"}
                 self.robot_sentence = self.sequence_scenes["tasks"][index]["text"]
                 rospy.loginfo("DOVREBBE ESSERE LA FRASE GIUSTA QUESTA QUI -->")
                 rospy.loginfo(self.robot_sentence)
