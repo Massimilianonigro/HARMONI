@@ -492,9 +492,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             return 1
         resultRobot = []
         resultChild = []
-        childN = child.split("\n")
+        child = child.split("\n")
+        child = child[0]
         senteceRobot = robot.split()
-        senteceChild = childN[0].split()
+        senteceChild = child.split()
         if  len(senteceRobot) != len(senteceChild):
             print("Current senteces have different number of words \n")
             resultRobot.append(robot)
