@@ -3325,6 +3325,10 @@
                                         "Ret_1_3",
                                         "Ret_1_4"
                                     ],
+                                    "img1": "Ret_1_1",
+                                    "img2": "Ret_1_2",
+                                    "img3": "Ret_1_3",
+                                    "img4": "Ret_1_4",
                                     "flag":"challenge",
                                     "keyword":""
                                 },
