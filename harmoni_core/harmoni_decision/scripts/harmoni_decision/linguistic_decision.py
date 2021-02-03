@@ -673,7 +673,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             if abs(int(parola3) - int(parola4)) < distance:
                                 print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4)
                                 childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_2"][index4], dictionaryEnd["vector_2"][index4])
-                                childStory2 = slef.cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
+                                childStory2 = self.cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
                                 return self.cleanWordFromTo(childStory2, dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
             #Seconda ricerca shiftata di 1
             for index1,parola1 in enumerate(dictionaryEnd["vector_1"]):
