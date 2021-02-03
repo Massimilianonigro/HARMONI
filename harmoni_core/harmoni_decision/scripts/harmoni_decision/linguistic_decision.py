@@ -55,6 +55,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         self.robot_story = ''
         self.keyWordsStory = ''
         self.askQuestions = []
+        self.definitevelyQuestionWithoutAnswere = []
 
     def _setup_classes(self):
         """
@@ -326,7 +327,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             rospy.loginfo("CI E' STATA RESTITUITA LA RISPOSTA A UNA DOMANDA E CHIAMIAMO SIMPLE_RETELLING")
                             self.simpleRetelling((self.index - 8), res)
                             print("Queste sono le domandea a cui il bimbo non ha dato risposta e devono essere aggiunte al json")
-                            print(self.askQuestions)
+                            print(self.definitevelyQuestionWithoutAnswere)
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -434,8 +435,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             self.do_request(self.index,service)
                         elif self.index==0:
                             self.do_request(0,service)
-                            #self.index+=1 # se vuoi skippare la parte in cui quitty parla
-                            self.index = 7 # decommenta questo e commenta quello sopra
+                            self.index+=1 # se vuoi skippare la parte in cui quitty parla
+                            #self.index = 7 # decommenta questo e commenta quello sopra
                         else:
                             self.do_request(self.index,service)
                             self.index+=1
@@ -538,7 +539,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         #f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
         #TODO output json del terapista
         if questionWithoutAnswer != 0:
-            self.askQuestions.append(questionWithoutAnswer)
+            self.askQuestions.append(definitevelyQuestionWithoutAnswere)
         return questionWithoutAnswer
 
     def retelling(self, child):
