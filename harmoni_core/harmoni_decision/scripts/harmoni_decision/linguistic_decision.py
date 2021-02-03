@@ -547,7 +547,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         #f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
         #TODO output json del terapista
         if questionWithoutAnswer != 0:
-            self.askQuestions.append(self.definitevelyQuestionWithoutAnswere)
+            self.definitevelyQuestionWithoutAnswere.append(questionWithoutAnswer)
         return questionWithoutAnswer
 
     def retelling(self, child):
