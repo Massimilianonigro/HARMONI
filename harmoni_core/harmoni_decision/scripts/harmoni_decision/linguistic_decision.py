@@ -470,7 +470,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 print("Siamo all'indice " + str(self.index))
                             else:
                                 #TODO sei stato bravissimo
-                                self.index = -1
+                                self.index = len(self.sequence_scenes["tasks"])-1
+                                return
                         self.do_request(self.index,service)
         else:
             if self.index==len(self.sequence_scenes["tasks"])-1:
