@@ -470,9 +470,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 print("Siamo all'indice " + str(self.index))
                             else:
                                 #TODO sei stato bravissimo
-                                service = "idle"
-                                self.do_request(self.index,service,data="Ottimo lavoro. Sei stato bravissimo!")
-                                rospy.loginfo("End of activity")
                                 self.index = -1
                         self.do_request(self.index,service)
         else:
@@ -540,7 +537,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         break
                     else:
                         print("")
-                    print("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
+        
+        print("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
         #TODO output json del terapista
         if questionWithoutAnswer != 0:
             self.definitevelyQuestionWithoutAnswere.append(questionWithoutAnswer)
