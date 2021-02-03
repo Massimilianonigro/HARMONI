@@ -511,8 +511,14 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     resultRobot.append(senteceRobot[i])
                     resultChild.append(senteceChild[i])
 
-        print(' '.join(resultRobot))
-        print(' '.join(resultChild))
+        print("\n\n\n")
+        print("Robot: " + ' '.join(resultRobot))
+        print("Child: " + ' '.join(resultChild))
+        if ' '.join(resultRobot) == ' '.join(resultChild):
+            print("Questa frase è stata detta correttamente!")
+        else:
+            print("Questa frase non è corretta")
+        print("\n\n\n")
         #TODO output json del terapista
         return 0
 
