@@ -492,8 +492,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             return 1
         resultRobot = []
         resultChild = []
+        childN = child.split("\n")
         senteceRobot = robot.split()
-        senteceChild = child.split()
+        senteceChild = childN[0].split()
         if  len(senteceRobot) != len(senteceChild):
             print("Current senteces have different number of words \n")
             resultRobot.append(robot)
@@ -539,7 +540,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         #f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
         #TODO output json del terapista
         if questionWithoutAnswer != 0:
-            self.askQuestions.append(definitevelyQuestionWithoutAnswere)
+            self.askQuestions.append(self.definitevelyQuestionWithoutAnswere)
         return questionWithoutAnswer
 
     def retelling(self, child):
