@@ -578,7 +578,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                     positionsEnd += (";")
             print("Puoi trovare la risposta alla domanda " + line)
             if chiediDomande == 0:
-                newChild = checkDistances(child,positionsEnd,positionsStart)
+                newChild = self.checkDistances(child,positionsEnd,positionsStart)
                 if newChild == '1':
                     print("Non ho trovato risposta, aggiungero la domanda alla lista di domande da chiedere\n"
                         "non dovrei aver modificato il testo\n")
@@ -609,7 +609,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             yield start
             start += len(sub) # use start += 1 to find overlapping matches
 
-    def checkDistances(childStory, positionsEnd, positionsStart):
+    def checkDistances(self, childStory, positionsEnd, positionsStart):
         # [3, 23, 30, -1, 10, -1, 25, 37, -1, 16, -1]
         # [0, 19, 25, -1, 5,  -1, 22, 33, -1, 11, -1]
         distance = 21
@@ -645,7 +645,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
 
         if len(arrayS) == 1:
             print("Trovato! " + dictionaryEnd["vector_0"][0])
-            return cleanWordFromTo(childStory, dictionaryStart["vector_0"][0], dictionaryEnd["vector_0"][0])
+            return self.cleanWordFromTo(childStory, dictionaryStart["vector_0"][0], dictionaryEnd["vector_0"][0])
 
         if len(arrayS) == 2:
             # Prima ricerca senza shiftata i vettori
@@ -653,15 +653,15 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                 for index2,parola2 in enumerate(dictionaryStart["vector_1"]):
                     if abs(int(parola1)-int(parola2)) < distance:
                         print("Trovato! " + parola1 + " - " + parola2)
-                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
-                        return cleanWordFromTo(childStory1,dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
+                        childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
+                        return self.cleanWordFromTo(childStory1,dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
             #Seconda ricerca shiftata di 1
             for index1,parola1 in enumerate(dictionaryEnd["vector_1"]):
                 for index2,parola2 in enumerate(dictionaryStart["vector_0"]):
                     if abs(int(parola1)-int(parola2)) < distance:
                         print("Trovato! " + parola1 + " - " + parola2)
-                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
-                        return cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
+                        childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
+                        return self.cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
 
         if len(arrayS) == 3:
             #Prima ricerca senza shiftata i vettori
@@ -672,9 +672,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         for index4,parola4 in enumerate(dictionaryStart["vector_2"]):
                             if abs(int(parola3) - int(parola4)) < distance:
                                 print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4)
-                                childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_2"][index4], dictionaryEnd["vector_2"][index4])
-                                childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
-                                return cleanWordFromTo(childStory2, dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
+                                childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_2"][index4], dictionaryEnd["vector_2"][index4])
+                                childStory2 = slef.cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
+                                return self.cleanWordFromTo(childStory2, dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
             #Seconda ricerca shiftata di 1
             for index1,parola1 in enumerate(dictionaryEnd["vector_1"]):
                 for index2,parola2 in enumerate(dictionaryStart["vector_2"]):
@@ -683,9 +683,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         for index4,parola4 in enumerate(dictionaryStart["vector_0"]):
                             if abs(int(parola3) - int(parola4)) < distance:
                                 print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4)
-                                childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_0"][index4], dictionaryEnd["vector_0"][index4])
-                                childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_2"][index2], dictionaryEnd["vector_2"][index2])
-                                return cleanWordFromTo(childStory2, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
+                                childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_0"][index4], dictionaryEnd["vector_0"][index4])
+                                childStory2 = self.cleanWordFromTo(childStory1, dictionaryStart["vector_2"][index2], dictionaryEnd["vector_2"][index2])
+                                return self.cleanWordFromTo(childStory2, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
             # Terza ricerca shiftata di 2
             for index1,parola1 in enumerate(dictionaryEnd["vector_2"]):
                 for index2,parola2 in enumerate(dictionaryStart["vector_0"]):
@@ -694,9 +694,9 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         for index4,parola4 in enumerate(dictionaryStart["vector_1"]):
                             if abs(int(parola3) - int(parola4)) < distance:
                                 print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4)
-                                childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_1"][index4], dictionaryEnd["vector_1"][index4])
-                                childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
-                                return cleanWordFromTo(childStory2, dictionaryStart["vector_2"][index1], dictionaryEnd["vector_2"][index1])
+                                childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_1"][index4], dictionaryEnd["vector_1"][index4])
+                                childStory2 = self.cleanWordFromTo(childStory1, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
+                                return self.cleanWordFromTo(childStory2, dictionaryStart["vector_2"][index1], dictionaryEnd["vector_2"][index1])
 
         if len(arrayS) == 4:
             # Prima ricerca senza shiftata i vettori
@@ -710,10 +710,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 for index5,parola5 in enumerate(dictionaryEnd["vector_3"]):
                                     if abs(int(parola4) - int(parola5)) < distance:
                                         print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
-                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_3"][index5], dictionaryEnd["vector_3"][index5])
-                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_2"][index4], dictionaryEnd["vector_2"][index4])
-                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
-                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
+                                        childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_3"][index5], dictionaryEnd["vector_3"][index5])
+                                        childStory2 = self.cleanWordFromTo(childStory1, dictionaryStart["vector_2"][index4], dictionaryEnd["vector_2"][index4])
+                                        childStory3 = self.cleanWordFromTo(childStory2, dictionaryStart["vector_1"][index2], dictionaryEnd["vector_1"][index2])
+                                        return self.cleanWordFromTo(childStory3, dictionaryStart["vector_0"][index1], dictionaryEnd["vector_0"][index1])
             # Seconda ricerca shiftata di 1
             for index1,parola1 in enumerate(dictionaryEnd["vector_1"]):
                 for index2,parola2 in enumerate(dictionaryStart["vector_2"]):
@@ -725,10 +725,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 for index5,parola5 in enumerate(dictionaryEnd["vector_0"]):
                                     if abs(int(parola4) - int(parola5)) < distance:
                                         print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
-                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_0"][index5], dictionaryEnd["vector_0"][index5])
-                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_3"][index4], dictionaryEnd["vector_3"][index4])
-                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_2"][index2], dictionaryEnd["vector_2"][index2])
-                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
+                                        childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_0"][index5], dictionaryEnd["vector_0"][index5])
+                                        childStory2 = self.cleanWordFromTo(childStory1, dictionaryStart["vector_3"][index4], dictionaryEnd["vector_3"][index4])
+                                        childStory3 = self.cleanWordFromTo(childStory2, dictionaryStart["vector_2"][index2], dictionaryEnd["vector_2"][index2])
+                                        return self.cleanWordFromTo(childStory3, dictionaryStart["vector_1"][index1], dictionaryEnd["vector_1"][index1])
             # Seconda ricerca shiftata di 2
             for index1,parola1 in enumerate(dictionaryEnd["vector_2"]):
                 for index2,parola2 in enumerate(dictionaryStart["vector_3"]):
@@ -740,10 +740,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 for index5,parola5 in enumerate(dictionaryEnd["vector_1"]):
                                     if abs(int(parola4) - int(parola5)) < distance:
                                         print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
-                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_1"][index5], dictionaryEnd["vector_1"][index5])
-                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_0"][index4], dictionaryEnd["vector_0"][index4])
-                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_3"][index2], dictionaryEnd["vector_3"][index2])
-                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_2"][index1], dictionaryEnd["vector_2"][index1])
+                                        childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_1"][index5], dictionaryEnd["vector_1"][index5])
+                                        childStory2 = self.cleanWordFromTo(childStory1, dictionaryStart["vector_0"][index4], dictionaryEnd["vector_0"][index4])
+                                        childStory3 = self.cleanWordFromTo(childStory2, dictionaryStart["vector_3"][index2], dictionaryEnd["vector_3"][index2])
+                                        return self.cleanWordFromTo(childStory3, dictionaryStart["vector_2"][index1], dictionaryEnd["vector_2"][index1])
             # Seconda ricerca shiftata di 3
             for index1, parola1 in enumerate(dictionaryEnd["vector_3"]):
                 for index2, parola2 in enumerate(dictionaryStart["vector_0"]):
@@ -755,10 +755,10 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 for index5,parola5 in enumerate(dictionaryEnd["vector_2"]):
                                     if abs(int(parola4) - int(parola5)) < distance:
                                         print("Trovato! " + parola1 + " - " + parola2 + " - " + parola3 + " - " + parola4 + " - " + parola5)
-                                        childStory1 = cleanWordFromTo(childStory, dictionaryStart["vector_2"][index5], dictionaryEnd["vector_2"][index5])
-                                        childStory2 = cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index4], dictionaryEnd["vector_1"][index4])
-                                        childStory3 = cleanWordFromTo(childStory2, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
-                                        return cleanWordFromTo(childStory3, dictionaryStart["vector_3"][index1], dictionaryEnd["vector_3"][index1])
+                                        childStory1 = self.cleanWordFromTo(childStory, dictionaryStart["vector_2"][index5], dictionaryEnd["vector_2"][index5])
+                                        childStory2 = self.cleanWordFromTo(childStory1, dictionaryStart["vector_1"][index4], dictionaryEnd["vector_1"][index4])
+                                        childStory3 = self.cleanWordFromTo(childStory2, dictionaryStart["vector_0"][index2], dictionaryEnd["vector_0"][index2])
+                                        return self.cleanWordFromTo(childStory3, dictionaryStart["vector_3"][index1], dictionaryEnd["vector_3"][index1])
         # return la storia corretta se hai trovato una distanza che ti soddisfa oppure 1 se devi chiedere la domanda
         return "1"
 
