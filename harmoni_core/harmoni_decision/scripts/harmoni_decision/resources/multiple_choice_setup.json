@@ -3334,7 +3334,7 @@
                                 },
                                 {
                                     "audio": "Q1",
-                                    "text": "Quanti sono i protagonisti della storia?",
+                                    "text": "Quanti sono i personaggi della storia?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",
@@ -3349,7 +3349,7 @@
                                 },
                                 {
                                     "audio": "Q2",
-                                    "text": "Chi sono i protagonisti della storia?",
+                                    "text": "Quali sono i personaggi della storia?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",
@@ -3379,7 +3379,7 @@
                                 },
                                 {
                                     "audio": "Q4",
-                                    "text": "Qual è lo stato mentale iniziale?",
+                                    "text": "Che cosa vogliono fare i personaggi?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",
@@ -3394,7 +3394,7 @@
                                 },
                                 {
                                     "audio": "Q5",
-                                    "text": "Qual è il primo evento?",
+                                    "text": "Quale è la prima cosa che succede nella storia?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",
@@ -3409,7 +3409,7 @@
                                 },
                                 {
                                     "audio": "Q6",
-                                    "text": "Qual è lo stato mentale finale?",
+                                    "text": "Quale emozione provano i personaggi?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",
@@ -3424,7 +3424,7 @@
                                 },
                                 {
                                     "audio": "Q7",
-                                    "text": "Qual è il secondo evento?",
+                                    "text": "Quale è la seconda cosa che succede nella storia?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",
@@ -3439,7 +3439,7 @@
                                 },
                                 {
                                     "audio": "Q8",
-                                    "text": "Quali sono le conseguenza degli eventi?",
+                                    "text": "Che cosa succede alla fine della storia?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",
@@ -3454,7 +3454,7 @@
                                 },
                                 {
                                     "audio": "Q9",
-                                    "text": "Qual è lo stato mentale finale?",
+                                    "text": "Che cosa provano i personaggi alla fine della storia?",
                                     "images": [
                                         "Ret_1_1",
                                         "Ret_1_2",

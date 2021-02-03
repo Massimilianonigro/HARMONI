@@ -471,7 +471,7 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                                 self.askQuestions.pop(0)
                                 print("dopo")
                                 print(self.askQuestions)
-                                print("Sono dentro al bellissimo if che abbiamo fatto con indice " + str(self.index))
+                                print("Siamo all'indice " + str(self.index))
                             else:
                                 #TODO sei stato bravissimo
                                 service = "idle"
