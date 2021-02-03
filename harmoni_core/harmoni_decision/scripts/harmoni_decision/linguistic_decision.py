@@ -493,7 +493,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         resultRobot = []
         resultChild = []
         child = child.split("\n")
-        child = child[0]
         senteceRobot = robot.split()
         senteceChild = child.split()
         if  len(senteceRobot) != len(senteceChild):
