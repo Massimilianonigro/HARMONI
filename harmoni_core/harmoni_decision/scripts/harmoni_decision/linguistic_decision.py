@@ -784,7 +784,8 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
             print("ERRORE NELLA CHIAMATA DI CLEAN WORD: POSIZIONE START (" + str(positionStart) +") > POSIZIONE END (" + str(positionEnd) + ")")
             return text
         while i < int(positionEnd):
-            textList[i] = ""
+            if len(testList) < i:
+                textList[i] = ""
             i += 1
         text = "".join(textList)
         return text
