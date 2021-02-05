@@ -316,16 +316,24 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                         print(self.index)
                         print("\n\n\n")
                         if self.index == 8:
-                            rospy.loginfo("CI E' STATA RESTITUITA L'INTERA STORIA E CHIAMIAMO RETELLING")
-                            #TODO vedi cosa passare alla funzione perchè dobbiamo cambiarla
                             self.askQuestions = self.retelling(res)
-                            #Clear robot story after calling retelling()
-                            #N.B. Non serve più self.robot_story TODO eliminalo
-                            rospy.loginfo("robot_story è stata pulita")
-                            self.robot_story = ''
                         else:
-                            rospy.loginfo("CI E' STATA RESTITUITA LA RISPOSTA A UNA DOMANDA E CHIAMIAMO SIMPLE_RETELLING")
+                            #rospy.loginfo("CI E' STATA RESTITUITA LA RISPOSTA A UNA DOMANDA E CHIAMIAMO SIMPLE_RETELLING")
                             self.simpleRetelling((self.index - 8), res)
+        else:
+            if result['service'] == "sentence_repetition":
+                self.senteceRepetition(self.robot_sentence," ")
+            elif result['service'] == "retelling":
+                print("\n\n\n")
+                print(self.index)
+                print("\n\n\n")
+                if self.index == 8:
+                    #rospy.loginfo("CI E' STATA RESTITUITA L'INTERA STORIA E CHIAMIAMO RETELLING")
+                    self.askQuestions = self.retelling(" ")
+                else:
+                    #rospy.loginfo("CI E' STATA RESTITUITA LA RISPOSTA A UNA DOMANDA E CHIAMIAMO SIMPLE_RETELLING")
+                    self.simpleRetelling((self.index - 8), " ")
+
         rospy.loginfo("_____END STEP "+str(self.index)+" DECISION MANAGER_______")
         rospy.loginfo(web_result)
         result_empty = True
@@ -534,7 +542,6 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
                             found = 1
                     if found == 0:
                         questionWithoutAnswer = question
-                        #f.write("Alla domanda " + str(question) + " il bambino ha risposto:\n" + answer + "\n")
                         break
                     else:
                         print("")
@@ -543,8 +550,11 @@ class LinguisticDecisionManager(HarmoniServiceManager, HarmoniWebsocketClient):
         #TODO output json del terapista
         if questionWithoutAnswer != 0:
             self.definitevelyQuestionWithoutAnswere.append(questionWithoutAnswer)
-            print("Queste sono le domandea a cui il bimbo non ha dato risposta e devono essere aggiunte al json")
+            print("Queste sono le domandea a cui il bimbo non ha dato risposta e devono essere mostrare al terapista")
             print(self.definitevelyQuestionWithoutAnswere)
+        else:
+            print("Il bambino ha risposto correttamente a questa domanda!")
+        print("\n\n")
         return questionWithoutAnswer
 
     def retelling(self, child):
