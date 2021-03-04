@@ -23,23 +23,22 @@
                         "resource_type": "actuator",
                         "wait_for": ""
                     }
-                }
-                ,
+                },
+                {
+                    "speaker_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": "new"
+                    }
+                },
                 {
                     "gesture_default": {
                         "action_goal": "DO",
                         "resource_type": "actuator",
-                        "wait_for": ""
+                        "wait_for": "new"
                     }
                 }
-            ],
-            {
-                "speaker_default": {
-                    "action_goal": "DO",
-                    "resource_type": "actuator",
-                    "wait_for": "new"
-                }
-            }
+            ]
         ]
     }
 ]

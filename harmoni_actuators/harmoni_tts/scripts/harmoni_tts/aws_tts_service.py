@@ -19,6 +19,7 @@ import boto3
 import re
 import json
 import ast
+import os
 import sys
 
 
@@ -42,6 +43,9 @@ class AWSTtsService(HarmoniServiceManager):
         return
 
     def setup_aws_tts(self):
+        rospy.loginfo("Wait for connection")
+        self.wait_for_internet_connection()
+        rospy.loginfo("Connected")
         self.tts = boto3.client("polly", region_name=self.region_name)
         self.vis_transl = {
             "p": "BILABIAL",
@@ -201,6 +205,16 @@ class AWSTtsService(HarmoniServiceManager):
         }
         return str(response)
 
+    def wait_for_internet_connection(self):
+        hostname = "google.com"  
+        response = os.system("ping -c 1 " + hostname)
+        if response==0:
+            return
+        else:
+            rospy.sleep(3)
+            os.system("pkill init")
+            self.wait_for_internet_connection()
+
     def request(self, input_text):
         rospy.loginfo("Start the %s request" % self.name)
         self.state = State.REQUEST
@@ -236,6 +250,7 @@ class AWSTtsService(HarmoniServiceManager):
             rospy.loginfo("Request successfully completed")
         except (BotoCoreError, ClientError) as error:
             rospy.logerr("The erros is " + str(error))
+            sys.exit()
             self.state = State.FAILED
             self.response_received = True
             self.result_msg = ""

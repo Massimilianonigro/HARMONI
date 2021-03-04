@@ -14,26 +14,34 @@
                 "tts_default": {
                     "action_goal": "REQUEST",
                     "resource_type": "service",
-                    "wait_for": "new",
-                    "trigger":"Benvenuto!"
+                    "wait_for": "new"
                 }
             },
             [
                 {
-                    "speaker_default": {
+                    "web_face_mouth_default": {
                         "action_goal": "DO",
                         "resource_type": "actuator",
                         "wait_for": ""
                     }
-                },
+                }
+                ,
                 {
-                    "web_face_mouth_default": {
+                    "gesture_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": ""
+                    }
+                }
+            ],
+                {
+                    "speaker_default": {
                         "action_goal": "DO",
                         "resource_type": "actuator",
                         "wait_for": "new"
                     }
                 }
-            ]
+            
         ]
     }
 ]

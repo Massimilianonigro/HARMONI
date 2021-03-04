@@ -1,4 +1,4 @@
-#back_video, #back_video_idle {
+#back_video, #back_video_idle, #main_img_alt, #back_video_sr, #back_video_ret {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -7,11 +7,27 @@
   }
 
 
+#start_button{
+  width: 60%;
+}
+
+#sr_2{
+  width: 20%;
+}
+
+
+#sr{
+  width: 60%;
+}
+
 #insert_code, #idle_div{
     text-align: center;
     margin: 15vmin 0 15vmin 0;
 }
 
+#sentence_repetition_container{
+  overflow-y: scroll;
+}
 
 .overlay{
     position: fixed;
