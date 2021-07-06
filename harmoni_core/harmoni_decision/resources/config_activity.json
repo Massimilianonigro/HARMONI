@@ -15,7 +15,8 @@
                         "img_1": "../assets/imgs/test.jpg",
                         "img_2": "../assets/imgs/Cordial.png",
                         "text_1": "Giocattolo",
-                        "text_2": "Gettone"
+                        "text_2": "Gettone",
+                        "answer": 1
                     },
                     {
                         "text":"Scegli la risposta corretta. Si indossano ai piedi",
@@ -23,7 +24,8 @@
                         "img_1": "qa_1_1_target.jpg",
                         "img_2": "qa_1_1_comp.jpg",
                         "text_1": "Scarpe",
-                        "text_2": "Guanti"
+                        "text_2": "Guanti",
+                        "answer": 1
                     },
                     {
                         "text":"Scegli la risposta corretta. Li usa chi non vede bene",
@@ -31,7 +33,8 @@
                         "img_1": "qa_1_3_comp.jpg",
                         "img_2": "qa_1_3_target.jpg",
                         "text_1": "Cappello",
-                        "text_2": "Occhiali"
+                        "text_2": "Occhiali",
+                        "answer": 2
                     },
                     {
                         "text":"Scegli la risposta corretta. Si da' all'autista per poter viaggiare ",
@@ -39,7 +42,8 @@
                         "img_1": "qa_1_4_comp.jpg",
                         "img_2": "qa_1_4_target.jpg",
                         "text_1": "Ombrello",
-                        "text_2": "Biglietto"
+                        "text_2": "Biglietto",
+                        "answer": 2
                     },
                     {
                         "text":"Scegli la risposta corretta. Si indossa per andare al mare",

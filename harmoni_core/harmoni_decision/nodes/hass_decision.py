@@ -40,18 +40,23 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
     This class is a singleton ROS node and should only be instantiated once.
     """
 
-    def __init__(self, name, pattern_list, instance_id , words_file_path, test_input):
+    def __init__(self, name, pattern_list, instance_id , words_file_path, test_input, script,activity_script, path):
         super().__init__(name)
         self.name = name
         self.service_id = instance_id
+        self.pattern_script_path = path
+        self.script = script
         self.scripted_services = pattern_list
         self.index = 0
+        self.config_activity_script = activity_script
         
         self.text_pub = rospy.Publisher(
             "/harmoni/detecting/stt/default", String, queue_size=10
         )
 
         self.activity_is_on = False
+
+        self.populate_scene(self.index) 
         self.class_clients={}
         self._setup_classes()
 
@@ -206,6 +211,12 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                     self.activity_is_on = True
                     service = "catena_di_parole"
                     msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. La prima parola è: casa."
+                elif msg == "ACTIVITY-2":
+                    self.activity_is_on = True
+                    service = "questions"
+                    msg = "Ciao"         
+                    self.index =0
+                    self.populate_scene(self.index)           
                 else:
                     service = "simple_dialogue"
 
@@ -213,13 +224,94 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
             self.state = State.SUCCESS
 
+
+        elif result['service'] == "questions":
+
+            # prendi da stt
+            for item in result_data:
+                if "s" in item.keys():
+                    rospy.loginfo("in keys")
+                    if item["s"]["data"] != "":
+                        rospy.loginfo("not null")
+                        msg = item["s"]["data"]
+                        # break
+
+            # Remove whitespace and keep the first word
+            # msg = msg.lstrip()
+            # sep = ' '
+            # msg = msg.split(sep, 1)[0]   
+            msg = msg.lower()         
+
+            rospy.loginfo("Word by user: " + msg)
+
+            if msg != "stop" and msg != "basta" and msg != "fine":
+                service = "questions"
+
+                rospy.loginfo(msg)
+
+                left = {"sinistra", "prima", "numero uno"}
+                right = {"destra", "seconda", "numero due"}
+                answer = 0
+
+                if msg != "":
+                    if self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_1"].lower() in msg:
+                            rospy.loginfo("left")
+                            answer = 1
+                    else:        
+                        for word in left:
+                            if word in msg :
+                                rospy.loginfo(word)
+                                rospy.loginfo(msg)
+                                rospy.loginfo( str(msg in word ))
+                                rospy.loginfo("left")
+                                answer = 1
+                                break
+                    
+                    if answer != 1:
+                        if self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_2"].lower() in msg:
+                                rospy.loginfo("right")
+                                answer = 2    
+                        else:        
+                            for word in right:
+                                if  word in msg :
+                                    rospy.loginfo("right")
+                                    answer = 2    
+
+                    rospy.loginfo(str(type(self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["answer"])))
+                    rospy.loginfo(self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["answer"])
+                    rospy.loginfo(answer)
+
+                    if answer == int(self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["answer"]):
+                        rospy.loginfo("correct answer")
+                        self.index = self.index +1 
+                        
+                        self.populate_scene(self.index)
+                        self.class_clients[service] = SequentialPattern(service, self.script)
+
+                    elif answer == 0:
+                        rospy.loginfo("no image was selected")
+                        self.class_clients[service] = SequentialPattern(service, self.script)
+                    else:
+                        rospy.loginfo("wrong answer")  
+                        self.class_clients[service] = SequentialPattern(service, self.script)     
+                                 
+                    self.do_request(self.index, service, optional_data = "ciao ciao") 
+            else:
+                self.activity_is_on = False
+                self.do_request(self.index, "simple_dialogue", optional_data = "Fine dell'attività.") 
+
+            self.state = State.SUCCESS
+
+
+
+
         elif result['service'] == "catena_di_parole":
 
             # prendi da stt
             for item in result_data:
                 if "s" in item.keys():
-                    word = item["s"]["data"]
-                    break
+                        word = item["s"]["data"]
+                        # break
                 else:
                     word = ""
             
@@ -298,6 +390,26 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
         rospy.loginfo("_____END STEP " + str(self.index) + " DECISION MANAGER_______")
         return
+
+
+    # --------------- QUIZ
+
+
+    def populate_scene(self, index_scene):
+
+        self.script[1]["steps"][0]["web_default"]["trigger"] = (
+            "[{'component_id':'img_1', 'set_content':'"
+            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_1"]
+            + "'}, {'component_id':'img_2', 'set_content':'"
+            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_2"]
+            + "'}, {'component_id':'title', 'set_content':'"
+            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
+            + "'}, {'component_id':'questions_container', 'set_content':''}]"
+        )
+        self.script[1]["steps"][1]["tts_default"]["trigger"] = self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
+
+        with open(self.pattern_script_path, "w") as json_file:
+            json.dump(self.script, json_file)
 
 
     # -------------------- SYLLABLES ACTIVITY
@@ -428,14 +540,26 @@ if __name__ == "__main__":
     pattern_list.append("simple_dialogue")
     pattern_list.append("hass")
     pattern_list.append("catena_di_parole")
+    pattern_list.append("questions")
 
     rospack = rospkg.RosPack()
     pck_path = rospack.get_path("harmoni_decision")
     words_file_path = pck_path + f"/dict/words.txt"
 
+    pck_path = rospack.get_path("harmoni_decision")
+    words_file_path = pck_path + f"/dict/words.txt"
+    config_activity_path = pck_path + f"/resources/config_activity.json"
+    with open(config_activity_path, "r") as read_file:
+        activity_script = json.load(read_file)
+
+    pck_path = rospack.get_path("harmoni_pattern")
+    pattern_script_path = pck_path + f"/pattern_scripting/questions.json"
+    with open(pattern_script_path, "r") as read_file:
+        script = json.load(read_file)
+
     try:
         rospy.init_node(name + "_decision")
-        bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input)
+        bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input,script, activity_script, pattern_script_path)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
         bc.start(service="simple_dialogue")
