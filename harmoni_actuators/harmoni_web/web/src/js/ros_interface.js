@@ -1,7 +1,7 @@
 function rosInit(ros_master_uri = '') {
 
     if (ros_master_uri == '') {
-        ros_master_uri = 'ws://' + location.hostname + ':9090'
+        ros_master_uri = 'wss://' + location.hostname + ':9090'
     }
 
     console.log('ROS master URI: ' + ros_master_uri)

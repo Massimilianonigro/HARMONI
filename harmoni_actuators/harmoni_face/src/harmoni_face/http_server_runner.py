@@ -39,6 +39,14 @@ if __name__ == "__main__":
         raise ValueError("Invalid directory input")
 
     command = ["http-server"]
+
+    command += ["-S"]
+
+    cert_path = args[DIR_IDX] + "/cert.pem"
+    key_path = args[DIR_IDX] + "/certkey.pem"
+    command += ["-C", cert_path]
+    command += ["-K", key_path]
+
     if is_int(args[PORT_IDX]):
         port = args[PORT_IDX]
         command += ["-p", port]
