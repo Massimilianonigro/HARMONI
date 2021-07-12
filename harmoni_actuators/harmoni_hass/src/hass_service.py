@@ -250,6 +250,7 @@ class HassService(HarmoniServiceManager):
         rospy.loginfo("json " + str(parameters))
 
         myHeaders = {"Authorization": "Bearer "+ self.token}
+        rospy.loginfo(self.token)
 
         type = json_data["entity_id"].split(".")[0]
 
@@ -258,7 +259,8 @@ class HassService(HarmoniServiceManager):
         hass_response = requests.post(
             url,
             json=parameters,
-            headers=myHeaders
+            headers=myHeaders,
+            verify=False
             )
 
         # self.result_msg = hass_response.text
