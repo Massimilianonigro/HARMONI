@@ -1,6 +1,5 @@
 <!-- This is an example launch file for how a ROS application could use a node -->
 <launch>
-    
     <arg name="web_directory_path" value="$(find harmoni_face)/web"/>
     <arg name="port" default="8081"/>
 	<arg name="instance_id" default="default"/>
@@ -10,6 +9,10 @@
 	<node pkg="harmoni_face" type="face_service.py" name="harmoni_face_$(arg instance_id)" output="screen"/>
 	<include ns="bridge_face" file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
 		<arg name="port" value="9000"/>
+		<arg name="ssl" default="true" />
+		<arg name="certfile" default="$(find harmoni_face)/web/cert.pem" />
+		<arg name="keyfile" default="$(find harmoni_face)/web/certkey.pem" />
+		<arg name="authenticate" default="false" />
 	</include>
 
 </launch>
