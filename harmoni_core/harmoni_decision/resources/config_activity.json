@@ -10,21 +10,21 @@
                 },
                 "tasks":[
                     {
-                        "text":"Scegli la risposta corretta. Oggetto che serve a divertire i bambini",
+                        "text":"Oggetto che serve a divertire i bambini",
                         "img_bkg":"",
                         "img_1": "../assets/imgs/test.jpg",
                         "img_2": "../assets/imgs/Cordial.png",
-                        "text_1": "Giocattolo",
-                        "text_2": "Gettone",
+                        "text_1": ["Giocattolo", "Gioco", "Robot"],
+                        "text_2": ["Gettone"],
                         "answer": 1
                     },
                     {
-                        "text":"Scegli la risposta corretta. Si indossano ai piedi",
+                        "text":"Si indossano ai piedi",
                         "img_bkg":"",
                         "img_1": "qa_1_1_target.jpg",
                         "img_2": "qa_1_1_comp.jpg",
-                        "text_1": "Scarpe",
-                        "text_2": "Guanti",
+                        "text_1": ["Scarpe"],
+                        "text_2": ["Guanti"],
                         "answer": 1
                     },
                     {

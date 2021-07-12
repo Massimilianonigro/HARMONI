@@ -230,16 +230,10 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
             # prendi da stt
             for item in result_data:
                 if "s" in item.keys():
-                    rospy.loginfo("in keys")
                     if item["s"]["data"] != "":
-                        rospy.loginfo("not null")
                         msg = item["s"]["data"]
                         # break
 
-            # Remove whitespace and keep the first word
-            # msg = msg.lstrip()
-            # sep = ' '
-            # msg = msg.split(sep, 1)[0]   
             msg = msg.lower()         
 
             rospy.loginfo("Word by user: " + msg)
@@ -254,45 +248,47 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 answer = 0
 
                 if msg != "":
-                    if self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_1"].lower() in msg:
-                            rospy.loginfo("left")
-                            answer = 1
-                    else:        
-                        for word in left:
-                            if word in msg :
-                                rospy.loginfo(word)
-                                rospy.loginfo(msg)
-                                rospy.loginfo( str(msg in word ))
+                    for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_1"]:
+                        if synonym.lower() in msg:
                                 rospy.loginfo("left")
                                 answer = 1
-                                break
+                        else:        
+                            for word in left:
+                                if word in msg :
+                                    rospy.loginfo(word)
+                                    rospy.loginfo(msg)
+                                    rospy.loginfo( str(msg in word ))
+                                    rospy.loginfo("left")
+                                    answer = 1
+                                    break
                     
                     if answer != 1:
-                        if self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_2"].lower() in msg:
-                                rospy.loginfo("right")
-                                answer = 2    
-                        else:        
-                            for word in right:
-                                if  word in msg :
+                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_1"]:
+                            if synonym.lower() in msg:
                                     rospy.loginfo("right")
                                     answer = 2    
-
-                    rospy.loginfo(str(type(self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["answer"])))
-                    rospy.loginfo(self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["answer"])
-                    rospy.loginfo(answer)
+                            else:        
+                                for word in right:
+                                    if  word in msg :
+                                        rospy.loginfo("right")
+                                        answer = 2    
 
                     if answer == int(self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["answer"]):
-                        rospy.loginfo("correct answer")
+                        rospy.loginfo("Correct answer")
                         self.index = self.index +1 
                         
                         self.populate_scene(self.index)
                         self.class_clients[service] = SequentialPattern(service, self.script)
 
                     elif answer == 0:
-                        rospy.loginfo("no image was selected")
+                        rospy.loginfo("No image was selected")
+
+                        self.populate_scene(self.index, "Non hai selezionato alcuna opzione. Riprova. ")                        
                         self.class_clients[service] = SequentialPattern(service, self.script)
                     else:
-                        rospy.loginfo("wrong answer")  
+                        rospy.loginfo("Wrong answer")  
+
+                        self.populate_scene(self.index, "La risposta che hai dato non è corretta. Riprova. ")   
                         self.class_clients[service] = SequentialPattern(service, self.script)     
                                  
                     self.do_request(self.index, service, optional_data = "ciao ciao") 
@@ -395,7 +391,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
     # --------------- QUIZ
 
 
-    def populate_scene(self, index_scene):
+    def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta"):
 
         self.script[1]["steps"][0]["web_default"]["trigger"] = (
             "[{'component_id':'img_1', 'set_content':'"
@@ -403,10 +399,10 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
             + "'}, {'component_id':'img_2', 'set_content':'"
             + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_2"]
             + "'}, {'component_id':'title', 'set_content':'"
-            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
+            + feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
             + "'}, {'component_id':'questions_container', 'set_content':''}]"
         )
-        self.script[1]["steps"][1]["tts_default"]["trigger"] = self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
+        self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
 
         with open(self.pattern_script_path, "w") as json_file:
             json.dump(self.script, json_file)
