@@ -96,8 +96,10 @@ class HassService(HarmoniServiceManager):
                 else:            
                     rospy.loginfo("Action: %s " % json_data["action"])
 
-                    
-                    if(json_data["action"] == "check_log"):
+                    if(json_data["action"] == "check_weather"):
+                        hass_response = self.check_weather(json_data)
+
+                    elif(json_data["action"] == "check_log"):
                         hass_response = self.check_log(json_data)
 
                     elif(json_data["action"] in self.post_actions):    
@@ -131,11 +133,56 @@ class HassService(HarmoniServiceManager):
         return {"response": self.state, "message": self.result_msg}
 
 
+    def check_weather(self, json_data):
+        """Check waether forecasts 
+
+        Args:
+            data (str): string of json which contains 2 items: {"action": str, "entity_id": str}
+                action: "check_log"
+                entity_id: the entity type of the weather entity (e.g., weather.domus)
+
+        Returns:
+            hass_response (str): It containes the response to the API request api/states/weather.domus
+        """
+
+        rospy.loginfo("Entity id: " + json_data["entity_id"])
+        myHeaders = {"Authorization": "Bearer "+ self.token}
+
+        url = self.hass_uri + 'api/states/' + json_data["entity_id"]
+        
+        hass_response = requests.get(
+            url,
+            headers=myHeaders,
+            verify=False
+            )
+        
+        json_array = hass_response.json()
+
+        if "state" in json_array: 
+            rospy.loginfo("State:" + json_array["state"])
+        if "attributes" in json_array:
+            if "temperature" in json_array["attributes"]:
+                rospy.loginfo("Temperature:" + str(json_array["attributes"]["temperature"]))
+
+        if json_array["state"] in {"pouring", "rainy"}:
+            word = "piovoso"
+        elif json_array["state"] in {"cloudy", "partlycloudy"}:
+            word = "nuvoloso"
+        elif json_array["state"] in {"windy", "windy-variant"}:
+            word = "ventoso"            
+        else:
+            word= "soleggiato"
+
+        self.result_msg = "Il meteo di oggi è "+ word
+
+        return hass_response
+
+
     def check_log(self, json_data):
         """Check if an appliance has been on for some time
 
         Args:
-            data (str): string of json which contains 3 items: {"action": str, "entity": str, "type": str} ....
+            data (str): string of json which contains 2 items: {"action": str, "entity_id": str}
                 action: "check_log"
                 entity_id: the entity type of the device (e.g., media_player, switch, light) and the device name (e.g. googlehome8554)
 
@@ -143,7 +190,7 @@ class HassService(HarmoniServiceManager):
             hass_response (str): It containes the response to the API request api/logbook
         """
 
-        rospy.loginfo("Entity id: %s " + json_data["entity_id"])
+        rospy.loginfo("Entity id: " + json_data["entity_id"])
         myHeaders = {"Authorization": "Bearer "+ self.token}
 
         # Home Assistant returns all info in UTC
@@ -181,7 +228,8 @@ class HassService(HarmoniServiceManager):
         
         hass_response = requests.get(
             url,
-            headers=myHeaders
+            headers=myHeaders,
+            verify=False
             )
         
         json_array = hass_response.json()
@@ -220,7 +268,7 @@ class HassService(HarmoniServiceManager):
 
         # Check if this is a simulation
         if self.simulation == True:
-            self.result_msg = "LOG: oven still on"
+            self.result_msg = "LOG-oven-still-on"
         rospy.loginfo(f"Is simulation on? {self.simulation}")
         
         return hass_response

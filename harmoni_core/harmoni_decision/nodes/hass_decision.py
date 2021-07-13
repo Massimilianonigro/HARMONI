@@ -107,12 +107,78 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self.index = 0
         self.state = State.START
 
-        # CHECK HOME ASSISTANT every x seconds
+        # CHECK oven log HOME ASSISTANT every x seconds
         # self.check_log_request()
+
+        # CHECK weather HOME ASSISTANT every x seconds
+        # self.weather_request()
+
+        # CHECK wellbeing every x seconds
+        # self.wellbeing_request()
 
         self.do_request(self.index, service, 'Ciao')
 
         return
+
+
+
+    def wellbeing_request(self):
+        
+        def daemon():
+            while True:
+                # Time between home assistant weather check
+                sleep(20)
+                
+                if not self.activity_is_on:
+
+                    self.text_pub.publish("LOG-come-stai")
+                    
+                    #wait some more time
+                    sleep(35)
+
+        d = threading.Thread(target=daemon)
+        d.setDaemon(True)
+        d.start()
+        return
+
+
+    def weather_request(self):
+        
+        def daemon():
+            while True:
+                # Time between home assistant weather check
+                sleep(15)
+                
+                if not self.activity_is_on:
+                    rospy.loginfo("Starting home assistant weather check thread")
+                    service = "hass"
+                    self.class_clients[service].reset_init()
+
+                    optional_data = "{ \"action\":\"check_weather\", \"entity_id\":\"weather.domus\"}"
+
+                    result_msg = self.class_clients[service].request(optional_data)
+
+                    result_msg = ast.literal_eval(result_msg)
+
+                    for item in result_msg:
+                        if "h" in item.keys():
+                            msg = item["h"]["data"]
+                            break
+                    else:
+                        msg = ""
+
+                    rospy.loginfo("Received result from home assistant "+ msg)
+
+                    self.text_pub.publish(msg)
+                    
+                    #wait some more time
+                    sleep(35)
+
+        d = threading.Thread(target=daemon)
+        d.setDaemon(True)
+        d.start()
+        return
+
 
 
     def check_log_request(self):
@@ -150,7 +216,6 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         d = threading.Thread(target=daemon)
         d.setDaemon(True)
         d.start()
-        
         return
 
     def do_request(self, index, service, optional_data=None):
