@@ -61,6 +61,9 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self._setup_classes()
 
         self.last_word = "casa"
+        self.words_index = 1
+        self.cycles = 1
+        self.end = 2
         self.words = set()
         self.used_words = set()
         self._setup_activities(words_file_path)
@@ -372,10 +375,14 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
             for item in result_data:
                 if "s" in item.keys():
                         word = item["s"]["data"]
-                        # break
+                        break
                 else:
                     word = ""
             
+
+
+            rospy.loginfo("Word by user: " + word)
+
             # Remove whitespace and keep the first word
             word = word.lstrip()
             sep = ' '
@@ -386,44 +393,64 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
             if word != "stop" and word != "basta" and word != "fine":
                 service = "catena_di_parole"
-                
-                if word == "passo":
-                    rospy.loginfo("User passed")
-                    new_word = self._retrieve_word_starting_with_last_syllable(word)
-                    self.last_word = new_word
-                    msg = "Cambiamo parola: " + new_word
 
-                elif word !="":
-                    if self._check_word_in_dictionary(word):
-                        rospy.loginfo("Word is in dictionary")
+                # controllo index se minore fai questo
+                if( self.words_index < self.end):
+                                    
+                    if word == "passo":
+                        rospy.loginfo("User passed")
+                        new_word = self._retrieve_word_starting_with_last_syllable(word)
+                        self.last_word = new_word
+                        msg = "Cambiamo parola: " + new_word
 
-                        if self._check_word_not_used_yet(word):
-                            rospy.loginfo("Word is new")
+                    elif word !="":
+                        if self._check_word_in_dictionary(word):
+                            rospy.loginfo("Word is in dictionary")
 
-                            if self._compare_word_syllable(self.last_word, word):
-                                rospy.loginfo("Syllables are the same")
+                            if self._check_word_not_used_yet(word):
+                                rospy.loginfo("Word is new")
 
-                                self.used_words.add(word)
-                                msg = self._retrieve_word_starting_with_last_syllable(word)
-                                self.used_words.add(msg)
-                                self.last_word = msg
+                                if self._compare_word_syllable(self.last_word, word):
+                                    rospy.loginfo("Syllables are the same")
 
+                                    self.used_words.add(word)
+                                    msg = self._retrieve_word_starting_with_last_syllable(word)
+                                    self.used_words.add(msg)
+                                    self.last_word = msg
+                                    self.words_index = self.words_index + 1
+
+                                else:
+                                    rospy.loginfo("wrong word syllable")
+                                    msg = "La parola: " + word + ": non inizia con la sillaba: " + self._get_last_syllable(self.last_word) + ". Riprova"
                             else:
-                                rospy.loginfo("wrong word syllable")
-                                msg = "La parola: " + word + ": non inizia con la sillaba: " + self._get_last_syllable(self.last_word) + ". Riprova"
+                                rospy.loginfo("word already used")
+                                msg = "La parola: " + word + ": è già stata detta. Riprova."
                         else:
-                            rospy.loginfo("word already used")
-                            msg = "La parola: " + word + ": è già stata detta. Riprova."
+                            rospy.loginfo("wrong word not in dict")
+                            msg = "La parola: " + word + ": non è presente nel mio dizionario. Riprova."
                     else:
-                        rospy.loginfo("wrong word not in dict")
-                        msg = "La parola: " + word + ": non è presente nel mio dizionario. Riprova."
-                else:
-                    msg = self.last_word
+                        msg = self.last_word
+
+                else:   # index is = end, end of cycle
+                        if word == "sì":
+                            msg = "Va bene! Continuiamo. La parola è " + self.last_word
+                            self.cycles = self.cycles + 1
+                            self.words_index = 1
+
+                        elif word == "no":
+                            msg = "Va bene! Fine dell'attività"
+                            self.words_index = 1
+                            self.cycles = 1
+
+                        else:
+                            msg = "Congratulazioni, hai indovinato " + str(self.end * self.cycles) + " parole. Vuoi giocare ancora?"
 
                 self.do_request(self.index, service, optional_data = msg) 
 
             else:
                 self.activity_is_on = False
+                self.words_index = 1
+                self.cycles = 1
                 self.do_request(self.index, "simple_dialogue", optional_data = "Fine dell'attività.") 
 
             self.state = State.SUCCESS
