@@ -10,56 +10,52 @@
                 },
                 "tasks":[
                     {
-                        "text":"Oggetto che serve a divertire i bambini",
-                        "img_bkg":"",
-                        "img_1": "../assets/imgs/test.jpg",
-                        "img_2": "../assets/imgs/Cordial.png",
-                        "text_1": ["Giocattolo", "Gioco", "Robot"],
-                        "text_2": ["Gettone"],
+                        "text":"Quale quadro di Van Gogh è conservato al MOMA di New York?",
+                        "img_1": "qa_1_0_target.jpg",
+                        "img_2": "qa_1_0_comp.jpg",
+                        "text_1": ["Notte stellata"],
+                        "text_2": ["Autoritratto"],
                         "answer": 1
                     },
                     {
-                        "text":"Si indossano ai piedi",
-                        "img_bkg":"",
-                        "img_1": "qa_1_1_target.jpg",
-                        "img_2": "qa_1_1_comp.jpg",
-                        "text_1": ["Scarpe"],
-                        "text_2": ["Guanti"],
-                        "answer": 1
+                        "text":"Qual è la capitale del Brasile oggigiorno?",
+                        "img_1": "qa_1_1_comp.jpg",
+                        "img_2": "qa_1_1_target.jpg",
+                        "text_1": ["Rio de Janeiro"],
+                        "text_2": ["Brasilia"],
+                        "answer": 2
                     },
                     {
-                        "text":"Scegli la risposta corretta. Li usa chi non vede bene",
-                        "img_bkg":"",
+                        "text":"Quali di queste edifici è in stile gotico?",
                         "img_1": "qa_1_3_comp.jpg",
                         "img_2": "qa_1_3_target.jpg",
-                        "text_1": "Cappello",
-                        "text_2": "Occhiali",
+                        "text_1": ["Basilica di Sant Ambrogio", "Ambrogio"],
+                        "text_2": ["Duomo di Milano", "Milano"],
                         "answer": 2
                     },
                     {
-                        "text":"Scegli la risposta corretta. Si da' all'autista per poter viaggiare ",
-                        "img_bkg":"",
-                        "img_1": "qa_1_4_comp.jpg",
-                        "img_2": "qa_1_4_target.jpg",
-                        "text_1": "Ombrello",
-                        "text_2": "Biglietto",
+                        "text":"Dove si trova la sala degli specchi?",
+                        "img_1": "qa_1_4_target.jpg",
+                        "img_2": "qa_1_4_comp.jpg",
+                        "text_1": ["Versailles"],
+                        "text_2": ["Castello del Belvedere", "Belvedere"],
+                        "answer": 1
+                    },
+                    {
+                        "text":"In quale città si trova il Cenacolo di Leonardo da Vinci?",
+                        "img_1": "qa_1_5_comp.jpg",
+                        "img_2": "qa_1_5_target.jpg",
+                        "text_1": ["Firenze"],
+                        "text_2": ["Milano"],
                         "answer": 2
                     },
                     {
-                        "text":"Scegli la risposta corretta. Si indossa per andare al mare",
-                        "img_bkg":"",
-                        "img_1": "qa_1_5_target.jpg",
-                        "img_2": "qa_1_5_comp.jpg",
-                        "text_1": "Costume da bagno",
-                        "text_2": "Stivali"
-                    },
-                    {
-                        "text":"Scegli la risposta corretta. E' un animale da compagnia",
-                        "img_bkg":"",
-                        "img_1": "qa_1_6_comp.jpg",
-                        "img_2": "qa_1_6_target.jpg",
-                        "text_1": "Toro",
-                        "text_2": "Gatto"
+                        "text":"La gipsoteca è una raccolta di…",
+                        "img_1": "qa_1_6_target.jpg",
+                        "img_2": "qa_1_6_comp.jpg",
+                        "text_1": ["Sculture", "Statue"],
+                        "text_2": ["Gioielli", "Collane"],
+                        "answer": 1
                     }
                 ],
                 "reward":{

@@ -24,6 +24,22 @@
                             "id": "img_2"
                         }
                     ]
+                },
+                {
+                    "component": "row",
+                    "id": "row_text",
+                    "children": [
+                        {
+                            "component": "title",
+                            "children": "Risposta 1",
+                            "id": "text_1"
+                        },
+                        {
+                            "component": "title",
+                            "children": "Risposta 2",
+                            "id": "text_2"
+                        }
+                    ]
                 }
             ]
         },

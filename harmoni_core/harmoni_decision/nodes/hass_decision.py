@@ -483,15 +483,17 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
     # --------------- QUIZ
 
 
-    def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta"):
+    def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta "):
 
         self.script[1]["steps"][0]["web_default"]["trigger"] = (
-            "[{'component_id':'img_1', 'set_content':'"
-            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_1"]
-            + "'}, {'component_id':'img_2', 'set_content':'"
-            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_2"]
+            "[{'component_id':'img_1', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_1"]
+            + "'}, {'component_id':'img_2', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_2"]
             + "'}, {'component_id':'title', 'set_content':'"
-            + feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
+            + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
+            + "'}, {'component_id':'text_1', 'set_content':'"
+            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text_1"][0]
+            + "'}, {'component_id':'text_2', 'set_content':'"
+            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text_2"][0]
             + "'}, {'component_id':'questions_container', 'set_content':''}]"
         )
         self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
