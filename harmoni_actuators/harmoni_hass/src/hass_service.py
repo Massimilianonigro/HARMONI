@@ -40,7 +40,7 @@ class HassService(HarmoniServiceManager):
             self.token = d["token"]
         
         # POST ACTIONS
-        self.post_actions = { "turn_on", "turn_off", "play_media" }
+        self.post_actions = { "turn_on", "turn_off", "play_media", "set_temperature" }
 
         # Pretend that an appliance has been on for a few hours
         self.simulation = param["simulation"]
@@ -173,7 +173,7 @@ class HassService(HarmoniServiceManager):
         else:
             word= "soleggiato"
 
-        self.result_msg = "Il meteo di oggi è "+ word
+        self.result_msg = "Il meteo di oggi è "+ word + ". "
 
         return hass_response
 
@@ -312,7 +312,7 @@ class HassService(HarmoniServiceManager):
             )
 
         # self.result_msg = hass_response.text
-        self.result_msg = " Fatto"
+        self.result_msg = " Fatto. "
 
         return hass_response
 

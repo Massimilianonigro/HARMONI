@@ -40,12 +40,14 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
     This class is a singleton ROS node and should only be instantiated once.
     """
 
-    def __init__(self, name, pattern_list, instance_id , words_file_path, test_input, script,activity_script, path):
+    def __init__(self, name, pattern_list, instance_id , words_file_path, test_input, script,activity_script, path, feeling_pattern_script_path, feeling_script):
         super().__init__(name)
         self.name = name
         self.service_id = instance_id
         self.pattern_script_path = path
+        self.feeling_pattern_script_path = feeling_pattern_script_path
         self.script = script
+        self.feeling_script = feeling_script
         self.scripted_services = pattern_list
         self.index = 0
         self.config_activity_script = activity_script
@@ -55,15 +57,17 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         )
 
         self.activity_is_on = False
-
+        self.current_quiz = "Arte"
         self.populate_scene(self.index) 
         self.class_clients={}
         self._setup_classes()
-
+        self.quiz_end = 6
         self.last_word = "casa"
         self.words_index = 1
         self.cycles = 1
         self.end = 2
+        self.feeling_index = 0
+        self.answers = [True, True,True, True, True, True, True]
         self.words = set()
         self.used_words = set()
         self._setup_activities(words_file_path)
@@ -106,7 +110,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         rospy.loginfo("Decision interface classes clients have been set up!")
         return
 
-    def start(self, service="dialogue"):
+    def start(self, service="simple_dialogue"):
         self.index = 0
         self.state = State.START
 
@@ -118,6 +122,10 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
         # CHECK wellbeing every x seconds
         # self.wellbeing_request()
+
+        # TODO REMOVE THIS IS JUST TO TEST FEELING 2
+        self.feeling_populate(self.feeling_index)
+        self.class_clients[service] = SequentialPattern(service, self.feeling_script)
 
         self.do_request(self.index, service, 'Ciao')
 
@@ -259,6 +267,8 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
         rospy.loginfo(result_data)
 
+        service_message = "ciao ciao"
+
         if result['service'] == "simple_dialogue":
             
             rospy.loginfo("Index " + str(self.index))
@@ -284,7 +294,11 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                     service = "questions"
                     msg = "Ciao"         
                     self.index =0
-                    self.populate_scene(self.index)           
+                    self.populate_scene(self.index)
+                elif msg == "ACTIVITY-3":
+                    self.activity_is_on = True
+                    service = "feeling_activity"
+                    msg = self.get_feeling_question(self.feeling_index)          
                 else:
                     service = "simple_dialogue"
 
@@ -292,6 +306,84 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
             self.state = State.SUCCESS
 
+        elif result['service'] == "feeling_activity":
+
+            # prendi da stt
+            for item in result_data:
+                if "s" in item.keys():
+                    if item["s"]["data"] != "":
+                        msg = item["s"]["data"]
+                        # break
+
+            msg = msg.lower()         
+
+            rospy.loginfo("Word by user: " + msg)
+
+            yes = {"sì", "ok", "va bene"}
+            no = {"no"}
+            has_answered = False
+
+            service = "feeling_activity"
+
+            for synonym in yes:
+                if synonym.lower() in msg:
+                    rospy.loginfo("The user said yes")
+                    self.answers.append(True)
+                    has_answered = True
+                    self.feeling_index = self.feeling_index + 1
+
+            if not has_answered:
+                for synonym in no:
+                    if synonym.lower() in msg:
+                        rospy.loginfo("The user said no")
+                        self.answers.append(False)
+                        self.feeling_index = self.feeling_index + 1
+            
+            if len(self.answers) == 7:
+                service = "feeling_activity_2"
+                self.feeling_index = 0
+
+                self.feeling_populate(self.feeling_index - 1)
+                self.class_clients[service] = SequentialPattern(service, self.feeling_script)
+
+            else:
+                data = self.get_feeling_question(index = self.feeling_index)
+
+            self.do_request(self.index, service, optional_data = data )
+
+        elif result['service'] == "feeling_activity_2":
+
+
+            for item in result_data:
+                if "h" in item.keys():
+                    msg = item["h"]["data"]
+                    break
+                else:
+                    msg = ""
+           
+
+            self.feeling_index = self.feeling_index + 1
+
+            if self.feeling_index == 7:
+                if self.answers:
+                    service = "questions"
+                    self.activity_is_on = True   
+                    self.index = 0
+                    self.populate_scene(self.index)
+                else:
+                    service = "simple_dialogue"
+                    self.activity_is_on = False
+                
+                self.feeling_index = 0
+
+            else:
+                service = "feeling_activity_2"
+                self.feeling_populate(self.feeling_index, msg)
+                self.class_clients[service] = SequentialPattern(service, self.feeling_script)
+            
+            self.do_request(self.index, service) 
+
+            self.state = State.SUCCESS
 
         elif result['service'] == "questions":
 
@@ -306,67 +398,117 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
             rospy.loginfo("Word by user: " + msg)
 
-            if msg != "stop" and msg != "basta" and msg != "fine":
-                service = "questions"
+            if self.current_quiz == "Arte":
+                if msg != "stop" and msg != "basta" and msg != "fine" and msg != "no": # TODO contain not ==
+                    service = "questions"
 
-                rospy.loginfo(msg)
+                    rospy.loginfo(msg)
 
-                left = {"sinistra", "prima", "numero uno"}
-                right = {"destra", "seconda", "numero due"}
-                answer = 0
+                    left = {"sinistra", "prima", "numero uno"}
+                    right = {"destra", "seconda", "numero due"}
+                    answer = 0
 
-                if msg != "":
-                    for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_1"]:
-                        if synonym.lower() in msg:
-                                rospy.loginfo("left")
-                                answer = 1
-                        else:        
-                            for word in left:
-                                if word in msg :
-                                    rospy.loginfo(word)
-                                    rospy.loginfo(msg)
-                                    rospy.loginfo( str(msg in word ))
-                                    rospy.loginfo("left")
-                                    answer = 1
-                                    break
-                    
-                    if answer != 1:
-                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["text_1"]:
+                    if msg == "sì":
+                        self.index = 0
+                        self.current_quiz = "Geografia"
+                        self.populate_scene(self.index, "Ok! Giochiamo di nuovo. ")
+                        self.class_clients[service] = SequentialPattern(service, self.script)
+                        self.do_request(self.index, service, optional_data = "ciao ciao") 
+
+                    elif msg != "":
+                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
                             if synonym.lower() in msg:
-                                    rospy.loginfo("right")
-                                    answer = 2    
+                                    rospy.loginfo("Chosen left answer")
+                                    answer = 1
                             else:        
-                                for word in right:
-                                    if  word in msg :
-                                        rospy.loginfo("right")
-                                        answer = 2    
+                                for word in left:
+                                    if word in msg :
 
-                    if answer == int(self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][self.index]["answer"]):
-                        rospy.loginfo("Correct answer")
-                        self.index = self.index +1 
+                                        rospy.loginfo(word)
+                                        rospy.loginfo(msg)
+                                        rospy.loginfo(str(msg in word ))
+
+                                        rospy.loginfo("Chosen left answer")
+                                        answer = 1
+                                        break
                         
-                        self.populate_scene(self.index)
-                        self.class_clients[service] = SequentialPattern(service, self.script)
+                        if answer != 1:
+                            for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
+                                if synonym.lower() in msg:
+                                        rospy.loginfo("Chosen right answer")
+                                        answer = 2    
+                                else:        
+                                    for word in right:
+                                        if  word in msg :
+                                            rospy.loginfo("Chosen right answer")
+                                            answer = 2    
 
-                    elif answer == 0:
-                        rospy.loginfo("No image was selected")
+                        if answer == int(self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["answer"]):
+                            rospy.loginfo("Correct answer")
 
-                        self.populate_scene(self.index, "Non hai selezionato alcuna opzione. Riprova. ")                        
-                        self.class_clients[service] = SequentialPattern(service, self.script)
-                    else:
-                        rospy.loginfo("Wrong answer")  
+                            if( self.index == self.quiz_end):
+                                self.populate_scene(self.index, congratulations=True)
+                            else:
+                                self.index = self.index +1 
+                                self.populate_scene(self.index)
 
-                        self.populate_scene(self.index, "La risposta che hai dato non è corretta. Riprova. ")   
-                        self.class_clients[service] = SequentialPattern(service, self.script)     
-                                 
-                    self.do_request(self.index, service, optional_data = "ciao ciao") 
-            else:
-                self.activity_is_on = False
-                self.do_request(self.index, "simple_dialogue", optional_data = "Fine dell'attività.") 
+                            self.class_clients[service] = SequentialPattern(service, self.script)
+
+                        elif answer == 0:
+                            rospy.loginfo("No image was selected")
+
+                            self.populate_scene(self.index, "Non hai selezionato alcuna opzione. Riprova. ")                        
+                            self.class_clients[service] = SequentialPattern(service, self.script)
+                        else:
+                            rospy.loginfo("Wrong answer")  
+
+                            self.populate_scene(self.index, "La risposta che hai dato non è corretta. ")   
+                            self.class_clients[service] = SequentialPattern(service, self.script)     
+                                    
+                        self.do_request(self.index, service, optional_data = service_message) 
+                else:
+                    self.activity_is_on = False
+                    self.do_request(self.index, "simple_dialogue", optional_data = "Fine dell'attività.") 
+            
+            elif self.current_quiz == "Geografia":
+                if msg != "stop" and msg != "basta" and msg != "fine" and msg != "no": # TODO contain not ==
+                    service = "questions"
+
+                    rospy.loginfo(msg)
+
+                    if msg != "":
+
+                        correct_answer = False
+                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
+                            if synonym.lower() in msg:
+                                rospy.loginfo("Correct answer")
+                                correct_answer = True
+                                break
+
+                        if correct_answer == True:
+                            if self.index == self.quiz_end:
+                                service_message = "Congratulazioni, hai finito tutte le attività."
+                                self.current_quiz = "Arte"
+                                service = "simple_dialogue"
+                            
+                            else:
+                                self.index = self.index +1 
+                                self.populate_scene(self.index)
+                                self.class_clients[service] = SequentialPattern(service, self.script)
+                                        
+                        else:
+                            rospy.loginfo("Wrong answer")  
+
+                            self.populate_scene(self.index, "La risposta che hai dato non è corretta. ", suggestion = True)   
+                            self.class_clients[service] = SequentialPattern(service, self.script)     
+
+                        self.do_request(self.index, service, optional_data = service_message) 
+                else:
+                    self.activity_is_on = False
+                    self.do_request(self.index, "simple_dialogue", optional_data = "Fine dell'attività.") 
+                    self.current_quiz = "Arte"
 
             self.state = State.SUCCESS
-
-
 
 
         elif result['service'] == "catena_di_parole":
@@ -480,24 +622,70 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         return
 
 
+    def get_feeling_question(self, index):
+        return self.config_activity_script[2]["Feeling activity"][0]["Questions"][index]["question"]
+
+    def feeling_populate(self, index, msg = ""):
+
+        if self.answers[index]:
+            content = 0
+        else:
+            content = 1
+
+        x = self.config_activity_script[2]["Feeling activity"][0]["Answers"][index]["command"][content]
+        self.feeling_script[0]["steps"][2]["hass_default"]["trigger"] = json.dumps(x) if x else ""
+
+        self.feeling_script[0]["steps"][0]["tts_default"]["trigger"] = msg + self.config_activity_script[2]["Feeling activity"][0]["Answers"][index]["answer"][content]       
+
+        with open(self.feeling_pattern_script_path, "w") as json_file:
+            json.dump(self.feeling_script, json_file)
+
     # --------------- QUIZ
 
 
-    def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta "):
+    def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta ", congratulations = False,  suggestion = False):
 
-        self.script[1]["steps"][0]["web_default"]["trigger"] = (
-            "[{'component_id':'img_1', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_1"]
-            + "'}, {'component_id':'img_2', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["img_2"]
-            + "'}, {'component_id':'title', 'set_content':'"
-            + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
-            + "'}, {'component_id':'text_1', 'set_content':'"
-            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text_1"][0]
-            + "'}, {'component_id':'text_2', 'set_content':'"
-            + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text_2"][0]
-            + "'}, {'component_id':'questions_container', 'set_content':''}]"
-        )
-        self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0]["Linguaggio"]["tasks"][index_scene]["text"]
+        if self.current_quiz == "Arte":
 
+            intro = "Iniziamo il quiz di cultura generale. " if index_scene == 0 else ""
+
+            if (congratulations == True):
+                self.script[1]["steps"][0]["web_default"]["trigger"] = (
+                    "[{'component_id':'img_end', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["img"]
+                    + "'}, {'component_id':'title_end', 'set_content':'"
+                    + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["text"]
+                    + "'}, {'component_id':'imgtext_container', 'set_content':''}]"
+                )
+                self.script[1]["steps"][1]["tts_default"]["trigger"] = self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["text"]
+
+            else: # NOT THE NED OF THE GAME
+                self.script[1]["steps"][0]["web_default"]["trigger"] = (
+                    "[{'component_id':'img_1', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_1"]
+                    + "'}, {'component_id':'img_2', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_2"]
+                    + "'}, {'component_id':'title', 'set_content':'"
+                    + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"]
+                    + "'}, {'component_id':'text_1', 'set_content':'"
+                    + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text_1"][0]
+                    + "'}, {'component_id':'text_2', 'set_content':'"
+                    + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text_2"][0]
+                    + "'}, {'component_id':'questions_container', 'set_content':''}]"
+                )
+                self.script[1]["steps"][1]["tts_default"]["trigger"] = intro + feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"]
+        
+        if self.current_quiz == "Geografia":
+            
+            # Add suggestion to webpage if flag is true
+            sugg_to_add = self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["sugg"] if suggestion else ""
+
+            self.script[1]["steps"][0]["web_default"]["trigger"] = (
+                "[{'component_id':'img', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_1"]
+                + "'}, {'component_id':'title', 'set_content':'"
+                + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"]
+                + "'}, {'component_id':'text', 'set_content':'"
+                + sugg_to_add + "'}, {'component_id':'question_container', 'set_content':''}]"
+            )
+            self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"] if not suggestion else self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["sugg"]
+        
         with open(self.pattern_script_path, "w") as json_file:
             json.dump(self.script, json_file)
 
@@ -631,6 +819,8 @@ if __name__ == "__main__":
     pattern_list.append("hass")
     pattern_list.append("catena_di_parole")
     pattern_list.append("questions")
+    pattern_list.append("feeling_activity")  
+    pattern_list.append("feeling_activity_2")        
 
     rospack = rospkg.RosPack()
     pck_path = rospack.get_path("harmoni_decision")
@@ -646,13 +836,17 @@ if __name__ == "__main__":
     pattern_script_path = pck_path + f"/pattern_scripting/questions.json"
     with open(pattern_script_path, "r") as read_file:
         script = json.load(read_file)
+    
+    feeling_pattern_script_path = pck_path + f"/pattern_scripting/feeling_activity_2.json"
+    with open(feeling_pattern_script_path, "r") as read_file:
+        feeling_script = json.load(read_file)
 
     try:
         rospy.init_node(name + "_decision")
-        bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input,script, activity_script, pattern_script_path)
+        bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="simple_dialogue")
+        bc.start(service="feeling_activity_2")
 
         rospy.spin()
     except rospy.ROSInterruptException:

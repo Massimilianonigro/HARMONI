@@ -2,6 +2,27 @@
     "pageContent": [
         {
             "component": "container",
+            "id": "question_container",
+            "children": [
+                {
+                    "component": "title",
+                    "children": "Domanda",
+                    "id": "title"
+                },
+                {
+                    "component": "img",
+                    "children": "../assets/imgs/test.jpg",
+                    "id": "img"
+                },
+                {
+                    "component": "title",
+                    "children": "",
+                    "id": "text"
+                }
+            ]
+        },
+        {
+            "component": "container",
             "id": "questions_container",
             "children": [
                 {
@@ -40,6 +61,23 @@
                             "id": "text_2"
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "component": "container",
+            "id": "imgtext_container",
+            "children": [
+                {
+                    "component": "title",
+                    "children": "Domanda",
+                    "id": "title_end"
+                },
+                {
+                    "component": "img",
+                    "children": "../assets/imgs/test.jpg",
+                    "id": "img_end"
+                       
                 }
             ]
         },
