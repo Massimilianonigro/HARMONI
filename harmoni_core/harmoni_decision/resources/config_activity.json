@@ -76,7 +76,7 @@
                         "text":"In quale sport eccelle Tiger Woods?​",
                         "img_1": "qa_2_0_target.jpg",
                         "text_1": ["golf​"],
-                        "sugg": "Suggerimento: è uno sport individuale​"
+                        "sugg": "Suggerimento: è uno sport individuale​."
                     },
                     {
                         "text":"In quale stato si trova Stonehenge?​",
@@ -91,10 +91,10 @@
                         "sugg": "Suggerimento: Era un famoso condottiero romano.​"
                     },
                     {
-                        "text":"In quale stato si trova Taj Mahal ​",
+                        "text":"In quale stato si trova Taj Mahal?​",
                         "img_1": "qa_2_3_target.jpg",
                         "text_1": ["India"],
-                        "sugg": "Suggerimento: Ha come capitale Nuova Delhi​"
+                        "sugg": "Suggerimento: Ha come capitale Nuova Delhi​."
                     },
                     {
                         "text":"Nella mitologia greca, chi è il dio del sole?​",
@@ -103,10 +103,10 @@
                         "sugg": "Suggerimento: Il suo nome compare nella missione spaziale che portò i primi uomini sulla luna.​"
                     },
                     {
-                        "text":"Quale filosofo ha ideato il mito della caverna",
+                        "text":"Quale filosofo ha ideato il mito della caverna?",
                         "img_1": "qa_2_5_target.jpg",
                         "text_1": ["Platone"],
-                        "sugg": "Suggerimento: Ha scritto i Dialoghi di Socrate"
+                        "sugg": "Suggerimento: Ha scritto i Dialoghi di Socrate."
                     }
                 ],
                 "reward":{

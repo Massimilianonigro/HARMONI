@@ -58,9 +58,11 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
         self.activity_is_on = False
         self.current_quiz = "Arte"
+        self.suggestion = False
         self.populate_scene(self.index) 
         self.class_clients={}
         self._setup_classes()
+        self.quiz_end_2 = 5
         self.quiz_end = 6
         self.last_word = "casa"
         self.words_index = 1
@@ -124,8 +126,8 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         # self.wellbeing_request()
 
         # TODO REMOVE THIS IS JUST TO TEST FEELING 2
-        self.feeling_populate(self.feeling_index)
-        self.class_clients[service] = SequentialPattern(service, self.feeling_script)
+        #self.feeling_populate(self.feeling_index)
+        #self.class_clients[service] = SequentialPattern(service, self.feeling_script)
 
         self.do_request(self.index, service, 'Ciao')
 
@@ -474,19 +476,24 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 if msg != "stop" and msg != "basta" and msg != "fine" and msg != "no": # TODO contain not ==
                     service = "questions"
 
+                    msg = msg.strip()
                     rospy.loginfo(msg)
 
                     if msg != "":
 
                         correct_answer = False
-                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
+                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][self.index]["text_1"]:
+                            
+                            #Remove special zero-width-space
+                            synonym = synonym.replace("\u200B", "").replace("\u200b", "")
+
                             if synonym.lower() in msg:
                                 rospy.loginfo("Correct answer")
                                 correct_answer = True
                                 break
 
                         if correct_answer == True:
-                            if self.index == self.quiz_end:
+                            if self.index == self.quiz_end_2:
                                 service_message = "Congratulazioni, hai finito tutte le attività."
                                 self.current_quiz = "Arte"
                                 service = "simple_dialogue"
@@ -498,8 +505,14 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                         
                         else:
                             rospy.loginfo("Wrong answer")  
-
-                            self.populate_scene(self.index, "La risposta che hai dato non è corretta. ", suggestion = True)   
+                            if self.suggestion == False:
+                                self.populate_scene(self.index, "La risposta che hai dato non è corretta. ", suggestion = True)   
+                                self.suggestion = True
+                            else:
+                                self.suggestion = False
+                                self.index = self.index + 1
+                                self.populate_scene(self.index, "Andiamo avanti. ", suggestion = False)   
+                                
                             self.class_clients[service] = SequentialPattern(service, self.script)     
 
                         self.do_request(self.index, service, optional_data = service_message) 
@@ -675,16 +688,16 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         if self.current_quiz == "Geografia":
             
             # Add suggestion to webpage if flag is true
-            sugg_to_add = self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["sugg"] if suggestion else ""
+            sugg_to_add = self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["sugg"] if suggestion else " "
 
             self.script[1]["steps"][0]["web_default"]["trigger"] = (
-                "[{'component_id':'img', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_1"]
+                "[{'component_id':'img', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["img_1"]
                 + "'}, {'component_id':'title', 'set_content':'"
-                + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"]
+                + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["text"]
                 + "'}, {'component_id':'text', 'set_content':'"
                 + sugg_to_add + "'}, {'component_id':'question_container', 'set_content':''}]"
             )
-            self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"] if not suggestion else self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["sugg"]
+            self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["text"] if not suggestion else self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["sugg"]
         
         with open(self.pattern_script_path, "w") as json_file:
             json.dump(self.script, json_file)
@@ -846,7 +859,7 @@ if __name__ == "__main__":
         bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="feeling_activity_2")
+        bc.start(service="questions")
 
         rospy.spin()
     except rospy.ROSInterruptException:
