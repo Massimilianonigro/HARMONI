@@ -40,12 +40,13 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
     This class is a singleton ROS node and should only be instantiated once.
     """
 
-    def __init__(self, name, pattern_list, instance_id , words_file_path, test_input, script,activity_script, path, feeling_pattern_script_path, feeling_script):
+    def __init__(self, name, pattern_list, instance_id , words_file_path, test_input, script,activity_script, path, feeling_pattern_script_path, feeling_script, config_activity_path):
         super().__init__(name)
         self.name = name
         self.service_id = instance_id
         self.pattern_script_path = path
         self.feeling_pattern_script_path = feeling_pattern_script_path
+        self.config_activity_path = config_activity_path
         self.script = script
         self.feeling_script = feeling_script
         self.scripted_services = pattern_list
@@ -301,6 +302,9 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                     self.activity_is_on = True
                     service = "feeling_activity"
                     msg = self.get_feeling_question(self.feeling_index)          
+                elif "REMIND" in msg:
+                    msg = self.add_reminder(msg)
+                    service = "simple_dialogue"              
                 else:
                     service = "simple_dialogue"
 
@@ -406,8 +410,8 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
                     rospy.loginfo(msg)
 
-                    left = {"sinistra", "prima", "numero uno"}
-                    right = {"destra", "seconda", "numero due"}
+                    left = {"sinistra", "prima", "numero uno", "uno"}
+                    right = {"destra", "seconda", "numero due", "due"}
                     answer = 0
 
                     if msg == "sì":
@@ -419,6 +423,10 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
                     elif msg != "":
                         for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
+
+                            #Remove special zero-width-space
+                            synonym = synonym.replace("\u200B", "").replace("\u200b", "")
+
                             if synonym.lower() in msg:
                                     rospy.loginfo("Chosen left answer")
                                     answer = 1
@@ -436,6 +444,10 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                         
                         if answer != 1:
                             for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
+
+                                #Remove special zero-width-space
+                                synonym = synonym.replace("\u200B", "").replace("\u200b", "")
+
                                 if synonym.lower() in msg:
                                         rospy.loginfo("Chosen right answer")
                                         answer = 2    
@@ -633,6 +645,17 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
         rospy.loginfo("_____END STEP " + str(self.index) + " DECISION MANAGER_______")
         return
+
+    def add_reminder(self, text):
+        parts = text.split("REMIND")
+
+        rospy.loginfo("Added reminder: " + parts[1])
+        self.config_activity_script[3]["Reminders"].append(parts[1])
+
+        with open(self.config_activity_path, "w") as json_file:
+            json.dump(self.config_activity_script, json_file)
+
+        return parts[0]
 
 
     def get_feeling_question(self, index):
@@ -856,10 +879,10 @@ if __name__ == "__main__":
 
     try:
         rospy.init_node(name + "_decision")
-        bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script)
+        bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script, config_activity_path)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="questions")
+        bc.start(service="simple_dialogue")
 
         rospy.spin()
     except rospy.ROSInterruptException:
