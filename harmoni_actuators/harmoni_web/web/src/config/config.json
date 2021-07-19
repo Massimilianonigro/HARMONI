@@ -28,7 +28,7 @@
                 {
                     "component": "title",
                     "children": "Domanda",
-                    "id": "title"
+                    "id": "title_2"
                 },
                 {
                     "component": "row",

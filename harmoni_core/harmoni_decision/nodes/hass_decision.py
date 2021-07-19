@@ -412,11 +412,11 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
                     rospy.loginfo(msg)
 
-                    left = {"sinistra", "prima", "numero uno", "uno"}
-                    right = {"destra", "seconda", "numero due", "due"}
+                    left = {"sinistra", "prima", "numero uno", "uno", "1"}
+                    right = {"destra", "seconda", "numero due", "due", "2"}
                     answer = 0
 
-                    if msg == "sì":
+                    if "sì" in msg:
                         self.index = 0
                         self.current_quiz = "Geografia"
                         self.populate_scene(self.index, "Ok! Giochiamo di nuovo. ")
@@ -445,7 +445,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                         break
                         
                         if answer != 1:
-                            for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
+                            for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_2"]:
 
                                 #Remove special zero-width-space
                                 synonym = synonym.replace("\u200B", "").replace("\u200b", "")
@@ -464,6 +464,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
                             if( self.index == self.quiz_end):
                                 self.populate_scene(self.index, congratulations=True)
+                                self.index = 0
                             else:
                                 self.index = self.index +1 
                                 self.populate_scene(self.index)
@@ -717,7 +718,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 self.script[1]["steps"][0]["web_default"]["trigger"] = (
                     "[{'component_id':'img_1', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_1"]
                     + "'}, {'component_id':'img_2', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_2"]
-                    + "'}, {'component_id':'title', 'set_content':'"
+                    + "'}, {'component_id':'title_2', 'set_content':'"
                     + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"]
                     + "'}, {'component_id':'text_1', 'set_content':'"
                     + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text_1"][0]
@@ -901,7 +902,7 @@ if __name__ == "__main__":
         bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script, config_activity_path)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="feeling_activity")
+        bc.start(service="simple_dialogue")
 
         rospy.spin()
     except rospy.ROSInterruptException:
