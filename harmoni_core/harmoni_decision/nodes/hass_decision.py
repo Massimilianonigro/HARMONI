@@ -70,7 +70,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self.cycles = 1
         self.end = 2
         self.feeling_index = 0
-        self.answers = [True, True,True, True, True, True, True]
+        self.answers = []
         self.words = set()
         self.used_words = set()
         self._setup_activities(words_file_path)
@@ -127,8 +127,8 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         # self.wellbeing_request()
 
         # TODO REMOVE THIS IS JUST TO TEST FEELING 2
-        #self.feeling_populate(self.feeling_index)
-        #self.class_clients[service] = SequentialPattern(service, self.feeling_script)
+        # self.feeling_populate(self.feeling_index)
+        # self.class_clients[service] = SequentialPattern(service, self.feeling_script)
 
         self.do_request(self.index, service, 'Ciao')
 
@@ -348,9 +348,9 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
             if len(self.answers) == 7:
                 service = "feeling_activity_2"
                 self.feeling_index = 0
-
-                self.feeling_populate(self.feeling_index - 1)
+                self.feeling_populate(self.feeling_index)
                 self.class_clients[service] = SequentialPattern(service, self.feeling_script)
+                data = ""
 
             else:
                 data = self.get_feeling_question(index = self.feeling_index)
@@ -369,9 +369,10 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
            
 
             self.feeling_index = self.feeling_index + 1
+            data = ""
 
-            if self.feeling_index == 7:
-                if self.answers:
+            if self.feeling_index == 6:
+                if self.answers[-1]:
                     service = "questions"
                     self.activity_is_on = True   
                     self.index = 0
@@ -379,6 +380,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 else:
                     service = "simple_dialogue"
                     self.activity_is_on = False
+                    data ="Fine dell'attività."
                 
                 self.feeling_index = 0
 
@@ -387,7 +389,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 self.feeling_populate(self.feeling_index, msg)
                 self.class_clients[service] = SequentialPattern(service, self.feeling_script)
             
-            self.do_request(self.index, service) 
+            self.do_request(self.index, service, optional_data= data) 
 
             self.state = State.SUCCESS
 
@@ -671,7 +673,24 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         x = self.config_activity_script[2]["Feeling activity"][0]["Answers"][index]["command"][content]
         self.feeling_script[0]["steps"][2]["hass_default"]["trigger"] = json.dumps(x) if x else ""
 
-        self.feeling_script[0]["steps"][0]["tts_default"]["trigger"] = msg + self.config_activity_script[2]["Feeling activity"][0]["Answers"][index]["answer"][content]       
+        text = self.config_activity_script[2]["Feeling activity"][0]["Answers"][index]["answer"][content]   
+
+        while text == "" and self.feeling_index < len(self.answers) -1:
+            self.feeling_index = self.feeling_index + 1
+            if self.answers[self.feeling_index]:
+                content = 0
+            else:
+                content = 1
+            text = self.config_activity_script[2]["Feeling activity"][0]["Answers"][self.feeling_index]["answer"][content]
+            x = self.config_activity_script[2]["Feeling activity"][0]["Answers"][self.feeling_index]["command"][content]
+            self.feeling_script[0]["steps"][2]["hass_default"]["trigger"] = json.dumps(x) if x else ""
+
+        
+        appointments = " "
+        if self.feeling_index == 5 and self.answers[5] == True:
+            appointments = appointments.join(self.config_activity_script[3]["Reminders"])
+
+        self.feeling_script[0]["steps"][0]["tts_default"]["trigger"] = msg + text + appointments
 
         with open(self.feeling_pattern_script_path, "w") as json_file:
             json.dump(self.feeling_script, json_file)
@@ -882,7 +901,7 @@ if __name__ == "__main__":
         bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script, config_activity_path)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="simple_dialogue")
+        bc.start(service="feeling_activity")
 
         rospy.spin()
     except rospy.ROSInterruptException:

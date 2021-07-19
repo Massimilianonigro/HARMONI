@@ -71,13 +71,16 @@ class HassService(HarmoniServiceManager):
 
             if "{" not in data:
                 rospy.loginfo("No { in data, forwarding message")
-                self.result_msg = data
+                if data is not "":
+                    self.result_msg = data
+                else:
+                    self.result_msg= " "
                 self.state = State.SUCCESS
                 self.response_received = True
 
             else:
                 rospy.loginfo("{ in data")
-                data_list = data.split("{")
+                data_list = data.split("{", 1)
                 message_to_forward = data_list[0]
                 data_list[1] = "{"+ data_list[1]
                 rospy.loginfo(data_list[0])

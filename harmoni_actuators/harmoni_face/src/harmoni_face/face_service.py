@@ -223,6 +223,9 @@ class MouthService(HarmoniServiceManager):
             message (str): result message 
         """
         rospy.loginfo("Do expressions")
+
+        rospy.loginfo( len(data))
+
         self.actuation_completed = False
         self.result_msg=""
         [valid_face_expression, visemes] = self.get_face_data(data)
