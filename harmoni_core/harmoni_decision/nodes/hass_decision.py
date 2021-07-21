@@ -64,11 +64,12 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self.class_clients={}
         self._setup_classes()
         self.quiz_end_2 = 5
-        self.quiz_end = 6
+        self.quiz_end = 6 #2
         self.last_word = "casa"
         self.words_index = 1
         self.cycles = 1
-        self.end = 2
+        self.end = 5 # words
+        self.correct_answer_quiz  = 0
         self.feeling_index = 0
         self.answers = []
         self.words = set()
@@ -463,10 +464,12 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                             rospy.loginfo("Correct answer")
 
                             if( self.index == self.quiz_end):
-                                self.populate_scene(self.index, congratulations=True)
+                                self.correct_answer_quiz = self.correct_answer_quiz  + 1
+                                self.populate_scene(self.index, "", congratulations=True)
                                 self.index = 0
                             else:
                                 self.index = self.index +1 
+                                self.correct_answer_quiz = self.correct_answer_quiz  + 1
                                 self.populate_scene(self.index)
 
                             self.class_clients[service] = SequentialPattern(service, self.script)
@@ -477,13 +480,18 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                             self.populate_scene(self.index, "Non hai selezionato alcuna opzione. Riprova. ")                        
                             self.class_clients[service] = SequentialPattern(service, self.script)
                         else:
-                            rospy.loginfo("Wrong answer")  
-
-                            self.populate_scene(self.index, "La risposta che hai dato non è corretta. ")   
-                            self.class_clients[service] = SequentialPattern(service, self.script)     
+                            if( self.index == self.quiz_end):
+                                self.populate_scene(self.index, "La risposta che hai dato non è corretta. La risposta corretta era " + self.get_correct_answer(self.index) + ". ", congratulations=True)
+                                self.index = 0
+                            else:                                
+                                rospy.loginfo("Wrong answer")  
+                                self.index = self.index +1
+                                self.populate_scene(self.index, "La risposta che hai dato non è corretta. La risposta corretta era " + self.get_correct_answer(self.index - 1) + ". ")   
+                                self.class_clients[service] = SequentialPattern(service, self.script)     
                                     
                         self.do_request(self.index, service, optional_data = service_message) 
                 else:
+                    self.correct_answer_quiz  = 0
                     self.activity_is_on = False
                     self.do_request(self.index, "simple_dialogue", optional_data = "Fine dell'attività.") 
             
@@ -509,12 +517,15 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
                         if correct_answer == True:
                             if self.index == self.quiz_end_2:
-                                service_message = "Congratulazioni, hai finito tutte le attività."
+                                self.correct_answer_quiz = self.correct_answer_quiz + 1
+                                service_message = "Congratulazioni, hai finito tutte le attività. Hai indovinato " + str(self.correct_answer_quiz) + " risposte corrette."
                                 self.current_quiz = "Arte"
                                 service = "simple_dialogue"
+                                self.correct_answer_quiz = 0
                             
                             else:
                                 self.index = self.index +1 
+                                self.correct_answer_quiz = self.correct_answer_quiz + 1
                                 self.populate_scene(self.index)
                                 self.class_clients[service] = SequentialPattern(service, self.script)
                                         
@@ -524,9 +535,15 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                 self.populate_scene(self.index, "La risposta che hai dato non è corretta. ", suggestion = True)   
                                 self.suggestion = True
                             else:
-                                self.suggestion = False
-                                self.index = self.index + 1
-                                self.populate_scene(self.index, "Andiamo avanti. ", suggestion = False)   
+                                if self.index == self.quiz_end_2:
+                                    service_message = "Congratulazioni, hai finito tutte le attività. Hai indovinato " + str(self.correct_answer_quiz) + " risposte corrette."
+                                    self.current_quiz = "Arte"
+                                    service = "simple_dialogue"
+                                    self.correct_answer_quiz = 0
+                                else:
+                                    self.suggestion = False
+                                    self.index = self.index + 1
+                                    self.populate_scene(self.index, "Andiamo avanti. ", suggestion = False)   
                                 
                             self.class_clients[service] = SequentialPattern(service, self.script)     
 
@@ -697,22 +714,24 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
             json.dump(self.feeling_script, json_file)
 
     # --------------- QUIZ
-
+    def get_correct_answer(self, index):
+        return self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index]["text_" + str(self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index]["answer"])][0]
 
     def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta ", congratulations = False,  suggestion = False):
 
         if self.current_quiz == "Arte":
 
-            intro = "Iniziamo il quiz di cultura generale. " if index_scene == 0 else ""
+            intro = "Iniziamo il quiz di cultura generale. Per scegliere una risposta devi dire il nome del opzione che ritieni corretta oppure, ad esempio, puoi indicare la risposta a sinistra con i termini: prima, sinistra, numero uno. " if index_scene == 0 else ""
 
             if (congratulations == True):
                 self.script[1]["steps"][0]["web_default"]["trigger"] = (
                     "[{'component_id':'img_end', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["img"]
                     + "'}, {'component_id':'title_end', 'set_content':'"
+                    + feedback_text + " Hai indovinato " +str(self.correct_answer_quiz) + " risposte corrette. "
                     + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["text"]
                     + "'}, {'component_id':'imgtext_container', 'set_content':''}]"
                 )
-                self.script[1]["steps"][1]["tts_default"]["trigger"] = self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["text"]
+                self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + " Hai indovinato " +str(self.correct_answer_quiz) + " risposte corrette. " + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["text"]
 
             else: # NOT THE NED OF THE GAME
                 self.script[1]["steps"][0]["web_default"]["trigger"] = (
