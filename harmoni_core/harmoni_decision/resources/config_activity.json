@@ -36,7 +36,7 @@
                     "answer": 2
                   },
                   {
-                    "text": "Quali di queste edifici è in stile gotico?",
+                    "text": "Quali di questi edifici è in stile gotico?",
                     "img_1": "qa_1_3_comp.jpg",
                     "img_2": "qa_1_3_target.jpg",
                     "text_1": [
@@ -133,7 +133,7 @@
                     "sugg": "Suggerimento: Era un famoso condottiero romano."
                   },
                   {
-                    "text": "In quale stato si trova Taj Mahal?",
+                    "text": "In quale stato si trova il Taj Mahal?",
                     "img_1": "qa_2_3_target.jpg",
                     "text_1": [
                       "India"

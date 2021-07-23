@@ -66,6 +66,17 @@
         },
         {
             "component": "container",
+            "id": "empty_container",
+            "children": [
+                {
+                    "component": "title",
+                    "children": " ",
+                    "id": "title"
+                }
+            ]
+        },
+        {
+            "component": "container",
             "id": "imgtext_container",
             "children": [
                 {

@@ -58,13 +58,13 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         )
 
         self.activity_is_on = False
-        self.current_quiz = "Arte"
+        self.current_quiz = "Geografia"
         self.suggestion = False
         self.populate_scene(self.index) 
         self.class_clients={}
         self._setup_classes()
-        self.quiz_end_2 = 5
-        self.quiz_end = 6 #2
+        self.quiz_end_2 =  2 #1 #5
+        self.quiz_end = 2 #6 #2
         self.last_word = "casa"
         self.words_index = 1
         self.cycles = 1
@@ -314,7 +314,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
             self.state = State.SUCCESS
 
         elif result['service'] == "feeling_activity":
-
+            msg = ""
             # prendi da stt
             for item in result_data:
                 if "s" in item.keys():
@@ -337,26 +337,45 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                     rospy.loginfo("The user said yes")
                     self.answers.append(True)
                     has_answered = True
-                    self.feeling_index = self.feeling_index + 1
 
             if not has_answered:
                 for synonym in no:
                     if synonym.lower() in msg:
                         rospy.loginfo("The user said no")
                         self.answers.append(False)
-                        self.feeling_index = self.feeling_index + 1
-            
-            if len(self.answers) == 7:
-                service = "feeling_activity_2"
-                self.feeling_index = 0
-                self.feeling_populate(self.feeling_index)
-                self.class_clients[service] = SequentialPattern(service, self.feeling_script)
-                data = ""
+                        has_answered = True
 
-            else:
+            if has_answered == False:
+                service = "feeling_activity"
                 data = self.get_feeling_question(index = self.feeling_index)
+                data = "Mi spiace, non ho capito. Ti ho chiesto se " + data
+            else:
+                if self.feeling_index == 6:
+                    if self.answers[-1]:
+                        service = "questions"
+                        self.activity_is_on = True   
+                        self.index = 0
+                        self.populate_scene(self.index)
+                        data = " "
+                    else:
+                        service = "simple_dialogue"
+                        self.activity_is_on = False
+                        data ="Fine dell'attività."
+                    
+                    self.feeling_index = 0
 
-            self.do_request(self.index, service, optional_data = data )
+                else:
+                    if self.is_answer_not_empty():
+                        service = "feeling_activity_2"
+                        self.feeling_populate(self.feeling_index)
+                        self.class_clients[service] = SequentialPattern(service, self.feeling_script)
+                        data = ""
+                    else:
+                        service = "feeling_activity"
+                        self.feeling_index = self.feeling_index + 1
+                        data = self.get_feeling_question(index = self.feeling_index)
+
+            self.do_request(self.index, service, data)
 
         elif result['service'] == "feeling_activity_2":
 
@@ -369,30 +388,23 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                     msg = ""
            
 
-            self.feeling_index = self.feeling_index + 1
             data = ""
 
-            if self.feeling_index == 6:
-                if self.answers[-1]:
-                    service = "questions"
-                    self.activity_is_on = True   
-                    self.index = 0
-                    self.populate_scene(self.index)
-                else:
-                    service = "simple_dialogue"
-                    self.activity_is_on = False
-                    data ="Fine dell'attività."
-                
-                self.feeling_index = 0
-
-            else:
-                service = "feeling_activity_2"
-                self.feeling_populate(self.feeling_index, msg)
-                self.class_clients[service] = SequentialPattern(service, self.feeling_script)
             
-            self.do_request(self.index, service, optional_data= data) 
+            service = "feeling_activity"
+            self.feeling_index = self.feeling_index + 1
+            data = self.get_feeling_question(index = self.feeling_index)
+            data = msg + data
+            # self.feeling_populate(self.feeling_index, msg)
+            #self.class_clients[service] = SequentialPattern(service, self.feeling_script)
+            
+            self.do_request(self.index, service, optional_data = data) 
 
             self.state = State.SUCCESS
+
+        elif result['service'] == "clear_web":
+
+            self.do_request(self.index, "simple_dialogue", optional_data = " ") 
 
         elif result['service'] == "questions":
 
@@ -479,16 +491,18 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
                             self.populate_scene(self.index, "Non hai selezionato alcuna opzione. Riprova. ")                        
                             self.class_clients[service] = SequentialPattern(service, self.script)
-                        else:
+                        else:                            
                             if( self.index == self.quiz_end):
                                 self.populate_scene(self.index, "La risposta che hai dato non è corretta. La risposta corretta era " + self.get_correct_answer(self.index) + ". ", congratulations=True)
                                 self.index = 0
-                            else:                                
+                            else:                            
+                                self.index = self.index +1    
                                 rospy.loginfo("Wrong answer")  
-                                self.index = self.index +1
+                                rospy.loginfo("INDEX: " + str(self.index))
                                 self.populate_scene(self.index, "La risposta che hai dato non è corretta. La risposta corretta era " + self.get_correct_answer(self.index - 1) + ". ")   
                                 self.class_clients[service] = SequentialPattern(service, self.script)     
-                                    
+
+                        rospy.loginfo("INDEX " + str(self.index))
                         self.do_request(self.index, service, optional_data = service_message) 
                 else:
                     self.correct_answer_quiz  = 0
@@ -520,7 +534,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                 self.correct_answer_quiz = self.correct_answer_quiz + 1
                                 service_message = "Congratulazioni, hai finito tutte le attività. Hai indovinato " + str(self.correct_answer_quiz) + " risposte corrette."
                                 self.current_quiz = "Arte"
-                                service = "simple_dialogue"
+                                service = "clear_web"
                                 self.correct_answer_quiz = 0
                             
                             else:
@@ -538,7 +552,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                 if self.index == self.quiz_end_2:
                                     service_message = "Congratulazioni, hai finito tutte le attività. Hai indovinato " + str(self.correct_answer_quiz) + " risposte corrette."
                                     self.current_quiz = "Arte"
-                                    service = "simple_dialogue"
+                                    service = "clear_web"
                                     self.correct_answer_quiz = 0
                                 else:
                                     self.suggestion = False
@@ -679,7 +693,17 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
 
     def get_feeling_question(self, index):
+        rospy.loginfo("Index: " + str(index))
         return self.config_activity_script[2]["Feeling activity"][0]["Questions"][index]["question"]
+
+    def is_answer_not_empty(self):
+
+        if self.answers[self.feeling_index]:
+            content = 0
+        else:
+            content = 1
+
+        return False if self.config_activity_script[2]["Feeling activity"][0]["Answers"][self.feeling_index]["answer"][content] == "" else True
 
     def feeling_populate(self, index, msg = ""):
 
@@ -717,8 +741,8 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
     def get_correct_answer(self, index):
         return self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index]["text_" + str(self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index]["answer"])][0]
 
-    def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta ", congratulations = False,  suggestion = False):
-
+    def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta. ", congratulations = False,  suggestion = False):
+        rospy.loginfo("INDEX: " + str(index_scene))
         if self.current_quiz == "Arte":
 
             intro = "Iniziamo il quiz di cultura generale. Per scegliere una risposta devi dire il nome del opzione che ritieni corretta oppure, ad esempio, puoi indicare la risposta a sinistra con i termini: prima, sinistra, numero uno. " if index_scene == 0 else ""
@@ -895,7 +919,8 @@ if __name__ == "__main__":
     pattern_list.append("catena_di_parole")
     pattern_list.append("questions")
     pattern_list.append("feeling_activity")  
-    pattern_list.append("feeling_activity_2")        
+    pattern_list.append("feeling_activity_2")   
+    pattern_list.append("clear_web")        
 
     rospack = rospkg.RosPack()
     pck_path = rospack.get_path("harmoni_decision")

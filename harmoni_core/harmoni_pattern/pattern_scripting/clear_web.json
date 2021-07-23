@@ -1,0 +1,38 @@
+[
+    {
+        "set": "sequence",
+        "steps": [
+            {
+                "tts_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "service",
+                    "wait_for": "new"
+                }
+            },
+            [
+                {
+                    "speaker_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": ""
+                    }
+                },
+                {
+                    "face_mouth_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": "new"
+                    }
+                }
+            ],
+            {
+                "web_default": {
+                    "action_goal": "DO",
+                    "resource_type": "actuator",
+                    "wait_for": "new",
+                    "trigger": "[{'component_id':'empty_container', 'set_content':''}]"
+                }
+            }
+        ]
+    }
+]
