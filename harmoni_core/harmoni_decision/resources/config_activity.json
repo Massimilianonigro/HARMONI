@@ -195,7 +195,7 @@
                     "answer": 1
                   },
                   {
-                    "text": "Quale località si intende per Colonne d'Ercole? ",
+                    "text": "Quale località si intende per Colonne d Ercole? ",
                     "img_1": "qa_3_1_comp.jpg",
                     "img_2": "qa_3_1_target.jpg",
                     "text_1": [
@@ -370,7 +370,7 @@
                     "text_1": [
                       "Africa"
                     ],
-                    "sugg": "Suggerimento: Insieme all'Eurasia, forma il cosiddetto «Continente Antico»"
+                    "sugg": "Suggerimento: Insieme all Eurasia, forma il cosiddetto «Continente Antico»"
                   },
                   {
                     "text": "Il Vallo di Adriano separa la Scozia da...?",
@@ -396,10 +396,10 @@
                     "text_1": [
                       "Cina"
                     ],
-                    "sugg": "Suggerimento: è uno Stato dell'Asia orientale"
+                    "sugg": "Suggerimento: è uno Stato dell Asia orientale"
                   },
                   {
-                    "text": "Quale città italiana è famosa per l'arte bizantina?",
+                    "text": "Quale città italiana è famosa per l arte bizantina?",
                     "img_1": "qa_6_2_target.jpg",
                     "text_1": [
                       "Ravenna"
