@@ -58,13 +58,16 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         )
 
         self.activity_is_on = False
-        self.current_quiz = "Geografia"
+        
+        self.current_quiz = "Arte"
+        self.quiz_number = 1 #1 #2 #3
+
         self.suggestion = False
         self.populate_scene(self.index) 
         self.class_clients={}
         self._setup_classes()
-        self.quiz_end_2 =  2 #1 #5
-        self.quiz_end = 2 #6 #2
+        self.quiz_end_2 =  5 #1 #5
+        self.quiz_end = 6 #6 #2
         self.last_word = "casa"
         self.words_index = 1
         self.cycles = 1
@@ -420,7 +423,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
             rospy.loginfo("Word by user: " + msg)
 
             if self.current_quiz == "Arte":
-                if msg != "stop" and msg != "basta" and msg != "fine" and msg != "no": # TODO contain not ==
+                if msg != "stop" and msg != "basta" and msg != "fine" and msg.lstrip() != "no": # TODO contain not ==
                     service = "questions"
 
                     rospy.loginfo(msg)
@@ -437,7 +440,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                         self.do_request(self.index, service, optional_data = "ciao ciao") 
 
                     elif msg != "":
-                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_1"]:
+                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][self.index]["text_1"]:
 
                             #Remove special zero-width-space
                             synonym = synonym.replace("\u200B", "").replace("\u200b", "")
@@ -458,7 +461,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                         break
                         
                         if answer != 1:
-                            for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["text_2"]:
+                            for synonym in self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][self.index]["text_2"]:
 
                                 #Remove special zero-width-space
                                 synonym = synonym.replace("\u200B", "").replace("\u200b", "")
@@ -472,10 +475,10 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                             rospy.loginfo("Chosen right answer")
                                             answer = 2    
 
-                        if answer == int(self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][self.index]["answer"]):
+                        if answer == int(self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][self.index]["answer"]):
                             rospy.loginfo("Correct answer")
 
-                            if( self.index == self.quiz_end):
+                            if( self.index == self.quiz_end - 1):
                                 self.correct_answer_quiz = self.correct_answer_quiz  + 1
                                 self.populate_scene(self.index, "", congratulations=True)
                                 self.index = 0
@@ -519,7 +522,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                     if msg != "":
 
                         correct_answer = False
-                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][self.index]["text_1"]:
+                        for synonym in self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks_"+ str(self.quiz_number)][self.index]["text_1"]:
                             
                             #Remove special zero-width-space
                             synonym = synonym.replace("\u200B", "").replace("\u200b", "")
@@ -739,7 +742,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
     # --------------- QUIZ
     def get_correct_answer(self, index):
-        return self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index]["text_" + str(self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index]["answer"])][0]
+        return self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index]["text_" + str(self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index]["answer"])][0]
 
     def populate_scene(self, index_scene, feedback_text = "Scegli la risposta corretta. ", congratulations = False,  suggestion = False):
         rospy.loginfo("INDEX: " + str(index_scene))
@@ -757,33 +760,33 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 )
                 self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + " Hai indovinato " +str(self.correct_answer_quiz) + " risposte corrette. " + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["reward"]["text"]
 
-            else: # NOT THE NED OF THE GAME
+            else: # NOT THE END OF THE GAME
                 self.script[1]["steps"][0]["web_default"]["trigger"] = (
-                    "[{'component_id':'img_1', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_1"]
-                    + "'}, {'component_id':'img_2', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["img_2"]
+                    "[{'component_id':'img_1', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["img_1"]
+                    + "'}, {'component_id':'img_2', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["img_2"]
                     + "'}, {'component_id':'title_2', 'set_content':'"
-                    + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"]
+                    + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["text"]
                     + "'}, {'component_id':'text_1', 'set_content':'"
-                    + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text_1"][0]
+                    + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["text_1"][0]
                     + "'}, {'component_id':'text_2', 'set_content':'"
-                    + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text_2"][0]
+                    + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["text_2"][0]
                     + "'}, {'component_id':'questions_container', 'set_content':''}]"
                 )
-                self.script[1]["steps"][1]["tts_default"]["trigger"] = intro + feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks"][index_scene]["text"]
+                self.script[1]["steps"][1]["tts_default"]["trigger"] = intro + feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][0][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["text"]
         
         if self.current_quiz == "Geografia":
             
             # Add suggestion to webpage if flag is true
-            sugg_to_add = self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["sugg"] if suggestion else " "
+            sugg_to_add = self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["sugg"] if suggestion else " "
 
             self.script[1]["steps"][0]["web_default"]["trigger"] = (
-                "[{'component_id':'img', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["img_1"]
+                "[{'component_id':'img', 'set_content':'../assets/imgs/" + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["img_1"]
                 + "'}, {'component_id':'title', 'set_content':'"
-                + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["text"]
+                + feedback_text + "<br>" + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["text"]
                 + "'}, {'component_id':'text', 'set_content':'"
                 + sugg_to_add + "'}, {'component_id':'question_container', 'set_content':''}]"
             )
-            self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["text"] if not suggestion else self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks"][index_scene]["sugg"]
+            self.script[1]["steps"][1]["tts_default"]["trigger"] = feedback_text + self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["text"] if not suggestion else self.config_activity_script[0]["Q&A"][0]["General"][1][self.current_quiz]["tasks_"+ str(self.quiz_number)][index_scene]["sugg"]
         
         with open(self.pattern_script_path, "w") as json_file:
             json.dump(self.script, json_file)
@@ -946,7 +949,7 @@ if __name__ == "__main__":
         bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script, config_activity_path)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="simple_dialogue")
+        bc.start(service="questions")
 
         rospy.spin()
     except rospy.ROSInterruptException:

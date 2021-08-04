@@ -120,3 +120,7 @@ harmoni_core/harmoni_decision/launch/harmoni_service.launch
 harmoni_dialogues/harmoni_bot/config/configuration.yaml
 
 doc/_build
+
+portaudio/
+alsa-lib-1.1.3/
+core

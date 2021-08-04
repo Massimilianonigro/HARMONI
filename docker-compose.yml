@@ -13,7 +13,7 @@ services:
       DISPLAY: $DISPLAY
       QT_GRAPHICSSYSTEM: native
       ROS_DISTRO: $ROS_DISTRO
-      ROS_MASTER_URI: http://172.18.3.4:11311
+      ROS_MASTER_URI: https://172.18.3.4:11311
       IS_DOCKER_ENV: "true"
       ROS_HOSTNAME: harmoni_full
       CATKIN_WS: harmoni_catkin_ws
@@ -43,86 +43,6 @@ services:
     working_dir: /root/harmoni_catkin_ws/src/HARMONI
     command: tail  -f /dev/null
 
-  harmoni_w2l:
-    container_name: harmoni_w2l
-    build:
-      context: .
-      dockerfile: dockerfiles/harmoni/kinetic/w2l/dockerfile
-      network: host
-    image: harmoniteam/harmoni:kinetic-w2l
-    init: true
-    environment:
-      DISPLAY: $DISPLAY
-      QT_GRAPHICSSYSTEM: native
-      ROS_DISTRO: kinetic
-      IS_DOCKER_ENV: "true"
-      CATKIN_WS: harmoni_catkin_ws
-      ROS_HOSTNAME: harmoni_w2l
-      ROS_MASTER_URI: http://172.18.3.4:11311
-    depends_on:
-      - "harmoni_full"
-    privileged: true
-    # network_mode: host
-    networks:
-      ros_net:
-        ipv4_address: 172.18.3.3
-    hostname: harmoni_w2l
-    ports:
-      - "1022:22"
-    devices:
-      - /dev/dri:/dev/dri
-      - /dev/snd:/dev/snd
-    volumes:
-      - ../HARMONI/:/root/local_mount/HARMONI/
-      # Configuration
-      - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
-      # Other
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    working_dir: /root/harmoni_catkin_ws/src/HARMONI
-    command: tail  -f /dev/null
-
-  harmoni_face_detector:
-    container_name: harmoni_face_detector
-    build:
-      context: .
-      dockerfile: dockerfiles/harmoni/$ROS_DISTRO/face_detect/dockerfile
-      network: host
-    image: harmoniteam/harmoni:$ROS_DISTRO-face_detect
-    init: true
-    environment:
-      DISPLAY: $DISPLAY
-      QT_GRAPHICSSYSTEM: native
-      ROS_DISTRO: $ROS_DISTRO
-      IS_DOCKER_ENV: "true"
-      CATKIN_WS: harmoni_catkin_ws
-      ROS_HOSTNAME: harmoni_face_detector
-      ROS_MASTER_URI: http://172.18.3.4:11311
-    privileged: true
-    networks:
-      ros_net:
-        ipv4_address: 172.18.3.2
-    hostname: harmoni_face_detector
-    depends_on:
-      - "harmoni_full"
-      - "harmoni_hardware"
-    devices:
-      - /dev/dri:/dev/dri
-      - /dev/video0:/dev/video0
-    volumes:
-      - ../HARMONI/:/root/local_mount/HARMONI/
-      # Configuration
-      - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
-      # Other
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    working_dir: /root/harmoni_catkin_ws/src/HARMONI
-    command: tail  -f /dev/null
-
   harmoni_hardware:
     container_name: harmoni_hardware
     build:
@@ -138,7 +58,7 @@ services:
       IS_DOCKER_ENV: "true"
       CATKIN_WS: harmoni_catkin_ws
       ROS_HOSTNAME: harmoni_hardware
-      ROS_MASTER_URI: http://172.18.3.4:11311
+      ROS_MASTER_URI: https://172.18.3.4:11311
     privileged: true
     networks:
       ros_net:

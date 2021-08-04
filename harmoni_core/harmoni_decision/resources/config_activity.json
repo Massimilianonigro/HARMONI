@@ -10,7 +10,7 @@
                   "img": "intro.png",
                   "sound": "intro.wav"
                 },
-                "tasks": [
+                "tasks_1": [
                   {
                     "text": "Quale quadro di Van Gogh è conservato al MOMA di New York?",
                     "img_1": "qa_1_0_target.jpg",
@@ -48,6 +48,169 @@
                       "Duomo di Milano",
                       "Milano",
                       "Duomo"
+                    ],
+                    "answer": 2
+                  },
+                  {
+                    "text": "Dove si trova la sala degli specchi?",
+                    "img_1": "qa_1_4_target.jpg",
+                    "img_2": "qa_1_4_comp.jpg",
+                    "text_1": [
+                      "Versailles"
+                    ],
+                    "text_2": [
+                      "Castello del Belvedere",
+                      "Belvedere"
+                    ],
+                    "answer": 1
+                  },
+                  {
+                    "text": "In quale città si trova il Cenacolo di Leonardo da Vinci?",
+                    "img_1": "qa_1_5_comp.jpg",
+                    "img_2": "qa_1_5_target.jpg",
+                    "text_1": [
+                      "Firenze"
+                    ],
+                    "text_2": [
+                      "Milano"
+                    ],
+                    "answer": 2
+                  },
+                  {
+                    "text": "La gipsoteca è una raccolta di…",
+                    "img_1": "qa_1_6_target.jpg",
+                    "img_2": "qa_1_6_comp.jpg",
+                    "text_1": [
+                      "Sculture",
+                      "Statue"
+                    ],
+                    "text_2": [
+                      "Gioielli",
+                      "Collane"
+                    ],
+                    "answer": 1
+                  }
+                ],
+                "tasks_2": [
+                  {
+                    "text": "Quale quadro di Dalì è conservato al MoMA di New York?",
+                    "img_1": "qa_2_0_target.jpg",
+                    "img_2": "qa_2_0_comp.jpg",
+                    "text_1": [
+                      "La persistenza della memoria",
+                      "memoria",
+                      "persistenza"
+                    ],
+                    "text_2": [
+                      "La tentazione di Sant’Antonio",
+                      "tentazione",
+                      "antonio"
+                    ],
+                    "answer": 1
+                  },
+                  {
+                    "text": "Qual è la capitale del Canada oggigiorno?",
+                    "img_1": "qa_2_1_comp.jpg",
+                    "img_2": "qa_2_1_target.jpg",
+                    "text_1": [
+                      "Toronto"
+                    ],
+                    "text_2": [
+                      "Ottawa"
+                    ],
+                    "answer": 2
+                  },
+                  {
+                    "text": "Quali di questi edifici è in stile romanico?",
+                    "img_1": "qa_2_3_comp.jpg",
+                    "img_2": "qa_2_3_target.jpg",
+                    "text_1": [
+                      "Cattedrale di Vilnius",
+                      "Cattedrale"
+                    ],
+                    "text_2": [
+                      "Duomo di Modena",
+                      "Duomo",
+                      "Modena"
+                    ],
+                    "answer": 2
+                  },
+                  {
+                    "text": "Dove si trova la sala degli specchi?",
+                    "img_1": "qa_1_4_target.jpg",
+                    "img_2": "qa_1_4_comp.jpg",
+                    "text_1": [
+                      "Versailles"
+                    ],
+                    "text_2": [
+                      "Castello del Belvedere",
+                      "Belvedere"
+                    ],
+                    "answer": 1
+                  },
+                  {
+                    "text": "In quale città si trova il Cenacolo di Leonardo da Vinci?",
+                    "img_1": "qa_1_5_comp.jpg",
+                    "img_2": "qa_1_5_target.jpg",
+                    "text_1": [
+                      "Firenze"
+                    ],
+                    "text_2": [
+                      "Milano"
+                    ],
+                    "answer": 2
+                  },
+                  {
+                    "text": "La gipsoteca è una raccolta di…",
+                    "img_1": "qa_1_6_target.jpg",
+                    "img_2": "qa_1_6_comp.jpg",
+                    "text_1": [
+                      "Sculture",
+                      "Statue"
+                    ],
+                    "text_2": [
+                      "Gioielli",
+                      "Collane"
+                    ],
+                    "answer": 1
+                  }
+                ],
+                "tasks_3": [
+                  {
+                    "text": "Quale quadro di Van Gogh è conservato al MOMA di New York?",
+                    "img_1": "qa_1_0_target.jpg",
+                    "img_2": "qa_1_0_comp.jpg",
+                    "text_1": [
+                      "Notte stellata"
+                    ],
+                    "text_2": [
+                      "Autoritratto"
+                    ],
+                    "answer": 1
+                  },
+                  {
+                    "text": "Qual è la capitale del Brasile oggigiorno?",
+                    "img_1": "qa_1_1_comp.jpg",
+                    "img_2": "qa_1_1_target.jpg",
+                    "text_1": [
+                      "Rio de Janeiro"
+                    ],
+                    "text_2": [
+                      "Brasilia"
+                    ],
+                    "answer": 2
+                  },
+                  {
+                    "text": "Quali di questi edifici è in stile barocco?",
+                    "img_1": "qa_1_3_comp.jpg",
+                    "img_2": "qa_1_3_target.jpg",
+                    "text_1": [
+                      "---"
+                    ],
+                    "text_2": [
+                      "Piazza San Pietro",
+                      "Piazza",
+                      "Pietro"
                     ],
                     "answer": 2
                   },

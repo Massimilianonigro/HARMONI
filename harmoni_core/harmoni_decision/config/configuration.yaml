@@ -16,7 +16,7 @@ hardware:
 hass:
   face: ["default"]
   microphone: ["default"]
-  stt: ["default"]
+  #stt: ["default"]
   bot: ["default"]
   tts: ["default"]
   speaker: ["default"]
