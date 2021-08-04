@@ -60,7 +60,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self.activity_is_on = False
         
         self.current_quiz = "Arte"
-        self.quiz_number = 1 #1 #2 #3
+        self.quiz_number = 3 #1 #2 #3
 
         self.suggestion = False
         self.populate_scene(self.index) 

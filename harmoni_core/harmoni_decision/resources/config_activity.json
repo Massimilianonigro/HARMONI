@@ -12,7 +12,7 @@
                 },
                 "tasks_1": [
                   {
-                    "text": "Quale quadro di Van Gogh è conservato al MOMA di New York?",
+                    "text": "Quale quadro di Van Gogh è conservato al MoMA di New York?",
                     "img_1": "qa_1_0_target.jpg",
                     "img_2": "qa_1_0_comp.jpg",
                     "text_1": [
@@ -136,76 +136,84 @@
                     "answer": 2
                   },
                   {
-                    "text": "Dove si trova la sala degli specchi?",
-                    "img_1": "qa_1_4_target.jpg",
-                    "img_2": "qa_1_4_comp.jpg",
+                    "text": "Quale statua si trova al Louvre di Parigi?",
+                    "img_1": "qa_2_4_target.jpg",
+                    "img_2": "qa_2_4_comp.jpg",
                     "text_1": [
-                      "Versailles"
+                      "Venere di Milo",
+                      "Venere",
+                      "Milo",
+                      "Venus"
                     ],
                     "text_2": [
-                      "Castello del Belvedere",
-                      "Belvedere"
+                      "La Pietà di Michelangelo",
+                      "Pietà"
                     ],
                     "answer": 1
                   },
                   {
-                    "text": "In quale città si trova il Cenacolo di Leonardo da Vinci?",
-                    "img_1": "qa_1_5_comp.jpg",
-                    "img_2": "qa_1_5_target.jpg",
+                    "text": "In quale oceano si trova l'Isola di Pasqua?",
+                    "img_1": "qa_2_5_comp.png",
+                    "img_2": "qa_2_5_target.png",
                     "text_1": [
-                      "Firenze"
+                      "Oceano Indiano"
                     ],
                     "text_2": [
-                      "Milano"
+                      "Oceano Pacifico"
                     ],
                     "answer": 2
                   },
                   {
-                    "text": "La gipsoteca è una raccolta di…",
-                    "img_1": "qa_1_6_target.jpg",
-                    "img_2": "qa_1_6_comp.jpg",
+                    "text": "Per cosa è celebre Arcimboldo?",
+                    "img_1": "qa_2_6_target.jpg",
+                    "img_2": "qa_2_6_comp.jpg",
                     "text_1": [
-                      "Sculture",
-                      "Statue"
+                      "Ritratti con frutta e verdura",
+                      "Frutta",
+                      "Verdura"
                     ],
                     "text_2": [
-                      "Gioielli",
-                      "Collane"
+                      "Illusioni ottiche",
+                      "Illusioni"
                     ],
                     "answer": 1
                   }
                 ],
                 "tasks_3": [
                   {
-                    "text": "Quale quadro di Van Gogh è conservato al MOMA di New York?",
-                    "img_1": "qa_1_0_target.jpg",
-                    "img_2": "qa_1_0_comp.jpg",
+                    "text": "Quale quadro di Matisse è conservato al MoMA di New York?",
+                    "img_1": "qa_3_0_target.jpg",
+                    "img_2": "qa_3_0_comp.jpg",
                     "text_1": [
-                      "Notte stellata"
+                      "La Danza",
+                      "danza"
                     ],
                     "text_2": [
-                      "Autoritratto"
+                      "Armonia in rosso",
+                      "Armonia"
                     ],
                     "answer": 1
                   },
                   {
-                    "text": "Qual è la capitale del Brasile oggigiorno?",
-                    "img_1": "qa_1_1_comp.jpg",
-                    "img_2": "qa_1_1_target.jpg",
+                    "text": "Quale località si intende per Colonne d'Ercole? ",
+                    "img_1": "qa_3_1_comp.jpg",
+                    "img_2": "qa_3_1_target.jpg",
                     "text_1": [
-                      "Rio de Janeiro"
+                      "Lo stretto di Messina"
                     ],
                     "text_2": [
-                      "Brasilia"
+                      "Lo stretto di Gibilterra"
                     ],
                     "answer": 2
                   },
                   {
                     "text": "Quali di questi edifici è in stile barocco?",
-                    "img_1": "qa_1_3_comp.jpg",
-                    "img_2": "qa_1_3_target.jpg",
+                    "img_1": "qa_3_3_comp.jpg",
+                    "img_2": "qa_3_3_target.jpg",
                     "text_1": [
-                      "---"
+                      "Duomo di Siena",
+                      "Duomo",
+                      "Siena"
                     ],
                     "text_2": [
                       "Piazza San Pietro",
@@ -215,41 +223,42 @@
                     "answer": 2
                   },
                   {
-                    "text": "Dove si trova la sala degli specchi?",
-                    "img_1": "qa_1_4_target.jpg",
-                    "img_2": "qa_1_4_comp.jpg",
+                    "text": "Per quale scultura è celebre Umberto Boccioni?",
+                    "img_1": "qa_3_4_target.jpg",
+                    "img_2": "qa_3_4_comp.jpg",
                     "text_1": [
-                      "Versailles"
+                      "Forme uniche della continuità nello spazio"
                     ],
                     "text_2": [
-                      "Castello del Belvedere",
-                      "Belvedere"
+                      "Ago, filo e nodo"
                     ],
                     "answer": 1
                   },
                   {
-                    "text": "In quale città si trova il Cenacolo di Leonardo da Vinci?",
-                    "img_1": "qa_1_5_comp.jpg",
-                    "img_2": "qa_1_5_target.jpg",
+                    "text": "Quale di queste opere è attribuita a Jackson Pollock?",
+                    "img_1": "qa_3_5_comp.jpg",
+                    "img_2": "qa_3_5_target.jpg",
                     "text_1": [
-                      "Firenze"
+                      "Linea trasversale"
                     ],
                     "text_2": [
-                      "Milano"
+                      "Convergenza"
                     ],
                     "answer": 2
                   },
                   {
-                    "text": "La gipsoteca è una raccolta di…",
-                    "img_1": "qa_1_6_target.jpg",
-                    "img_2": "qa_1_6_comp.jpg",
+                    "text": "Dove si trova il museo più visitato?",
+                    "img_1": "qa_3_6_target.jpg",
+                    "img_2": "qa_3_6_comp.jpg",
                     "text_1": [
-                      "Sculture",
-                      "Statue"
+                      "Parigi (Louvre)",
+                      "Parigi",
+                      "Francia"
                     ],
                     "text_2": [
-                      "Gioielli",
-                      "Collane"
+                      "New York (MoMA)",
+                      "New York",
+                      "Stati Uniti"
                     ],
                     "answer": 1
                   }
@@ -270,7 +279,7 @@
                 "tasks": [
                   {
                     "text": "In quale sport eccelle Tiger Woods?",
-                    "img_1": "qa_2_0_target.jpg",
+                    "img_1": "qa_4_0_target.jpg",
                     "text_1": [
                       "golf"
                     ],
@@ -278,7 +287,7 @@
                   },
                   {
                     "text": "In quale stato si trova Stonehenge?",
-                    "img_1": "qa_2_1_target.jpg",
+                    "img_1": "qa_4_1_target.jpg",
                     "text_1": [
                       "Regno Unito",
                       "Inghilterra",
@@ -288,7 +297,7 @@
                   },
                   {
                     "text": "A chi è attribuita la famosa frase «Alea iacta est»?",
-                    "img_1": "qa_2_2_target.jpg",
+                    "img_1": "qa_4_2_target.jpg",
                     "text_1": [
                       "Giulio Cesare",
                       "Cesare"
@@ -297,7 +306,7 @@
                   },
                   {
                     "text": "In quale stato si trova il Taj Mahal?",
-                    "img_1": "qa_2_3_target.jpg",
+                    "img_1": "qa_4_3_target.jpg",
                     "text_1": [
                       "India"
                     ],
@@ -305,7 +314,7 @@
                   },
                   {
                     "text": "Nella mitologia greca, chi è il dio del sole?",
-                    "img_1": "qa_2_4_target.jpg",
+                    "img_1": "qa_4_4_target.jpg",
                     "text_1": [
                       "Apollo"
                     ],
@@ -313,7 +322,7 @@
                   },
                   {
                     "text": "Quale filosofo ha ideato il mito della caverna?",
-                    "img_1": "qa_2_5_target.jpg",
+                    "img_1": "qa_4_5_target.jpg",
                     "text_1": [
                       "Platone"
                     ],
@@ -348,7 +357,7 @@
               "question": "Hai freddo?"
             },
             {
-              "question": "Hai caldo?"
+              "question": "Hai, invece, caldo?"
             },
             {
               "question": "Pensi di uscire oggi?"
