@@ -415,12 +415,12 @@
                     "sugg": "Suggerimento: il Palazzo Yonghe è un monastero buddhista"
                   },
                   {
-                    "text": "Nella mitologia greca, chi è il dio del sole?",
+                    "text": "In che città si trova la Cattedrale di San Basilio?",
                     "img_1": "qa_6_4_target.jpg",
                     "text_1": [
-                      "Apollo"
+                      "Mosca"
                     ],
-                    "sugg": "Suggerimento: "
+                    "sugg": "Suggerimento: è la capitale della Russia"
                   },
                   {
                     "text": "Qual è la capitale del Perù?",
