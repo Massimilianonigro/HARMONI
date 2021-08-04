@@ -152,7 +152,7 @@
                     "answer": 1
                   },
                   {
-                    "text": "In quale oceano si trova l'Isola di Pasqua?",
+                    "text": "In quale oceano si trova l Isola di Pasqua?",
                     "img_1": "qa_2_5_comp.png",
                     "img_2": "qa_2_5_target.png",
                     "text_1": [
@@ -276,7 +276,7 @@
                   "img": "intro.png",
                   "sound": "intro.wav"
                 },
-                "tasks": [
+                "tasks_1": [
                   {
                     "text": "In quale sport eccelle Tiger Woods?",
                     "img_1": "qa_4_0_target.jpg",
@@ -327,6 +327,108 @@
                       "Platone"
                     ],
                     "sugg": "Suggerimento: Ha scritto i Dialoghi di Socrate."
+                  }
+                ],
+                "tasks_2": [
+                  {
+                    "text": "In quale sport eccelle Serena Williams?",
+                    "img_1": "qa_5_0_target.jpg",
+                    "text_1": [
+                      "tennis"
+                    ],
+                    "sugg": "Suggerimento: è uno sport individuale"
+                  },
+                  {
+                    "text": "Dove si trovano i moai?",
+                    "img_1": "qa_5_1_target.jpg",
+                    "text_1": [
+                      "Isola di Pasqua",
+                      "pasqua"
+                    ],
+                    "sugg": "Suggerimento: è un isola dell Oceano Pacifico"
+                  },
+                  {
+                    "text": "Di quale luogo è originaria la danza tipica chiamata Haka?",
+                    "img_1": "qa_5_2_target.jpg",
+                    "text_1": [
+                      "Nuova Zelanda",
+                      "zelanda"
+                    ],
+                    "sugg": "Suggerimento: è uno stato insulare dell Oceania"
+                  },
+                  {
+                    "text": "Di quale paese è originario il fico d india?",
+                    "img_1": "qa_5_3_target.jpg",
+                    "text_1": [
+                      "Messico "
+                    ],
+                    "sugg": "Suggerimento: Si trova nella zona centrale dell America"
+                  },
+                  {
+                    "text": "In quale continente si trova il deserto del Kalahari?",
+                    "img_1": "qa_5_4_target.jpg",
+                    "text_1": [
+                      "Africa"
+                    ],
+                    "sugg": "Suggerimento: Insieme all'Eurasia, forma il cosiddetto «Continente Antico»"
+                  },
+                  {
+                    "text": "Il Vallo di Adriano separa la Scozia da...?",
+                    "img_1": "qa_5_5_target.jpg",
+                    "text_1": [
+                      "Inghilterra"
+                    ],
+                    "sugg": "Suggerimento: è una delle quattro nazioni costitutive del Regno Unito"
+                  }
+                ],
+                "tasks_3": [
+                  {
+                    "text": "In quale sport eccelle Federica Pellegrini?",
+                    "img_1": "qa_6_0_target.jpg",
+                    "text_1": [
+                      "golf"
+                    ],
+                    "sugg": "Suggerimento: è uno sport individuale."
+                  },
+                  {
+                    "text": "Che paese attraversano il Fiume Giallo e il Fiume Azzurro?",
+                    "img_1": "qa_6_1_target.jpg",
+                    "text_1": [
+                      "Cina"
+                    ],
+                    "sugg": "Suggerimento: è uno Stato dell'Asia orientale"
+                  },
+                  {
+                    "text": "Quale città italiana è famosa per l'arte bizantina?",
+                    "img_1": "qa_6_2_target.jpg",
+                    "text_1": [
+                      "Ravenna"
+                    ],
+                    "sugg": "Suggerimento: si trova in Emilia-Romagna"
+                  },
+                  {
+                    "text": "In quale stato si trova il Palazzo Yonghe?",
+                    "img_1": "qa_6_3_target.jpg",
+                    "text_1": [
+                      "Cina"
+                    ],
+                    "sugg": "Suggerimento: il Palazzo Yonghe è un monastero buddhista"
+                  },
+                  {
+                    "text": "Nella mitologia greca, chi è il dio del sole?",
+                    "img_1": "qa_6_4_target.jpg",
+                    "text_1": [
+                      "Apollo"
+                    ],
+                    "sugg": "Suggerimento: "
+                  },
+                  {
+                    "text": "Qual è la capitale del Perù?",
+                    "img_1": "qa_6_5_target.jpg",
+                    "text_1": [
+                      "Lima"
+                    ],
+                    "sugg": "Suggerimento: è anche uno strumento per la cura delle mani"
                   }
                 ],
                 "reward": {

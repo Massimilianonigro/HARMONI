@@ -68,7 +68,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self._setup_classes()
         self.quiz_end_2 =  5 #1 #5
         self.quiz_end = 6 #6 #2
-        self.last_word = "casa"
+        self.last_word = "luce" #casa #luce #cucina
         self.words_index = 1
         self.cycles = 1
         self.end = 5 # words
@@ -134,7 +134,13 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         # self.feeling_populate(self.feeling_index)
         # self.class_clients[service] = SequentialPattern(service, self.feeling_script)
 
-        self.do_request(self.index, service, 'Ciao')
+
+        if(service == "catena_di_parole"):
+            msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. La prima parola è: " + self.last_word
+        else:
+            msg = 'Ciao'
+
+        self.do_request(self.index, service, msg)
 
         return
 
@@ -295,7 +301,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 if msg == "ACTIVITY-1":
                     self.activity_is_on = True
                     service = "catena_di_parole"
-                    msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. La prima parola è: casa."
+                    msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. La prima parola è: " + self.last_word
                 elif msg == "ACTIVITY-2":
                     self.activity_is_on = True
                     service = "questions"
@@ -949,7 +955,7 @@ if __name__ == "__main__":
         bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script, config_activity_path)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="questions")
+        bc.start(service="catena_di_parole")
 
         rospy.spin()
     except rospy.ROSInterruptException:
