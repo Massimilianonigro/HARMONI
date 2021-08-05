@@ -395,11 +395,11 @@
                     "img_1": "qa_7_3_target.jpg",
                     "text_1": [
                       "Stati uniti",
-                      "uniti"
-                      "Illinois"
+                      "uniti",
+                      "Illinois",
                       "Chicago"
                     ],
-                    "sugg": "Suggerimento: si trova nell'emisfero boreale"
+                    "sugg": "Suggerimento: si trova nell emisfero boreale"
                   }
                   ,
                   {

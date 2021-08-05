@@ -59,7 +59,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
         self.activity_is_on = False
         
-        self.current_quiz = "Arte"
+        self.current_quiz = "Geografia"
         self.quiz_number = 0 #0 #1 #2 #3
 
         self.suggestion = False
@@ -71,7 +71,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self.last_word = "casa" #casa #luce #cucina #sole
         self.words_index = 1
         self.cycles = 1
-        self.end = 5 # words
+        self.end = 3 # words
         self.correct_answer_quiz  = 0
         self.feeling_index = 0
         self.answers = []
@@ -136,7 +136,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
 
         if(service == "catena_di_parole"):
-            msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. La prima parola è: " + self.last_word
+            msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. Se vuoi cambiare parola puoi dire: passo. Iniziamo! La prima parola è: " + self.last_word
         else:
             msg = 'Ciao'
 
@@ -301,7 +301,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                 if msg == "ACTIVITY-1":
                     self.activity_is_on = True
                     service = "catena_di_parole"
-                    msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. La prima parola è: " + self.last_word
+                    msg = "Giochiamo alla catena di parole. A turno bisogna dire una parola che comincia con la sillaba finale di quella precedente. Se vuoi cambiare parola puoi dire: passo. Iniziamo! La prima parola è: " + self.last_word
                 elif msg == "ACTIVITY-2":
                     self.activity_is_on = True
                     service = "questions"
@@ -413,7 +413,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
 
         elif result['service'] == "clear_web":
 
-            self.do_request(self.index, "simple_dialogue", optional_data = " ") 
+            self.do_request(self.index, "simple_dialogue", optional_data = " Fine. ") 
 
         elif result['service'] == "questions":
 
@@ -541,7 +541,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                         if correct_answer == True:
                             if self.index == self.quiz_end_2:
                                 self.correct_answer_quiz = self.correct_answer_quiz + 1
-                                service_message = "Congratulazioni, hai finito tutte le attività. Hai indovinato " + str(self.correct_answer_quiz) + " risposte corrette."
+                                service_message = "Congratulazioni, hai finito tutte le attività. Hai dato " + str(self.correct_answer_quiz) + " risposte corrette."
                                 self.current_quiz = "Arte"
                                 service = "clear_web"
                                 self.correct_answer_quiz = 0
@@ -559,7 +559,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                 self.suggestion = True
                             else:
                                 if self.index == self.quiz_end_2:
-                                    service_message = "Congratulazioni, hai finito tutte le attività. Hai indovinato " + str(self.correct_answer_quiz) + " risposte corrette."
+                                    service_message = "Congratulazioni, hai finito tutte le attività. Hai dato " + str(self.correct_answer_quiz) + " risposte corrette."
                                     self.current_quiz = "Arte"
                                     service = "clear_web"
                                     self.correct_answer_quiz = 0
@@ -609,6 +609,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                                     
                     if word == "passo":
                         rospy.loginfo("User passed")
+                        self.used_words.add(word)
                         new_word = self._retrieve_word_starting_with_last_syllable(word)
                         self.last_word = new_word
                         msg = "Cambiamo parola: " + new_word
@@ -955,7 +956,7 @@ if __name__ == "__main__":
         bc = HomeAssistantDecisionManager(name, pattern_list, instance_id, words_file_path, test_input, script, activity_script, pattern_script_path, feeling_pattern_script_path, feeling_script, config_activity_path)
         rospy.loginfo(f"START from the first step of {name} decision.")
 
-        bc.start(service="catena_di_parole")
+        bc.start(service="questions")
 
         rospy.spin()
     except rospy.ROSInterruptException:
