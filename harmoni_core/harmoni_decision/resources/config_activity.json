@@ -10,6 +10,86 @@
                   "img": "intro.png",
                   "sound": "intro.wav"
                 },
+                "tasks_0": [
+                  {
+                      "text": "La gipsoteca è una raccolta di…",
+                      "img_1": "qa_0_0_target.jpg",
+                      "img_2": "qa_0_0_comp.jpg",
+                      "text_1": [
+                        "Sculture",
+                        "Statue"
+                      ],
+                      "text_2": [
+                        "Gioielli",
+                        "Collane"
+                      ],
+                      "answer": 1
+                    },
+                    {
+                      "text": "Per cosa è celebre Arcimboldo?",
+                      "img_1": "qa_0_1_comp.jpg",
+                      "img_2": "qa_0_1_target.jpg",
+                      "text_1": [
+                        "Illusioni ottiche",
+                        "Illusioni"
+                      ],
+                      "text_2": [
+                        "Ritratti con frutta e verdura",
+                        "Frutta",
+                        "Verdura"
+                      ],
+                      "answer": 2
+                    },
+                    {
+                      "text": "Dove si trova il museo più visitato?",
+                      "img_1": "qa_0_2_target.jpg",
+                      "img_2": "qa_0_2_comp.jpg",
+                      "text_1": [
+                        "Parigi (Louvre)",
+                        "Parigi",
+                        "Francia"
+                      ],
+                      "text_2": [
+                        "New York (MoMA)",
+                        "New York",
+                        "Stati Uniti"
+                      ],
+                      "answer": 1
+                    },
+                    {
+                      "text": "Cosa indica il termine Cariatide?",
+                      "img_1": "qa_0_3_target.jpg",
+                      "img_2": "qa_0_3_comp.jpg",
+                      "text_1": [
+                        "Scultura femminile usata come colonna",
+                        "scultura",
+                        "colonna"
+                      ],
+                      "text_2": [
+                        "Busto di persona illustre",
+                        "busto",
+                        "persona"
+                      ],
+                      "answer": 1
+                    },
+                    {
+                      "text": "Quale di queste opere fa parte dell Espressionismo?",
+                      "img_1": "qa_0_4_comp.jpg",
+                      "img_2": "qa_0_4_target.jpg",
+                      "text_1": [
+                        "La passeggiata",
+                        "passeggiata"
+                      ],
+                      "text_2": [
+                        "Cavallo blu I",
+                        "Cavallo blu",
+                        "Cavallo",
+                        "blu"
+                      ],
+                      "answer": 2
+                    }
+  
+                  ],
                 "tasks_1": [
                   {
                     "text": "Quale quadro di Van Gogh è conservato al MoMA di New York?",
@@ -75,22 +155,9 @@
                       "Milano"
                     ],
                     "answer": 2
-                  },
-                  {
-                    "text": "La gipsoteca è una raccolta di…",
-                    "img_1": "qa_1_6_target.jpg",
-                    "img_2": "qa_1_6_comp.jpg",
-                    "text_1": [
-                      "Sculture",
-                      "Statue"
-                    ],
-                    "text_2": [
-                      "Gioielli",
-                      "Collane"
-                    ],
-                    "answer": 1
                   }
                 ],
+                
                 "tasks_2": [
                   {
                     "text": "Quale quadro di Dalì è conservato al MoMA di New York?",
@@ -162,21 +229,6 @@
                       "Oceano Pacifico"
                     ],
                     "answer": 2
-                  },
-                  {
-                    "text": "Per cosa è celebre Arcimboldo?",
-                    "img_1": "qa_2_6_target.jpg",
-                    "img_2": "qa_2_6_comp.jpg",
-                    "text_1": [
-                      "Ritratti con frutta e verdura",
-                      "Frutta",
-                      "Verdura"
-                    ],
-                    "text_2": [
-                      "Illusioni ottiche",
-                      "Illusioni"
-                    ],
-                    "answer": 1
                   }
                 ],
                 "tasks_3": [
@@ -207,7 +259,7 @@
                     "answer": 2
                   },
                   {
-                    "text": "Quali di questi edifici è in stile barocco?",
+                    "text": "Quali di queste opere è in stile barocco?",
                     "img_1": "qa_3_3_comp.jpg",
                     "img_2": "qa_3_3_target.jpg",
                     "text_1": [
@@ -227,10 +279,16 @@
                     "img_1": "qa_3_4_target.jpg",
                     "img_2": "qa_3_4_comp.jpg",
                     "text_1": [
-                      "Forme uniche della continuità nello spazio"
+                      "Forme uniche della continuità nello spazio",
+                      "forme",
+                      "spazio",
+                      "continuità"
                     ],
                     "text_2": [
-                      "Ago, filo e nodo"
+                      "Ago, filo e nodo",
+                      "ago",
+                      "filo",
+                      "nodo"
                     ],
                     "answer": 1
                   },
@@ -239,28 +297,13 @@
                     "img_1": "qa_3_5_comp.jpg",
                     "img_2": "qa_3_5_target.jpg",
                     "text_1": [
-                      "Linea trasversale"
+                      "Linea trasversale",
+                      "linea"
                     ],
                     "text_2": [
                       "Convergenza"
                     ],
                     "answer": 2
-                  },
-                  {
-                    "text": "Dove si trova il museo più visitato?",
-                    "img_1": "qa_3_6_target.jpg",
-                    "img_2": "qa_3_6_comp.jpg",
-                    "text_1": [
-                      "Parigi (Louvre)",
-                      "Parigi",
-                      "Francia"
-                    ],
-                    "text_2": [
-                      "New York (MoMA)",
-                      "New York",
-                      "Stati Uniti"
-                    ],
-                    "answer": 1
                   }
                 ],
                 "reward": {
@@ -319,16 +362,55 @@
                       "Apollo"
                     ],
                     "sugg": "Suggerimento: Il suo nome compare nella missione spaziale che portò i primi uomini sulla luna."
-                  },
+                  }
+                ],
+
+                "tasks_0": [
                   {
                     "text": "Quale filosofo ha ideato il mito della caverna?",
-                    "img_1": "qa_4_5_target.jpg",
+                    "img_1": "qa_7_0_target.jpg",
                     "text_1": [
                       "Platone"
                     ],
                     "sugg": "Suggerimento: Ha scritto i Dialoghi di Socrate."
+                  },
+                  {
+                    "text": "Il Vallo di Adriano separa la Scozia da...?",
+                    "img_1": "qa_7_1_target.jpg",
+                    "text_1": [
+                      "Inghilterra"
+                    ],
+                    "sugg": "Suggerimento: è una delle quattro nazioni costitutive del Regno Unito"
+                  },
+                  {
+                    "text": "Qual è la capitale del Perù?",
+                    "img_1": "qa_7_2_target.jpg",
+                    "text_1": [
+                      "Lima"
+                    ],
+                    "sugg": "Suggerimento: è anche uno strumento per la cura delle mani"
+                  },
+                  {
+                    "text": "In che paese si trova la palla di elastici più grande del mondo?",
+                    "img_1": "qa_7_3_target.jpg",
+                    "text_1": [
+                      "Stati uniti",
+                      "uniti"
+                      "Illinois"
+                      "Chicago"
+                    ],
+                    "sugg": "Suggerimento: si trova nell'emisfero boreale"
                   }
-                ],
+                  ,
+                  {
+                    "text": "In che continente si trovano le Maldive?",
+                    "img_1": "qa_7_4_target.jpg",
+                    "text_1": [
+                      "Asia"
+                    ],
+                    "sugg": "Suggerimento: è il continente più vasto"
+                  }                ],
+
                 "tasks_2": [
                   {
                     "text": "In quale sport eccelle Serena Williams?",
@@ -360,7 +442,7 @@
                     "text": "Di quale paese è originario il fico d india?",
                     "img_1": "qa_5_3_target.jpg",
                     "text_1": [
-                      "Messico "
+                      "Messico"
                     ],
                     "sugg": "Suggerimento: Si trova nella zona centrale dell America"
                   },
@@ -371,14 +453,6 @@
                       "Africa"
                     ],
                     "sugg": "Suggerimento: Insieme all Eurasia, forma il cosiddetto «Continente Antico»"
-                  },
-                  {
-                    "text": "Il Vallo di Adriano separa la Scozia da...?",
-                    "img_1": "qa_5_5_target.jpg",
-                    "text_1": [
-                      "Inghilterra"
-                    ],
-                    "sugg": "Suggerimento: è una delle quattro nazioni costitutive del Regno Unito"
                   }
                 ],
                 "tasks_3": [
@@ -421,14 +495,6 @@
                       "Mosca"
                     ],
                     "sugg": "Suggerimento: è la capitale della Russia"
-                  },
-                  {
-                    "text": "Qual è la capitale del Perù?",
-                    "img_1": "qa_6_5_target.jpg",
-                    "text_1": [
-                      "Lima"
-                    ],
-                    "sugg": "Suggerimento: è anche uno strumento per la cura delle mani"
                   }
                 ],
                 "reward": {

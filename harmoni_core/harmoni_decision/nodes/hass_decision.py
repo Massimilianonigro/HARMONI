@@ -60,15 +60,15 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
         self.activity_is_on = False
         
         self.current_quiz = "Arte"
-        self.quiz_number = 3 #1 #2 #3
+        self.quiz_number = 0 #0 #1 #2 #3
 
         self.suggestion = False
         self.populate_scene(self.index) 
         self.class_clients={}
         self._setup_classes()
-        self.quiz_end_2 =  5 #1 #5
-        self.quiz_end = 6 #6 #2
-        self.last_word = "luce" #casa #luce #cucina
+        self.quiz_end_2 =  4 #1 #5
+        self.quiz_end = 5 #5 #2
+        self.last_word = "casa" #casa #luce #cucina #sole
         self.words_index = 1
         self.cycles = 1
         self.end = 5 # words
@@ -491,7 +491,7 @@ class HomeAssistantDecisionManager(HarmoniServiceManager):
                             else:
                                 self.index = self.index +1 
                                 self.correct_answer_quiz = self.correct_answer_quiz  + 1
-                                self.populate_scene(self.index)
+                                self.populate_scene(self.index, "Risposta esatta! ")
 
                             self.class_clients[service] = SequentialPattern(service, self.script)
 
