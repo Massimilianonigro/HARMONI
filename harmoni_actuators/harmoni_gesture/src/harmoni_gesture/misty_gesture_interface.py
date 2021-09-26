@@ -97,7 +97,7 @@ class GestureInterface(HarmoniServiceManager):
                         speed = j
                     else:
                         speed = 2  # the default speed value
-                rospy.loginfo(
+                rospy.logdebug(
                     "The speed of the gesture "
                     + str(self.gestures_name[i])
                     + " is: "

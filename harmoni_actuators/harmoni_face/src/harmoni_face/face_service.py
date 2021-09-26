@@ -57,14 +57,14 @@ class EyesService(HarmoniServiceManager):
                 t = Timer(self.timer_interval, self.send_face_request)
                 t.start()
                 start_time = rospy.Time.now()
-                rospy.loginfo("The last viseme lasts %i" % viseme_times[-1])
+                rospy.logdebug("The last viseme lasts %i" % viseme_times[-1])
                 time_sleep = int(viseme_times[-1]) + self.min_duration_viseme
                 rospy.sleep(time_sleep)
             if valid_face_expression != []:
-                rospy.loginfo("Valid face expression not null")
+                rospy.logdebug("Valid face expression not null")
                 if len(valid_face_expression) > 1:
                     for ind, f in range(0, len(valid_face_expression) - 1):
-                        rospy.loginfo("The valid expression is %s" % f)
+                        rospy.logdebug("The valid expression is %s" % f)
                         aus = list(map(lambda s: s[2:], f["aus"]))
                         au_ms = f["au_ms"] * 1000
                         self.face_request = FaceRequest(
@@ -83,7 +83,7 @@ class EyesService(HarmoniServiceManager):
                 t = Timer(self.timer_interval, self.send_face_request)
                 t.start()
                 start_time = rospy.Time.now()
-                rospy.loginfo("The last facial expression")
+                rospy.logdebug("The last facial expression")
                 rospy.sleep(valid_face_expression[-1]["au_ms"])
             self.state = State.SUCCESS
             self.actuation_completed = True
@@ -97,10 +97,10 @@ class EyesService(HarmoniServiceManager):
 
     def setup_face(self):
         """ Setup the face """
-        rospy.loginfo("Setting up the %s eyes" % self.name)
-        rospy.loginfo("Checking that face is connected to ROS websocket")
+        rospy.logdebug("Setting up the %s eyes" % self.name)
+        rospy.logdebug("Checking that face is connected to ROS websocket")
         #rospy.wait_for_service("/harmoni/actuating/face/is_connected")
-        rospy.loginfo("Done, face is connected to ROS websocket")
+        rospy.logdebug("Done, face is connected to ROS websocket")
         [
             self.face_expression,
             self.face_expression_names,
@@ -123,7 +123,7 @@ class EyesService(HarmoniServiceManager):
 
     def send_face_request(self):
         """ Send the request to the web page"""
-        rospy.loginfo("Sending request to webpage of the face")
+        rospy.logdebug("Sending request to webpage of the face")
         self.face_pub.publish(self.face_request)
         return
 
@@ -174,7 +174,7 @@ class EyesService(HarmoniServiceManager):
                 sentence.append(b["value"])
         # viseme = list(filter(lambda b: b["id"] in self.visemes, data))
         # facial_expression = list(filter(lambda b: b["id"] in self.face_expression_names, data))
-        rospy.loginfo("These facial expressions include %s" % facial_expression)
+        rospy.logdebug("These facial expressions include %s" % facial_expression)
         ordered_facial_data = list(
             sorted(facial_expression, key=lambda face: face["start"])
         )
@@ -182,8 +182,8 @@ class EyesService(HarmoniServiceManager):
         for fexp in ordered_facial_data:
             validated_face_expr.append(self.face_expression[fexp["id"]])
         viseme_set = []
-        rospy.loginfo("The validated facial expressions are %s" % validated_face_expr)
-        rospy.loginfo("The validated visemes are %s" % viseme_set)
+        rospy.logdebug("The validated facial expressions are %s" % validated_face_expr)
+        rospy.logdebug("The validated visemes are %s" % viseme_set)
         print("Finished getting face data for sentence:", sentence)
         return (validated_face_expr, viseme_set)
 
@@ -222,7 +222,7 @@ class MouthService(HarmoniServiceManager):
             response (int): whether SUCCESS of FAIL
             message (str): result message 
         """
-        rospy.loginfo("Do expressions")
+        rospy.logdebug("Do expressions")
         self.actuation_completed = False
         self.result_msg=""
         [valid_face_expression, visemes] = self.get_face_data(data)
@@ -239,14 +239,14 @@ class MouthService(HarmoniServiceManager):
                 t = Timer(self.timer_interval, self.send_face_request)
                 t.start()
                 start_time = rospy.Time.now()
-                rospy.loginfo("The last viseme lasts %i" % viseme_times[-1])
+                rospy.logdebug("The last viseme lasts %i" % viseme_times[-1])
                 time_sleep = int(viseme_times[-1]) + self.min_duration_viseme
                 rospy.sleep(time_sleep)
             if valid_face_expression != []:
-                rospy.loginfo("Valid face expression not null")
+                rospy.logdebug("Valid face expression not null")
                 if len(valid_face_expression) > 1:
                     for ind, f in range(0, len(valid_face_expression) - 1):
-                        rospy.loginfo("The valid expression is %s" % f)
+                        rospy.logdebug("The valid expression is %s" % f)
                         aus = list(map(lambda s: s[2:], f["aus"]))
                         au_ms = f["au_ms"] * 1000
                         self.face_request = FaceRequest(
@@ -265,23 +265,23 @@ class MouthService(HarmoniServiceManager):
                 t = Timer(self.timer_interval, self.send_face_request)
                 t.start()
                 start_time = rospy.Time.now()
-                rospy.loginfo("The last facial expression")
+                rospy.logdebug("The last facial expression")
                 rospy.sleep(valid_face_expression[-1]["au_ms"])
             self.state = State.SUCCESS
             self.actuation_completed = True
         except Exception:
             self.state = State.FAILED
             self.actuation_completed = True
-        rospy.loginfo("Completed Expression")
+        rospy.logdebug("Completed Expression")
         return {"response": self.state, "message": self.result_msg}
 
     def setup_face(self):
         """Setup the face, waiting for the connection with the web page
         """
-        rospy.loginfo("Setting up the %s mouth" % self.name)
-        rospy.loginfo("Checking that face is connected to ROS websocket")
+        rospy.logdebug("Setting up the %s mouth" % self.name)
+        rospy.logdebug("Checking that face is connected to ROS websocket")
         rospy.wait_for_service("/harmoni/actuating/face/is_connected")
-        rospy.loginfo("Done, face is connected to ROS websocket")
+        rospy.logdebug("Done, face is connected to ROS websocket")
         [
             self.face_expression,
             self.face_expression_names,
@@ -304,7 +304,7 @@ class MouthService(HarmoniServiceManager):
 
     def send_face_request(self):
         """ Send the request to the web page"""
-        rospy.loginfo("Sending request to webpage of the face")
+        rospy.logdebug("Sending request to webpage of the face")
         self.face_pub.publish(self.face_request)
         return
 
@@ -355,7 +355,7 @@ class MouthService(HarmoniServiceManager):
         # viseme = list(filter(lambda b: b["id"] in self.visemes, data))
 
         # facial_expression = list(filter(lambda b: b["id"] in self.face_expression_names, data))
-        rospy.loginfo("These facial expressions include %s" % facial_expression)
+        rospy.logdebug("These facial expressions include %s" % facial_expression)
 
         ordered_facial_data = list(
             sorted(facial_expression, key=lambda face: face["start"])
@@ -376,9 +376,9 @@ class MouthService(HarmoniServiceManager):
             filter(lambda b: b["duration"] >= self.min_duration_viseme, viseme_set)
         )
         ordered_visemes = list(sorted(viseme_behaviors, key=lambda b: b["start"]))
-        rospy.loginfo("The validated facial expressions are %s" % validated_face_expr)
-        rospy.loginfo("The validated visemes are %s" % viseme_set)
-        print("Finished getting face data for sentence:", sentence)
+        rospy.logdebug("The validated facial expressions are %s" % validated_face_expr)
+        rospy.logdebug("The validated visemes are %s" % viseme_set)
+        rospy.logdebug("Finished getting face data for sentence:", sentence)
         return (validated_face_expr, viseme_set)
 
 

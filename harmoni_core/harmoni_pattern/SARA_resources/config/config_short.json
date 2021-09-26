@@ -1,0 +1,48 @@
+[{
+		"Q&A": [{
+				"General": ["Linguaggio", "Contesto ecologico","Geografia","Proverbi"]
+			},
+			{
+				"Su di me": [{
+						"Parlo di me": ["theme1"]
+					},
+					{
+						"Io e il cibo": ["theme1"]
+					},
+					{
+						"Io e la famiglia": ["theme1", "theme2"]
+					},
+					{
+						"Io e gli amici": ["theme1", "theme2"]
+					}
+				]
+			},
+			{
+				"Storie": [
+					"Il Calzolaio",
+					"Lo spazzacamino",
+					"Il venditore di dolciumi"
+				]
+			}
+		]
+	},
+	{
+		"Storytelling": ["Il Calzolaio",
+			"Lo spazzacamino",
+			"Il venditore di dolciumi"
+		]
+	},
+	{
+
+
+		"Feeling activity": ["Matching Activity Emotion","How do you feel?","Landscape Emotion"]
+	},
+	{
+		"Space orientation": ["Trova gli oggetti"]
+
+	},
+	{
+
+		"Time orientation": ["Primavera","Estate","Autunno","Inverno"]
+	}
+]

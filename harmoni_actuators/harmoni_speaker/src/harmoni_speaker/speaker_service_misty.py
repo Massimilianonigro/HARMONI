@@ -72,7 +72,7 @@ class SpeakerService(HarmoniServiceManager):
                     data = data["audio_data"]
                 else:
                     data = ast.literal_eval(data)
-                    print(data)
+                    #print(data)
                     outdir = self.rospack.get_path("harmoni_speaker") + "/temp_data/test.wav"
                     sf.write(outdir, np.fromstring(data["audio_ogg"], dtype=float), data["audio_frame"])
 
@@ -80,8 +80,8 @@ class SpeakerService(HarmoniServiceManager):
                     duration = data["duration"]
                     data = data["audio_data"]
 
-            rospy.loginfo("Writing data for speaker")
-            rospy.loginfo(f"length of data is {len(data)}")
+            rospy.logdebug("Writing data for speaker")
+            rospy.logdebug(f"length of data is {len(data)}")
             #Maximum size for the file is 3 Mb
             payload = {'fileName':'test.wav', 
                         "data": data,
@@ -100,18 +100,18 @@ class SpeakerService(HarmoniServiceManager):
                             headers = headers)
                             #headers = headers,
             prepped = req.prepare()
-            print(prepped.url)
+            #print(prepped.url)
 
             response = s.send(prepped,
                 timeout=1
             )
             print("receiving response")
-            print(response)
+            #print(response)
             rospy.sleep(duration)  
             self.state = State.SUCCESS
             self.response_received = True
             self.result_msg = response.text
-            rospy.loginfo("Request successfully completed")
+            rospy.logdebug("Request successfully completed")
         except Timeout:
             rospy.logwarn("Speaker failed: The ip of the robot appears unreachable")
             self.state = State.SUCCESS
@@ -120,7 +120,7 @@ class SpeakerService(HarmoniServiceManager):
             return {"response": self.state}
         except IOError as e: 
             rospy.logwarn("Speaker failed: Audio appears too busy")
-            print(e)
+            #print(e)
             self.state = State.FAILED
             self.response_received = True
             self.result_msg = ""
@@ -156,7 +156,7 @@ class SpeakerService(HarmoniServiceManager):
             frames = f.getnframes()
             rate = f.getframerate()
             duration = frames / float(rate)
-            rospy.loginfo(f"The audio lasts {duration} seconds")
+            rospy.logdebug(f"The audio lasts {duration} seconds")
         if "http" in path:
             os.remove(file_handle)
         return {"audio_data": data, "duration": duration}

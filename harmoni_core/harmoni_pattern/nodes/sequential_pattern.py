@@ -121,8 +121,8 @@ class SequentialPattern(HarmoniServiceManager):
 
     def _result_callback(self, result):
         """ Recieve and store result with timestamp """
-        rospy.loginfo("The result of the request has been received")
-        rospy.loginfo(
+        rospy.logdebug("The result of the request has been received")
+        rospy.logdebug(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
         self.client_results[result["service"]].append(
@@ -151,8 +151,8 @@ class SequentialPattern(HarmoniServiceManager):
         r = rospy.Rate(1)
         while self.script_set_index < len(self.script) and not rospy.is_shutdown():
             # If scripts were not setup in the init, they will be here
-            rospy.loginfo("Running the following steps:")
-            rospy.loginfo(self.script[self.script_set_index]["steps"])
+            rospy.logdebug("Running the following steps:")
+            rospy.logdebug(self.script[self.script_set_index]["steps"])
             if self.script[self.script_set_index]["set"] == "setup":
                 self.setup_services(self.script[self.script_set_index]["steps"])
 
@@ -244,10 +244,10 @@ class SequentialPattern(HarmoniServiceManager):
             rospy.loginfo(f"------------- Starting sequence step: {cnt}-------------")
 
             if passthrough_result:
-                rospy.loginfo(f"with prior result length ({len(passthrough_result)})")
+                rospy.logdebug(f"with prior result length ({len(passthrough_result)})")
 
             else:
-                rospy.loginfo("no prior result")
+                rospy.logdebug("no prior result")
 
             passthrough_result = self.handle_step(step, passthrough_result)
 
@@ -282,7 +282,7 @@ class SequentialPattern(HarmoniServiceManager):
         # TODO modify to collect results and return them
         if isinstance(step, list):
             threads = []
-            rospy.loginfo("Running action in parallel-ish (launching multiple goals)")
+            rospy.logdebug("Running action in parallel-ish (launching multiple goals)")
             for i, sub_action in enumerate(step, start=1):
                 t = threading.Thread(
                     target=self.handle_step, args=(sub_action, optional_data)
@@ -298,7 +298,7 @@ class SequentialPattern(HarmoniServiceManager):
         else:
             service = next(iter(step))
             details = step[service]
-            rospy.loginfo(f"Step is {service} with details {details}")
+            rospy.logdebug(f"Step is {service} with details {details}")
             assert details["resource_type"] in [
                 "sensor",
                 "detector",
@@ -337,7 +337,7 @@ class SequentialPattern(HarmoniServiceManager):
         elif not optional_data:
             optional_data = ""
 
-        rospy.loginfo(
+        rospy.logdebug(
             f"Sending goal to {service} optional_data len {len(optional_data)}"
         )
 
@@ -349,7 +349,7 @@ class SequentialPattern(HarmoniServiceManager):
             wait=False,
         )
 
-        rospy.loginfo(f"Goal sent to {service}")
+        rospy.logdebug(f"Goal sent to {service}")
 
         self.state = State.SUCCESS
 
@@ -376,7 +376,7 @@ class SequentialPattern(HarmoniServiceManager):
         Returns:
             str: the string version of the last detection
         """
-        rospy.loginfo(f"Retrieving data from detector: {service}")
+        rospy.logdebug(f"Retrieving data from detector: {service}")
         if details["wait_for"] == "new":
             return_data = self.get_new_result(service)
         else:
@@ -395,9 +395,9 @@ class SequentialPattern(HarmoniServiceManager):
         Returns:
             str: Result data
         """
-        rospy.loginfo("getting result from the service")
-        rospy.loginfo(f"Queue is {self.client_results[service]}")
-        rospy.loginfo(f"Queue size is {len(self.client_results[service])}")
+        rospy.logdebug("getting result from the service")
+        rospy.logdebug(f"Queue is {self.client_results[service]}")
+        rospy.logdebug(f"Queue size is {len(self.client_results[service])}")
 
         call_time = time()
         result = {"time": 0, "data": "_the_queue_is_empty"}
@@ -407,15 +407,15 @@ class SequentialPattern(HarmoniServiceManager):
 
         r = rospy.Rate(1)
         while result["time"] < call_time and not rospy.is_shutdown():
-            rospy.loginfo(f"got old message length ({len(result['data'])})")
+            rospy.logdebug(f"got old message length ({len(result['data'])})")
             if len(self.client_results[service]) > 0:
                 result = self.client_results[service].popleft()
 
             r.sleep()
 
         if len(result["data"]) < 500:
-            rospy.loginfo(f"result is {result['data']}")
-        rospy.loginfo(
+            rospy.logdebug(f"result is {result['data']}")
+        rospy.logdebug(
             f"Recieved result message length ({len(result['data'])}) from service {service}"
         )
         #print(f"result : {result}" )
@@ -430,8 +430,8 @@ class SequentialPattern(HarmoniServiceManager):
 
     def request(self, data):
         """Send goal request to appropriate child"""
-        rospy.loginfo("Start the %s request" % self.name)
-        rospy.loginfo(data)
+        rospy.logdebug("Start the %s request" % self.name)
+        rospy.logdebug(data)
         if isinstance(data,str):
            data = ast.literal_eval(data)
         self.script = data

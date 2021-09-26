@@ -1,17 +1,31 @@
 <launch>
        <!-- This is an integrative test that requires the microphone -->
+    <arg name="robot_ip" default="192.168.100.176"/>
+	<param name="robot_ip" value="$(arg robot_ip)"/>
+
+    <arg name="activity_type" default="QandA"/>
+    <arg name="area" default= "General"/>
+    <arg name="level3" default="Linguaggio"/>
+    <arg name="level4" default="None"/>
+
+    <param name="activity_type" value="$(arg activity_type)"/>
+    <param name="area" value="$(arg area)"/>
+    <param name="level3" value="$(arg level3)"/>
+    <param name="level4" value="$(arg level4)"/>
+    
     <include file="$(find harmoni_web)/launch/web_service.launch"></include>
     <include file="$(find harmoni_tts)/launch/tts_service.launch"></include>
-    
-    <include file="$(find harmoni_speaker)/launch/speaker_service_misty.launch"></include>
-    <include file="$(find harmoni_face)/launch/face_service_misty.launch"></include>
+    <include file="$(find harmoni_face)/launch/face_service_misty.launch">
+    </include>
+
+    <include file="$(find harmoni_speaker)/launch/speaker_service_misty.launch">
+    </include>
     <include file="$(find harmoni_gesture)/launch/gesture_service_misty.launch">
         <arg name="instance_id" default="misty"/>
     </include>
-    <include file="$(find harmoni_bot)/launch/bot_service.launch"></include>
-
-    <include file="$(find harmoni_pattern)/launch/sequence_pattern.launch">
-        <arg name="pattern_name" default="misty_interaction"/>
+    <!--<include file="$(find harmoni_bot)/launch/bot_service.launch"></include>-->
+  	
+    <include file="$(find harmoni_pattern)/launch/harmoni_decision.launch">
+        <arg name="pattern_name" default="misty"/>
     </include>
-
 </launch>

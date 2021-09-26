@@ -103,7 +103,7 @@ class GestureService(HarmoniServiceManager):
         if type(data) == str:
             data = ast.literal_eval(data)
         try:
-            rospy.loginfo(f"length of data is {len(data)}")
+            rospy.logdebug(f"length of data is {len(data)}")
             if "behavior_data" in data:
                 data = ast.literal_eval(data["behavior_data"])
                 gesture_data = self._get_gesture_data(data)
@@ -141,7 +141,7 @@ class GestureService(HarmoniServiceManager):
         #    data = ast.literal_eval(data)
 
         try:
-            rospy.loginfo(f"length of data is {len(data)}")
+            rospy.logdebug(f"length of data is {len(data)}")
             if "behavior_data" in data:
                 data = ast.literal_eval(data["behavior_data"])
                 gesture_data = self._get_gesture_data(data)
@@ -262,7 +262,7 @@ class GestureService(HarmoniServiceManager):
                 gesture_timing = float(
                     ordered_timing_word_behaviors[index + 1]["start"]
                 )  # you cannot have a behavior sets at the end of the sentence
-                rospy.loginfo(
+                rospy.logdebug(
                     "Play "
                     + str(behav["id"])
                     + " at time:"
@@ -292,7 +292,7 @@ class GestureService(HarmoniServiceManager):
                         len(ordered_timing_word_behaviors) - 1
                     ]["start"]
                 )  # you cannot have a behavior sets at the end of the sentence
-                rospy.loginfo(
+                rospy.logdebug(
                     "Play "
                     + str(
                         ordered_timing_word_behaviors[

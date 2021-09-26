@@ -53,27 +53,44 @@ $(document).ready(function () {
 function viewListener(view) {
     console.log("VIEW LISTENER")
     //Waiting for the view request from the ROS package
-    console.log(view.data)
+    //console.log(view.data)
     var data = view.data.replace(/'/g, '"')
     var json_data = JSON.parse(data)
     var component = json_data.component_id
     var content = json_data.set_content
+    //console.log(content)
     if (content != "") {
         if (component.includes("img")) {
-            if ($("#" + component)[0].style.display == 'none'){
-                $("#" + component)[0].style.display = 'inline-block'; //Can be searched better
+            if ($("#" + component).parent().parent()[0].style.display == 'none'){
+                $("#" + component).parent().parent()[0].style.display = 'inline-block'; //Can be searched better
+            }
+            else if ($("#" + component).parent().parent()[0].style.visibility == 'hidden'){
+                $("#" + component).parent().parent()[0].style.visibility = 'visible'; //Can be searched better
             }
             $("#" + component).attr("src", content);
             $("#" + component).attr("value", content);
             $('img', "#"+component).attr('src', content);
             $("#"+ component).children().unbind('click');
         }
-        else if (component.includes("text")) {
+        else if (component.includes("txt")) {
+            //console.log($("#" + component).parent().parent().parent().parent()[0])
             if ($("#" + component).parent().parent().parent().parent()[0].style.display == 'none'){
                 $("#" + component).parent().parent().parent().parent()[0].style.display = 'inline-block'; //Can be searched better
             }
+            else if ($("#" + component).parent().parent().parent().parent()[0].style.visibility == 'hidden'){
+                //console.log("bestemmia");
+                $("#" + component).parent().parent().parent().parent()[0].style.visibility = 'visible'; //Can be searched better
+            }
             //$("#" + component).parent().parent()[0].style.display = 'inline-block';
-            $("#" + component)[0].style.display = 'inline-block';
+            if (content.length > 10){
+                $("#" + component)[0].style.fontSize = "400%" ;
+            }
+            else {
+                $("#" + component)[0].style.fontSize = "1000%" ;
+            }
+            //console.log($("#" + component)[0]) ;
+            $("#" + component)[0].style.display = 'inline-block';            
+            //$("#" + component)[0].style.visibility = 'visible';
             $("#" + component).html(content)
         }
         else {
@@ -82,13 +99,38 @@ function viewListener(view) {
     } else if (component.includes("container")) {
         $(".container").hide()
     } else if (component.includes("img")){
-        console.log($("#" + component).parent().parent()[0])
-        $("#" + component)[0].style.display = 'none';
-    } else if (component.includes("text")){
-        $("#" + component).parent().parent().parent().parent()[0].style.display = 'none';
+        //console.log($("#" + component).parent().parent()[0])
+        if ($("#" + component).parent().parent()[0].style.display == 'inline-block'){
+            $("#" + component).parent().parent()[0].style.display = 'none';
+        } else if ($("#" + component).parent().parent()[0].style.visibility == 'visible'){
+            $("#" + component).parent().parent()[0].style.visibility = 'hidden';
+        }
+    } else if (component.includes("txt")){
+        if ($("#" + component).parent().parent().parent().parent()[0].style.display == 'inline-block'){
+            $("#" + component).parent().parent().parent().parent()[0].style.display = 'none';
+        }
+        else if ($("#" + component).parent().parent().parent().parent()[0].style.visibility == 'visible'){
+            $("#" + component).parent().parent().parent().parent()[0].style.visibility = 'hidden';
+        }
     }
 
     disableOptions()
+    if ($("#" + component).find(".button_try").prop("disabled")){
+        //console.log("disabling")
+        $("#" + component).find(".button_try").prop("disabled", false);
+    }
+    else{
+        //console.log("enabling")
+        $("#" + component).find(".button_try").prop("disabled", true);
+    }
+    if ($("#" + component).find(".card-img-top").prop("disabled")){
+        //console.log("disabling")
+        $("#" + component).find(".card-img-top").prop("disabled", false);
+    }
+    else{
+        //console.log("enabling")
+        $("#" + component).find(".card-img-top").prop("disabled", true);
+    }
     $("#" + component).show();
     //setTimeout(function(){ $("#"+ component).children().bind('click'); }, 3000);
 };
@@ -97,12 +139,12 @@ function viewListener(view) {
 function requestListener(view) {
     console.log("REQUEST LISTENER")
     //Waiting for the view request from the ROS package
-    console.log(view.data)
+    //console.log(view.data)
     var data = view.data.replace(/'/g, '"')
     var json_data = JSON.parse(data)
     var component = json_data.component_id
     var content = json_data.set_content
-    console.log(content)
+    //console.log(content)
     if (content != "") {
         if (component.includes("img")) {
             $("#" + component).attr("src", content);
@@ -111,24 +153,26 @@ function requestListener(view) {
             //$("#"+ component).children().bind('click');
         }
         else {
+            
             $("#" + component).html(content)
         }
     } else if (component.includes("container")) {
         $(".container").hide()
     } else if (component.includes("img")){
-        console.log($("#" + component).parentElement.parentElement)
+        //console.log($("#" + component).parentElement.parentElement)
         $("#" + component).parentElement.parentElement.parentElement.style.display = 'none';
     }
     $("#"+ component).children().bind('click'); 
     enableOptions()
+    //$("#" + component).find(".option_choice").prop("disabled", false);
     $("#" + component).show();
     //setTimeout(function(){ $("#"+ component).children().bind('click'); enableOptions()}, 3000);
 };
 
 function setValueButton(clicked_button, value_item){
-    console.log(value_item)
+    //console.log(value_item)
     var selected_butt = clicked_button.id;
-    console.log(selected_butt)
+    //console.log(selected_butt)
     if(value_item!=null && value_item!=""){
         if(selected_butt!="start_button"){
             var input_value = document.getElementById(value_item.id).value;
@@ -205,15 +249,21 @@ function createComponent(component, content, id, comp_class) {
             var html = "<div class ='container "+comp_class+"' id=" + id + "></div>";
             break;
         case "card":
-            var html = "<div class=\"col\" style=\"display: none;\"><div class=\"card box-shadow\"><a id= " + id + "><img data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Thumbnail [100%x225]\" style=\"height: 275px; width: 100%; display: block; object-fit: cover;\" data-holder-rendered=\"true\" class=\"card-img-top option_choice disabled\" src=\"" + content + "\"><div class=\"card-body\"><button id= text_" +id.charAt(4)+ " class=\"card-text button_try\"></p></div></a></div></div>"
+            var html = "<div class=\"col\" style=\"display: none;\"><div class=\"card box-shadow\"><a id= " + id + "><img data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Thumbnail [100%x225]\" style=\"height: 275px; width: 100%; display: block; object-fit: cover;\" data-holder-rendered=\"true\" class=\"card-img-top option_choice\" src=\"" + content + "\"><div class=\"card-body\"><button id= txt_" +id.substring(4)+ " class=\"card-text button_try\"></p></div></a></div></div>"
             break;
         case "card_text":
             var html = "<div class=\"col\" style=\"display: none;\"><div class=\"card box-shadow\"><a id= " + id + "><div class=\"card-body\"><button id= QA_text_" +id.charAt(4)+ " class=\"card-text button_try\"></p></div></a></div></div>"
             break;
+        case "fixed_card_img":
+            var html = "<div class=\"col\" style=\"visibility: hidden\" ><div class=\"card box-shadow\"><a id= " + id + "><img data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Thumbnail [100%x225]\" style=\"height: 275px; width: 100%; display: block; object-fit: cover;\" data-holder-rendered=\"true\" class=\"card-img-top option_choice\" src=\"" + content + "\"></p></div></a></div></div>"
+            break;
+        case "fixed_card_text":
+            var html = "<div class=\"col\" style=\"visibility: hidden\"><div class=\"card box-shadow\"><a id= " + id + "_a><div class=\"card-body\"><button id= " +id+ " class=\"card-text button_try \" style=\"font-size:1000%\"></p></div></a></div></div>"
+            break;
         case "click_img":
             var html = "<a id=" + id +"><img class="+comp_class+"  src=" + content + "></a>";
         case "img":
-            var html = "<img class="+comp_class+"  src='" + content + "' id=" + id + ">";
+            var html = "<img class="+comp_class+"  src='" + content + "' id=" + id + " style=\"height: 20%; ; width: 20%;\">";
             break;
         case "video":
             var html = "<video class="+comp_class+"  src='" + content + "' id=" + id + " muted autoplay loop>";
@@ -227,9 +277,9 @@ function createComponent(component, content, id, comp_class) {
             break;
         case "title":
             if (!Array.isArray(content)) {
-                var html = "<div class='title' id=" + id + ">" + content + "</div>";
+                var html = "<div class='title' style=\"font-size:500%\" id=" + id + ">" + content + "</div>";
             } else {
-                var html = "<div class='title' id=" + id + "></div>";
+                var html = "<div class='title' style=\"font-size:500%\" id=" + id + "></div>";
             }
             break;
         case "input_text":

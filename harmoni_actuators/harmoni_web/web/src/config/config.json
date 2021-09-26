@@ -55,7 +55,7 @@
             {   
                 "component": "title",
                 "children": "",
-                "id": "title_QA"
+                "id": "QA_title"
             },
                 {
                     "component": "row",
@@ -65,37 +65,37 @@
                             "component": "card",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "img_1"
+                            "id": "img_1_QA"
                         },
                         {
                             "component": "card",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "img_2"
+                            "id": "img_2_QA"
                         },
                         {
                             "component": "card",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "img_3"
+                            "id": "img_3_QA"
                         },
                         {
                             "component": "card",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "img_4"
+                            "id": "img_4_QA"
                         },
                         {
                             "component": "card",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "img_5"
+                            "id": "img_5_QA"
                         },
                         {
                             "component": "card",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "img_6"
+                            "id": "img_6_QA"
                         }
                     ]
                 }
@@ -103,12 +103,12 @@
         },
         {
             "component": "container",
-            "id": "QA_container_text",
+            "id": "QA_text_container",
             "children": [
             {   
                 "component": "title",
                 "children": "",
-                "id": "title_QA_txt"
+                "id": "QA_text_title"
             },
                 {
                     "component": "row",
@@ -118,19 +118,19 @@
                             "component": "card_text",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "txt_1"
+                            "id": "txt_1_QA_text"
                         },
                         {
                             "component": "card_text",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "txt_2"
+                            "id": "txt_2_QA_text"
                         },
                         {
                             "component": "card_text",
                             "comp_class":"option_choice",
-                            "children": "",
-                            "id": "txt_3"
+                            "children": "ciao",
+                            "id": "txt_3_QA_text"
                         }
                     ]
                 },
@@ -142,22 +142,140 @@
                             "component": "card_text",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "txt_4"
+                            "id": "txt_4_QA_text"
                         },
                         {
                             "component": "card_text",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "txt_5"
+                            "id": "txt_5_QA_text"
                         },
                         {
                             "component": "card_text",
                             "comp_class":"option_choice",
                             "children": "",
-                            "id": "txt_6"
+                            "id": "txt_6_QA_text"
                         }
                     ]
                 }
+            ]
+        },
+        {
+            "component": "container",
+            "id": "touch_container",
+            "children": [
+            {   
+                "component": "title",
+                "children": "",
+                "id": "touch_title"
+            },
+                {
+                    "component": "row",
+                    "id": "row_7",
+                    "children": [
+                        {
+                            "component": "fixed_card_img",
+                            "comp_class":"option_choice",
+                            "children": "",
+                            "id": "img_1_touch"
+                        },
+                        {
+                            "component": "fixed_card_img",
+                            "comp_class":"option_choice",
+                            "children": "",
+                            "id": "img_2_touch"
+                        },
+                        {
+                            "component": "fixed_card_img",
+                            "comp_class":"option_choice",
+                            "children": "ciao",
+                            "id": "img_3_touch"
+                        }
+                    ]
+                },
+                {
+                    "component": "row",
+                    "id": "row_8",
+                    "children": [
+                        {
+                            "component": "fixed_card_img",
+                            "comp_class":"option_choice",
+                            "children": "",
+                            "id": "img_4_touch"
+                        },
+                        {
+                            "component": "fixed_card_img",
+                            "comp_class":"option_choice",
+                            "children": "",
+                            "id": "img_5_touch"
+                        },
+                        {
+                            "component": "fixed_card_img",
+                            "comp_class":"option_choice",
+                            "children": "ciao",
+                            "id": "img_6_touch"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "component": "container",
+            "id": "touch_text_container",
+            "children": [
+            {   
+                "component": "title",
+                "children": "",
+                "id": "touch_text_title"
+            },
+            {
+                "component": "row",
+                "id": "row_9",
+                "children": [
+                    {
+                        "component": "fixed_card_text",
+                        "comp_class":"option_choice",
+                        "children": "",
+                        "id": "txt_1_touch_text"
+                    },
+                    {
+                        "component": "fixed_card_text",
+                        "comp_class":"option_choice",
+                        "children": "",
+                        "id": "txt_2_touch_text"
+                    },
+                    {
+                        "component": "fixed_card_text",
+                        "comp_class":"option_choice",
+                        "children": "ciao",
+                        "id": "txt_3_touch_text"
+                    }
+                ]
+            },
+            {
+                "component": "row",
+                "id": "row_10",
+                "children": [
+                    {
+                        "component": "fixed_card_text",
+                        "comp_class":"option_choice",
+                        "children": "",
+                        "id": "txt_4_touch_text"
+                    },
+                    {
+                        "component": "fixed_card_text",
+                        "comp_class":"option_choice",
+                        "children": "",
+                        "id": "txt_5_touch_text"
+                    },
+                    {
+                        "component": "fixed_card_text",
+                        "comp_class":"option_choice",
+                        "children": "ciao",
+                        "id": "txt_6_touch_text"
+                    }
+                ]
+            }
             ]
         },
         {
@@ -340,6 +458,11 @@
             "component": "container",
             "id": "multiple_choice_full_container",
             "children": [
+                {   
+                    "component": "title",
+                    "children": "testtesttest",
+                    "id": "title_multiple"
+                },
                 {
                     "component": "row",
                     "id": "row_back",
@@ -347,7 +470,7 @@
                         {
                             "component": "img",
                             "id": "main_img_full",
-                            "children": ""
+                            "children": "../assets/imgs/test.jpg"
                         }
                     ]
                 },
@@ -356,22 +479,22 @@
                     "id": "row_options",
                     "children": [
                         {
-                            "component": "click_img",
-                            "children": "",
-                            "id": "target_img_full",
-                            "comp_class":"option_choice"
+                            "component": "card",
+                            "comp_class":"option_choice",
+                            "children": "../assets/imgs/test.jpg",
+                            "id": "img_multi_1"
                         },
                         {
-                            "component": "click_img",
-                            "children": "",
-                            "id": "comp_img_full",
-                            "comp_class":"option_choice"
+                            "component": "card",
+                            "comp_class":"option_choice",
+                            "children": "../assets/imgs/test.jpg",
+                            "id": "img_multi_2"
                         },
                         {
-                            "component": "click_img",
-                            "children": "",
-                            "id": "distr_img_full",
-                            "comp_class":"option_choice"
+                            "component": "card",
+                            "comp_class":"option_choice",
+                            "children": "../assets/imgs/test.jpg",
+                            "id": "img_multi_3"
                         }
                     ]
                 }

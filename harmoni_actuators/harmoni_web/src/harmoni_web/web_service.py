@@ -69,7 +69,7 @@ class WebService(HarmoniServiceManager):
             response (int): state of the request (SUCCESS, FAIL)
             message (str): content of the response message
         """
-        rospy.loginfo("Start the %s do" % self.name)
+        rospy.logdebug("Start the %s do" % self.name)
         self.state = State.REQUEST
         self.actuation_completed = False
         self.result_msg = ""
@@ -81,7 +81,7 @@ class WebService(HarmoniServiceManager):
                 self.send_request(data)
                 rospy.sleep(0.2)
             while not rospy.is_shutdown() and not self.end_listening:
-                rospy.loginfo(f"Waiting for user, the results is: {self.result_msg}")
+                rospy.logdebug(f"Waiting for user, the results is: {self.result_msg}")
                 if self.end_listening:
                     break
                 rospy.sleep(0.1)
@@ -124,7 +124,7 @@ class WebService(HarmoniServiceManager):
             response (int): state of the request (SUCCESS, FAIL)
             message (str): empty string (not expecting any response)
         """
-        rospy.loginfo("Start the %s do" % self.name)
+        rospy.logdebug("Start the %s do" % self.name)
         self.state = State.REQUEST
         self.result_msg = ""
         self.actuation_completed = False
@@ -184,19 +184,19 @@ class WebService(HarmoniServiceManager):
         Args:
             display_view (str): string oj json with information to display ("container_id" and "set_view" values)
         """
-        rospy.loginfo("Sending request to webpage")
-        print(display_view)
+        rospy.logdebug("Sending request to webpage")
+        rospy.logdebug(display_view)
         self.web_pub.publish(display_view)
         return
 
     def _event_click_callback(self, event):
         """Callback for subscription to the web page"""
-        rospy.loginfo("Received an event from the webpage")
-        print(type(event.data))
+        rospy.logdebug("Received an event from the webpage")
+        rospy.logdebug(type(event.data))
         
         # self.result_msg = str(event)[2:-2]
         result_msg = ast.literal_eval(event.data)
-        print(result_msg)
+        rospy.logdebug(result_msg)
         self.result_msg = result_msg["component_id"] #TODO RESET THIS TO "set_view"
         self.end_listening = True
         return

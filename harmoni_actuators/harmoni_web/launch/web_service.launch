@@ -1,7 +1,7 @@
 <!-- This is an example launch file for how a ROS application could use a node -->
 <launch>
     <arg name="web_directory_path" value="$(find harmoni_web)/web"/>
-    <arg name="port" default="8082"/>
+    <arg name="port" default="8182"/>
 	<arg name="instance_id" default="default"/>
 	<param name="instance_id" value="$(arg instance_id)"/>
 	<!-- <rosparam file="$(find harmoni_web)/config/configuration.yaml"/>-->

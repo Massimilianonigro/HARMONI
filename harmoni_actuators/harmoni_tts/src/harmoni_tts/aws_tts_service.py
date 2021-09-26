@@ -107,7 +107,7 @@ class AWSTtsService(HarmoniServiceManager):
         """
         tokens = re.split("(\*[^\*\*]*\*)", sentence)
         phrase = "".join(list(filter(lambda s: "*" not in s, tokens)))
-        rospy.loginfo("Processing the phrase: %s" % phrase)
+        rospy.logdebug("Processing the phrase: %s" % phrase)
         tokens = list(map(lambda s: self._split_behaviors(s), tokens))
         words = []
         for t in tokens:
@@ -181,7 +181,7 @@ class AWSTtsService(HarmoniServiceManager):
                         "id": a[1],
                     }
                 )  # End edits
-        print(xSheet)
+        #print(xSheet)
         visemes = list(
             map(
                 lambda l: [l["time"], self.vis_transl[l["value"]]],
@@ -251,7 +251,7 @@ class AWSTtsService(HarmoniServiceManager):
             "behavior_data": str(behaviours),
             "audio_ogg": data_ogg.tostring(),
         }
-        print(str(response["behavior_data"]))
+        #print(str(response["behavior_data"]))
         return str(response)
 
     def request(self, input_text):
@@ -264,7 +264,7 @@ class AWSTtsService(HarmoniServiceManager):
                 response: bool
                 message: str
         """
-        rospy.loginfo("Start the %s request" % self.name)
+        rospy.logdebug("Start the %s request" % self.name)
         self.state = State.REQUEST
         text = input_text
         [text, actions] = self._get_text_and_actions(text)

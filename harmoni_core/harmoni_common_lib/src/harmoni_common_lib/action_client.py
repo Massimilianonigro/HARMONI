@@ -72,9 +72,9 @@ class HarmoniActionClient(object):
         Reset of check variables. Send goal and set the time out
         """
         if len(optional_data) < 50:
-            rospy.loginfo(f"Client ({self.name}) Sending goal. Data: {optional_data}")
+            rospy.logdebug(f"Client ({self.name}) Sending goal. Data: {optional_data}")
         else:
-            rospy.loginfo(f"Client ({self.name}) Sending Goal.")
+            rospy.logdebug(f"Client ({self.name}) Sending Goal.")
 
         self.stop_tracking_goal()
         goal = harmoniGoal(
@@ -86,15 +86,15 @@ class HarmoniActionClient(object):
             goal, self._handle_transition, self._handle_feedback
         )
 
-        rospy.loginfo(f"Client ({self.name}) Goal Sent")
+        rospy.logdebug(f"Client ({self.name}) Goal Sent")
         if wait:
-            rospy.loginfo(f"Client ({self.name}) Waiting for return: {time_out}")
+            rospy.logdebug(f"Client ({self.name}) Waiting for return: {time_out}")
             self.wait_for_result(rospy.Duration(time_out))
             # self.wait_for_result(rospy.Duration.from_sec(time_out))
-            rospy.loginfo(f"Client ({self.name}) done waiting.")
+            rospy.logdebug(f"Client ({self.name}) done waiting.")
 
         else:
-            rospy.loginfo(f"Client ({self.name}) Not waiting for result.")
+            rospy.logdebug(f"Client ({self.name}) Not waiting for result.")
         return
 
     def setup_client(
@@ -117,12 +117,12 @@ class HarmoniActionClient(object):
         self.done_condition = threading.Condition()
 
         if wait:
-            rospy.loginfo(f"action_client waiting for {action_type} server to connect.")
+            rospy.logdebug(f"action_client waiting for {action_type} server to connect.")
             self.action_client.wait_for_server()
 
         self.result_cb_fnc = result_cb_fnc
         self.feedback_cb_fnc = feedback_cb_fnc
-        rospy.loginfo(f"action_client {action_type} server connected.")
+        rospy.logdebug(f"action_client {action_type} server connected.")
         return
 
     def wait_for_server(self, timeout=rospy.Duration()):
@@ -334,12 +334,12 @@ class HarmoniActionClient(object):
 
     def _result_cb(self, terminal_state, result):
         """Save the action result """
-        rospy.loginfo(f"Client ({self.name}) Heard back result")
-        rospy.loginfo(f"Client ({self.name}) Do action?... {result.do_action}")
+        rospy.logdebug(f"Client ({self.name}) Heard back result")
+        rospy.logdebug(f"Client ({self.name}) Do action?... {result.do_action}")
         if len(result.message) < 500:
-            rospy.loginfo(f"Client ({self.name}) Message was : {result.message}")
+            rospy.logdebug(f"Client ({self.name}) Message was : {result.message}")
         else:
-            rospy.loginfo(f"Client ({self.name}) Message was : (too long to display)")
+            rospy.logdebug(f"Client ({self.name}) Message was : (too long to display)")
 
         self.action_result["service"] = self.name
         self.action_result["do_action"] = result.do_action

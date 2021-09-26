@@ -317,10 +317,10 @@ class HarmoniActionServer(object):
                 self.condition = (
                     goal.condition
                 )  # event condition to wait before starting the action
-                rospy.loginfo(f"(Server) The goal is a {goal.action_type}")
+                rospy.logdebug(f"(Server) The goal is a {goal.action_type}")
 
                 self.goal_received = True
-                rospy.loginfo("The goal is: %i" % goal.action_type)
+                rospy.logdebug("The goal is: %i" % goal.action_type)
                 if not self.execute_callback:
                     rospy.logerr(
                         "execute_callback_ must exist. This is a bug in SimpleActionServer"
