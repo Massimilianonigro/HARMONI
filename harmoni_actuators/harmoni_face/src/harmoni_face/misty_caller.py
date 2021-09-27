@@ -22,7 +22,7 @@ if __name__ == "__main__":
     rospy.init_node("misty_caller")
     robot_ip = rospy.get_param("/robot_ip")
 
-    local_ip = str(check_output(['hostname', '--all-ip-addresses']).split()[0])[2:-1]
+    local_ip = rospy.get_param("/local_ip") #str(check_output(['hostname', '--all-ip-addresses']).split()[0])[2:-1]
 
     args = sys.argv
     if is_int(args[PORT_IDX]):

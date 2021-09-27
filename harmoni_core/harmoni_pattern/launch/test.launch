@@ -2,6 +2,8 @@
        <!-- This is an integrative test that requires the microphone -->
     <arg name="robot_ip" default="192.168.100.176"/>
 	<param name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="local_ip" default=""/>
+	<param name="local_ip" value="$(arg local_ip)"/>
 
     <arg name="activity_type" default="QandA"/>
     <arg name="area" default= "General"/>
