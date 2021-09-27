@@ -85,12 +85,12 @@ def build_task(task_type, param_dict):
                         "trigger":speech}
                     },
                     [
-                    #    {"speaker_default": 
-                    #        {"action_goal": "REQUEST",
-                    #        "resource_type": "actuator",
-                    #        "wait_for": "new",
-                    #        "trigger": "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"}
-                    #    },
+                        {"speaker_default": 
+                            {"action_goal": "REQUEST",
+                            "resource_type": "actuator",
+                            "wait_for": "new",
+                            "trigger": "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"}
+                        },
                         {"face_mouth_default": 
                             {"action_goal": "DO",
                             "resource_type": "actuator",
@@ -125,24 +125,24 @@ def build_script(type, param_dict):
                     "trigger":speech}
                 },
                 [
-                #    {"speaker_default": 
-                #        {"action_goal": "REQUEST",
-                #        "resource_type": "actuator",
-                #        "wait_for": "new"}
-                #    }, 
+                    {"speaker_default": 
+                        {"action_goal": "REQUEST",
+                        "resource_type": "actuator",
+                        "wait_for": "new"}
+                    }, 
                     {"face_mouth_default": 
                         {"action_goal": "DO",
                         "resource_type": "actuator",
                         "wait_for": "new"}
                     },
-                #    {
-                #    "gesture_default": {
-                #        "action_goal": "REQUEST",
-                #        "resource_type": "actuator",
-                #        "wait_for": "new",
-                #        "trigger":"{'gesture':'Misty/bye', 'timing': 0.5}"
-                #    }
-                #}
+                    {
+                    "gesture_default": {
+                        "action_goal": "REQUEST",
+                        "resource_type": "actuator",
+                        "wait_for": "new",
+                        "trigger":"{'gesture':'Misty/bye', 'timing': 0.5}"
+                    }
+                }
                 ],
                 {"web_default": 
                     {"action_goal": "DO",
@@ -217,24 +217,50 @@ def build_script(type, param_dict):
                         "trigger":speech}
                     },
                     [
-                    #    {"speaker_default": 
-                    #        {"action_goal": "REQUEST",
-                    #        "resource_type": "actuator",
-                    #        "wait_for": "new"}
-                    #    },
+                        {"speaker_default": 
+                            {"action_goal": "REQUEST",
+                            "resource_type": "actuator",
+                            "wait_for": "new"}
+                        },
                         {"face_mouth_default": 
                             {"action_goal": "DO",
                             "resource_type": "actuator",
                             "wait_for": "new"}
                         },
-                    #    {
-                    #    "gesture_default": {
-                    #        "action_goal": "REQUEST",
-                    #        "resource_type": "actuator",
-                    #        "wait_for": "new",
-                    #        "trigger":"{'gesture':'Misty/yes', 'timing': 0.5}"
-                    #    }
-                    #}
+                        {
+                        "gesture_default": {
+                            "action_goal": "REQUEST",
+                            "resource_type": "actuator",
+                            "wait_for": "new",
+                            "trigger":"{'gesture':'Misty/yes', 'timing': 0.5}"
+                        }
+                    }
+                    ]
+                ]
+            }
+        ]
+    if type == "bad":
+        speech = "<prosody rate='slow'>" +  param_dict["phrase"] + "</prosody>"
+        text = param_dict["phrase"]
+        script = [{"set": "sequence",
+                "steps": [ 
+                    {"tts_default": 
+                        {"action_goal": "REQUEST",
+                        "resource_type": "service",
+                        "wait_for": "new",
+                        "trigger":speech}
+                    },
+                    [
+                        {"speaker_default": 
+                            {"action_goal": "REQUEST",
+                            "resource_type": "actuator",
+                            "wait_for": "new"}
+                        },
+                        {"face_mouth_default": 
+                            {"action_goal": "DO",
+                            "resource_type": "actuator",
+                            "wait_for": "new"}
+                        }
                     ]
                 ]
             }
@@ -289,8 +315,10 @@ def read_activities(json_path, activity_type, area, level3, level4):
                 result = result[0:6]
                 if (result == task["text_target"]):
                     phrase = task["text_right"]
+                    result_script = build_script("good", {"phrase" : phrase})
                 else:
                     phrase = task["text_wrong"]
+                    result_script = build_script("bad", {"phrase" : phrase})
             else:
                 #print(f"recieved result: {result}")
                 result = result.replace("txt", "img")
@@ -299,10 +327,11 @@ def read_activities(json_path, activity_type, area, level3, level4):
                 
                 if ("target" not in task[result]):
                     phrase = task["text_wrong"]
+                    result_script = build_script("bad", {"phrase" : phrase})
                 else:
                     phrase = task["text_right"]
+                    result_script = build_script("good", {"phrase" : phrase})
             
-            result_script = build_script("good", {"phrase" : phrase})
             t = SequentialPattern(pattern_to_use, result_script)
             t.reset_init()
             t.start()
