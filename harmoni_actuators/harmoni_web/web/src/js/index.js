@@ -1,5 +1,8 @@
 var page = "pageContent";
 
+
+
+
 $(document).ready(function () {
 
     $.getJSON("src/config/config.json", function (data) {
@@ -40,7 +43,6 @@ $(document).ready(function () {
                     console.log(value_item)
                     var value = value_item.prevObject.prevObject[0].previousSibling
                 } 
-                
                 setValueButton(this, value);
                 clickListener(this);
             });
@@ -50,38 +52,27 @@ $(document).ready(function () {
         });
 });
 
+
 function viewListener(view) {
     console.log("VIEW LISTENER")
     //Waiting for the view request from the ROS package
-    //console.log(view.data)
+    console.log(view.data)
     var data = view.data.replace(/'/g, '"')
     var json_data = JSON.parse(data)
     var component = json_data.component_id
     var content = json_data.set_content
     //console.log(content)
+    
     if (content != "") {
         if (component.includes("img")) {
-            if ($("#" + component).parent().parent()[0].style.display == 'none'){
-                $("#" + component).parent().parent()[0].style.display = 'inline-block'; //Can be searched better
-            }
-            else if ($("#" + component).parent().parent()[0].style.visibility == 'hidden'){
-                $("#" + component).parent().parent()[0].style.visibility = 'visible'; //Can be searched better
-            }
+            displayShow(component)
             $("#" + component).attr("src", content);
             $("#" + component).attr("value", content);
             $('img', "#"+component).attr('src', content);
             $("#"+ component).children().unbind('click');
         }
         else if (component.includes("txt")) {
-            //console.log($("#" + component).parent().parent().parent().parent()[0])
-            if ($("#" + component).parent().parent().parent().parent()[0].style.display == 'none'){
-                $("#" + component).parent().parent().parent().parent()[0].style.display = 'inline-block'; //Can be searched better
-            }
-            else if ($("#" + component).parent().parent().parent().parent()[0].style.visibility == 'hidden'){
-                //console.log("bestemmia");
-                $("#" + component).parent().parent().parent().parent()[0].style.visibility = 'visible'; //Can be searched better
-            }
-            //$("#" + component).parent().parent()[0].style.display = 'inline-block';
+            displayShow(component)
             if (content.length > 10){
                 $("#" + component)[0].style.fontSize = "400%" ;
             }
@@ -89,32 +80,29 @@ function viewListener(view) {
                 $("#" + component)[0].style.fontSize = "1000%" ;
             }
             //console.log($("#" + component)[0]) ;
-            $("#" + component)[0].style.display = 'inline-block';            
+            //$("#" + component)[0].style.display = 'inline-block';            
             //$("#" + component)[0].style.visibility = 'visible';
             $("#" + component).html(content)
         }
         else {
+            displayShow(component)
             $("#" + component).html(content)
         }
+        $("#" + component).show();
+
     } else if (component.includes("container")) {
         $(".container").hide()
+        displayShow(component)
+        //displayHide(component)
     } else if (component.includes("img")){
         //console.log($("#" + component).parent().parent()[0])
-        if ($("#" + component).parent().parent()[0].style.display == 'inline-block'){
-            $("#" + component).parent().parent()[0].style.display = 'none';
-        } else if ($("#" + component).parent().parent()[0].style.visibility == 'visible'){
-            $("#" + component).parent().parent()[0].style.visibility = 'hidden';
-        }
+        displayHide(component)
+       
     } else if (component.includes("txt")){
-        if ($("#" + component).parent().parent().parent().parent()[0].style.display == 'inline-block'){
-            $("#" + component).parent().parent().parent().parent()[0].style.display = 'none';
-        }
-        else if ($("#" + component).parent().parent().parent().parent()[0].style.visibility == 'visible'){
-            $("#" + component).parent().parent().parent().parent()[0].style.visibility = 'hidden';
-        }
+        displayHide(component)
     }
-
     disableOptions()
+    /*
     if ($("#" + component).find(".button_try").prop("disabled")){
         //console.log("disabling")
         $("#" + component).find(".button_try").prop("disabled", false);
@@ -130,8 +118,8 @@ function viewListener(view) {
     else{
         //console.log("enabling")
         $("#" + component).find(".card-img-top").prop("disabled", true);
-    }
-    $("#" + component).show();
+    }*/
+    
     //setTimeout(function(){ $("#"+ component).children().bind('click'); }, 3000);
 };
 
@@ -157,15 +145,15 @@ function requestListener(view) {
             $("#" + component).html(content)
         }
     } else if (component.includes("container")) {
-        $(".container").hide()
+        //$(".container").hide()
     } else if (component.includes("img")){
         //console.log($("#" + component).parentElement.parentElement)
-        $("#" + component).parentElement.parentElement.parentElement.style.display = 'none';
+        //$("#" + component).parentElement.parentElement.parentElement.style.display = 'none';
     }
     $("#"+ component).children().bind('click'); 
     enableOptions()
     //$("#" + component).find(".option_choice").prop("disabled", false);
-    $("#" + component).show();
+    //$("#" + component).show();
     //setTimeout(function(){ $("#"+ component).children().bind('click'); enableOptions()}, 3000);
 };
 
@@ -215,6 +203,16 @@ function enableOptions(){
     }
 }
 
+function displayHide(id_div){
+    $("#"+id_div+"").addClass("hidden")
+}
+
+function displayShow(id_div){
+    if ($("#"+id_div+"").hasClass("hidden")){
+        $("#"+id_div+"").removeClass("hidden")
+    }
+}
+
 
 function handleComponents(children, id, component, id_parent, comp_class) {
     if (Array.isArray(children)) {
@@ -249,16 +247,16 @@ function createComponent(component, content, id, comp_class) {
             var html = "<div class ='container "+comp_class+"' id=" + id + "></div>";
             break;
         case "card":
-            var html = "<div class=\"col\" style=\"display: none;\"><div class=\"card box-shadow\"><a id= " + id + "><img data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Thumbnail [100%x225]\" style=\"height: 275px; width: 100%; display: block; object-fit: cover;\" data-holder-rendered=\"true\" class=\"card-img-top option_choice\" src=\"" + content + "\"><div class=\"card-body\"><button id= txt_" +id.substring(4)+ " class=\"card-text button_try\"></p></div></a></div></div>"
+            var html = "<div class=\"col "+comp_class+"\" id=" + id + "><div class=\"card box-shadow\"><a id= " + id +"_a'><img data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Thumbnail [100%x225]\" style=\"height: 275px; width: 100%; object-fit: cover;\" data-holder-rendered=\"true\" class=\"card-img-top option_choice\" src=\"" + content + "\"><div class=\"card-body\"><button id= txt_" +id.substring(4)+ " class=\"card-text button_try\"></p></div></a></div></div>"
             break;
         case "card_text":
-            var html = "<div class=\"col\" style=\"display: none;\"><div class=\"card box-shadow\"><a id= " + id + "><div class=\"card-body\"><button id= QA_text_" +id.charAt(4)+ " class=\"card-text button_try\"></p></div></a></div></div>"
+            var html = "<div class=\"col "+comp_class+"\"><div class=\"card box-shadow\"><a id= " + id + "><div class=\"card-body\"><button id= QA_text_" +id.charAt(4)+ " class=\"card-text button_try\"></p></div></a></div></div>"
             break;
         case "fixed_card_img":
-            var html = "<div class=\"col\" style=\"visibility: hidden\" ><div class=\"card box-shadow\"><a id= " + id + "><img data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Thumbnail [100%x225]\" style=\"height: 275px; width: 100%; display: block; object-fit: cover;\" data-holder-rendered=\"true\" class=\"card-img-top option_choice\" src=\"" + content + "\"></p></div></a></div></div>"
+            var html = "<div class=\"col "+comp_class+"\" ><div class=\"card box-shadow\"><a id= " + id + "><img data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Thumbnail [100%x225]\" style=\"height: 275px; width: 100%;  object-fit: cover;\" data-holder-rendered=\"true\" class=\"card-img-top option_choice\" src=\"" + content + "\"></p></div></a></div></div>"
             break;
         case "fixed_card_text":
-            var html = "<div class=\"col\" style=\"visibility: hidden\"><div class=\"card box-shadow\"><a id= " + id + "_a><div class=\"card-body\"><button id= " +id+ " class=\"card-text button_try \" style=\"font-size:1000%\"></p></div></a></div></div>"
+            var html = "<div class=\"col "+comp_class+"\" ><div class=\"card box-shadow\"><a id= " + id + "_a><div class=\"card-body\"><button id= " +id+ " class=\"card-text button_try \" style=\"font-size:1000%\"></p></div></a></div></div>"
             break;
         case "click_img":
             var html = "<a id=" + id +"><img class="+comp_class+"  src=" + content + "></a>";

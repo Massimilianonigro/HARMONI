@@ -3,8 +3,9 @@ version: "3.7"
 services:
   harmoni_full:
     restart: always
-    #entrypoint: ./harmoni_entrypoint.sh
+    entrypoint: ./activity_launch.sh
     container_name: harmoni_full
+    restart: true
     build:
       context: .
       dockerfile: dockerfiles/harmoni/kinetic/full/dockerfile #substitute $ROS_DISTRO with kinetic for now.

@@ -39,6 +39,11 @@ class WebService(HarmoniServiceManager):
             String,
             queue_size=1,
         )
+        self.web_req = rospy.Publisher(
+            ActuatorNameSpace.web.value + self.service_id + "/request_view",
+            String,
+            queue_size=1,
+        )
         self.text_pub = rospy.Publisher(
             DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
         )
@@ -131,7 +136,7 @@ class WebService(HarmoniServiceManager):
         try:
             rospy.sleep(1)
             for data in data_array:
-                self.send_request(data)
+                self.send_do(data)
                 rospy.sleep(0.2)
             self.state = State.SUCCESS
             self.actuation_completed = True
@@ -177,7 +182,7 @@ class WebService(HarmoniServiceManager):
                 web_array.append(str(item))
         return web_array
 
-    def send_request(self, display_view):
+    def send_do(self, display_view):
         """Sending the request to the web page
 
         Args:
@@ -186,6 +191,17 @@ class WebService(HarmoniServiceManager):
         rospy.logdebug("Sending request to webpage")
         rospy.logdebug(display_view)
         self.web_pub.publish(display_view)
+        return
+
+    def send_request(self, display_view):
+        """Sending the request to the web page
+
+        Args:
+            display_view (str): string oj json with information to display ("container_id" and "set_view" values)
+        """
+        rospy.logdebug("Sending request to webpage")
+        rospy.logdebug(display_view)
+        self.web_req.publish(display_view)
         return
 
     def _event_click_callback(self, event):

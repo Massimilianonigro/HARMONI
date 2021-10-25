@@ -95,6 +95,12 @@ class MistyDecisionManager(HarmoniServiceManager):
                 
         script = [{"set": "sequence",
                     "steps": [
+                        {"web_default": 
+                            {"action_goal": "DO",
+                            "resource_type": "actuator",
+                            "wait_for": "new",
+                            "trigger": f"[{{'component_id':'display_image_container', 'set_content':''}}, {{'component_id':'main_img_alt', 'set_content':'../assets/imgs/idle.png'}}]"}
+                        },
                         {"tts_default": 
                             {"action_goal": "REQUEST",
                             "resource_type": "service",
@@ -171,7 +177,7 @@ class MistyDecisionManager(HarmoniServiceManager):
                         {"action_goal": "DO",
                         "resource_type": "actuator",
                         "wait_for": "new",
-                        "trigger": f"[{{'component_id':'display_image_container', 'set_content':''}}, {{'component_id':'main_img_alt', 'set_content':'https://stream.fs.i3lab.group/misty/{img}'}}]"}
+                        "trigger": f"[{{'component_id':'display_image_container', 'set_content':''}}, {{'component_id':'main_img_alt', 'set_content':'../assets/imgs/idle.png'}}]"}
                     }
                     ]
                 }

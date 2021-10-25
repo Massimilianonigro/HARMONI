@@ -65,6 +65,12 @@
                             "component": "card",
                             "comp_class":"option_choice",
                             "children": "",
+                            "id": "img_0_QA"
+                        },
+                        {
+                            "component": "card",
+                            "comp_class":"option_choice",
+                            "children": "",
                             "id": "img_1_QA"
                         },
                         {
@@ -90,12 +96,6 @@
                             "comp_class":"option_choice",
                             "children": "",
                             "id": "img_5_QA"
-                        },
-                        {
-                            "component": "card",
-                            "comp_class":"option_choice",
-                            "children": "",
-                            "id": "img_6_QA"
                         }
                     ]
                 }
@@ -129,7 +129,7 @@
                         {
                             "component": "card_text",
                             "comp_class":"option_choice",
-                            "children": "ciao",
+                            "children": "",
                             "id": "txt_3_QA_text"
                         }
                     ]
@@ -188,7 +188,7 @@
                         {
                             "component": "fixed_card_img",
                             "comp_class":"option_choice",
-                            "children": "ciao",
+                            "children": "",
                             "id": "img_3_touch"
                         }
                     ]
@@ -212,7 +212,7 @@
                         {
                             "component": "fixed_card_img",
                             "comp_class":"option_choice",
-                            "children": "ciao",
+                            "children": "",
                             "id": "img_6_touch"
                         }
                     ]
@@ -247,7 +247,7 @@
                     {
                         "component": "fixed_card_text",
                         "comp_class":"option_choice",
-                        "children": "ciao",
+                        "children": "",
                         "id": "txt_3_touch_text"
                     }
                 ]
@@ -271,7 +271,7 @@
                     {
                         "component": "fixed_card_text",
                         "comp_class":"option_choice",
-                        "children": "ciao",
+                        "children": "",
                         "id": "txt_6_touch_text"
                     }
                 ]
@@ -529,7 +529,7 @@
             "children": [ 
                 {
                     "component": "img",
-                    "children": "../assets/imgs/birthday.jpeg",
+                    "children": "../assets/imgs/idle.png",
                     "id": "main_img_alt"
                 }
             ]

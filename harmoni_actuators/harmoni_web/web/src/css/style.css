@@ -49,10 +49,6 @@ text{
     width: 40%;
 }
 
-img:hover {
-    opacity: 0.5;
-  }
-
 
 .title{
     margin: auto;
@@ -60,3 +56,16 @@ img:hover {
     text-align: center;
 }
 
+.button_try:focus {     
+    background-color:darkslategrey;    
+}
+
+
+.disabled{
+    pointer-events:none;
+    opacity: 50%;
+}
+
+.hidden{
+    display: none;
+}
