@@ -172,16 +172,21 @@ class SequentialPattern(HarmoniServiceManager):
             r.sleep()
         return self.result
 
-    def stop(self):
-        """Stop the Pattern Player """
+    def stop(self, service):
+        """Stop the Behavior Pattern """
+        rospy.loginfo("___________________STOP____________________")
         try:
-            for _, client in self.service_clients.items():
-                client.cancel_goal()
+            rospy.loginfo("The service is " + service)
+            self.service_clients[service].send_goal(
+                    action_goal=ActionType.OFF,
+                    optional_data="",
+                    wait=False,
+                )
             self.state = State.SUCCESS
         except Exception as E:
             self.state = State.FAILED
         return
-
+    
     def pause(self):
         """Pause the Behavior Pattern """
         # TODO: implement a pause
