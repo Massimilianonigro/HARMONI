@@ -42,7 +42,7 @@ class MistyDecisionManager(HarmoniServiceManager):
         HarmoniWebsocketClient.__init__(self)
 
 
-    def stop(self):
+    def terminate(self):
         """Stop the Behavior Pattern """
         try:
             rospy.loginfo("Stop the goal")
@@ -53,15 +53,12 @@ class MistyDecisionManager(HarmoniServiceManager):
         return
 
     def play_game(self, data):
-        rospy.loginfo("SIAMO DENTRO PLAYGAME")
-        rospy.loginfo(data)
         if isinstance(data, str):
             data = ast.literal_eval(data)
         activity_type = data["activityType"]
         area = data["activity"]
         level3 = data["level3"]
         level4 = data["level4"]
-        #robot_ip = data["robot_ip"]
         self.read_activities(self.path, activity_type, area, level3, level4)
         return
 
@@ -329,39 +326,42 @@ class MistyDecisionManager(HarmoniServiceManager):
         result = self.s.start()
 
         for task in tasks:
-            rospy.loginfo("TASKK!!!!!!!!!!!!!!!")
             task_script = self.build_script("task", task)
             self.s.reset_init()
             result = self.s.request(task_script)
             rospy.loginfo("________________________________results")
             rospy.loginfo(result)
-            if ("text_right" in task.keys()): #txt is an identifier for question that does not have a right or wrong answer
-                if ("text_target" in task.keys()):
-                    #print(result)
-                    result = result.replace("txt", "text")
-                    result = result[0:6]
-                    if (result == task["text_target"]):
-                        phrase = task["text_right"]
-                        result_script = self.build_script("good", {"phrase" : phrase})
+            if result != "":
+                if ("text_right" in task.keys()): #txt is an identifier for question that does not have a right or wrong answer
+                    if ("text_target" in task.keys()):
+                        #print(result)
+                        result = result.replace("txt", "text")
+                        result = result[0:6]
+                        if (result == task["text_target"]):
+                            phrase = task["text_right"]
+                            result_script = self.build_script("good", {"phrase" : phrase})
+                        else:
+                            phrase = task["text_wrong"]
+                            result_script = self.build_script("bad", {"phrase" : phrase})
                     else:
-                        phrase = task["text_wrong"]
-                        result_script = self.build_script("bad", {"phrase" : phrase})
-                else:
-                    #print(f"recieved result: {result}")
-                    result = result.replace("txt", "img")
-                    result = result[0:5]
-                    #print("is target in " + task[result])
+                        #print(f"recieved result: {result}")
+                        result = result.replace("txt", "img")
+                        result = result[0:5]
+                        #print("is target in " + task[result])
+                        
+                        if ("target" not in task[result]):
+                            phrase = task["text_wrong"]
+                            result_script = self.build_script("bad", {"phrase" : phrase})
+                        else:
+                            phrase = task["text_right"]
+                            result_script = self.build_script("good", {"phrase" : phrase})
                     
-                    if ("target" not in task[result]):
-                        phrase = task["text_wrong"]
-                        result_script = self.build_script("bad", {"phrase" : phrase})
-                    else:
-                        phrase = task["text_right"]
-                        result_script = self.build_script("good", {"phrase" : phrase})
-                
-                #t = SequentialPattern(pattern_to_use, result_script)
-                #t.reset_init()
-                #t.start()
+                    t = SequentialPattern(pattern_to_use, result_script)
+                    t.reset_init()
+                    t.start()
+            else:
+                rospy.loginfo("HO STOPPATO!!!")
+                break
                 
         
         if (reward != None):

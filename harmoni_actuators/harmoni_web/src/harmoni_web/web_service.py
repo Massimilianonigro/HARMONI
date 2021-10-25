@@ -80,6 +80,7 @@ class WebService(HarmoniServiceManager):
             for data in data_array:
                 self.send_request(data)
                 rospy.sleep(0.2)
+        
             def daemon():
                 while not rospy.is_shutdown() and not self.end_listening:
                     rospy.loginfo(f"Waiting for user, the results is: {self.result_msg}")
@@ -102,8 +103,6 @@ class WebService(HarmoniServiceManager):
 
     def stop(self):
         """ End the web"""
-        rospy.loginfo("++++++++++++++++WEBBB STOPPP+++")
-        self.end_listening = True
         def daemon():
             self.end_listening = True
             rospy.loginfo("STOP!")

@@ -47,7 +47,7 @@ class HarmoniWebsocketClient(object):
         @sio.on('kill')
         def disconnect(data):
             print('disconnected from server')
-            self.stop()
+            self.terminate()
         
         sio.connect('https://misty.I3lab.group', 
             socketio_path= "/wss/socket.io",
@@ -76,10 +76,10 @@ class HarmoniWebsocketClient(object):
         rospy.loginfo("play")
         return
 
-    def stop(self):
+    def terminate(self):
         """ Make a request of another service, such as a web service
         Raises:
             NotImplementedError: To be used, this function should be overwritten by the child class.
         """
-        rospy.loginfo("stop")
+        rospy.loginfo("terminate")
         return
