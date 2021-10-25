@@ -80,37 +80,37 @@ class WebService(HarmoniServiceManager):
             for data in data_array:
                 self.send_request(data)
                 rospy.sleep(0.2)
-            while not rospy.is_shutdown() and not self.end_listening:
-                rospy.logdebug(f"Waiting for user, the results is: {self.result_msg}")
-                if self.end_listening:
-                    break
-                rospy.sleep(0.1)
-            rospy.logdebug(
-                f"Message Received {self.result_msg}"
-            )  # "\"My name is chris\""
-            self.state = State.SUCCESS
-            self.actuation_completed = True
-            self.response_received = True
-            self.end_listening = False
-            # def daemon():
-            #     while not rospy.is_shutdown() and not self.end_listening:
-            #         rospy.loginfo(f"Waiting for user, the results is: {self.result_msg}")
-            #         if self.end_listening:
-            #             break
-            #         rospy.sleep(1)
-            #     rospy.logdebug(
-            #         f"Message Received {self.result_msg}"
-            #     )  # "\"My name is chris\""
-            #     self.state = State.SUCCESS
-            #     self.actuation_completed = True
-            #     self.response_received = True
-            #     self.end_listening = False
-            # d = threading.Thread(target=daemon)
-            # d.start()
+            def daemon():
+                while not rospy.is_shutdown() and not self.end_listening:
+                    rospy.loginfo(f"Waiting for user, the results is: {self.result_msg}")
+                    if self.end_listening:
+                        break
+                    rospy.sleep(1)
+                rospy.logdebug(
+                    f"Message Received {self.result_msg}"
+                )  # "\"My name is chris\""
+                self.state = State.SUCCESS
+                self.actuation_completed = True
+                self.response_received = True
+                self.end_listening = False
+            d = threading.Thread(target=daemon)
+            d.start()
         except Exception:
             self.state = State.FAILED
             self.actuation_completed = True
         return {"response": self.state, "message": self.result_msg}
+
+    def stop(self):
+        """ End the web"""
+        rospy.loginfo("++++++++++++++++WEBBB STOPPP+++")
+        self.end_listening = True
+        def daemon():
+            self.end_listening = True
+            rospy.loginfo("STOP!")
+        d = threading.Thread(target=daemon)
+        d.setDaemon(True)
+        d.start()
+        rospy.loginfo("__________END___________")
 
     def do(self, data):
         """Do to web page (display a page on the web browser)

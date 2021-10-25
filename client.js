@@ -1,9 +1,8 @@
 const io = require("socket.io-client");
-
-
 const find = require('local-devices');
 
 var robot_ip;
+
 
 find().then(devices => {
     devices
@@ -54,7 +53,7 @@ find().then(devices => {
     socket.on('start', function(msg) {
         console.log("I'll start the platform");
         console.log('ip ' + robot_ip + ' ' + msg['activityType'] + ' ' + msg['activity'] + ' ' + msg['level3'] + ' ' + msg['level4']+ ' ' + local_url)
-        child = exec('./test.sh ' + robot_ip + ' ' + msg['activityType'] + ' ' + msg['activity'] + ' ' + msg['level3'] + ' ' + msg['level4'] + ' ' + local_url,
+        child = exec('./activity_launch.sh ' + robot_ip + ' ' + msg['activityType'] + ' ' + msg['activity'] + ' ' + msg['level3'] + ' ' + msg['level4'] + ' ' + local_url,
         function (error, stdout, stderr) {
             console.log('stdout: ' + stdout);
             console.log('stderr: ' + stderr);
