@@ -98,12 +98,6 @@ class MistyDecisionManager(HarmoniServiceManager):
                 
         script = [{"set": "sequence",
                     "steps": [
-                        {"web_default": 
-                            {"action_goal": "DO",
-                            "resource_type": "actuator",
-                            "wait_for": "new",
-                            "trigger":  web_trigger }
-                        },
                         {"tts_default": 
                             {"action_goal": "REQUEST",
                             "resource_type": "service",
@@ -123,6 +117,12 @@ class MistyDecisionManager(HarmoniServiceManager):
                                 "wait_for": "new"}
                             }
                         ],
+                        {"web_default": 
+                            {"action_goal": "DO",
+                            "resource_type": "actuator",
+                            "wait_for": "new",
+                            "trigger":  web_trigger }
+                        },
                         {"web_default": 
                             {"action_goal": "REQUEST",
                             "resource_type": "actuator",
