@@ -91,13 +91,11 @@ function viewListener(view) {
         $("#" + component).show();
 
     } else if (component.includes("container")) {
-        $(".container").hide()
-        displayShow(component)
+        $(".container").hide();
+        $("#"+component+"").show();
         //displayHide(component)
     } else if (component.includes("img")){
-        //console.log($("#" + component).parent().parent()[0])
         displayHide(component)
-       
     } else if (component.includes("txt")){
         displayHide(component)
     }
