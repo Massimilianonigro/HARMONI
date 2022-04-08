@@ -218,6 +218,7 @@ class STTGoogleService(HarmoniServiceManager):
 
             responses = self.client.streaming_recognize(self.streaming_config, self.requests)
 
+
             if self.max_duration < self.elapsed_time:
                 print("Timeout!")
                 print("STT response text: "+ self.stt_response)

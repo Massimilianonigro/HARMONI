@@ -1,0 +1,357 @@
+[INFO] [1648288265.311738]: Initializing the microphone_default service
+[INFO] [1648288267.173334]: Setting up the microphone_default
+[INFO] [1648288267.174890]: Sucessfully reached microphone_default
+[INFO] [1648288267.175530]: Service Server microphone_default has been successfully set up
+microphone
+**********************************************************************************************
+microphone_default
+[INFO] [1648288267.182238]: Start the microphone_default service
+[INFO] [1648288267.183411]: Opening the audio input stream
+[INFO] [1648288267.196162]: The microphone_default is listening
+[INFO] [1648288267.326139]: (Server) The goal is a 1
+[INFO] [1648288267.329011]: The goal is: 1
+[INFO] [1648288267.331928]: (Server microphone_default) Received goal. Starting
+[INFO] [1648288267.334927]: Start the microphone_default service
+[INFO] [1648288267.338291]: Trying to start stream when already started
+[INFO] [1648288279.728044]: Shutting down
+[INFO] [1648288279.729131]: microphone_default Service Server sending feedback at 0.2/sec
+[DEBUG] [1648288265.478400]: init_node, name[/harmoni_stt_default], pid[1100]
+[DEBUG] [1648288265.479092]: binding to 0.0.0.0 0
+[DEBUG] [1648288265.479794]: bound to 0.0.0.0 41189
+[DEBUG] [1648288265.480523]: ... service URL is rosrpc://harmoni_full:41189
+[DEBUG] [1648288265.481241]: [/harmoni_stt_default/get_loggers]: new Service instance
+[DEBUG] [1648288265.482565]: ... service URL is rosrpc://harmoni_full:41189
+[DEBUG] [1648288265.483266]: [/harmoni_stt_default/set_logger_level]: new Service instance
+[INFO] [1648288265.485004]: Initializing the stt_default service
+[INFO] [1648288265.487877]: SETUP FINISHED
+[INFO] [1648288265.492525]: Sucessfully reached stt_default
+[INFO] [1648288265.493282]: Service Server stt_default has been successfully set up
+[DEBUG] [1648288265.495503]: connecting to harmoni_full 41189
+stt
+**********************************************************************************************
+stt_default
+[INFO] [1648288265.501104]: stt_default Service Server sending feedback at 0.2/sec
+[DEBUG] [1648288267.190795]: connecting to harmoni_full 36369
+[DEBUG] [1648288267.301255]: connecting to harmoni_full 41475
+[DEBUG] [1648288267.306602]: connecting to harmoni_full 41475
+[DEBUG] [1648288270.324772]: The action server has received a new goal request
+[DEBUG] [1648288270.328336]: A new goal /harmoni_pytree_default-2-1648288270.323 has been recieved by the single goal action server
+[DEBUG] [1648288270.334749]: Accepting a new goal
+[DEBUG] [1648288270.336803]: Accepting goal, id: /harmoni_pytree_default-2-1648288270.323, stamp: 1648288270.32
+[INFO] [1648288270.337780]: (Server) The goal is a 3
+[INFO] [1648288270.338664]: The goal is: 3
+[INFO] [1648288270.339524]: (Server stt_default) Received goal. Requesting
+[INFO] [1648288270.340467]: Start the stt_default request
+Timer started at:  1648288270.3413253
+[DEBUG] [1648288270.504475]: (Server) The feedback is State.REQUEST
+[DEBUG] [1648288270.508009]: Publishing feedback for goal, id: /harmoni_pytree_default-2-1648288270.323, stamp: 1648288270.32
+elapsed:  0.3544297218322754
+elapsed:  0.3547475337982178
+elapsed:  0.3555488586425781
+elapsed:  0.491457462310791
+elapsed:  0.5569190979003906
+elapsed:  0.6914691925048828
+elapsed:  0.7568669319152832
+elapsed:  0.8914539813995361
+elapsed:  0.9568865299224854
+elapsed:  1.0915107727050781
+elapsed:  1.1569843292236328
+elapsed:  1.291668176651001
+elapsed:  1.3567945957183838
+elapsed:  1.4914484024047852
+elapsed:  1.5570805072784424
+elapsed:  1.6916418075561523
+elapsed:  1.7570717334747314
+elapsed:  1.8915095329284668
+elapsed:  1.95697021484375
+elapsed:  2.091667890548706
+elapsed:  2.1569035053253174
+elapsed:  2.2916672229766846
+elapsed:  2.3570053577423096
+elapsed:  2.491532564163208
+elapsed:  2.5567123889923096
+elapsed:  2.6915435791015625
+elapsed:  2.7568492889404297
+elapsed:  2.8914642333984375
+elapsed:  2.9567880630493164
+elapsed:  3.0914382934570312
+elapsed:  3.1567842960357666
+elapsed:  3.291463851928711
+elapsed:  3.3568153381347656
+elapsed:  3.4915223121643066
+elapsed:  3.5568087100982666
+elapsed:  3.691378116607666
+elapsed:  3.7567954063415527
+elapsed:  3.8912901878356934
+elapsed:  3.9567487239837646
+elapsed:  4.091842174530029
+end
+Timeout!
+STT response text: null
+[DEBUG] [1648288274.740267]: Setting status to succeeded on goal, id: /harmoni_pytree_default-2-1648288270.323, stamp: 1648288270.32
+[INFO] [1648288274.744129]: (Server) sending result True to actiontype 3
+[DEBUG] [1648288275.504468]: (Server) The feedback is State.SUCCESS
+[DEBUG] [1648288275.507926]: Publishing feedback for goal, id: /harmoni_pytree_default-2-1648288270.323, stamp: 1648288270.32
+[DEBUG] [1648288279.145591]: [/stt_default/goal] failed to receive incoming message : unable to receive data from sender, check sender's logs for details
+[DEBUG] [1648288279.146806]: [/stt_default/cancel] failed to receive incoming message : unable to receive data from sender, check sender's logs for details
+[DEBUG] [1648288279.150132]: [/harmoni/sensing/microphone/default] failed to receive incoming message : unable to receive data from sender, check sender's logs for details
+[DEBUG] [1648288279.150662]: [/harmoni/detecting/stt/default] failed to receive incoming message : unable to receive data from sender, check sender's logs for details
+[DEBUG] [1648288280.502069]: node[/harmoni_stt_default, http://harmoni_full:34481/] entering spin(), pid[1100]
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.__init__()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.__init__()
+
+
+
+EVENTS
+
+Blackboard Client
+  Client Data
+    name              : blackboardProva
+    namespace         : /stt
+    unique_identifier : 6f1c58dd-3279-41d5-8e1d-1bf5601ec127
+    read              : {'/stt/result'}
+    write             : set()
+    exclusive         : set()
+  Variables
+    /stt/result : -
+
+[DEBUG] MicrophoneMainActivity : Behavior microphone_default interface action clients have been set up!
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.setup()
+[DEBUG] SpeechToTextMainActivity : Behavior stt_default interface action clients have been set up!
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.setup()
+
+--------- Run 0 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.tick()
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.initialise()
+[DEBUG] MicrophoneMainActivity : Sending goal to microphone_default
+[DEBUG] MicrophoneMainActivity : Goal sent to microphone_default
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.update()[Status.INVALID]--->[Status.RUNNING]
+[DEBUG] MicrophoneMainActivity : DebugVisitor.run() [Status.RUNNING]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.RUNNING]
+
+{-} MicAndSTT [*]
+    --> MicrophoneMainActivity [*]
+    --> SpeechToTextMainActivity
+
+Blackboard Data
+    /microphone/state: -
+    /stt/result      : null
+
+[DEBUG] MicrophoneMainActivity : The result of the request has been received
+[DEBUG] MicrophoneMainActivity : The result callback message from MicrophoneMainActivity was 0 long
+
+--------- Run 1 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.tick()
+4
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.update()[Status.RUNNING]--->[Status.SUCCESS]
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.stop(Status.RUNNING->Status.SUCCESS)
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.terminate()[Status.RUNNING->Status.SUCCESS]
+[DEBUG] MicrophoneMainActivity : DebugVisitor.run() [Status.SUCCESS]
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.tick()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.initialise()
+[DEBUG] SpeechToTextMainActivity : Sending goal to stt_default
+[DEBUG] SpeechToTextMainActivity : Goal sent to stt_default
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.update()[Status.INVALID]--->[Status.RUNNING]
+[DEBUG] SpeechToTextMainActivity : DebugVisitor.run() [Status.RUNNING]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.RUNNING]
+
+{-} MicAndSTT [*]
+    --> MicrophoneMainActivity [✓]
+    --> SpeechToTextMainActivity [*]
+
+Blackboard Data
+    /microphone/state: -
+    /stt/result      : null
+
+[DEBUG] SpeechToTextMainActivity : The feedback recieved is {'state': 2}.
+
+--------- Run 2 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.tick()
+1
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.update()[Status.RUNNING]--->[Status.RUNNING]
+[DEBUG] SpeechToTextMainActivity : DebugVisitor.run() [Status.RUNNING]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.RUNNING]
+
+{-} MicAndSTT [*]
+    --> MicrophoneMainActivity
+    --> SpeechToTextMainActivity [*]
+
+Blackboard Data
+    /microphone/state: -
+    /stt/result      : null
+
+[DEBUG] SpeechToTextMainActivity : The result of the request has been received
+[DEBUG] SpeechToTextMainActivity : The result callback message from SpeechToTextMainActivity was 4 long
+
+--------- Run 3 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.tick()
+3
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.update()[Status.RUNNING]--->[Status.SUCCESS]
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.stop(Status.RUNNING->Status.SUCCESS)
+terminate :  3
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.terminate()[Status.RUNNING->Status.SUCCESS]
+[DEBUG] SpeechToTextMainActivity : DebugVisitor.run() [Status.SUCCESS]
+[DEBUG] MicAndSTT            : Sequence.stop()[Status.RUNNING->Status.SUCCESS]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.SUCCESS]
+
+{-} MicAndSTT [✓]
+    --> MicrophoneMainActivity
+    --> SpeechToTextMainActivity [✓]
+
+Blackboard Data
+    /microphone/state: -
+    /stt/result      : null
+
+
+--------- Run 4 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.stop(Status.SUCCESS->Status.INVALID)
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.terminate()[Status.SUCCESS->Status.INVALID]
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.stop(Status.SUCCESS->Status.INVALID)
+terminate :  3
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.terminate()[Status.SUCCESS->Status.INVALID]
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.tick()
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.initialise()
+4
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.update()[Status.INVALID]--->[Status.SUCCESS]
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.stop(Status.INVALID->Status.SUCCESS)
+[DEBUG] MicrophoneMainActivity : MicrophoneServicePytree.terminate()[Status.INVALID->Status.SUCCESS]
+[DEBUG] MicrophoneMainActivity : DebugVisitor.run() [Status.SUCCESS]
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.tick()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.initialise()
+[DEBUG] SpeechToTextMainActivity : Sending goal to stt_default
+[DEBUG] SpeechToTextMainActivity : Goal sent to stt_default
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.update()[Status.INVALID]--->[Status.RUNNING]
+[DEBUG] SpeechToTextMainActivity : DebugVisitor.run() [Status.RUNNING]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.RUNNING]
+
+{-} MicAndSTT [*]
+    --> MicrophoneMainActivity [✓]
+    --> SpeechToTextMainActivity [*]
+
+Blackboard Data
+    /microphone/state: -
+    /stt/result      : null
+
+
+--------- Run 5 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.tick()
+0
+[DEBUG] SpeechToTextMainActivity : Cancelling goal to stt_default
+[DEBUG] SpeechToTextMainActivity : Goal cancelled to stt_default
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.update()[Status.RUNNING]--->[Status.RUNNING]
+[DEBUG] SpeechToTextMainActivity : DebugVisitor.run() [Status.RUNNING]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.RUNNING]
+
+{-} MicAndSTT [*]
+    --> MicrophoneMainActivity
+    --> SpeechToTextMainActivity [*]
+
+Blackboard Data
+    /microphone/state: -
+    /stt/result      : null
+
+
+--------- Run 6 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.tick()
+[DEBUG] SpeechToTextMainActivity : Sending goal to stt_default
+[DEBUG] SpeechToTextMainActivity : Goal sent to stt_default
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.update()[Status.RUNNING]--->[Status.RUNNING]
+[DEBUG] SpeechToTextMainActivity : DebugVisitor.run() [Status.RUNNING]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.RUNNING]
+
+{-} MicAndSTT [*]
+    --> MicrophoneMainActivity
+    --> SpeechToTextMainActivity [*]
+
+Blackboard Data
+    /microphone/state: -
+    /stt/result      : null
+
+
+--------- Run 7 ---------
+
+[DEBUG] MicAndSTT            : Sequence.tick()
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.tick()
+0
+[DEBUG] SpeechToTextMainActivity : Cancelling goal to stt_default
+[DEBUG] SpeechToTextMainActivity : Goal cancelled to stt_default
+[DEBUG] SpeechToTextMainActivity : SpeechToTextServicePytree.update()[Status.RUNNING]--->[Status.RUNNING]
+[DEBUG] SpeechToTextMainActivity : DebugVisitor.run() [Status.RUNNING]
+[DEBUG] MicAndSTT            : DebugVisitor.run() [Status.RUNNING]
+
+{-} MicAndSTT [*]
+    --> MicrophoneMainActivity
+    --> SpeechToTextMainActivity [*]
+
+... logging to /root/.ros/log/405d1e32-acea-11ec-983a-0242ac120304/roslaunch-harmoni_full-1061.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/root/harmoni_catkin_ws/src/HARMONI/harmoni_core/harmoni_pytree/launch/subtrees/mic_and_stt.launch
+[1mstarted roslaunch server http://harmoni_full:34103/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /instance_id: default
+ * /microphone/default_param/audio_format_width: 2
+ * /microphone/default_param/audio_rate: 48000
+ * /microphone/default_param/chunk_size: 1600
+ * /microphone/default_param/device_name: HDA Intel PCH
+ * /microphone/default_param/test_outdir: /root/harmoni_cat...
+ * /microphone/default_param/total_channels: 1
+ * /pytree/default_param/prova: prova
+ * /rosdistro: noetic
+ * /rosversion: 1.15.14
+ * /stt/default_param/audio_channel: 1
+ * /stt/default_param/credential_path: /root/.gcp/privat...
+ * /stt/default_param/language_id: it-IT
+ * /stt/default_param/max_duration: 4
+ * /stt/default_param/sample_rate: 16000
+ * /stt/default_param/subscriber_id: default
+ * /stt/ita_param/audio_channel: 1
+ * /stt/ita_param/credential_path: /root/.gcp/privat...
+ * /stt/ita_param/language_id: it-IT
+ * /stt/ita_param/max_duration: 10
+ * /stt/ita_param/sample_rate: 16000
+ * /stt/ita_param/subscriber_id: default
+
+NODES
+  /
+    harmoni_microphone_default (harmoni_microphone/microphone_service.py)
+    harmoni_pytree_default (harmoni_pytree/mic_and_stt.py)
+    harmoni_stt_default (harmoni_stt/google_service.py)
+
+auto-starting new master
+[1mprocess[master]: started with pid [1076][0m
+[1mROS_MASTER_URI=http://172.18.3.4:11311[0m
+]2;/root/harmoni_catkin_ws/src/HARMONI/harmoni_core/harmoni_pytree/launch/subtrees/mic_and_stt.launch http://172.18.3.4:11311
+[1msetting /run_id to 405d1e32-acea-11ec-983a-0242ac120304[0m
+[1mprocess[rosout-1]: started with pid [1093][0m
+started core service [/rosout]
+[1mprocess[harmoni_stt_default-2]: started with pid [1100][0m
+[1mprocess[harmoni_microphone_default-3]: started with pid [1101][0m
+[1mprocess[harmoni_pytree_default-4]: started with pid [1102][0m
+[harmoni_pytree_default-4] killing on exit
+[harmoni_microphone_default-3] killing on exit
+[harmoni_stt_default-2] killing on exit
+[rosout-1] killing on exit
+[master] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+[1mdone[0m

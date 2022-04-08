@@ -109,6 +109,11 @@ class MicrophoneService(HarmoniServiceManager):
         """Open the microphone audio stream with configured params """
         rospy.loginfo("Opening the audio input stream")
 
+        print(self.audio_format)
+        print(self.total_channels)
+        print(self.input_device_index)
+        print(self.chunk_size)
+
         self.stream = self.p.open(
             format=self.audio_format,
             channels=self.total_channels,
@@ -132,6 +137,12 @@ class MicrophoneService(HarmoniServiceManager):
         """
         r = rospy.Rate(10)
         rospy.loginfo("The %s is listening" % self.name)
+        # Recordframes=[]
+        # FORMAT = pyaudio.paInt16
+        # CHANNELS = 2
+        # RATE = 48000
+        # RECORD_SECONDS = 5
+        # WAVE_OUTPUT_FILENAME = "recordedFile.wav"
         while not rospy.is_shutdown():
             if self.state == State.INIT:
                 r.sleep()
@@ -139,6 +150,7 @@ class MicrophoneService(HarmoniServiceManager):
                 latest_audio_data = self.stream.read(
                     self.chunk_size, exception_on_overflow=False
                 )
+                # Recordframes.append(latest_audio_data)
                 raw_audio_bitstream = np.frombuffer(latest_audio_data, np.uint8)
                 raw_audio = raw_audio_bitstream.tolist()
                 self.raw_mic_pub.publish(raw_audio)  # Publishing raw AudioData
@@ -149,8 +161,13 @@ class MicrophoneService(HarmoniServiceManager):
             ):
                 break
             r.sleep()
-
-        rospy.loginfo("Shutting down")
+        # waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+        # waveFile.setnchannels(CHANNELS)
+        # waveFile.setsampwidth(pyaudio.PyAudio().get_sample_size(FORMAT))
+        # waveFile.setframerate(RATE)
+        # waveFile.writeframes(b''.join(Recordframes))
+        # waveFile.close()
+        # rospy.loginfo("Shutting down")
         return
 
     def _get_device_index(self):
@@ -162,10 +179,12 @@ class MicrophoneService(HarmoniServiceManager):
         for i in range(self.p.get_device_count()):
             device = self.p.get_device_info_by_index(i)
             # rospy.loginfo(device)
-            # rospy.loginfo(f"Found device with name {self.device_name} at index {i}")
+            rospy.loginfo(f"Found device with name {device['name']} at index {i}")
             if device["name"] == self.device_name:
                 rospy.loginfo(device)
                 self.input_device_index = i
+                # break
+        rospy.loginfo("Using device %s"%self.input_device_index)
         return
 
     def start_recording_data(self):

@@ -9,7 +9,7 @@ from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
-#from harmoni_imageai.yolo_service import ImageAIYoloService
+from harmoni_imageai.yolo_service import ImageAIYoloService
 import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports

@@ -12,6 +12,7 @@ from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpa
 from harmoni_stt.deepspeech_client import DeepSpeechClient
 from audio_common_msgs.msg import AudioData
 from std_msgs.msg import String
+from std_msgs.msg import Int32
 import numpy as np
 
 
@@ -52,9 +53,13 @@ class SpeechToTextService(HarmoniServiceManager):
         self.text_pub = rospy.Publisher(
             DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
         )
+        self.idle_pub = rospy.Publisher(
+            "deepspeech/idle_state", Int32, queue_size=10
+        )
 
         self.is_transcribe_once = False
         self.state = State.INIT
+        self.idle_count = 0;
         return
 
     def start(self):
@@ -108,6 +113,11 @@ class SpeechToTextService(HarmoniServiceManager):
         Final text, as determined by the DeepSpeech client, is published.
         """
         text = self._transcribe_chunk(data)
+        if text == "":
+            self.idle_count += 1
+            idle_pub.publish(idle_count)
+        else:
+            self.idle_count = 0
         if text:
             text = self.ds_client.finish_stream()
             self.text_pub.publish(text)

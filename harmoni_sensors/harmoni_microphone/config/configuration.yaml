@@ -2,8 +2,8 @@
 microphone:
   default_param:
     audio_format_width: 2
-    chunk_size: 1600
+    chunk_size: 512
     total_channels: 1
-    audio_rate: 16000
-    device_name: default
+    audio_rate: 48000
+    device_name: "HDA Intel PCH: ALC295 Analog (hw:0,0)"
     test_outdir: "$(find harmoni_microphone)/temp_data/test_example.wav"

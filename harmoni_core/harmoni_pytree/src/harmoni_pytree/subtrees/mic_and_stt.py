@@ -29,7 +29,7 @@ from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 #from harmoni_pytree.leaves.gesture_service import GestureServicePytree
 from harmoni_pytree.leaves.subtree_result_main import SubTreeResultMain
 from harmoni_pytree.leaves.scene_manager_main import SceneManagerMain
-from harmoni_pytree.leaves.custom_yolo_service import ImageAICustomServicePytree
+# from harmoni_pytree.leaves.custom_yolo_service import ImageAICustomServicePytree
 
 ##############################################################################
 # Classes
