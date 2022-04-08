@@ -124,3 +124,5 @@ harmoni_actuators/harmoni_tts/scale_stats.npy
 harmoni_actuators/harmoni_tts/temp_data/tts.wav
 harmoni_detectors/harmoni_imageai/src/*.h5
 harmoni_detectors/harmoni_imageai/src/*.json
+**/config/configuration.yaml
+harmoni_models/stt/*
