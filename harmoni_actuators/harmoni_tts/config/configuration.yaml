@@ -5,4 +5,4 @@ tts:
     language: "en-US"
     outdir: "$(find harmoni_tts)/temp_data"
     wav_header_length: 24
-    voice: "Kevin"
+    voice: "Amy"

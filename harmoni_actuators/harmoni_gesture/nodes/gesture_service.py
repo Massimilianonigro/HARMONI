@@ -76,10 +76,10 @@ class GestureService(HarmoniServiceManager):
     def setup_gesture(self):
         """ Setup the gesture """
         rospy.loginfo("Setting up the %s" % self.name)
-        while not self.gesture_list_received:
-            rospy.sleep(0.1)
+        #while not self.gesture_list_received:
+        #    rospy.sleep(0.1)
         rospy.loginfo("Received list of gestures")
-        # self._get_list_callback("{'name':'QT/point_front', 'duration':'4'}")
+        #self._get_list_callback("{'name':'QT/point_front', 'duration':'4'}")
         return
 
     def do(self, data):

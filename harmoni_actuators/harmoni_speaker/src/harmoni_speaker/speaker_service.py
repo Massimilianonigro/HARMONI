@@ -64,7 +64,9 @@ class SpeakerService(HarmoniServiceManager):
             data = data["audio_data"]
             rospy.loginfo("Writing data for speaker")
             rospy.loginfo(f"length of data is {len(data)}")
+            rospy.loginfo(f"The duratioin is {duration}")
             self.audio_publisher.publish(data)
+            rospy.loginfo("End publishing")
             rospy.sleep(duration)
             self.state = State.SUCCESS
             self.actuation_completed = True
@@ -97,7 +99,7 @@ class SpeakerService(HarmoniServiceManager):
             )
             # wget.download(url, file_handle)
         data = np.fromfile(file_handle, np.uint8)[24:]  # Loading wav file
-        data = data.astype(np.uint8).tostring()
+        data = data.astype(np.uint8).tobytes()
         with contextlib.closing(wave.open(file_handle, "r")) as f:
             frames = f.getnframes()
             rate = f.getframerate()
