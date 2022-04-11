@@ -7,6 +7,7 @@
 import argparse
 import functools
 from py_trees.behaviours import dummy
+import py_trees.console as console
 from py_trees.idioms import either_or
 import py_trees
 import time
@@ -14,19 +15,18 @@ import rospy
 from random import randint
 import subprocess
 import operator
-import py_trees.console as console
 from harmoni_common_lib.constants import *
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
+from harmoni_pytree.leaves.script_service import ScriptService
+from harmoni_pytree.leaves.deep_stt import DeepSpeechToTextServicePytree
 from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
 from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 from harmoni_pytree.leaves.lip_sync_service import LipSyncServicePytree
+from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
+from harmoni_pytree.leaves.check_stt_result import CheckSTTResult
+from harmoni_pytree.leaves.wait_results import WaitResults
 from harmoni_common_lib.constants import ActuatorNameSpace, DialogueNameSpace, State
-import argparse
-import py_trees
 import sys
-import time
-
-import py_trees.console as console
 
 ##############################################################################
 # Classes
@@ -79,22 +79,67 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
             previously_visited=snapshot_visitor.previously_visited
         )
     )
-    print(py_trees.display.unicode_blackboard())
+    #print(py_trees.display.unicode_blackboard())
 
-def create_root():
-    root = py_trees.composites.Sequence("Sequence")
+def create_root_dialogue_sensing():
+    
+    root = py_trees.composites.Sequence("Dialogue")
+    sequence_speaking = py_trees.composites.Sequence("Speaking")
     tts = AWSTtsServicePytree("AwsTtsPyTreeTest")
     chatbot = AWSLexTriggerServicePytree("AwsLexPyTreeTest")
     speaker = SpeakerServicePytree("SpeakerPyTreeTest")
     face = LipSyncServicePytree("FacePyTreeTest")
-    parall_speaker_face = py_trees.composites.Parallel("Parallel")
-    root.add_child(chatbot)
-    root.add_child(tts)
-    root.add_child(parall_speaker_face)
+    microphone=MicrophoneServicePytree("MicrophoneMainActivity")
+    stt=DeepSpeechToTextServicePytree("SpeechToTextMainActivity")
+    parall_speaker_face = py_trees.composites.Parallel("Playing")
+    sequence_speaking.add_child(chatbot)
+    sequence_speaking.add_child(tts)
+    sequence_speaking.add_child(parall_speaker_face)
     parall_speaker_face.add_child(speaker)
     parall_speaker_face.add_child(face)
-
+    sequence_sensing = py_trees.composites.Sequence(name="Sensing")
+    sequence_sensing.add_children([microphone, stt])
+    root.add_children([sequence_speaking, sequence_sensing])
     return root
+
+def create_root(params):
+    root = py_trees.composites.Sequence("Dialogue")
+    sequence_speaking = py_trees.composites.Sequence("Speaking")
+    tts = AWSTtsServicePytree("TextToSpeech")
+    script = ScriptService("Script", params)
+    speaker = SpeakerServicePytree("Speaker")
+    face = LipSyncServicePytree("Face")
+    microphone=MicrophoneServicePytree("Microphone")
+    stt=DeepSpeechToTextServicePytree("SpeechToText")
+    checkstt = CheckSTTResult("CheckResults")
+    parall_speaker_face = py_trees.composites.Parallel("Playing")
+    sequence_speaking.add_child(script)
+    sequence_speaking.add_child(tts)
+    sequence_speaking.add_child(parall_speaker_face)
+    parall_speaker_face.add_child(speaker)
+    parall_speaker_face.add_child(face)
+    sequence_sensing = py_trees.composites.Sequence(name="Sensing")
+    sequence_sensing.add_children([microphone, stt, checkstt])
+    root.add_children([sequence_speaking, sequence_sensing])
+    return root
+
+def create_root_med(params):
+    root = py_trees.composites.Sequence("Dialogue")
+    sequence_speaking = py_trees.composites.Sequence("Speaking")
+    tts = AWSTtsServicePytree("TextToSpeech")
+    script = ScriptService("Script", params)
+    speaker = SpeakerServicePytree("Speaker")
+    face = LipSyncServicePytree("Face")
+    wait = WaitResults("WaitResults")
+    parall_speaker_face = py_trees.composites.Parallel("Playing")
+    sequence_speaking.add_child(script)
+    sequence_speaking.add_child(tts)
+    sequence_speaking.add_child(parall_speaker_face)
+    parall_speaker_face.add_child(speaker)
+    parall_speaker_face.add_child(face)
+    root.add_children([sequence_speaking, wait])
+    return root
+
 
  ##############################################################################
 # Main
@@ -105,23 +150,16 @@ def main():
     Entry point for the demo script.
     """
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    root =create_root()
+    params = rospy.get_param("pytree/default_param/")
+    root =create_root(params)
     print(description(root))
-
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=PyTreeNameSpace.scene.name)
-    blackboardProva.register_key("utterance", access=py_trees.common.Access.WRITE)
-    blackboardProva.utterance = "Hey"
-    #blackboardProvaOutput = py_trees.blackboard.Client(name="blackboardProvaOutput", namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
-    #blackboardProvaOutput.register_key("result", access=py_trees.common.Access.READ)                        
-    print(blackboardProva)
-    #print(blackboardProva2)
         
     ####################
     # Tree Stewardship
     ####################
 
     rospy.init_node("test_default", log_level=rospy.INFO)
-
+    
     behaviour_tree = py_trees.trees.BehaviourTree(root)
     behaviour_tree.add_pre_tick_handler(pre_tick_handler)
     behaviour_tree.visitors.append(py_trees.visitors.DebugVisitor())
@@ -134,12 +172,13 @@ def main():
     # Tick Tock
     ####################
 
-    for unused_i in range(1, 7):
-        try:
-            behaviour_tree.tick()
-            time.sleep(3)
-        except KeyboardInterrupt:
-            break
+    try:
+        behaviour_tree.tick_tock(
+            period_ms=500,
+            number_of_iterations=py_trees.trees.CONTINUOUS_TICK_TOCK,
+        )
+    except KeyboardInterrupt:
+        behaviour_tree.interrupt()
     print("\n")
 
 
