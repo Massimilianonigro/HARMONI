@@ -15,7 +15,14 @@
                         "do_trigger"    : "False"
                     },
                     {
-                        "utterance"     : "Final scene of the interaction",
+                        "utterance"     : "We’re going to do positive psychology practices today. I’ll explain what that means in a minute. Do you have any questions?  ",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "null",
+                        "do_trigger"    : "False"
+                    },
+                    {
+                        "utterance"     : "Okay. Positive psychology practices aim to guide you towards focusing on the positive things in your life. Often, the negative things in our life get much of our attention, while the positive things are harder to focus on and therefore harder to remember later on. In total, we will have four sessions together, focusing on different aspects of positive psychology. Today is the first one.",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "null",
