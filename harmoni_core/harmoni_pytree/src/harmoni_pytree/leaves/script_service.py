@@ -18,6 +18,7 @@ class ScriptService(py_trees.behaviour.Behaviour):
         self.session = params['session']
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene.register_key(key="gesture", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/max_number_scene", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_counter", access=py_trees.common.Access.READ)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_end", access=py_trees.common.Access.READ)
@@ -42,17 +43,20 @@ class ScriptService(py_trees.behaviour.Behaviour):
 
     def update(self):
         self.logger.debug("  %s [ScriptService::update()]" % self.name)
-        utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter ]["utterance"]
+        utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
+        gesture = self.context[self.session][self.blackboard_scene.scene.scene_counter]["gesture"]
         if "USERNAME" in utterance:
             utterance = utterance.replace("USERNAME", self.user_name)
         if self.blackboard_scene.scene.scene_counter == 0:
             self.blackboard_bot.result = {
                                                             "message":   utterance
                                         }
+            self.blackboard_scene.gesture = gesture
         elif self.blackboard_scene.scene.scene_end == "call_researcher":
             self.blackboard_bot.result  = {
                                                             "message":   self.context["error_handling"]["call_researcher"]["utterance"]
                                         }
+            self.blackboard_scene.gesture = gesture
         elif self.blackboard_scene.scene.scene_end == "end":
             return py_trees.common.Status.FAILURE
         
@@ -60,6 +64,7 @@ class ScriptService(py_trees.behaviour.Behaviour):
             self.blackboard_bot.result = {
                                                             "message":  utterance
                                         }
+            self.blackboard_scene.gesture = gesture
         return py_trees.common.Status.SUCCESS
 
     def terminate(self, new_status):

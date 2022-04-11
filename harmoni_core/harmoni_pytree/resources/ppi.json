@@ -3,7 +3,7 @@
                     {
                         "utterance"     : "Hi, my name is Botty! What is your name?",
                         "face"          : "null",
-                        "gesture"       : "null",
+                        "gesture"       : "QT/hi",
                         "sound"         : "null",
                         "do_trigger"    : "False"
                     },

@@ -24,6 +24,7 @@ from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 from harmoni_pytree.leaves.lip_sync_service import LipSyncServicePytree
 from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
 from harmoni_pytree.leaves.check_stt_result import CheckSTTResult
+from harmoni_pytree.leaves.gesture_service import GestureServicePytree
 from harmoni_pytree.leaves.wait_results import WaitResults
 from harmoni_common_lib.constants import ActuatorNameSpace, DialogueNameSpace, State
 import sys
@@ -107,6 +108,7 @@ def create_root(params):
     sequence_speaking = py_trees.composites.Sequence("Speaking")
     tts = AWSTtsServicePytree("TextToSpeech")
     script = ScriptService("Script", params)
+    gesture = GestureServicePytree("Gesture")
     speaker = SpeakerServicePytree("Speaker")
     face = LipSyncServicePytree("Face")
     microphone=MicrophoneServicePytree("Microphone")
@@ -118,6 +120,7 @@ def create_root(params):
     sequence_speaking.add_child(parall_speaker_face)
     parall_speaker_face.add_child(speaker)
     parall_speaker_face.add_child(face)
+    parall_speaker_face.add_child(gesture)
     sequence_sensing = py_trees.composites.Sequence(name="Sensing")
     sequence_sensing.add_children([microphone, stt, checkstt])
     root.add_children([sequence_speaking, sequence_sensing])

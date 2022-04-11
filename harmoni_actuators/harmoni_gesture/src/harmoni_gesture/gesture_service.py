@@ -28,9 +28,13 @@ class GestureService(HarmoniServiceManager):
         self.gesture_list_received = False
         self.gesture_done = False
         self.name = name
+        self.robot_gesture_topic = param["robot_gesture_topic"]
         self.service_id = hf.get_child_id(self.name)
+        #self.gesture_pub = rospy.Publisher(
+        #    ActuatorNameSpace.gesture.value + self.service_id, String, queue_size=1
+        #)
         self.gesture_pub = rospy.Publisher(
-            ActuatorNameSpace.gesture.value + self.service_id, String, queue_size=1
+            self.robot_gesture_topic, String, queue_size=1
         )
         self.gesture_sub = rospy.Subscriber(
             ActuatorNameSpace.gesture.value + self.service_id + "/get_list",
@@ -72,6 +76,7 @@ class GestureService(HarmoniServiceManager):
                 self.gestures_name.append(item["name"])
                 self.gestures_duration.append(item["duration"])
             self.gesture_list_received = True
+        rospy.loginfo(self.gestures_name)
 
     def setup_gesture(self):
         """ Setup the gesture """
@@ -79,7 +84,7 @@ class GestureService(HarmoniServiceManager):
         #while not self.gesture_list_received:
         #    rospy.sleep(0.1)
         rospy.loginfo("Received list of gestures")
-        #self._get_list_callback("{'name':'QT/point_front', 'duration':'4'}")
+        #self._get_list_callback("{'name':'QT/bye', 'duration':'4'}")
         return
 
     def do(self, data):
@@ -95,28 +100,31 @@ class GestureService(HarmoniServiceManager):
         """
         self.state = State.REQUEST
         self.actuation_completed = False
-        if type(data) == str:
-            data = ast.literal_eval(data)
+        #if type(data) == str:
+        #    data = ast.literal_eval(data)
         try:
             rospy.loginfo(f"length of data is {len(data)}")
-            if "behavior_data" in data:
-                data = ast.literal_eval(data["behavior_data"])
-                gesture_data = self._get_gesture_data(data)
-            else:
-                gesture_data = data
-                self.gesture_pub.publish(str(data))
-            print(gesture_data)
-            if gesture_data:
-                while not self.gesture_done:
-                    self.state = State.REQUEST
+            #if "behavior_data" in data:
+            #    data = ast.literal_eval(data["behavior_data"])
+            #    gesture_data = self._get_gesture_data(data)
+            #else:
+            #    gesture_data = data
+            #    self.gesture_pub.publish("data: QT/bye")
+            #print(gesture_data)
+            #if gesture_data:
+            #    while not self.gesture_done:
+            #        self.state = State.REQUEST
+            rospy.sleep(2)
+            self.gesture_pub.publish(data)
             self.state = State.SUCCESS
-            self.gesture_done = False
+            #self.gesture_done = False
             self.actuation_completed = True
+            self.result_msg=""
         except IOError:
             rospy.logwarn("Gesture failed")
             self.state = State.FAILED
             self.actuation_completed = True
-        return {"response": self.state}
+        return {"response": self.state, "message": self.result_msg}
 
     def _get_gesture_data(self, data):
         """Getting the gesture data parsing the output of TTS
