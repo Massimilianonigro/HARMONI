@@ -208,27 +208,6 @@ function startFace(
     });
     listener.subscribe(get_goal);
 
-    listener_eyes = new ROSLIB.Topic({
-        ros: ros,
-        name: '/harmoni/actuating/face/default/expressing/eyes',
-        messageType: 'harmoni_face/FaceRequest'
-    });
-    listener_eyes.subscribe(get_goal);
-
-    listener_nose = new ROSLIB.Topic({
-        ros: ros,
-        name: '/harmoni/actuating/face/default/expressing/nose',
-        messageType: 'harmoni_face/FaceRequest'
-    });
-    listener_nose.subscribe(get_goal);
-
-    listener_mouth = new ROSLIB.Topic({
-        ros: ros,
-        name: '/harmoni/actuating/face/default/expressing/mouth',
-        messageType: 'harmoni_face/FaceRequest'
-    });
-    listener_mouth.subscribe(get_goal);
-
     is_connected_client = new ROSLIB.Service({
         ros: ros,
         name: '/harmoni/actuating/face/is_connected',
@@ -763,7 +742,7 @@ function addEyes(white_color, iris_color, size, height, separation, iris_size, p
     }
 
     var x_adj = two.width / 2// (separation)//*(size/camera_depth);
-    var y_adj = two.height / 2 //height //* (size/camera_depth);
+    var y_adj = two.height * 3/ 4 //height //* (size/camera_depth);
 
     reyewhite = two.makeCircle(x_adj + separation / 2, y_adj - height, size);
     reyewhite.fill = white_color

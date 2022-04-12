@@ -28,7 +28,6 @@ class NoseService(HarmoniServiceManager):
 
     def __init__(self, name, param_nose, face):
         """Init of the nose service and setup as Harmoni service
-
         Args:
             name (str): service name
             param (obj): list of parameters useful for the service
@@ -50,10 +49,8 @@ class NoseService(HarmoniServiceManager):
 
     def do(self, data):
         """Do expression of nose in web face
-
         Args:
             data ([str]): stringified json from tts results  
-
         Returns:
             response (int): whether SUCCESS of FAIL
             message (str): result message 
@@ -86,7 +83,6 @@ class EyesService(HarmoniServiceManager):
 
     def __init__(self, name, param_eyes, face):
         """Init of the Eyes service and setup as Harmoni service
-
         Args:
             name (str): service name
             param (obj): list of parameters useful for the service
@@ -110,10 +106,8 @@ class EyesService(HarmoniServiceManager):
 
     def do(self, data):
         """Do expression of eyes in web face
-
         Args:
             data ([str]): stringified json from tts results  
-
         Returns:
             response (int): whether SUCCESS of FAIL
             message (str): result message 
@@ -175,7 +169,6 @@ class MouthService(HarmoniServiceManager):
 
     def __init__(self, name, param_mouth, face):
         """Init of the Mouth service and setup as Harmoni service
-
         Args:
             name (str): service name
             param_mouth (obj): list of parameters useful for the service
@@ -203,10 +196,8 @@ class MouthService(HarmoniServiceManager):
 
     def do(self, data):
         """Do expression in web face
-
         Args:
             data ([str]): stringified json from tts results  
-
         Returns:
             response (int): whether SUCCESS of FAIL
             message (str): result message 

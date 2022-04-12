@@ -1,0 +1,74 @@
+[
+    {
+        "set": "sequence",
+        "steps": [           
+            {
+                "tts_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "service",
+                    "wait_for": "new",
+                    "trigger":"Hi My name is Misty!"
+                }
+            },
+            [
+                {
+                    "speaker_default": {
+                        "action_goal": "REQUEST",
+                        "resource_type": "actuator",
+                        "wait_for": "new",
+                        "trigger": "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
+                    }
+                },
+                {
+                    "face_mouth_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": "new"
+                    }
+                },
+                {
+                    "gesture_default": {
+                        "action_goal": "REQUEST",
+                        "resource_type": "actuator",
+                        "wait_for": "new",
+                        "trigger":"{'gesture':'Misty/bye', 'timing': 0.5}"
+                    }
+                }
+            ],
+
+            {
+                "tts_default": {
+                    "action_goal": "REQUEST",
+                    "resource_type": "service",
+                    "wait_for": "new",
+                    "trigger":"Start of the interaction"
+                }
+            },
+            [
+                {
+                    "speaker_default": {
+                        "action_goal": "REQUEST",
+                        "resource_type": "actuator",
+                        "wait_for": "new",
+                        "trigger": "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
+                    }
+                },
+                {
+                    "face_mouth_default": {
+                        "action_goal": "DO",
+                        "resource_type": "actuator",
+                        "wait_for": "new"
+                    }
+                },
+                {
+                    "gesture_default": {
+                        "action_goal": "REQUEST",
+                        "resource_type": "actuator",
+                        "wait_for": "new",
+                        "trigger":"{'gesture':'Misty/no', 'timing': 0.5}"
+                    }
+                }
+            ]
+       ]
+    }
+]
