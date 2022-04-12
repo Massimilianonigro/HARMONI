@@ -10,8 +10,6 @@
     <include file="$(find harmoni_tts)/launch/tts_service.launch"></include>
     
     <include file="$(find harmoni_face)/launch/face_service.launch"></include>
-    <include file="$(find harmoni_stt)/launch/stt_deepspeech_service.launch"></include>
-    <include file="$(find harmoni_microphone)/launch/microphone_service.launch"></include>
     <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
     <!-- <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
     <include file="$(find harmoni_web)/launch/web_service.launch"></include>
@@ -21,6 +19,6 @@
     <include file="$(find harmoni_imageai)/launch/custom_service.launch"></include>-->
     <!-- end services -->
 
-    <node pkg="harmoni_pytree" type="pytree_root.py" name="harmoni_pytree_default" output="screen"/>
+    <node pkg="harmoni_pytree" type="pytree_root_med.py" name="harmoni_pytree_default" output="screen"/>
     
 </launch>

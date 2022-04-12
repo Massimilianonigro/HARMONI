@@ -1,3 +1,6 @@
 pytree:
   default_param:
-    prova: "prova"
+    interaction: "ppi" #or meditation
+    user_name: "Micol"
+    session: "session1"
+

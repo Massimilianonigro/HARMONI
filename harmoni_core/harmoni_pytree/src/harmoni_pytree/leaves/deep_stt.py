@@ -9,11 +9,13 @@ from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
+# from harmoni_imageai.custom_service import ImageAICustomService
 import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
 from harmoni_common_lib.constants import DetectorNameSpace, ActionType
 from sensor_msgs.msg import Image
+# from imageai.Detection.Custom import CustomVideoObjectDetection
 from botocore.exceptions import BotoCoreError, ClientError
 from contextlib import closing
 from collections import deque 
@@ -27,12 +29,13 @@ import sys
 #py_tree
 import py_trees
 import time
+from std_msgs.msg import String
 
 import py_trees.console
 
-class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
+class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
 
-    def __init__(self, name = "SpeechToTextServicePytree"):
+    def __init__(self, name = "DeepSpeechToTextServicePytree"):
     
         self.name = name
         self.service_client_stt = None
@@ -40,15 +43,22 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.server_state = None
         self.server_name = None
         self.send_request = True
-        
+        self.service_id = 'default'
         self.blackboards = []
         self.blackboard_microphone = self.attach_blackboard_client(name=self.name, namespace=SensorNameSpace.microphone.name)
         self.blackboard_microphone.register_key("state", access=py_trees.common.Access.READ)
         self.blackboard_stt = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.stt.name)
         self.blackboard_stt.register_key("result", access=py_trees.common.Access.WRITE)
-
-        super(SpeechToTextServicePytree, self).__init__(name)
+        rospy.Subscriber(
+           DetectorNameSpace.stt.value + self.service_id, String, self._stt_data_callback,
+        )
+        super(DeepSpeechToTextServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
+
+    def _stt_data_callback(self, data):
+        self.client_result = data.data
+        self.blackboard_stt.result = self.client_result
+        return
 
     def setup(self,**additional_parameters):
         """
@@ -72,7 +82,6 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-
         if self.send_request:
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
@@ -155,9 +164,9 @@ def main():
     blackboardProva.register_key("result", access=py_trees.common.Access.READ)
     print(blackboardProva)
 
-    rospy.init_node("stt_default", log_level=rospy.INFO)
+    rospy.init_node("deep_stt_default", log_level=rospy.INFO)
     
-    sttPyTree = SpeechToTextServicePytree("GoogleSSTPytreeTest")
+    sttPyTree = DeepSpeechToTextServicePytree("DeepSSTPytreeTest")
 
     sttPyTree.setup()
     try:
