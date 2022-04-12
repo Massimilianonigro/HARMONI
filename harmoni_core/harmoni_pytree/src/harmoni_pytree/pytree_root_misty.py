@@ -21,7 +21,7 @@ from harmoni_pytree.leaves.script_service import ScriptService
 from harmoni_pytree.leaves.deep_stt import DeepSpeechToTextServicePytree
 from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
 from harmoni_pytree.leaves.speaker_service_misty import SpeakerMistyServicePytree
-from harmoni_pytree.leaves.lip_sync_service import LipSyncServicePytree
+from harmoni_pytree.leaves.lip_sync_service_misty import LipSyncMistyServicePytree
 from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
 from harmoni_pytree.leaves.check_stt_result import CheckSTTResult
 from harmoni_pytree.leaves.gesture_service_misty import GestureServiceMistyPytree
@@ -89,7 +89,7 @@ def create_root_dialogue_sensing():
     tts = AWSTtsServicePytree("AwsTtsPyTreeTest")
     chatbot = AWSLexTriggerServicePytree("AwsLexPyTreeTest")
     speaker = SpeakerMistyServicePytree("SpeakerPyTreeTest")
-    face = LipSyncServicePytree("FacePyTreeTest")
+    face = LipSyncMistyServicePytree("FacePyTreeTest")
     microphone=MicrophoneServicePytree("MicrophoneMainActivity")
     stt=DeepSpeechToTextServicePytree("SpeechToTextMainActivity")
     parall_speaker_face = py_trees.composites.Parallel("Playing")
@@ -110,7 +110,7 @@ def create_root(params):
     script = ScriptService("Script", params)
     gesture = GestureServiceMistyPytree("Gesture")
     speaker = SpeakerMistyServicePytree("Speaker")
-    face = LipSyncServicePytree("Face")
+    face = LipSyncMistyServicePytree("Face")
     microphone=MicrophoneServicePytree("Microphone")
     stt=DeepSpeechToTextServicePytree("SpeechToText")
     checkstt = CheckSTTResult("CheckResults")
@@ -132,7 +132,7 @@ def create_root_med(params):
     tts = AWSTtsServicePytree("TextToSpeech")
     script = ScriptService("Script", params)
     speaker = SpeakerMistyServicePytree("Speaker")
-    face = LipSyncServicePytree("Face")
+    face = LipSyncMistyServicePytree("Face")
     wait = WaitResults("WaitResults")
     parall_speaker_face = py_trees.composites.Parallel("Playing")
     sequence_speaking.add_child(script)

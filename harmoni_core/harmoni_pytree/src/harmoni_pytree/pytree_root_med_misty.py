@@ -20,11 +20,11 @@ from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
 from harmoni_pytree.leaves.script_service import ScriptService
 from harmoni_pytree.leaves.deep_stt import DeepSpeechToTextServicePytree
 from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
-from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
-from harmoni_pytree.leaves.lip_sync_service import LipSyncServicePytree
+from harmoni_pytree.leaves.speaker_service_misty import SpeakerMistyServicePytree
+from harmoni_pytree.leaves.lip_sync_service_misty import LipSyncMistyServicePytree
 from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
 from harmoni_pytree.leaves.check_stt_result import CheckSTTResult
-from harmoni_pytree.leaves.gesture_service import GestureServicePytree
+from harmoni_pytree.leaves.gesture_service_misty import GestureServiceMistyPytree
 from harmoni_pytree.leaves.wait_results import WaitResults
 from harmoni_common_lib.constants import ActuatorNameSpace, DialogueNameSpace, State
 import sys
@@ -88,8 +88,8 @@ def create_root_dialogue_sensing():
     sequence_speaking = py_trees.composites.Sequence("Speaking")
     tts = AWSTtsServicePytree("AwsTtsPyTreeTest")
     chatbot = AWSLexTriggerServicePytree("AwsLexPyTreeTest")
-    speaker = SpeakerServicePytree("SpeakerPyTreeTest")
-    face = LipSyncServicePytree("FacePyTreeTest")
+    speaker = SpeakerMistyServicePytree("SpeakerPyTreeTest")
+    face = LipSyncMistyServicePytree("FacePyTreeTest")
     microphone=MicrophoneServicePytree("MicrophoneMainActivity")
     stt=DeepSpeechToTextServicePytree("SpeechToTextMainActivity")
     parall_speaker_face = py_trees.composites.Parallel("Playing")
@@ -108,9 +108,9 @@ def create_root(params):
     sequence_speaking = py_trees.composites.Sequence("Speaking")
     tts = AWSTtsServicePytree("TextToSpeech")
     script = ScriptService("Script", params)
-    gesture = GestureServicePytree("Gesture")
-    speaker = SpeakerServicePytree("Speaker")
-    face = LipSyncServicePytree("Face")
+    gesture = GestureServiceMistyPytree("Gesture")
+    speaker = SpeakerMistyServicePytree("Speaker")
+    face = LipSyncMistyServicePytree("Face")
     microphone=MicrophoneServicePytree("Microphone")
     stt=DeepSpeechToTextServicePytree("SpeechToText")
     checkstt = CheckSTTResult("CheckResults")
@@ -130,15 +130,13 @@ def create_root_med(params):
     root = py_trees.composites.Sequence("Dialogue")
     sequence_speaking = py_trees.composites.Sequence("Speaking")
     tts = AWSTtsServicePytree("TextToSpeech")
-    gesture = GestureServicePytree("Gesture")
     script = ScriptService("Script", params)
-    speaker = SpeakerServicePytree("Speaker")
-    face = LipSyncServicePytree("Face")
+    speaker = SpeakerMistyServicePytree("Speaker")
+    face = LipSyncMistyServicePytree("Face")
     wait = WaitResults("WaitResults")
     parall_speaker_face = py_trees.composites.Parallel("Playing")
     sequence_speaking.add_child(script)
     sequence_speaking.add_child(tts)
-    parall_speaker_face.add_child(gesture)
     sequence_speaking.add_child(parall_speaker_face)
     parall_speaker_face.add_child(speaker)
     parall_speaker_face.add_child(face)

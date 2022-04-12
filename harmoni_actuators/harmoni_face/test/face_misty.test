@@ -8,7 +8,7 @@
 	<include ns="bridge_face" file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
 		<arg name="port" value="9000"/>
 	</include>
-    <node pkg="harmoni_face" type="face_service.py" name="harmoni_face_default" output="screen"/>
+    <node pkg="harmoni_face" type="misty_face_service_.py" name="harmoni_face_default" output="screen"/>
     <node pkg="harmoni_face" type="misty_caller.py" name="misty_caller" output="screen"  args="$(arg web_directory_path) $(arg port)" />
 	<param name="test_face_input" value="[{'start': 0.075,'type': 'viseme', 'id': 'POSTALVEOLAR'}, {'start':1, 'type': 'viseme', 'id': 'BILABIAL'}]"/>
     <test test-name="test_face" pkg="harmoni_face" type="rostest_face.py" />
