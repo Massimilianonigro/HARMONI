@@ -3,30 +3,30 @@
                     {
                         "utterance"     : "Hi, my name is Botty! What is your name?",
                         "face"          : "null",
-                        "gesture"       : "QT/hi",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
+                        "sound"         : "uh huh",
+                        "back_channel"    : "{'gesture':'Misty/nodding', 'timing': 0.5}"
                     },
                     {
                         "utterance"     : "It is a pleasure meeting you USERNAME",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    :"{'gesture':'Misty/nodding', 'timing': 0.5}"
                     },
                     {
                         "utterance"     : "We’re going to do positive psychology practices today. I’ll explain what that means in a minute. Do you have any questions?  ",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "ah",
+                        "back_channel"    : "{'gesture':'Misty/nodding', 'timing': 0.5}"
                     },
                     {
                         "utterance"     : "Okay. Positive psychology practices aim to guide you towards focusing on the positive things in your life. Often, the negative things in our life get much of our attention, while the positive things are harder to focus on and therefore harder to remember later on. In total, we will have four sessions together, focusing on different aspects of positive psychology. Today is the first one.",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     }
 
                 ],
@@ -35,22 +35,22 @@
                         "utterance"     : "Hi, it is a pleasure to see you again USERNAME",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     },
                     {
                         "utterance"     : "It is a pleasure meeting you",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     },
                     {
                         "utterance"     : "Final scene of the interaction",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     }
 
                 ],
@@ -59,22 +59,22 @@
                         "utterance"     : "Hi, my name is Botty! What is your name?",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     },
                     {
                         "utterance"     : "It is a pleasure meeting you USERNAME",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     },
                     {
                         "utterance"     : "Final scene of the interaction",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     }
 
                 ],
@@ -83,22 +83,22 @@
                         "utterance"     : "Hi, my name is Botty! What is your name?",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "sound"         : "uh huh",
+                        "back_channel"    : "null"
                     },
                     {
                         "utterance"     : "It is a pleasure meeting you",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "back_channel"    : "null"
                     },
                     {
                         "utterance"     : "Final scene of the interaction",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "null",
-                        "do_trigger"    : "False"
+                        "back_channel"    : "null"
                     }
 
                 ],
@@ -109,7 +109,7 @@
                                                         "face"          : "null",
                                                         "gesture"       : "null",
                                                         "sound"         : "null",
-                                                        "do_trigger"    : "False"
+                                                        "back_channel"    : "null"
                                                     }
                             }                  
 }
