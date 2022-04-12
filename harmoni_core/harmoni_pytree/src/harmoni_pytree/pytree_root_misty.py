@@ -26,6 +26,7 @@ from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
 from harmoni_pytree.leaves.check_stt_result import CheckSTTResult
 from harmoni_pytree.leaves.gesture_service_misty import GestureServiceMistyPytree
 from harmoni_pytree.leaves.wait_results import WaitResults
+from harmoni_pytree.leaves.backchannel_service import BackchannelService
 from harmoni_common_lib.constants import ActuatorNameSpace, DialogueNameSpace, State
 import sys
 
@@ -106,24 +107,35 @@ def create_root_dialogue_sensing():
 def create_root(params):
     root = py_trees.composites.Sequence("Dialogue")
     sequence_speaking = py_trees.composites.Sequence("Speaking")
+    sequence_backchanneling = py_trees.composites.Sequence("Backchanneling")
+    sequence_sensing = py_trees.composites.Sequence("Sensing")
+    parallel_sensing_backchanneling = py_trees.composites.Parallel("Listening")
     tts = AWSTtsServicePytree("TextToSpeech")
+    tts_back = AWSTtsServicePytree("TextToSpeechBackchannel")
     script = ScriptService("Script", params)
     gesture = GestureServiceMistyPytree("Gesture")
     speaker = SpeakerMistyServicePytree("Speaker")
+    gesture_back = GestureServiceMistyPytree("GestureBackchannel")
+    speaker_back = SpeakerMistyServicePytree("SpeakerBackchannel")
     face = LipSyncMistyServicePytree("Face")
+    face_back = LipSyncMistyServicePytree("FaceBackchannel")
     microphone=MicrophoneServicePytree("Microphone")
     stt=DeepSpeechToTextServicePytree("SpeechToText")
     checkstt = CheckSTTResult("CheckResults")
+    backchanneling_script = BackchannelService("BackchannelScript", params)
     parall_speaker_face = py_trees.composites.Parallel("Playing")
+    parall_playing_back = py_trees.composites.Parallel("PlayingBackchannel")
+    sequence_backchanneling.add_children([backchanneling_script, tts_back, parall_playing_back])
     sequence_speaking.add_child(script)
     sequence_speaking.add_child(tts)
     sequence_speaking.add_child(parall_speaker_face)
+    parall_playing_back.add_children([speaker_back, face_back, gesture_back])
     parall_speaker_face.add_child(speaker)
     parall_speaker_face.add_child(face)
     parall_speaker_face.add_child(gesture)
-    sequence_sensing = py_trees.composites.Sequence(name="Sensing")
     sequence_sensing.add_children([microphone, stt, checkstt])
-    root.add_children([sequence_speaking, sequence_sensing])
+    parallel_sensing_backchanneling.add_children([sequence_sensing, sequence_backchanneling])
+    root.add_children([sequence_speaking, parallel_sensing_backchanneling])
     return root
 
 def create_root_med(params):
