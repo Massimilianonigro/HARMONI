@@ -234,6 +234,7 @@ class MouthService(HarmoniServiceManager):
     def send_face_mouth_request(self):
         """ Send the request to the web page"""
         rospy.loginfo("Sending request to webpage of the face")
+        rospy.sleep(1)
         self.face_mouth_pub.publish(self.face_mouth_request)
         return
 

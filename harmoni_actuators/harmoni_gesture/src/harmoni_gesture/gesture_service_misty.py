@@ -117,11 +117,12 @@ class GestureService(HarmoniServiceManager):
             self.state = State.SUCCESS
             self.gesture_done = False
             self.actuation_completed = True
+            self.result_msg=""
         except IOError:
             rospy.logwarn("Gesture failed")
             self.state = State.FAILED
             self.actuation_completed = True
-        return {"response": self.state}
+        return {"response": self.state, "message": self.result_msg}
 
     def request(self, data):
         """Request to the robot to do the gesture
@@ -136,10 +137,6 @@ class GestureService(HarmoniServiceManager):
         """
         self.state = State.REQUEST
         self.actuation_completed = False
-
-        #if type(data) == str:
-        #    data = ast.literal_eval(data)
-
         try:
             rospy.loginfo(f"length of data is {len(data)}")
             if "behavior_data" in data:
@@ -147,23 +144,22 @@ class GestureService(HarmoniServiceManager):
                 gesture_data = self._get_gesture_data(data)
             else:
                 gesture_data = data
-                #self.gesture_pub.publish(str(data))
-
-            print(gesture_data)
             if gesture_data:
-                self.parse_gesture_misty(gesture_data)
-                while not self.gesture_done:
-                    self.state = State.REQUEST
+                if gesture_data!="null":
+                    self.parse_gesture_misty(gesture_data)
+                    while not self.gesture_done:
+                        self.state = State.REQUEST
             self.state = State.SUCCESS
             self.gesture_done = False
-            self.actuation_completed = True
             self.response_received = True
-        except Timeout:
-            rospy.logwarn("Gesture failed: The ip of the robot appears unreachable")
+            self.actuation_completed = True
+            self.result_msg=""
+        except IOError:
+            rospy.logwarn("Gesture failed")
             self.state = State.FAILED
             self.actuation_completed = True
-            self.response_received = False
-        return {"response": self.state}
+            self.result_msg=""
+        return {"response": self.state, "message": self.result_msg}
 
     def parse_gesture_misty(self, data):
         tree = ET.parse(self.path + "/" + ast.literal_eval(data)["gesture"] + ".xml")

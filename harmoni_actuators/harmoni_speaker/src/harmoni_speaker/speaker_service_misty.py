@@ -72,14 +72,9 @@ class SpeakerService(HarmoniServiceManager):
                     data = data["audio_data"]
                 else:
                     data = ast.literal_eval(data)
-                    print(data)
-                    outdir = self.rospack.get_path("harmoni_speaker") + "/temp_data/test.wav"
-                    sf.write(outdir, np.fromstring(data["audio_ogg"], dtype=float), data["audio_frame"])
-
-                    data = self.file_path_to_audio_data(self.rospack.get_path("harmoni_speaker") + "/temp_data/test.wav")
+                    data = self.file_path_to_audio_data(self.rospack.get_path("harmoni_tts") + "/temp_data/tts.wav")
                     duration = data["duration"]
                     data = data["audio_data"]
-
             rospy.loginfo("Writing data for speaker")
             rospy.loginfo(f"length of data is {len(data)}")
             #Maximum size for the file is 3 Mb
@@ -98,7 +93,6 @@ class SpeakerService(HarmoniServiceManager):
             req = Request('POST','http://{}/api/audio'.format(self.robot_ip), 
                             data = json.dumps(payload),
                             headers = headers)
-                            #headers = headers,
             prepped = req.prepare()
             print(prepped.url)
 

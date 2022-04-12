@@ -153,7 +153,7 @@ def main():
     service_id = f"{service_name}_{instance_id}"
 
     try:
-        rospy.init_node(service_name + "_qt")
+        rospy.init_node(service_name + "_misty")
         params = rospy.get_param(service_name + "/" + instance_id + "_param/")
         s = GestureInterface(service_name, params)
         rospy.spin()

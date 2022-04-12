@@ -105,6 +105,7 @@ class TestFace(unittest.TestCase):
         self.result_nose = True
     
     def test_request_response_mouth(self):
+        rospy.sleep(1)
         rospy.loginfo(f"The input data is {self.data}")
         self.service_client_mouth.send_goal(
             action_goal=ActionType.DO.value,
