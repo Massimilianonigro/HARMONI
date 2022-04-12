@@ -30,7 +30,9 @@ class SpeechToTextService(HarmoniServiceManager):
         self.beam_width = param["beam_width"]
         self.t_wait = param["t_wait"]
         self.subscriber_id = param["subscriber_id"]
-
+        self.response_received = False
+        self.result_msg = ''
+        self.stt_response = ''
         self.service_id = hf.get_child_id(self.name)
 
         self.ds_client = DeepSpeechClient(
@@ -110,8 +112,10 @@ class SpeechToTextService(HarmoniServiceManager):
         text = self._transcribe_chunk(data)
         if text:
             text = self.ds_client.finish_stream()
+            self.stt_response = text
             self.text_pub.publish(text)
             if is_transcribe_once:
+                self.response_received = True
                 self.stop()
             else:
                 self.ds_client.start_stream()
@@ -124,10 +128,17 @@ class SpeechToTextService(HarmoniServiceManager):
         """
         rospy.loginfo("Start the %s request" % self.name)
         self.state = State.START
+        self.response_received = False
         if not self.ds_client.is_streaming:
             self.ds_client.start_stream()
         self.is_transcribe_once = True
-        return
+        r = rospy.Rate(1)
+        while not self.response_received:
+            r.sleep()
+        self.state = State.SUCCESS
+        self.result_msg = self.stt_response
+        self.response_received = True
+        return {"response": self.state, "message": self.result_msg}
 
     def _transcribe_chunk(self, data):
         """Passes one chunk of audio to the DeepSpeech client"""
