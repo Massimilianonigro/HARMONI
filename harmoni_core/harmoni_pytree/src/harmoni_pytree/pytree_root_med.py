@@ -130,6 +130,7 @@ def create_root_med(params):
     root = py_trees.composites.Sequence("Dialogue")
     sequence_speaking = py_trees.composites.Sequence("Speaking")
     tts = AWSTtsServicePytree("TextToSpeech")
+    gesture = GestureServicePytree("Gesture")
     script = ScriptService("Script", params)
     speaker = SpeakerServicePytree("Speaker")
     face = LipSyncServicePytree("Face")
@@ -137,6 +138,7 @@ def create_root_med(params):
     parall_speaker_face = py_trees.composites.Parallel("Playing")
     sequence_speaking.add_child(script)
     sequence_speaking.add_child(tts)
+    parall_speaker_face.add_child(gesture)
     sequence_speaking.add_child(parall_speaker_face)
     parall_speaker_face.add_child(speaker)
     parall_speaker_face.add_child(face)
@@ -154,7 +156,7 @@ def main():
     """
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     params = rospy.get_param("pytree/default_param/")
-    root =create_root(params)
+    root =create_root_med(params)
     print(description(root))
         
     ####################
