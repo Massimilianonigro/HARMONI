@@ -27,28 +27,33 @@ from std_msgs.msg import Int32
 from std_msgs.msg import String
 import numpy as np
 
-class BotDialogues():
+class BotDialogues(py_trees.behaviour.Behaviour):
 	def __init__(self, timeout=10):
-		self.timeout = timeout;
+		self.timeout = timeout
+		rospy.init_node('diaglogue_publisher', anonymous=True)
 		self.idle_sub = rospy.Subscriber("deepspeech/idle_state", Int32, self.callback)
 		# TODO : fill up name of rostopic for publisher
 		self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
 
-		rospy.init_node('diag_publisher', anonymous=True)
+		
 		with open('simple_dialogues.json', 'r') as f:
   			data = json.load(f)
   		self.next_diag_idx = 1
 
+  		rospy.spin()
+
 
 	def callback(self, message):
 		if(message.data % self.timeout):
-			self.blackboard_bot.result = data["statement"]
+			self.blackboard_bot.result = data[f"statement{next_diag_idx}"]
 			if (self.next_diag_idx < len(data)):
 				self.next_diag_idx += 1
+				rospy.loginfo(self.blackboard_bot.result)
 			else:
-				self.next_diag_idx = 1
+				self.next_diag_idx = 0
 		rospy.loginfo(f"Idle counter : {messsage_data}")
+
 		
 
 

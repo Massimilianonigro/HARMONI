@@ -18,7 +18,7 @@ import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.speaker_service_pytree import SpeakerServicePytree
+from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 
 
 class TestSpeakerPyTree(unittest.TestCase):

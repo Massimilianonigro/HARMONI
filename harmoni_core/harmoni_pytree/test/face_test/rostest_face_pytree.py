@@ -18,7 +18,7 @@ import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.face_service_pytree import FaceServicePytree
+from harmoni_pytree.leaves.facial_exp_service import FacialExpServicePytree
 
 
 class TestFacePyTree(unittest.TestCase):
@@ -46,7 +46,7 @@ class TestFacePyTree(unittest.TestCase):
         additional_parameters = dict([
             (ActuatorNameSpace.face.name,True)])   
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        self.facePyTree =  FaceServicePytree("facePyTreeTest")
+        self.facePyTree =  FacialExpServicePytree("facePyTreeTest")
         self.facePyTree.setup(**additional_parameters)
 
         rospy.loginfo("TestFace: Started up. waiting for face startup")

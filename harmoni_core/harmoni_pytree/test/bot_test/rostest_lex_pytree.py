@@ -19,7 +19,8 @@ import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.aws_lex_service_pytree import AWSLexServicePytree
+from harmoni_pytree.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
+from harmoni_pytree.aws_lex_trigger_service import AWSLexTriggerServicePytree
 
 class TestLexPyTree(unittest.TestCase):
 
@@ -49,8 +50,10 @@ class TestLexPyTree(unittest.TestCase):
         additional_parameters = dict([
             (DialogueNameSpace.bot.name,False)])   
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        self.botPyTree =  AWSLexServicePytree("botPyTreeTest")
-        self.botPyTree.setup(**additional_parameters)
+        self.botPyTree_analyzer = AWSLexAnalyzerServicePytree("botPyTree_analyzer_Test")
+        self.botPyTree_analyzer.setup(**additional_parameters)
+        self.botPyTree_trigger = AWSLexTriggerServicePytree("botPyTree_trigger_Test")
+        self.botPyTree_trigger.setup(**additional_parameters)
         rospy.loginfo("Testbot: Started up. waiting for bot startup")
         rospy.loginfo("Testbot: Started")
 

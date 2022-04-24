@@ -14,6 +14,31 @@ import operator
 import py_trees.console as console
 import running_or_failure as rf
 
+
+# Specific Imports
+from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
+from audio_common_msgs.msg import AudioData
+from std_msgs.msg import String
+import numpy as np
+
+
+from harmoni_common_lib.constants import *
+#!/usr/bin/env python3
+
+# imports 
+import argparse
+import functools
+from py_trees.behaviours import dummy
+from py_trees.idioms import either_or
+import py_trees
+import time
+import rospy
+from random import randint
+import subprocess
+import operator
+import py_trees.console as console
+import running_or_failure as rf
+
 from harmoni_common_lib.constants import *
 
 # from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
@@ -41,7 +66,7 @@ def description(root):
 
 def epilog():
     if py_trees.console.has_colours:
-        return console.cyan + "Set your heart ablaze...\n" + console.reset
+        return console.cyan + "And his noodly appendage reached forth to tickle the blessed...\n" + console.reset
     else:
         return None
 
@@ -72,12 +97,16 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
     )
     print(py_trees.display.unicode_blackboard())
 
-
+def check_response():
+    rospy.Subscriber(SensorNameSpace.microphone.value + self.subscriber_id, AudioData, self.playing_sound_pause_callback)
+    rospy.spin()
 
 def create_root(name= "first_bot"):
 
-    microphone=MicrophoneServicePytree("Microphonepytree")
-    stt = SpeechToTextServicePytree("STTpytree")
+    microphone = MicrophoneServicePytree("Microphonepytree")
+    stt = DeepSpeechToTextServicePytree("STTpytree")
+    # chatbot_trigger = AWSLexTriggerServicePytree("TriggerPytree")
+    # chatbot_analyzer = AWSLexAnalyzerServicePytree("AnalyzerPytree")
     tts = AWSTtsServicePytree("TTSpytree")
 
     speaker = SpeakerServicePytree("SpeakerPyTreeTest")

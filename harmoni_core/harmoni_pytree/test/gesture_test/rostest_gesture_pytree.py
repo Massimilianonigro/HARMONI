@@ -18,7 +18,7 @@ import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.gesture_service_pytree import GestureServicePytree
+from harmoni_pytree.leaves.gesture_service import GestureServicePytree
 
 
 class TestGesturePyTree(unittest.TestCase):
@@ -67,7 +67,7 @@ def main():
     import rostest
     rospy.loginfo("test_gesture started")
     rospy.loginfo("TestGesture: sys.argv: %s" % str(sys.argv))
-    rostest.rosrun(PKG, "test_gesture_pytree", TestGesture, sys.argv)
+    rostest.rosrun(PKG, "test_gesture_pytree", TestGesturePyTree, sys.argv)
 
 
 if __name__ == "__main__":

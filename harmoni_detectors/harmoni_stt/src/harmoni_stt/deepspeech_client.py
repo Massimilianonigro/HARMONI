@@ -47,6 +47,7 @@ class DeepSpeechClient:
         text = self._ds_stream.intermediateDecode()
 
         try:
+
             if text != self._text:
                 if text not in ["i ", "he ", "the "]:
                     logging.info('Interim text = {};'.format(text))
