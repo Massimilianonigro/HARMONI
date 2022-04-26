@@ -8,8 +8,9 @@ import rospy
 
 
 class CheckSTTResult(py_trees.behaviour.Behaviour):
-    def __init__(self, name):
+    def __init__(self, name, params):
         self.name = name
+        self.scene = params['scene']
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_end", access=py_trees.common.Access.WRITE)
@@ -22,7 +23,7 @@ class CheckSTTResult(py_trees.behaviour.Behaviour):
         
     def setup(self):
         self.blackboard_scene.scene.scene_end = ''
-        self.blackboard_scene.scene.scene_counter = 0
+        self.blackboard_scene.scene.scene_counter = self.scene
         self.logger.debug("  %s [CheckSTTResult::setup()]" % self.name)
 
     def initialise(self):
@@ -30,11 +31,21 @@ class CheckSTTResult(py_trees.behaviour.Behaviour):
 
     def update(self):
         self.logger.debug("  %s [CheckSTTResult::update()]" % self.name)
-        if self.blackboard_scene.scene.scene_counter < self.blackboard_scene.scene.max_number_scene -1:
-            if 'repeat' not in self.blackboard_stt.result: 
-                self.blackboard_scene.scene.scene_counter+=1
-        else:
+        if self.blackboard_scene.scene.scene_end == 'call_researcher':
+            rospy.sleep(5)
             self.blackboard_scene.scene.scene_end = 'end'
+        else:
+            if self.blackboard_scene.scene.scene_counter < self.blackboard_scene.scene.max_number_scene -1:
+                if self.blackboard_scene.scene.scene_counter == 1:
+                    confirmation = "yes"
+                    #if confirmation in self.blackboard_stt.result: 
+                    #    self.blackboard_scene.scene.scene_end = 'call_researcher'
+                    #else:
+                    self.blackboard_scene.scene.scene_counter+=1
+                else:
+                    self.blackboard_scene.scene.scene_counter+=1
+            else:
+                self.blackboard_scene.scene.scene_end = 'end'
         
         return py_trees.common.Status.SUCCESS
 

@@ -158,10 +158,10 @@ class SpeechToTextService(HarmoniServiceManager):
 
     def playing_sound_pause_callback(self, data):
         """Sleeps when data is being published to the speaker"""
-        rospy.loginfo(f"pausing for data: {len(data.data)}")
-        self.pause()
-        rospy.sleep(int(len(data.data) / 22040))
-        self.start()
+        #rospy.loginfo(f"pausing for data: {len(data.data)}")
+        #self.pause()
+        #rospy.sleep(int(len(data.data) / 22040))
+        #self.start()
         return
 
 

@@ -14,8 +14,10 @@ class ScriptService(py_trees.behaviour.Behaviour):
     def __init__(self, name, params):
         self.name = name
         self.user_name=params['user_name']
+        self.researcher_name=params['researcher_name']
         self.script_name = params['interaction']
         self.session = params['session']
+        self.scene = params['scene']
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key="gesture", access=py_trees.common.Access.WRITE)
@@ -45,16 +47,23 @@ class ScriptService(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [ScriptService::update()]" % self.name)
         utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
         gesture = self.context[self.session][self.blackboard_scene.scene.scene_counter]["gesture"]
-        if "USERNAME" in utterance:
-            utterance = utterance.replace("USERNAME", self.user_name)
+        username = "USERNAME" 
+        researcher = "RESEARCHERNAME"
+        if username in utterance:
+            utterance = utterance.replace(username, self.user_name)
+        if researcher in utterance:
+            utterance = utterance.replace(researcher, self.researcher_name)
         if self.blackboard_scene.scene.scene_counter == 0:
             self.blackboard_bot.result = {
                                                             "message":   utterance
                                         }
             self.blackboard_scene.gesture = gesture
         elif self.blackboard_scene.scene.scene_end == "call_researcher":
+            utterance = self.context["error_handling"]["call_researcher"]["utterance"]
+            if researcher in utterance:
+                utterance = utterance.replace(researcher, self.researcher_name)
             self.blackboard_bot.result  = {
-                                                            "message":   self.context["error_handling"]["call_researcher"]["utterance"]
+                                                            "message":   utterance
                                         }
             self.blackboard_scene.gesture = gesture
         elif self.blackboard_scene.scene.scene_end == "end":

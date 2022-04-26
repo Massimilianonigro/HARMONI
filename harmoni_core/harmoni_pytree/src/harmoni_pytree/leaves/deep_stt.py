@@ -115,8 +115,7 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
                 #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
-                new_status = py_trees.common.Status.FAILURE
-                raise
+                new_status = py_trees.common.Status.RUNNING
         
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
