@@ -8,8 +8,9 @@ import rospy
 
 
 class WaitResults(py_trees.behaviour.Behaviour):
-    def __init__(self, name):
+    def __init__(self, name, params):
         self.name = name
+        self.scene = params['scene']
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_end", access=py_trees.common.Access.WRITE)
@@ -19,7 +20,7 @@ class WaitResults(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
         
     def setup(self):
-        self.blackboard_scene.scene.scene_counter = 0
+        self.blackboard_scene.scene.scene_counter = self.scene
         self.blackboard_scene.scene.scene_end = ''
         self.logger.debug("  %s [WaitResults::setup()]" % self.name)
 

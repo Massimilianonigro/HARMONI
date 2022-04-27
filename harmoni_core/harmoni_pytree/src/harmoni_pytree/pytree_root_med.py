@@ -134,7 +134,7 @@ def create_root_med(params):
     script = ScriptService("Script", params)
     speaker = SpeakerServicePytree("Speaker")
     face = LipSyncServicePytree("Face")
-    wait = WaitResults("WaitResults")
+    wait = WaitResults("WaitResults", params)
     parall_speaker_face = py_trees.composites.Parallel("Playing")
     sequence_speaking.add_child(script)
     sequence_speaking.add_child(tts)

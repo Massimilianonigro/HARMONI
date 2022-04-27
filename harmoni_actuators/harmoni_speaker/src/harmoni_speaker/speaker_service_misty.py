@@ -101,7 +101,7 @@ class SpeakerService(HarmoniServiceManager):
             )
             print("receiving response")
             print(response)
-            rospy.sleep(duration)  
+            #rospy.sleep(duration)  
             self.state = State.SUCCESS
             self.response_received = True
             self.result_msg = response.text

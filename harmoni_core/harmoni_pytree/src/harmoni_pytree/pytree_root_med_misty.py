@@ -126,6 +126,23 @@ def create_root(params):
     root.add_children([sequence_speaking, sequence_sensing])
     return root
 
+def create_root_med_old(params):
+    root = py_trees.composites.Sequence("Dialogue")
+    sequence_speaking = py_trees.composites.Sequence("Speaking")
+    tts = AWSTtsServicePytree("TextToSpeech")
+    script = ScriptService("Script", params)
+    speaker = SpeakerMistyServicePytree("Speaker")
+    face = LipSyncMistyServicePytree("Face")
+    wait = WaitResults("WaitResults", params)
+    parall_speaker_face = py_trees.composites.Parallel("Playing")
+    sequence_speaking.add_child(script)
+    sequence_speaking.add_child(tts)
+    sequence_speaking.add_child(parall_speaker_face)
+    parall_speaker_face.add_child(speaker)
+    parall_speaker_face.add_child(face)
+    root.add_children([sequence_speaking, wait])
+    return root
+
 def create_root_med(params):
     root = py_trees.composites.Sequence("Dialogue")
     sequence_speaking = py_trees.composites.Sequence("Speaking")
@@ -133,13 +150,15 @@ def create_root_med(params):
     script = ScriptService("Script", params)
     speaker = SpeakerMistyServicePytree("Speaker")
     face = LipSyncMistyServicePytree("Face")
-    wait = WaitResults("WaitResults")
-    parall_speaker_face = py_trees.composites.Parallel("Playing")
+    gesture = GestureServiceMistyPytree("Gesture")
+    wait = WaitResults("WaitResults", params)
+    parall_face_gesture = py_trees.composites.Parallel("Playing")
     sequence_speaking.add_child(script)
     sequence_speaking.add_child(tts)
-    sequence_speaking.add_child(parall_speaker_face)
-    parall_speaker_face.add_child(speaker)
-    parall_speaker_face.add_child(face)
+    sequence_speaking.add_child(speaker)
+    sequence_speaking.add_child(parall_face_gesture)
+    parall_face_gesture.add_child(face)
+    parall_face_gesture.add_child(gesture)
     root.add_children([sequence_speaking, wait])
     return root
 
