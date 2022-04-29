@@ -114,8 +114,16 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
                 #self.service_client_stt.stop_tracking_goal()
                 #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
+            elif new_state == GoalStatus.ABORTED:
+                if self.client_result is not None:
+                    self.blackboard_stt.result = self.client_result
+                    self.client_result = None
+                    new_status = py_trees.common.Status.SUCCESS
+                else:
+                    self.logger.debug(f"Waiting fot the result ({self.server_name})")
+                    new_status = py_trees.common.Status.RUNNING
             else:
-                new_status = py_trees.common.Status.RUNNING
+                new_status = py_trees.common.Status.FAILURE
         
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
