@@ -43,7 +43,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/>  exercise on savouring! </p><p>This was the first session of positive psychology exercises. </p><p>We have three sessions left, over the next three weeks. </p><p> Before you leave, please take some time to fill in the survey on the tablet. </p><p> Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p><p> RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you next time! </p></prosody>",
+                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/>  exercise on savouring! </p><p>This was the first session of positive psychology exercises. </p><p>We have three sessions left, over the next three weeks. </p><p> Before you leave, please take some time to fill in the survey on the tablet. </p><p> Once you’re done, let RESEARCHERNAME know by calling out to them. </p><p> RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you next time! </p></prosody>",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "",
@@ -60,7 +60,7 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "<prosody rate='slow'>  <p> Okay. Today’s exercise will focus on developing gratitude.  </p>   <p> Cultivating gratitude can help <break time='1s'/>  increase positive affect, subjective happiness and life satisfaction. </p>  <p>  Let’s begin. </p> <p>Please recall two things that you felt grateful for in the past month or a couple of  weeks.</p><p> These can be small but positive  things that happened, for example having useful feedback about  your work, or receiving a gift from a friend.</p><p> I’ll give you around a minute to think about this. <break time='70s'/> </p><p> Please start by sharing the first thing that you are grateful for with me. </p> </prosody>",
+            "utterance"     : "<prosody rate='slow'>  <p> Okay, great. Today’s exercise will focus on developing gratitude.  </p>   <p> Cultivating gratitude can help <break time='1s'/>  increase positive affect, subjective happiness and life satisfaction. </p>  <p>  Let’s begin. </p> <p>Please recall two things that you felt grateful for in the past month or a couple of  weeks.</p><p> These can be small but positive  things that happened, for example having useful feedback about  your work, or receiving a gift from a friend.</p><p> I’ll give you around a minute to think about this. <break time='70s'/> </p><p> Please start by sharing the first thing that you are grateful for with me. </p> </prosody>",
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "<prosody volume='x-soft'><break time='5s'/> uh huh</prosody>",
@@ -109,7 +109,7 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/> exercise on gratitude! </p><p>This was the second session of positive psychology exercises. We have two more sessions left, so we are halfway through the sessions. </p><p>Before you leave, please take some time to fill in the survey on the tablet. </p><p>Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p><p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you next time!</p></prosody>",
+            "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/> exercise on gratitude! </p><p>This was the second session of positive psychology exercises. We have two more sessions left, so we are halfway through the sessions. </p><p>Before you leave, please take some time to fill in the survey on the tablet. </p><p>Once you’re done, let RESEARCHERNAME know by calling out to them. </p><p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you next time!</p></prosody>",
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
@@ -126,9 +126,9 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow'> <p> Today’s exercise will focus on some of your accomplishments. </p>   <p> Thinking about accomplishments, small or big ones, can help us notice our strengths, and help with our self-esteem.</p>  <p>  Let’s begin, Let’s think about some of your recent two accomplishments.  </p> <p>These can be small accomplishments, for example cooking a tasty meal or reading a good book.</p><p> I’ll give you around a minute to think about this <break time='70s'/><p> Please, name one of your accomplishments from the past few weeks.</p></prosody>",
+                        "utterance"     : "<prosody rate='slow'> <p> Okay, great. Today’s exercise will focus on some of your accomplishments. </p>   <p> Thinking about accomplishments, small or big ones, can help us notice our strengths, and help with our self-esteem.</p>  <p>  Let’s begin, Let’s think about some of your recent two accomplishments.  </p> <p>These can be small accomplishments, for example cooking a tasty meal or reading a good book.</p><p> I’ll give you around a minute to think about this <break time='70s'/></p><p> Please, name one of your accomplishments from the past few weeks.</p></prosody>",
                         "face"          : "null",
-                        "gesture"       : "QT/hi",
+                        "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
@@ -171,11 +171,11 @@
                         "utterance"     : " <prosody rate='slow'><p>And now we’ve tried the accomplishments <break time='0.5s'/> exercise.</p><p> You might like to think about this between our sessions and practise noticing your accomplishments, and what strengths you have used to accomplish them.</p>How have you found the exercise?</prosody>",
                         "face"          : "null",
                         "gesture"       : "null",
-                        "sound"         : "<prosody volume='x-soft'><break time='2s'/> uh huh</prosody>",
-                        "back_channel"    : "cambridge/QT/nod2"
+                        "sound"         : "",
+                        "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week’s <break time='0.5s'/>  exercise on accomplishments!</p><p> This was the third session of positive psychology exercises.</p><p> We have one more session left next week. Before you leave, please take some time to fill in the survey on the tablet.</p><p> Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p><p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you for our final session next week! </p></prosody>",
+                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week’s <break time='0.5s'/>  exercise on accomplishments!</p><p> This was the third session of positive psychology exercises.</p><p> We have one more session left next week. Before you leave, please take some time to fill in the survey on the tablet.</p><p> Once you’re done, let RESEARCHERNAME know by calling out to them. </p><p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you for our final session next week! </p></prosody>",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "",
@@ -192,7 +192,7 @@
                         "back_channel"   : "cambridge/QT/nod2"
                     },
                     {
-                        "utterance"     : " <prosody rate='slow'><p>  In this final exercise, we will focus on developing optimistic thoughts about the future. This can help us feel happier.</p>   <p>  Let’s begin, Imagine yourself in the future, for example 6 months from now.   </p> <p>Imagine you are in a place where you have resolved some of the things that are concerning you now.</p><p> Just take a moment to really visualise this future, where things are better.  I’ll give you about a minute to think about that. <break time='70s'/></p><p>Now describe where you are, what you are doing, and what is happening in your life. </p><p>Describe it with as much detail as possible to create a vivid picture.</p><p>Please go ahead and describe this to me.</p></prosody>",
+                        "utterance"     : " <prosody rate='slow'><p>  Okay, great.  In this final exercise, we will focus on developing optimistic thoughts about the future. This can help us feel happier.</p>   <p>  Let’s begin, Imagine yourself in the future, for example 6 months from now.   </p> <p>Imagine you are in a place where you have resolved some of the things that are concerning you now.</p><p> Just take a moment to really visualise this future, where things are better.  I’ll give you about a minute to think about that. <break time='70s'/></p><p>Now describe where you are, what you are doing, and what is happening in your life. </p><p>Describe it with as much detail as possible to create a vivid picture.</p><p>Please go ahead and describe this to me.</p></prosody>",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "<prosody volume='x-soft'><break time='5s'/> uh huh</prosody>",
@@ -213,7 +213,7 @@
                         "back_channel"    : "cambridge/QT/nod2"
                     },
                     {
-                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/>  exercise on future optimism! </p><p>This was the fourth and final session of positive psychology exercises.</p><p> To summarize the positive psychology exercises we’ve tried, over the four weeks we’ve had together, we’ve tried a savouring exercise to prolong positive feelings,<break time='1s'/> an exercise focusing on feelings of gratitude,<break time='1s'/> an exercise thinking about your accomplishments,<break time='1s'/> and today an exercise about optimism for the future. </p><p> You may want to try noticing some of the things we’ve discussed we’ve discussed going forward, and see if you can incorporate these exercises into your daily life. </p><p> For example you might try savouring a positive experience, noticing experiences that make you feel grateful, paying attention to your accomplishments, or thinking about the future in an optimistic light. </p><p> Positive psychology practices aim to guide you towards focusing on the positive things in your life. Often, the negative things in our life get much of our attention, while the positive things are harder to focus on and therefore harder to remember later on.</p><p>  <break time='2s'/> Before you leave, please take some time to fill in the survey on the tablet. </p><p>Once you’re done, let the researcher RESEARCHERNAME know by calling out to them.</p><p> RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p>Thank you for taking part in the four sessions about positive psychology exercises! I hope these sessions have been useful for you.</p></prosody>",
+                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/>  exercise on future optimism! </p><p>This was the fourth and final session of positive psychology exercises.</p><p> To summarize the positive psychology exercises we’ve tried, over the four weeks we’ve had together, we’ve tried a savouring exercise to prolong positive feelings,<break time='1s'/> an exercise focusing on feelings of gratitude,<break time='1s'/> an exercise thinking about your accomplishments,<break time='1s'/> and today an exercise about optimism for the future. </p><p> You may want to try noticing some of the things we’ve discussed we’ve discussed going forward, and see if you can incorporate these exercises into your daily life. </p><p> For example you might try savouring a positive experience, noticing experiences that make you feel grateful, paying attention to your accomplishments, or thinking about the future in an optimistic light. </p><p> Positive psychology practices aim to guide you towards focusing on the positive things in your life. Often, the negative things in our life get much of our attention, while the positive things are harder to focus on and therefore harder to remember later on.</p><p>  <break time='2s'/> Before you leave, please take some time to fill in the survey on the tablet. </p><p>Once you’re done, let RESEARCHERNAME know by calling out to them.</p><p> RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p>Thank you for taking part in the four sessions about positive psychology exercises! I hope these sessions have been useful for you.</p></prosody>",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "",
