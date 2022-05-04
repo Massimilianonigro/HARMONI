@@ -5,14 +5,14 @@
     <waypoints count="1">
         <point time="1537967193275253450">
             <gesture_type>move_head</gesture_type> 
-            <Pitch> 10 </Pitch>
+            <Pitch> 8 </Pitch>
             <Roll> 0 </Roll>
             <Yaw> 0 </Yaw> 
             <Time> 0 </Time> 
         </point>
         <point time="1537967193275253450">
             <gesture_type>move_head</gesture_type> 
-            <Pitch> -10 </Pitch>
+            <Pitch> -8 </Pitch>
             <Roll> 0 </Roll>
             <Yaw> 0 </Yaw> 
             <Time> 0.5 </Time> 
