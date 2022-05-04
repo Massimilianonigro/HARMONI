@@ -1,9 +1,16 @@
 {
     "session1" :   [   
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello, my name is Botty. </p> <p>Today, we’ll be doing a mindfulness meditation session together, focusing on a body scan. </p><break time='2s'/> <p> Mindfulness is a faculty that everybody has, and through the meditation you can train it. </p> <p> It’s a bit like going to the gym to train your mindfulness muscle.</p> <p> It’s about paying attention in a particular way, on purpose, in the present moment, and non-judgementally.</p> <p> Mindfulness is about being present and not being lost in thought.</p> <p> It’s an innate power. </p> <p>Mindfulness and meditation can help lower our stress, connect better and improve our focus.</p> <p>Now let’s settle into the meditation posture.</p> <p> <break time='2s'/>  Feel your feet on the floor,<break time='1s'/>  feel your body on the seat. </p> <p> You might consider sitting with an elongated and comfortable spine, and with an upright and uplifted torso.</p> <p> <break time='2s'/> You may place your hands comfortably on your lap.</p> <p> I invite you to take in the space around you. </p> <p>  <break time='2s'/> Let’s acknowledge the space, see who’s here, and have a look at the space and the objects in it.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello, my name is Botty. </p> <p>Today, we’ll be doing a mindfulness meditation session together, focusing on a body scan. </p><break time='2s'/> <p> Mindfulness is a faculty that everybody has, and through the meditation you can train it. </p> <p> It’s a bit like going to the gym to train your mindfulness muscle.</p> <p> It’s about paying attention in a particular way, on purpose, in the present moment, and non-judgementally.</p> <p> Mindfulness is about being present and not being lost in thought.</p> <p> It’s an innate power. </p> <p>Mindfulness and meditation can help lower our stress, connect better and improve our focus.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    }, 
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p>Now let’s settle into the meditation posture.</p> <p> <break time='2s'/>  Feel your feet on the floor,<break time='1s'/>  feel your body on the seat. </p> <p> You might consider sitting with an elongated and comfortable spine, and with an upright and uplifted torso.</p><p> <break time='2s'/> You may place your hands comfortably on your lap.</p> <p> I invite you to take in the space around you. </p> <p>  <break time='2s'/> Let’s acknowledge the space, see who’s here, and have a look at the space and the objects in it.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
@@ -22,14 +29,14 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Notice how it rises with the inhalation and deflates with the exhalation... .</p> <p>  <break time='2s'/> And with each exhalation softening the body and allowing the body to rest deeper into the support provided by the chair..</p> <p>  <break time='2s'/>  If you like, you can place your hands on the abdomen or your belly for a few moments to feel the rhythmic movement of the breath..</p> <p>  <break time='2s'/> And now, expanding your attention to your whole body, notice how your body feels at this moment. .</p> <p>  <break time='2s'/> Is there any tension in the body, any tiredness?.</p> <p>  <break time='2s'/>  Allowing yourself to feel any emotion or sensation, making room for whatever you are feeling at this moment; .</p> <p>  <break time='2s'/> not wanting anything to happen, not even relaxation.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Notice how it rises with the inhalation and deflates with the exhalation... .</p> <p>  <break time='2s'/> And with each exhalation softening the body and allowing the body to rest deeper into the support provided by the chair..</p> <p>  <break time='2s'/>  If you like, you can place your hands on the abdomen or your belly for a few moments to feel the rhythmic movement of the breath..</p> <p>  <break time='2s'/> And now, expanding your attention to your whole body, notice how your body feels at this moment. .</p> <p>  <break time='2s'/> Is there any tension in the body, any tiredness?.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  Bring the mind back to the body with gentleness and firmness whenever you notice that it has wandered off. .</p> <p>  <break time='2s'/> And notice the contact that the feet are making with the floor. .</p> <p>  <break time='2s'/> Do you feel the support of the floor, or any sensations in your feet right now? .</p> <p>  <break time='2s'/> Silently noting what you are feeling....</p> <p>  <break time='2s'/>  Notice any sensations in your feet..</p> <p>  <break time='2s'/>  Are you feeling sensations of warmth or coolness, tingling, throbbing in your feet? .</p> <p>  <break time='2s'/> Do you notice the contact that the feet are making with the floor? .</p> <p>  <break time='2s'/> Can you detect any other sensations in your feet?...</p> <p>  <break time='2s'/> </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  Bring the mind back to the body with gentleness and firmness whenever you notice that it has wandered off. .</p> <p>  <break time='2s'/> And notice the contact that the feet are making with the floor. .</p> <p>  <break time='2s'/> Do you feel the support of the floor, or any sensations in your feet right now? .</p> <p>  <break time='2s'/> Silently noting what you are feeling....</p> <p>  <break time='2s'/>  Notice any sensations in your feet..</p> <p>  <break time='2s'/>  Are you feeling sensations of warmth or coolness, tingling, throbbing in your feet? .</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -43,7 +50,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Just notice if you feel or don’t feel sensations....</p> <p>  <break time='2s'/> And when you are ready, move your awareness to the back, the lower back..</p> <p>  <break time='2s'/>  We tend to accumulate a lot of tension in the lower back..</p> <p>  <break time='2s'/>  Notice if there is discomfort in the lower back at this moment. .</p> <p>  <break time='2s'/> If you like, exhale, imagining that the discomfort leaves with the out-breath, and that with the in-breath you are bringing freshness and new energy to the body... .</p> <p>  <break time='2s'/> Aware of sensations in the middle back, notice the movement of the rib cage with the breath..</p> <p>  <break time='2s'/>  Pay attention to sensations in the shoulder blades, the upper back—notice how the shoulders feel..</p> <p>  <break time='2s'/>  Expand your awareness to explore sensations in your entire back....</p> <p>  <break time='2s'/> </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Just notice if you feel or don’t feel sensations....</p> <p>  <break time='2s'/> And when you are ready, move your awareness to the back, the lower back..</p> <p>  <break time='2s'/>  We tend to accumulate a lot of tension in the lower back..</p> <p>  <break time='2s'/>  Notice if there is discomfort in the lower back at this moment. .</p> <p>  <break time='2s'/> If you like, exhale, imagining that the discomfort leaves with the out-breath, and that with the in-breath you are bringing freshness and new energy to the body... .</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -64,7 +71,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Move attention up to the chest. .</p> <p>  <break time='2s'/> Does the middle of the chest feel expanded or contracted? .</p> <p>  <break time='2s'/> No need to do anything, just notice..</p> <p>  <break time='2s'/>  Notice any sensations in the area around the heart, perhaps detecting the beating of the heart at this moment... .</p> <p>  <break time='2s'/> And move your awareness down through the arms to the hands and fingers. .</p> <p>  <break time='2s'/> </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Move attention up to the chest. .</p> <p>  <break time='2s'/> Does the middle of the chest feel expanded or contracted? .</p> <p>  <break time='2s'/> No need to do anything, just notice..</p> <p>  <break time='2s'/>  Notice any sensations in the area around the heart, perhaps detecting the beating of the heart at this moment... .</p> <p>  <break time='2s'/> And move your awareness down through the arms to the hands and fingers..</p> <p>  <break time='2s'/> </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -78,7 +85,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> And now, allowing your attention to move to the shoulders and to the back of the neck and the throat area. .</p> <p>  <break time='2s'/> Becoming aware of sensations in the back of the head, in the scalp area, the skull, the top of the head, deep inside the head; sensations in the forehead...</p> <p>  <break time='2s'/> .the ears...</p> <p>  <break time='2s'/> .deep inside the ears and the outside of the ears....</p> <p>  <break time='2s'/> the area around the eyes....</p> <p>  <break time='2s'/> the eyes...</p> <p>  <break time='2s'/> .eyebrows..</p> <p>  <break time='2s'/> ..eyelashes....</p> <p>  <break time='2s'/> the nose and nostrils...</p> <p>  <break time='2s'/> .the lips and inside the mouth...</p> <p>  <break time='2s'/> .the cheeks and jaw area..</p> <p>  <break time='2s'/> .. Aware of sensations in the whole face, notice if you are holding tension in the face.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> And now, allowing your attention to move to the shoulders and to the back of the neck and the throat area. .</p> <p>  <break time='2s'/> Becoming aware of sensations in the back of the head, in the scalp area, the skull, the top of the head, deep inside the head; sensations in the forehead...</p> <p>  <break time='2s'/> .the ears...</p> <p>  <break time='2s'/> .deep inside the ears and the outside of the ears....</p> <p>  <break time='2s'/> the area around the eyes....</p> <p>  <break time='2s'/> the eyes...</p> <p>  <break time='2s'/> .eyebrows..</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -99,7 +106,14 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>We’ve now done our first session, a shorter body scan meditation. .</p> <p>  <break time='2s'/> Remember, we were just trying this out, if it didn’t work this time, it might work next time. .</p> <p>  <break time='2s'/> Not everybody’s always in a good state for meditation. .</p> <p>  <break time='2s'/> Meditation is about noticing your distractions and thoughts, rather than not thinking and being completely relaxed..</p> <p>  <break time='2s'/>  It is a practice, and the mindfulness muscle can get stronger through repetition, if you practice, that muscle gets stronger. .</p> <p>  <break time='2s'/> Meditation is about noticing your distractions and thoughts, and relating to them. .</p> <p>  <break time='2s'/> It’s about relating to your body and thoughts. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>We’ve now done our first session, a shorter body scan meditation. .</p> <p>  <break time='2s'/> Remember, we were just trying this out, if it didn’t work this time, it might work next time. .</p> <p>  <break time='2s'/> Not everybody’s always in a good state for meditation. .</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/> Meditation is about noticing your distractions and thoughts, rather than not thinking and being completely relaxed..</p> <p>  <break time='2s'/>  It is a practice, and the mindfulness muscle can get stronger through repetition, if you practice, that muscle gets stronger. .</p> <p>  <break time='2s'/> Meditation is about noticing your distractions and thoughts, and relating to them. .</p> <p>  <break time='2s'/> It’s about relating to your body and thoughts. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
