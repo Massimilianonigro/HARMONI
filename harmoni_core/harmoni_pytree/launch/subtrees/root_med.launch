@@ -11,6 +11,7 @@
     
     <include file="$(find harmoni_face)/launch/face_service.launch"></include>
     <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
+    <include file="$(find harmoni_recorder)/launch/recording_rosbag_mindfulness.launch"></include>
     <!-- <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
     <include file="$(find harmoni_web)/launch/web_service.launch"></include>
     <include file="$(find harmoni_bot)/launch/bot_service.launch"></include>

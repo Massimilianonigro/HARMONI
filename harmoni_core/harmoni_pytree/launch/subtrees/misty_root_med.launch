@@ -5,6 +5,7 @@
     <include file="$(find harmoni_tts)/launch/tts_service.launch"></include>
     <include file="$(find harmoni_face)/launch/face_service_misty.launch"></include>
     <include file="$(find harmoni_gesture)/launch/gesture_service_misty.launch"></include>
+    <include file="$(find harmoni_recorder)/launch/recording_rosbag_mindfulness.launch"></include>
     <!-- end services -->
 
     <node pkg="harmoni_pytree" type="pytree_root_med_misty.py" name="harmoni_pytree_default" output="screen"/>

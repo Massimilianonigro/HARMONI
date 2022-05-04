@@ -1,16 +1,9 @@
 {
     "session1" :   [   
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello, my name is Botty. </p> <p>Today, we’ll be doing a mindfulness meditation session together, focusing on a body scan. </p><break time='2s'/> <p> Mindfulness is a faculty that everybody has, and through the meditation you can train it. </p> <p> It’s a bit like going to the gym to train your mindfulness muscle.</p> <p> It’s about paying attention in a particular way, on purpose, in the present moment, and non-judgementally.</p> <p> Mindfulness is about being present and not being lost in thought.</p> <p> It’s an innate power. </p> <p>Mindfulness and meditation can help lower our stress, connect better and improve our focus.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello, my name is Botty. </p> <p>Today, we’ll be doing a mindfulness meditation session together, focusing on a body scan. </p><break time='2s'/> <p> Mindfulness is a faculty that everybody has, and through the meditation you can train it. </p> <p> It’s a bit like going to the gym to train your mindfulness muscle.</p> <p> It’s about paying attention in a particular way, on purpose, in the present moment, and non-judgementally.</p> <p> Mindfulness is about being present and not being lost in thought.</p> <p> It’s an innate power. </p> <p>Mindfulness and meditation can help lower our stress, connect better and improve our focus.</p> <p>Now let’s settle into the meditation posture.</p> <p> <break time='2s'/>  Feel your feet on the floor,<break time='1s'/>  feel your body on the seat. </p> <p> You might consider sitting with an elongated and comfortable spine, and with an upright and uplifted torso.</p> <p> <break time='2s'/> You may place your hands comfortably on your lap.</p> <p> I invite you to take in the space around you. </p> <p>  <break time='2s'/> Let’s acknowledge the space, see who’s here, and have a look at the space and the objects in it.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
-                        "sound"         : "",
-                        "back_channel"    : ""
-                    },
-                    {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now let’s settle into the meditation posture.</p> <p> <break time='2s'/>  Feel your feet on the floor,<break time='1s'/>  feel your body on the seat. </p> <p> You might consider sitting with an elongated and comfortable spine, and with an upright and uplifted torso.</p> <p> <break time='2s'/> You may place your hands comfortably on your lap.</p> <p> I invite you to take in the space around you. </p> <p>  <break time='2s'/> Let’s acknowledge the space, see who’s here, and have a look at the space and the objects in it.</p> </prosody>",
-                        "face"          : "null",
-                        "gesture"       : "{'gesture':'Misty/nodding2', 'timing': 0.5}",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
@@ -113,34 +106,19 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Thank you, for completing the first meditation and mindfulness session with me. .</p> <p>  I hope this was useful for you. </p> <p>We have three sessions left, over the next three weeks.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Thank you, for completing the first meditation and mindfulness session with me. .</p> <p>  I hope this was useful for you. </p> <p>We have three sessions left, over the next three weeks.</p> </prosody><prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave.</p> </prosody><prosody rate='slow'> <p> See you next time! </p> </prosody>",
                         "face"          : "null",
-                        "gesture"       : "",
-                        "sound"         : "",
-                        "back_channel"    : ""
-                    },
-                    {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave.</p> </prosody><prosody rate='slow'> <p> See you next time! </p> </prosody>",
-                        "face"          : "null",
-                        "gesture"       : "",
+                        "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
                         "back_channel"    : ""
                     }
 
-
                 ],
     "session2" :   [   
         {
-            "utterance"     : "<prosody rate='slow' volume='soft'> <p>Nice to see you at this second mindfulness session. </p> <p>Today, we’ll do a meditation focusing on our breath, called Mindfulness of Breathing. </p> </prosody>",
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p>Nice to see you at this second mindfulness session. </p> <p>Today, we’ll do a meditation focusing on our breath, called Mindfulness of Breathing. </p>  <p>Mindfulness is a skill we can develop through practice, which we can approach with patience and kindness for ourselves.</p> </prosody>",
             "face"          : "null",
             "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
-            "sound"         : "",
-            "back_channel"    : ""
-        },
-        {
-            "utterance"     : "<prosody rate='slow' volume='soft'> <p>Mindfulness is a skill we can develop through practice, which we can approach with patience and kindness for ourselves.</p> </prosody>",
-            "face"          : "null",
-            "gesture"       : "{'gesture':'Misty/nodding2', 'timing': 0.5}",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -278,16 +256,9 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "<prosody rate='slow'  volume='soft'> <p> I hope this session was useful for you.  </p> <p> We have two more sessions left, so we are halfway through the sessions.</p> </prosody>",
+            "utterance"     : "<prosody rate='slow'  volume='soft'> <p> I hope this session was useful for you.  </p> <p> We have two more sessions left, so we are halfway through the sessions.</p> </prosody><prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>  Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>  RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p> <p>  See you next time!</p> </prosody>",
             "face"          : "null",
-            "gesture"       : "",
-            "sound"         : "",
-            "back_channel"    : ""
-        },
-        {
-            "utterance"     : "<prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>  Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>  RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p> <p>  See you next time!</p> </prosody>",
-            "face"          : "null",
-            "gesture"       : "",
+            "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
             "sound"         : "",
             "back_channel"    : ""
         }
@@ -295,14 +266,14 @@
                 ],
     "session3" :   [   
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello again, nice to see you at this third mindfulness meditation session.</p> <p> As a reminder, mindfulness is a skill we can develop through practice, for example through meditation.  </p> <p>  During the practice, we will focus on the present moment, gently bringing our attention back to the meditation when we notice our mind wandering.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello again, nice to see you at this third mindfulness meditation session.</p> <p> As a reminder, mindfulness is a skill we can develop through practice, for example through meditation.  </p> <p>  During the practice, we will focus on the present moment, gently bringing our attention back to the meditation when we notice our mind wandering.</p>  <p> I invite you to take a brief moment to observe the space, and the people in it. </p></prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> I invite you to take a brief moment to observe the space, and the people in it. </p> <p><break time='2s'/>Settling in your chair, feeling your feet on the ground, perhaps placing your hands on your lap, with an elongated spine.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='2s'/>Settling in your chair, feeling your feet on the ground, perhaps placing your hands on your lap, with an elongated spine.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/nodding2', 'timing': 0.5}",
                         "sound"         : "",
@@ -680,14 +651,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Thank you, for completing the third meditation and mindfulness session with me. </p> <p>I hope this was useful for you.</p> <p> We have one more session left next week.</p> </prosody>",
-                        "face"          : "null",
-                        "gesture"       : "",
-                        "sound"         : "",
-                        "back_channel"    : ""
-                    },
-                    {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave.  See you next time! </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'>  <p> Thank you, for completing the third meditation and mindfulness session with me. </p> <p>I hope this was useful for you.</p> <p> We have one more session left next week.</p> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave.  See you next time! </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
@@ -697,14 +661,14 @@
                 ],
     "session4" :   [   
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello! Nice to see you again for this fourth and final mindfulness meditation session. </p> <p>As we’ve learned over these four weeks, mindfulness is a skill we can develop through practice.</p> <p> It’s like a muscle that gets stronger over time.</p> <p> During our meditation practice, we practice bringing our attention to our breath, and then back to the breath when we notice our attention has wandered. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello! Nice to see you again for this fourth and final mindfulness meditation session. </p> <p>As we’ve learned over these four weeks, mindfulness is a skill we can develop through practice.</p> <p> It’s like a muscle that gets stronger over time.</p> <p> During our meditation practice, we practice bringing our attention to our breath, and then back to the breath when we notice our attention has wandered. </p><p>Now let’s take a moment to settle into the meditation posture.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now let’s take a moment to settle into the meditation posture.</p> <p> Placing your feet on the floor, and feeling your body on the seat.</p> <p><break time='2s'/> I invite you to sit with an elongated and comfortable spine, with an uplifted torso. </p> <p>You might place your hands gently on your lap. </p> <p>Maybe take a moment to take in the space around you. </p> <p><break time='2s'/>To acknowledge the space, to see who’s here, and have a look at the space and the objects in it. </p> <p>When you feel ready, you might close your eyes, or lower your gaze. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'>  <p> Placing your feet on the floor, and feeling your body on the seat.</p> <p><break time='2s'/> I invite you to sit with an elongated and comfortable spine, with an uplifted torso. </p> <p>You might place your hands gently on your lap. </p> <p>Maybe take a moment to take in the space around you. </p> <p><break time='2s'/>To acknowledge the space, to see who’s here, and have a look at the space and the objects in it. </p> <p>When you feel ready, you might close your eyes, or lower your gaze. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/nodding2', 'timing': 0.5}",
                         "sound"         : "",
@@ -725,7 +689,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='2s'/>At the same time, silently recite these phrases.</p> <p> <break time='2s'/>May you have happiness.</p> <p> <break time='2s'/>May you be free from suffering. </p> <p> <break time='2s'/>May you experience joy and ease. </p> <p> <break time='2s'/>May you have happiness.</p> <p> <break time='2s'/>May you be free from suffering. </p> <p>May you experience joy and ease.<break time='50s'/> </p> <p> As you silently repeat these phrases, remember to extend the golden light to your loved one from your heart. </p> <p><break time='2s'/>Feel with all your heart that you wish your loved one happiness and freedom from suffering. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='2s'/>At the same time, silently recite these phrases.</p> <p> <break time='2s'/>May you have happiness.</p> <p> <break time='2s'/>May you be free from suffering. </p> <p>May you experience joy and ease.<break time='50s'/> </p> <p> As you silently repeat these phrases, remember to extend the golden light to your loved one from your heart. </p> <p><break time='2s'/>Feel with all your heart that you wish your loved one happiness and freedom from suffering. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -739,7 +703,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Recite silently to him or her.<break time='2s'/> </p> <p> May you be free from this suffering.</p> <p> <break time='2s'/>May you have joy and happiness.</p> <p><break time='2s'/> May you be free from this suffering.</p> <p><break time='2s'/> May you have joy and happiness.</p> <p> <break time='50s'/> Notice how this feels in your heart. <break time='2s'/>What happened to your heart?</p> <p> Did the sensations change? </p> <p>Did you continue to feel warmth, openness and tenderness? </p> <p> Were there other sensations, an aching sensation perhaps? </p> <p> Did you have a wish to take away the other’s suffering?<break time='15s'/> </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Recite silently to him or her.<break time='2s'/> </p> <p><break time='2s'/> May you be free from this suffering.</p> <p><break time='2s'/> May you have joy and happiness.</p> <p> <break time='50s'/> Notice how this feels in your heart. <break time='2s'/>What happened to your heart?</p> <p> Did the sensations change? </p> <p>Did you continue to feel warmth, openness and tenderness? </p> <p> Were there other sensations, an aching sensation perhaps? </p> <p> Did you have a wish to take away the other’s suffering?<break time='15s'/> </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -753,7 +717,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'><p> Continue to visualise yourself as you breathe. Imagine that the golden light emanating from your heart is easing your suffering. </p> <p> With each exhalation, feel the light emanating within you, with the strong heartfelt wish that you be free from your suffering.</p> <p><break time='2s'/> Silently recite to yourself</p> <p>.<break time='2s'/> May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness.</p> <p> <break time='2s'/>May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness. </p><break time='50s'/> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p> Continue to visualise yourself as you breathe. Imagine that the golden light emanating from your heart is easing your suffering. </p> <p> With each exhalation, feel the light emanating within you, with the strong heartfelt wish that you be free from your suffering.</p> <p><break time='2s'/> Silently recite to yourself</p> <p><break time='2s'/> May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness.</p> <p> <break time='2s'/>May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness. </p><break time='50s'/> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -816,21 +780,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>You may want to take some of the skills you have learned and apply them in your everyday life, or continue practicing mindfulness or meditation in some way. </p> </prosody>",
-                        "face"          : "null",
-                        "gesture"       : "",
-                        "sound"         : "",
-                        "back_channel"    : ""
-                    },
-                    {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Thank you, for completing the final meditation and mindfulness session with me. </p> </prosody>",
-                        "face"          : "null",
-                        "gesture"       : "",
-                        "sound"         : "",
-                        "back_channel"    : ""
-                    },
-                    {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet.</p> <p> Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. RESEARCHERNAME will then enter the room to ask you a few questions before you leave.  </p> <p>Thank you for taking part in the four mindfulness meditation sessions! I hope these sessions have been useful for you. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>You may want to take some of the skills you have learned and apply them in your everyday life, or continue practicing mindfulness or meditation in some way. </p> </prosody><prosody rate='slow' volume='soft'> <p> Thank you, for completing the final meditation and mindfulness session with me. </p>  <p> Before you leave, please take some time to fill in the survey on the tablet.</p> <p> Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. RESEARCHERNAME will then enter the room to ask you a few questions before you leave.  </p> <p>Thank you for taking part in the four mindfulness meditation sessions! I hope these sessions have been useful for you. Bye bye.  </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
