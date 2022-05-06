@@ -13,6 +13,7 @@
     <include file="$(find harmoni_stt)/launch/stt_deepspeech_service.launch"></include>
     <include file="$(find harmoni_microphone)/launch/microphone_service.launch"></include>
     <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
+    <include file="$(find harmoni_recorder)/launch/recording_rosbag_ppi.launch"></include>
     <!-- <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
     <include file="$(find harmoni_web)/launch/web_service.launch"></include>
     <include file="$(find harmoni_bot)/launch/bot_service.launch"></include>

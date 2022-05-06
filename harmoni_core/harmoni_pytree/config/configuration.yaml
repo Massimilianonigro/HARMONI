@@ -1,8 +1,8 @@
 pytree:
   default_param:
     interaction: "ppi" #or meditation
-    user_name: "Nikhil"
-    session: "session1"
-    researcher_name: "Micol"
+    user_name: "Jason"
+    session: "session2"
+    researcher_name: "Minja"
     scene: 0
 
