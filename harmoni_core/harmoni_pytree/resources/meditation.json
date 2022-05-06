@@ -1,91 +1,182 @@
 {
     "session1" :   [   
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello, my name is Botty. </p> <p>Today, we’ll be doing a mindfulness meditation session together, focusing on a body scan. </p><break time='2s'/> <p> Mindfulness is a faculty that everybody has, and through the meditation you can train it. </p> <p> It’s a bit like going to the gym to train your mindfulness muscle.</p> <p> It’s about paying attention in a particular way, on purpose, in the present moment, and non-judgementally.</p> <p> Mindfulness is about being present and not being lost in thought.</p> <p> It’s an innate power. </p> <p>Mindfulness and meditation can help lower our stress, connect better and improve our focus.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Hello, my name is Botty. </p> <p>Today, we’ll be doing a mindfulness meditation session together, focusing on a body scan. </p><break time='2s'/> <p> Mindfulness is a faculty that everybody has, and through the meditation you can train it. </p> <p> It’s a bit like going to the gym to train your mindfulness muscle.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
                         "back_channel"    : ""
                     }, 
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'><p>Now let’s settle into the meditation posture.</p> <p> <break time='2s'/>  Feel your feet on the floor,<break time='1s'/>  feel your body on the seat. </p> <p> You might consider sitting with an elongated and comfortable spine, and with an upright and uplifted torso.</p><p> <break time='2s'/> You may place your hands comfortably on your lap.</p> <p> I invite you to take in the space around you. </p> <p>  <break time='2s'/> Let’s acknowledge the space, see who’s here, and have a look at the space and the objects in it.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> It’s about paying attention in a particular way, on purpose, in the present moment, and non-judgementally.</p> <p> Mindfulness is about being present and not being lost in thought.</p> <p> It’s an innate power. </p> <p>Mindfulness and meditation can help lower our stress, connect better and improve our focus.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    }, 
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p>Now let’s settle into the meditation posture.</p> <p> <break time='2s'/>  Feel your feet on the floor,<break time='1s'/>  feel your body on the seat. </p> <p> You might consider sitting with an elongated and comfortable spine, and with an upright and uplifted torso.</p><p> <break time='2s'/> You may place your hands comfortably on your lap.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> You can always go back to the feet on the floor, or the hands.</p> <p>  <break time='2s'/> It’s good to choose a particular anchor point, that feels safe.</p> <p>  <break time='3s'/> The being in the breath might feel uncomfortable, or it might make you feel anxious. </p> <p>This is normal, and part of meditation.</p> <p>  <break time='4s'/> You can always come back to the ground, to your feet or to your hands, if you feel uncomfortable during the meditation. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p> I invite you to take in the space around you. </p> <p>  <break time='2s'/> Let’s acknowledge the space, see who’s here, and have a look at the space and the objects in it.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  Sitting with your eyes open and lowered, or choosing to close your eyes if that is more comfortable for you right now. .</p> <p>  <break time='2s'/> Bringing your attention to your breath, feeling the direct sensations of the breath, the movement of the breath, wherever the breath is most vivid for you at this moment. .</p> <p>  <break time='2s'/> You might feel the breath in the nostrils, or in the chest....</p> <p>  <break time='2s'/>  Notice how the chest rises with the in-breath and contracts with the out-breath... .</p> <p>  <break time='2s'/> Or you might feel  the breath in the abdomen or your belly... .</p> <p>  <break time='2s'/> </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> You can always go back to the feet on the floor, or the hands.</p> <p>  <break time='2s'/> It’s good to choose a particular anchor point, that feels safe.</p> <p>  <break time='3s'/> The being in the breath might feel uncomfortable, or it might make you feel anxious. </p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Notice how it rises with the inhalation and deflates with the exhalation... .</p> <p>  <break time='2s'/> And with each exhalation softening the body and allowing the body to rest deeper into the support provided by the chair..</p> <p>  <break time='2s'/>  If you like, you can place your hands on the abdomen or your belly for a few moments to feel the rhythmic movement of the breath..</p> <p>  <break time='2s'/> And now, expanding your attention to your whole body, notice how your body feels at this moment. .</p> <p>  <break time='2s'/> Is there any tension in the body, any tiredness?.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>This is normal, and part of meditation.</p> <p>  <break time='4s'/> You can always come back to the ground, to your feet or to your hands, if you feel uncomfortable during the meditation. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  Bring the mind back to the body with gentleness and firmness whenever you notice that it has wandered off. .</p> <p>  <break time='2s'/> And notice the contact that the feet are making with the floor. .</p> <p>  <break time='2s'/> Do you feel the support of the floor, or any sensations in your feet right now? .</p> <p>  <break time='2s'/> Silently noting what you are feeling....</p> <p>  <break time='2s'/>  Notice any sensations in your feet..</p> <p>  <break time='2s'/>  Are you feeling sensations of warmth or coolness, tingling, throbbing in your feet? .</p>  </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  Sitting with your eyes open and lowered, or choosing to close your eyes if that is more comfortable for you right now. .</p> <p>  <break time='2s'/> Bringing your attention to your breath, feeling the direct sensations of the breath, the movement of the breath, wherever the breath is most vivid for you at this moment. .</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Maybe you are not aware of any sensations, and that is totally fine. Just noticing that you are not feeling anything is what’s important... .</p> <p>  <break time='2s'/> Move your attention up through the legs..</p> <p>  <break time='2s'/>  Do you feel the contact of your sitting bones with the chair? .</p> <p>  <break time='2s'/> Are you experiencing a sense of warmth, pulsing, pressure, tingling, or anything else?.</p> <p>  <break time='2s'/>  It’s totally fine if you don’t feel anything.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p>  <break time='2s'/> You might feel the breath in the nostrils, or in the chest....</p> <p>  <break time='2s'/>  Notice how the chest rises with the in-breath and contracts with the out-breath... .</p> <p>  <break time='2s'/> Or you might feel  the breath in the abdomen or your belly... .</p> <p>  <break time='2s'/> </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Just notice if you feel or don’t feel sensations....</p> <p>  <break time='2s'/> And when you are ready, move your awareness to the back, the lower back..</p> <p>  <break time='2s'/>  We tend to accumulate a lot of tension in the lower back..</p> <p>  <break time='2s'/>  Notice if there is discomfort in the lower back at this moment. .</p> <p>  <break time='2s'/> If you like, exhale, imagining that the discomfort leaves with the out-breath, and that with the in-breath you are bringing freshness and new energy to the body... .</p>  </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Notice how it rises with the inhalation and deflates with the exhalation... .</p> <p>  <break time='2s'/> And with each exhalation softening the body and allowing the body to rest deeper into the support provided by the chair..</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> If your attention has wandered away or has been hijacked by a story, planning, regrets, memories, and so on—.</p> <p>  <break time='1s'/> which happens to all of us whenever we practice focusing on something—.</p> <p>  <break time='1s'/> realize where your mind went and gently, firmly, and with curiosity, with a lot of kindness and patience for yourself, and without criticizing or blaming yourself, escort your attention back to exploring sensations in the shoulder area… .</p> <p>  <break time='2s'/> And now notice sensations on the sides of the body. Maybe become aware of the movement of the rib cage.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/>  If you like, you can place your hands on the abdomen or your belly for a few moments to feel the rhythmic movement of the breath..</p> <p>  <break time='2s'/> And now, expanding your attention to your whole body, notice how your body feels at this moment. .</p> <p>  <break time='2s'/> Is there any tension in the body, any tiredness?.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> And when you are ready, bring your attention to the front of the torso, and become aware of the physical sensations in the pelvic area. .</p> <p>  <break time='2s'/> Move your awareness up to your abdomen....</p> <p>  <break time='2s'/>  Perhaps you will notice how the abdomen and belly contract and expand with the breath. .</p> <p>  <break time='2s'/> Notice sensations in the stomach, maybe sensations related to digestion…</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  Bring the mind back to the body with gentleness and firmness whenever you notice that it has wandered off. .</p> <p>  <break time='2s'/> And notice the contact that the feet are making with the floor. .</p> <p>  <break time='2s'/> Do you feel the support of the floor, or any sensations in your feet right now? .</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Move attention up to the chest. .</p> <p>  <break time='2s'/> Does the middle of the chest feel expanded or contracted? .</p> <p>  <break time='2s'/> No need to do anything, just notice..</p> <p>  <break time='2s'/>  Notice any sensations in the area around the heart, perhaps detecting the beating of the heart at this moment... .</p> <p>  <break time='2s'/> And move your awareness down through the arms to the hands and fingers..</p> <p>  <break time='2s'/> </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/> Silently noting what you are feeling....</p> <p>  <break time='2s'/>  Notice any sensations in your feet..</p> <p>  <break time='2s'/>  Are you feeling sensations of warmth or coolness, tingling, throbbing in your feet? .</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Notice if the fingers are tense, and whether any other sensations are present in the fingers: any sweat, tingling, throbbing? .</p> <p>  <break time='2s'/> Be aware of the sensations in the palms; are the palms hot or cold? .</p> <p>  <break time='2s'/> What are you experiencing deep inside the hands? .</p> <p>  <break time='5s'/> Feel the changing sensations in your arms, the skin, and the touch of the clothes that you are wearing, the muscles and bones. .</p> <p>  <break time='2s'/> Just notice anything that is present, being with what is present right here, right now.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Maybe you are not aware of any sensations, and that is totally fine. Just noticing that you are not feeling anything is what’s important... .</p> <p>  <break time='2s'/> Move your attention up through the legs..</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> And now, allowing your attention to move to the shoulders and to the back of the neck and the throat area. .</p> <p>  <break time='2s'/> Becoming aware of sensations in the back of the head, in the scalp area, the skull, the top of the head, deep inside the head; sensations in the forehead...</p> <p>  <break time='2s'/> .the ears...</p> <p>  <break time='2s'/> .deep inside the ears and the outside of the ears....</p> <p>  <break time='2s'/> the area around the eyes....</p> <p>  <break time='2s'/> the eyes...</p> <p>  <break time='2s'/> .eyebrows..</p>  </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'>  <p>  <break time='2s'/>  Do you feel the contact of your sitting bones with the chair? .</p> <p>  <break time='2s'/> Are you experiencing a sense of warmth, pulsing, pressure, tingling, or anything else?.</p> <p>  <break time='2s'/>  It’s totally fine if you don’t feel anything.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Just notice if you feel or don’t feel sensations....</p> <p>  <break time='2s'/> And when you are ready, move your awareness to the back, the lower back..</p> <p>  <break time='2s'/>  We tend to accumulate a lot of tension in the lower back..</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/>  Notice if there is discomfort in the lower back at this moment. .</p> <p>  <break time='2s'/> If you like, exhale, imagining that the discomfort leaves with the out-breath, and that with the in-breath you are bringing freshness and new energy to the body... .</p>  </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> If your attention has wandered away or has been hijacked by a story, planning, regrets, memories, and so on—.</p> <p>  <break time='1s'/> which happens to all of us whenever we practice focusing on something—.</p>  </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='1s'/> realize where your mind went and gently, firmly, and with curiosity, with a lot of kindness and patience for yourself, and without criticizing or blaming yourself, escort your attention back to exploring sensations in the shoulder area… .</p> <p>  <break time='2s'/> And now notice sensations on the sides of the body. Maybe become aware of the movement of the rib cage.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> And when you are ready, bring your attention to the front of the torso, and become aware of the physical sensations in the pelvic area. .</p> <p>  <break time='2s'/> Move your awareness up to your abdomen....</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/>  Perhaps you will notice how the abdomen and belly contract and expand with the breath. .</p> <p>  <break time='2s'/> Notice sensations in the stomach, maybe sensations related to digestion…</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Move attention up to the chest. .</p> <p>  <break time='2s'/> Does the middle of the chest feel expanded or contracted? .</p> <p>  <break time='2s'/> No need to do anything, just notice..</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/>  Notice any sensations in the area around the heart, perhaps detecting the beating of the heart at this moment... .</p> <p>  <break time='2s'/> And move your awareness down through the arms to the hands and fingers..</p> <p>  <break time='2s'/> </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Notice if the fingers are tense, and whether any other sensations are present in the fingers: any sweat, tingling, throbbing? .</p> <p>  <break time='2s'/> Be aware of the sensations in the palms; are the palms hot or cold? .</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/> What are you experiencing deep inside the hands? .</p> <p>  <break time='5s'/> Feel the changing sensations in your arms, the skin, and the touch of the clothes that you are wearing, the muscles and bones. .</p> <p>  <break time='2s'/> Just notice anything that is present, being with what is present right here, right now.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> And now, allowing your attention to move to the shoulders and to the back of the neck and the throat area. .</p> <p>  <break time='2s'/> Becoming aware of sensations in the back of the head, in the scalp area, the skull, the top of the head, deep inside the head; sensations in the forehead...</p>  </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/> .the ears...</p> <p>  <break time='2s'/> .deep inside the ears and the outside of the ears....</p> <p>  <break time='2s'/> the area around the eyes....</p> <p>  <break time='2s'/> the eyes...</p> <p>  <break time='2s'/> .eyebrows..</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -113,19 +204,34 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/> Meditation is about noticing your distractions and thoughts, rather than not thinking and being completely relaxed..</p> <p>  <break time='2s'/>  It is a practice, and the mindfulness muscle can get stronger through repetition, if you practice, that muscle gets stronger. .</p> <p>  <break time='2s'/> Meditation is about noticing your distractions and thoughts, and relating to them. .</p> <p>  <break time='2s'/> It’s about relating to your body and thoughts. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/> Meditation is about noticing your distractions and thoughts, rather than not thinking and being completely relaxed..</p> <p>  <break time='2s'/>  It is a practice, and the mindfulness muscle can get stronger through repetition, if you practice, that muscle gets stronger. .</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Thank you, for completing the first meditation and mindfulness session with me. .</p> <p>  I hope this was useful for you. </p> <p>We have three sessions left, over the next three weeks.</p> </prosody><prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave.</p> </prosody><prosody rate='slow'> <p> See you next time! </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>  <break time='2s'/> It’s about relating to your body and thoughts. </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Thank you, for completing the first meditation and mindfulness session with me. </p> <p> I hope this was useful for you. </p> <p>We have three sessions left, over the next three weeks.</p> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave.</p> <p> See you next time! </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
                         "back_channel"    : ""
                     }
+                   
 
                 ],
     "session2" :   [   
@@ -144,7 +250,21 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "<prosody rate='slow' volume='soft'> <p>So inviting you to sit comfortably, nothing crossed if it's possible at all. </p> <p> And feeling your feet on the ground and perhaps this could also be the moment to pay attention to your own body, your own mind emotions, so like disengaging from the external world for a bit too far focus more on our inner experience.</p> <p> We may also want to start by listening to some sounds in our own spaces or coming from outside. </p> <p> And then feeling the weight of the body on the chair and really feeling that solidity of the chair the body is resting on, and perhaps feeling the weight of the legs, the feet carrying the weight of those legs. </p> <p>And then perhaps also for a moment feeling the air on your skin, if you feel that on the skin of the face or the skin of the hands.</p> </prosody>",
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p>So inviting you to sit comfortably, nothing crossed if it's possible at all. </p> <p> And feeling your feet on the ground and perhaps this could also be the moment to pay attention to your own body, your own mind emotions, so like disengaging from the external world for a bit too far focus more on our inner experience.</p> </prosody>",
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p> We may also want to start by listening to some sounds in our own spaces or coming from outside. </p> <p> And then feeling the weight of the body on the chair and really feeling that solidity of the chair the body is resting on, and perhaps feeling the weight of the legs, the feet carrying the weight of those legs. </p></prosody>",
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p>And then perhaps also for a moment feeling the air on your skin, if you feel that on the skin of the face or the skin of the hands.</p> </prosody>",
             "face"          : "null",
             "gesture"       : "",
             "sound"         : "",
@@ -165,7 +285,14 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "<prosody rate='slow' volume='soft'> <p>Or maybe feel that tension.</p> <p> Whereas you could also feel the breath at the same time alongside whatever is there, there's the breath. </p> <p> <break time='2s'/>Feeling these sensations that are caused by the breath in the body. Perhaps feeling the ribcage expanding and contracting. </p> <p> <break time='3s'/>You might also feel the belly expanding, contracting, rising, falling. <break time='2s'/>If the breath doesn't feel right, somehow feels a bit too much. </p> <p> Just go back to the feet and stay there as long as you like, the feet touching the ground. </p> <p> But if the fresh breath does feel okay, let's just continue exploring it, turning towards it. </p> </prosody>",
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p>Or maybe feel that tension.</p> <p> Whereas you could also feel the breath at the same time alongside whatever is there, there's the breath. </p> <p> <break time='2s'/>Feeling these sensations that are caused by the breath in the body. Perhaps feeling the ribcage expanding and contracting. </p> </prosody>",
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p> <break time='3s'/>You might also feel the belly expanding, contracting, rising, falling. <break time='2s'/>If the breath doesn't feel right, somehow feels a bit too much. </p> <p> Just go back to the feet and stay there as long as you like, the feet touching the ground. </p> <p> But if the fresh breath does feel okay, let's just continue exploring it, turning towards it. </p> </prosody>",
             "face"          : "null",
             "gesture"       : "",
             "sound"         : "",
@@ -228,7 +355,14 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "<prosody rate='slow' volume='soft'> <p>Just coming back to that breathing body time and again, from whatever we've been thinking. </p> <p>  Just coming back, feeling the breath.  </p> <p><break time='2s'/> It doesn't have to be perfect, allowing the breath to be there alongside of whatever comes up.  </p> <p> <break time='2s'/>Connecting to the breath.  </p> <p> <break time='2s'/>Moving into the last stage of the practice, inviting you to find the point at the tip of the nose, or the upper lip, or the nostril, where you feel the breath entering the body.</p> </prosody>",
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p>Just coming back to that breathing body time and again, from whatever we've been thinking. </p> <p>  Just coming back, feeling the breath.  </p> <p><break time='2s'/> It doesn't have to be perfect, allowing the breath to be there alongside of whatever comes up.  </p> <p> <break time='2s'/>Connecting to the breath.  </p> </prosody>",
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow' volume='soft'> <p> <break time='2s'/>Moving into the last stage of the practice, inviting you to find the point at the tip of the nose, or the upper lip, or the nostril, where you feel the breath entering the body.</p> </prosody>",
             "face"          : "null",
             "gesture"       : "",
             "sound"         : "",
@@ -270,7 +404,14 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "<prosody rate='slow'  volume='soft'> <p> I hope this session was useful for you.  </p> <p> We have two more sessions left, so we are halfway through the sessions.</p> </prosody><prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>  Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> <p>  RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p> <p>  See you next time!</p> </prosody>",
+            "utterance"     : "<prosody rate='slow'  volume='soft'> <p> I hope this session was useful for you.  </p> <p> We have two more sessions left, so we are halfway through the sessions.</p> </prosody><prosody rate='slow' volume='soft'> <p> Before you leave, please take some time to fill in the survey on the tablet. </p> <p>  Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. </p> </prosody>",
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow'  volume='soft'> <p>  RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p> <p>  See you next time!</p> </prosody>",
             "face"          : "null",
             "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
             "sound"         : "",
@@ -681,6 +822,7 @@
                         "sound"         : "",
                         "back_channel"    : ""
                     },
+                    
                     {
                         "utterance"     : "<prosody rate='slow' volume='soft'>  <p> Placing your feet on the floor, and feeling your body on the seat.</p> <p><break time='2s'/> I invite you to sit with an elongated and comfortable spine, with an uplifted torso. </p> <p>You might place your hands gently on your lap. </p> <p>Maybe take a moment to take in the space around you. </p> <p><break time='2s'/>To acknowledge the space, to see who’s here, and have a look at the space and the objects in it. </p> <p>When you feel ready, you might close your eyes, or lower your gaze. </p> </prosody>",
                         "face"          : "null",
@@ -696,49 +838,112 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now, picture someone who is close to you, someone toward whom you feel a great amount of love.</p> <p><break time='2s'/> Notice how this love feels in your heart.</p> <p><break time='2s'/> Notice the sensations around your heart. </p> <p> <break time='2s'/>Perhaps you feel a sensation of warmth, openness and tenderness. [10 seconds] </p> <p><break time='2s'/>Continue breathing and focus on these feelings as you visualise your loved one. </p> <p><break time='2s'/>As you breathe out, imagine that you are extending a golden light that holds your warm feelings from the centre of your heart. <break time='2s'/>Imagine that the golden light reaches out to your loved one, bringing him or her peace and happiness. </p></prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now, picture someone who is close to you, someone toward whom you feel a great amount of love.</p> <p><break time='2s'/> Notice how this love feels in your heart.</p> <p><break time='2s'/> Notice the sensations around your heart. </p> <p> <break time='2s'/>Perhaps you feel a sensation of warmth, openness and tenderness. [10 seconds] </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='2s'/>At the same time, silently recite these phrases.</p> <p> <break time='2s'/>May you have happiness.</p> <p> <break time='2s'/>May you be free from suffering. </p> <p>May you experience joy and ease.<break time='50s'/> </p> <p> As you silently repeat these phrases, remember to extend the golden light to your loved one from your heart. </p> <p><break time='2s'/>Feel with all your heart that you wish your loved one happiness and freedom from suffering. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'>  <p><break time='2s'/>Continue breathing and focus on these feelings as you visualise your loved one. </p> <p><break time='2s'/>As you breathe out, imagine that you are extending a golden light that holds your warm feelings from the centre of your heart. <break time='2s'/>Imagine that the golden light reaches out to your loved one, bringing him or her peace and happiness. </p></prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now think of a time when this person was suffering. </p> <p><break time='2s'/>Maybe they experienced an illness, an injury, or a difficult time in a relationship. <break time='15s'/> </p> <p>Notice how you feel when you think of his or her suffering. <break time='2s'/></p> <p>How does your heart feel?</p> <p> Do the sensations change?</p> <p> Do you continue to feel warmth, openness and tenderness? </p> <p>Are there other sensations, perhaps an aching sensation? [10 seconds] </p> <p>. Continue to visualise your loved one as you breathe.  </p> <p><break time='2s'/> Imagine that you are extending the golden light from your heart to your loved one, and that the golden light is easing his or her suffering.</p> <p><break time='2s'/> Extend this light out to them during your exhalation, with the strong heartfelt wish that they be free from his or her suffering. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='2s'/>At the same time, silently recite these phrases.</p> <p> <break time='2s'/>May you have happiness.</p> <p> <break time='2s'/>May you be free from suffering. </p> <p>May you experience joy and ease.<break time='50s'/> </p> <p> As you silently repeat these phrases, remember to extend the golden light to your loved one from your heart. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Recite silently to him or her.<break time='2s'/> </p> <p><break time='2s'/> May you be free from this suffering.</p> <p><break time='2s'/> May you have joy and happiness.</p> <p> <break time='50s'/> Notice how this feels in your heart. <break time='2s'/>What happened to your heart?</p> <p> Did the sensations change? </p> <p>Did you continue to feel warmth, openness and tenderness? </p> <p> Were there other sensations, an aching sensation perhaps? </p> <p> Did you have a wish to take away the other’s suffering?<break time='15s'/> </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='2s'/>Feel with all your heart that you wish your loved one happiness and freedom from suffering. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Contemplate a time when you have suffered yourself. </p> <p> Perhaps you experienced a conflict with someone you care about, or did not succeed in something you wanted, or were physically ill. <break time='15s'/></p> <p> Notice how you feel when you think of your suffering.<break time='2s'/> </p> <p>How does your heart feel? </p> <p> Do you continue to feel warmth, openness, and tenderness? </p> <p>Are there other sensations, perhaps an aching sensation?<break time='10s'/> </p> <p> Just as we wish for our loved one’s suffering to end, we wish that our own suffering would end. <break time='2s'/></p> <p>We may also envision our own pain and suffering leaving us so that we may experience happiness.</p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now think of a time when this person was suffering. </p> <p><break time='2s'/>Maybe they experienced an illness, an injury, or a difficult time in a relationship. <break time='15s'/> </p>  </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    }, 
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Notice how you feel when you think of his or her suffering. <break time='2s'/></p> <p>How does your heart feel?</p> <p> Do the sensations change?</p> <p> Do you continue to feel warmth, openness and tenderness? </p> <p>Are there other sensations, perhaps an aching sensation?  </p>  </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    }, 
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>. Continue to visualise your loved one as you breathe.  </p> <p><break time='2s'/> Imagine that you are extending the golden light from your heart to your loved one, and that the golden light is easing his or her suffering.</p> <p><break time='2s'/> Extend this light out to them during your exhalation, with the strong heartfelt wish that they be free from his or her suffering. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'><p> Continue to visualise yourself as you breathe. Imagine that the golden light emanating from your heart is easing your suffering. </p> <p> With each exhalation, feel the light emanating within you, with the strong heartfelt wish that you be free from your suffering.</p> <p><break time='2s'/> Silently recite to yourself</p> <p><break time='2s'/> May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness.</p> <p> <break time='2s'/>May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness. </p><break time='50s'/> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Recite silently to him or her.<break time='2s'/> </p> <p><break time='2s'/> May you be free from this suffering.</p> <p><break time='2s'/> May you have joy and happiness.</p> <p> <break time='50s'/> Notice how this feels in your heart. <break time='2s'/>What happened to your heart?</p> <p> Did the sensations change? </p></prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Again, notice how this feels in your heart. </p> <p>What kind of sensations did you feel? </p> <p><break time='2s'/>Did they change from when you were envisioning your own suffering? </p> <p><break time='2s'/>How is this feeling different from when you wished your loved one’s suffering to be relieved?</p> <p> Did you feel warmth, openness and tenderness?<break time='2s'/> Were there other sensations such as pressure? </p> <p><break time='2s'/>Did you have a wish to take away your own suffering? <break time='15s'/></p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p>Did you continue to feel warmth, openness and tenderness? </p> <p> Were there other sensations, an aching sensation perhaps? </p> <p> Did you have a wish to take away the other’s suffering?<break time='15s'/> </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Contemplate a time when you have suffered yourself. </p> <p> Perhaps you experienced a conflict with someone you care about, or did not succeed in something you wanted, or were physically ill. <break time='15s'/></p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Notice how you feel when you think of your suffering.<break time='2s'/> </p> <p>How does your heart feel? </p> <p> Do you continue to feel warmth, openness, and tenderness? </p> <p>Are there other sensations, perhaps an aching sensation?<break time='10s'/> </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Just as we wish for our loved one’s suffering to end, we wish that our own suffering would end. <break time='2s'/></p> <p>We may also envision our own pain and suffering leaving us so that we may experience happiness.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p> Continue to visualise yourself as you breathe. Imagine that the golden light emanating from your heart is easing your suffering. </p> <p> With each exhalation, feel the light emanating within you, with the strong heartfelt wish that you be free from your suffering.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p><break time='2s'/> Silently recite to yourself</p> <p><break time='2s'/> May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness.</p> <p> <break time='2s'/>May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness. </p><break time='50s'/> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Again, notice how this feels in your heart. </p> <p>What kind of sensations did you feel? </p> <p><break time='2s'/>Did they change from when you were envisioning your own suffering? </p> <p><break time='2s'/>How is this feeling different from when you wished your loved one’s suffering to be relieved?</p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'>  <p> Did you feel warmth, openness and tenderness?<break time='2s'/> Were there other sensations such as pressure? </p> <p><break time='2s'/>Did you have a wish to take away your own suffering? <break time='15s'/></p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -766,35 +971,70 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Continue to visualise this person as you breathe. </p> <p>Imagine that you are extending the golden light from your heart to them, and that the golden light is easing his or her suffering. </p> <p>Extend this light out to them during your exhalation, with the strong heartfelt wish that he or she be free from suffering.</p> <p> See if this wish can be as strong as the wish for your own or a loved one’s suffering to be relieved. </p> <p>Silently recite to him or her. <break time='2s'/></p> <p><break time='2s'/>May you be free from this suffering. </p> <p><break time='2s'/> May you have joy and happiness.</p> <p><break time='2s'/> May you be free from this suffering.</p> <p> <break time='2s'/>May you have joy and happiness. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Continue to visualise this person as you breathe. </p> <p>Imagine that you are extending the golden light from your heart to them, and that the golden light is easing his or her suffering. </p> <p>Extend this light out to them during your exhalation, with the strong heartfelt wish that he or she be free from suffering.</p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='50s'/>Again, notice how this feels in your heart. </p> <p>Did the sensations change from when you were envisioning this person’s suffering? </p> <p>Did you continue to feel warmth, openness and tenderness? </p> <p>Were there other sensations? </p> <p>Did you have a wish to take away this person’s suffering?</p> <p> How were these feelings different from when you were wishing to take away your own or a loved one’s suffering?<break time='15s'/></p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> See if this wish can be as strong as the wish for your own or a loved one’s suffering to be relieved. </p> <p>Silently recite to him or her. <break time='2s'/></p> <p><break time='2s'/>May you be free from this suffering. </p> <p><break time='2s'/> May you have joy and happiness.</p> <p><break time='2s'/> May you be free from this suffering.</p> <p> <break time='2s'/>May you have joy and happiness. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now that we are almost at the end of this meditation, let’s end with wish for all other beings’ suffering to be relieved.</p> <p> Just as I wish to have peace, happiness, and to be free from suffering, so do all beings. <break time='10s'/></p> <p>Now bask in the joy of this open-hearted wish to ease the suffering of all people and how this attempt brings joy, happiness, and compassion in your heart at this very moment. </p> <p>You have now finished this compassion meditation session. </p> <p>When you are ready, you may open your eyes.  </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='50s'/>Again, notice how this feels in your heart. </p> <p>Did the sensations change from when you were envisioning this person’s suffering? </p> <p>Did you continue to feel warmth, openness and tenderness? </p> <p>Were there other sensations? </p> <p>Did you have a wish to take away this person’s suffering?</p>  </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>We’ve now come to the end of the loving kindness meditation. </p> <p>Over these past four weeks, we’ve tried different types of meditation. </p> <p>We’ve tried a short body scan, a mindfulness of breathing exercise, a longer body scan, and finally today the loving kindness meditation.</p> <p><break time='2s'/> During these four weeks we’ve practiced our mindfulness skills. </p> <p><break time='2s'/>Maybe you’ve already started noticing the effects of practicing mindfulness that can be seen long term, such as lowering stress, connecting better or improving focus.</p> <p><break time='2s'/> It may also be the case that you haven’t noticed these things, and that’s okay too. </p> <p>Practicing mindfulness skills can take some time, as can getting comfortable with the feelings of meditating. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> How were these feelings different from when you were wishing to take away your own or a loved one’s suffering?<break time='15s'/></p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>You may want to take some of the skills you have learned and apply them in your everyday life, or continue practicing mindfulness or meditation in some way. </p> </prosody><prosody rate='slow' volume='soft'> <p> Thank you, for completing the final meditation and mindfulness session with me. </p>  <p> Before you leave, please take some time to fill in the survey on the tablet.</p> <p> Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. RESEARCHERNAME will then enter the room to ask you a few questions before you leave.  </p> <p>Thank you for taking part in the four mindfulness meditation sessions! I hope these sessions have been useful for you. Bye bye.  </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now that we are almost at the end of this meditation, let’s end with wish for all other beings’ suffering to be relieved.</p> <p> Just as I wish to have peace, happiness, and to be free from suffering, so do all beings. <break time='10s'/></p>  </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now bask in the joy of this open-hearted wish to ease the suffering of all people and how this attempt brings joy, happiness, and compassion in your heart at this very moment. </p> <p>You have now finished this compassion meditation session. </p> <p>When you are ready, you may open your eyes.  </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>We’ve now come to the end of the loving kindness meditation. </p> <p>Over these past four weeks, we’ve tried different types of meditation. </p> <p>We’ve tried a short body scan, a mindfulness of breathing exercise, a longer body scan, and finally today the loving kindness meditation.</p> <p><break time='2s'/> During these four weeks we’ve practiced our mindfulness skills. </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p><break time='2s'/>Maybe you’ve already started noticing the effects of practicing mindfulness that can be seen long term, such as lowering stress, connecting better or improving focus.</p> <p><break time='2s'/> It may also be the case that you haven’t noticed these things, and that’s okay too. </p> <p>Practicing mindfulness skills can take some time, as can getting comfortable with the feelings of meditating. </p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>You may want to take some of the skills you have learned and apply them in your everyday life, or continue practicing mindfulness or meditation in some way. </p> </prosody><prosody rate='slow' volume='soft'> <p> Thank you, for completing the final meditation and mindfulness session with me. </p>  <p> Before you leave, please take some time to fill in the survey on the tablet.</p>  </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> Once you’re done, let the researcher RESEARCHERNAME know by calling out to them. RESEARCHERNAME will then enter the room to ask you a few questions before you leave.  </p> <p>Thank you for taking part in the four mindfulness meditation sessions! I hope these sessions have been useful for you. Bye bye.  </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "{'gesture':'Misty/bye', 'timing': 0.5}",
                         "sound"         : "",
