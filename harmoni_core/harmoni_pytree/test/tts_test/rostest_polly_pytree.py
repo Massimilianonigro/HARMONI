@@ -61,8 +61,10 @@ class TestPollyPyTree(unittest.TestCase):
     def test_leaf_pytree_tts(self):
         rospy.loginfo(f"The input data is {self.data}")
         for unused_i in range(0, 4):
+            print("htg: ticks: ", unused_i)
             self.ttsPyTree.tick_once()
             time.sleep(0.5)
+            print("htg: ticked ")
             print(self.blackboardProva)
         print("\n")
         return

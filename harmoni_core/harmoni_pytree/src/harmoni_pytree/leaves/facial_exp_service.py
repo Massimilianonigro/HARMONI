@@ -26,7 +26,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.blackboards = []
 
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
 
         super(FacialExpServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -48,6 +48,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
+        self.blackboard_scene.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):

@@ -44,6 +44,8 @@ class TestFacePyTree(unittest.TestCase):
         self.facePyTree =  FacialExpServicePytree("facePyTreeTest")
         self.facePyTree.setup(**additional_parameters)
 
+        self.result = True
+
         rospy.loginfo("TestFace: Started up. waiting for face startup")
         rospy.loginfo("TestFace: Started")
 
@@ -51,12 +53,24 @@ class TestFacePyTree(unittest.TestCase):
     
     def test_leaf_pytree_mouth(self):
         rospy.loginfo(f"The input data is {self.data}")
-        for unused_i in range(0, 4):
+        # for unused_i in range(0, 4):
+        #     print("htg : tick no. :", unused_i)
+        #     self.facePyTree.tick_once()
+        #     print("htg : ticked ")
+        #     time.sleep(0.5)
+            
+        #     print(self.blackboardProva)
+        # print("\n")
+
+        try:
             self.facePyTree.tick_once()
-            time.sleep(0.5)
             print(self.blackboardProva)
-        print("\n")
-        assert self.result_mouth == True
+            print("\n")
+
+        except Exception as e:
+            self.result = False
+
+        assert self.result == True
     
 
 def main():

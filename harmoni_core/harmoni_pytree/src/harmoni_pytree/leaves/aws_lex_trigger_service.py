@@ -25,7 +25,7 @@ class AWSLexTriggerServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("utterance", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key("utterance", access=py_trees.common.Access.WRITE)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
 
@@ -45,6 +45,7 @@ class AWSLexTriggerServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
+        self.blackboard_scene.utterance = "Need help"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):              
@@ -68,6 +69,7 @@ class AWSLexTriggerServicePytree(py_trees.behaviour.Behaviour):
                     self.blackboard_bot.result = eval(self.client_result)
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
+                    print("htg", self.blackboard_bot)
                 else:
                     self.logger.debug(f"Waiting fot the result ({self.server_name})")
                     new_status = py_trees.common.Status.RUNNING
@@ -83,6 +85,7 @@ class AWSLexTriggerServicePytree(py_trees.behaviour.Behaviour):
             else:
                 new_status = py_trees.common.Status.FAILURE
                 raise
+
 
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status

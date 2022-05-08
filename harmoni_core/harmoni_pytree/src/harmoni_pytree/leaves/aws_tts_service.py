@@ -7,7 +7,6 @@ import roslib
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
 from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace
@@ -19,6 +18,10 @@ import time
 import py_trees.console
 
 class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
+    """
+    This class is a child class of behaviour class of pytree module. It sends requests to harmoni action
+    client and updates the status according to the goal status.
+    """
     def __init__(self, name):
         self.name = name
         self.server_state = None
@@ -26,13 +29,16 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.client_result = None
         self.send_request = True
 
-        # here there is the inizialization of the blackboards
+        # Initialising the blackboards
         self.blackboards = []
+
+        # blackboard for test-to-speech data, which is updated after result is fetched
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
+        
+        # blackboard to store data to senf to the action server
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_bot.result = {"message" : "htg"}
 
         super(AWSTtsServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -49,10 +55,11 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
 
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
-    def initialise(self):   
+    def initialise(self):  
+        self.blackboard_bot.result = {"message": "Hi, I'm Kitty"}
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
-    def update(self):    
+    def update(self):
         if self.send_request:
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
@@ -82,8 +89,6 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
                 self.service_client_tts.cancel_all_goals()
                 self.client_result = None
                 self.logger.debug(f"Goal cancelled to {self.server_name}")
-                #self.service_client_tts.stop_tracking_goal()
-                #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
                 new_status = py_trees.common.Status.FAILURE
@@ -104,8 +109,6 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
             self.service_client_tts.cancel_all_goals()
             self.client_result = None
             self.logger.debug(f"Goal cancelled to {self.server_name}")
-            #self.service_client_tts.stop_tracking_goal()
-            #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
@@ -124,14 +127,13 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         return
 
 def main():
-    #command_line_argument_parser().parse_args()
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
     blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
     blackboardProva.register_key("result", access=py_trees.common.Access.WRITE)
     blackboardProva.result = {
-                                "message": "Ciao sono Kitty"
+                                "message": "Hi, I'm Kitty"
                             }
     blackboardProva2 = py_trees.blackboard.Client(name="blackboardProva2", namespace=ActuatorNameSpace.tts.name)
     blackboardProva2.register_key("result", access=py_trees.common.Access.READ)                        
