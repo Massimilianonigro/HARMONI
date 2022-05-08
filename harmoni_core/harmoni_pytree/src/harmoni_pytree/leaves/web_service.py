@@ -8,16 +8,8 @@ from actionlib_msgs.msg import GoalStatus
 import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
-from harmoni_web.web_service import WebService
+# from harmoni_web.web_service import WebService
 from harmoni_common_lib.constants import *
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import re
-import json
-import ast
-import sys
 import time
 
 # import wget
@@ -38,7 +30,7 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("image", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key("image", access=py_trees.common.Access.WRITE)
 
         super(WebServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -55,6 +47,7 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self): 
+        self.blackboard_scene.image = "[{'component_id':'img_only', 'set_content':'https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png'},{'component_id':'raccolta_container', 'set_content': ''}]"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):

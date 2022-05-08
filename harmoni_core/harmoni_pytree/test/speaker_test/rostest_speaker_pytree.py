@@ -7,14 +7,8 @@ import unittest, rospy, roslib, sys
 
 # Specific Imports
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
 from std_msgs.msg import String
-from harmoni_common_lib.action_client import HarmoniActionClient
-from std_msgs.msg import String
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from collections import deque
-import os, io
-import ast
+from harmoni_common_lib.constants import ActuatorNameSpace, State
 import time
 #py_tree
 import py_trees
@@ -49,6 +43,8 @@ class TestSpeakerPyTree(unittest.TestCase):
         self.speakerPyTree =  SpeakerServicePytree("speakerPyTreeTest")
         self.speakerPyTree.setup(**additional_parameters)
 
+        self.result = True
+
         rospy.loginfo("Testspeaker: Started up. waiting for speaker startup")
         rospy.loginfo("Testspeaker: Started")
 
@@ -56,11 +52,16 @@ class TestSpeakerPyTree(unittest.TestCase):
     
     def test_leaf_pytree_speaker(self):
         rospy.loginfo(f"The input data is {self.data}")
-        for unused_i in range(0, 4):
-            self.speakerPyTree.tick_once()
-            time.sleep(0.5)
-            print(self.blackboardProva)
-        print("\n")
+        try:
+            for unused_i in range(0, 4):
+                self.speakerPyTree.tick_once()
+                time.sleep(0.5)
+                print(self.blackboardProva)
+            print("\n")
+        except:
+            self.result = False
+
+        assert self.result == True
         return
     
 

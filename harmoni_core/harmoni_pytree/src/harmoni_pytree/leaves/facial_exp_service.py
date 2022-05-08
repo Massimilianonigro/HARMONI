@@ -2,36 +2,13 @@
 
 # Common Imports
 import rospy, rospkg, roslib
-
 from harmoni_common_lib.constants import *
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-import harmoni_common_lib.helper_functions as hf
-from harmoni_face.face_service import EyesService, MouthService, NoseService
-from harmoni_face.face_client import Face
 
 # Specific Imports
-from audio_common_msgs.msg import AudioData
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType
 import time
-
-# import wget
-import contextlib
-import ast
-import wave
-import os
 
 #py_tree
 import py_trees

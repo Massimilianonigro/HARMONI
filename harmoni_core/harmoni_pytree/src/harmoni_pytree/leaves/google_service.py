@@ -6,25 +6,11 @@ import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
-# from harmoni_imageai.custom_service import ImageAICustomService
-import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
 from harmoni_common_lib.constants import DetectorNameSpace, ActionType
-from sensor_msgs.msg import Image
-# from imageai.Detection.Custom import CustomVideoObjectDetection
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import numpy as np
 import boto3
-import re
-import json
-import ast
-import sys
 
 #py_tree
 import py_trees

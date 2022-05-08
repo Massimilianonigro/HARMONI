@@ -69,7 +69,7 @@ class TestSpeaker(unittest.TestCase):
             wait=True,
         )
         assert self.result == True
-
+   
 
 def main():
     import rostest

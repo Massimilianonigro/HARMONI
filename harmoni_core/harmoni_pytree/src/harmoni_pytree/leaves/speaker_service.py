@@ -4,33 +4,17 @@
 import rospy, rospkg, roslib
 
 from harmoni_common_lib.constants import *
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-import harmoni_common_lib.helper_functions as hf
-from harmoni_speaker.speaker_service import SpeakerService
 
 # Specific Imports
-from audio_common_msgs.msg import AudioData
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType
 import boto3
-import re
-import json
-import ast
-import sys
+
 import time
 
-# import wget
-import contextlib
 import ast
-import wave
-import os
+
 
 #py_tree
 import py_trees
@@ -45,12 +29,16 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.server_name = None
         self.send_request = True
 
+        # list of blackboards
         self.blackboards = []
+
+        # attaching a blackboard
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
+        # registering a key with "tts" namespace
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_speaker = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.speaker.name)
-        #self.blackboard_speaker.register_key("state", access=py_trees.common.Access.WRITE)
-
+        
+        print(self.blackboard_tts)
         super(SpeakerServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -65,6 +53,7 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
+        self.blackboard_tts.result = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
     
     def update(self):
@@ -74,7 +63,7 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
             self.service_client_speaker.send_goal(
                 action_goal = ActionType["DO"].value,
                 optional_data=self.blackboard_tts.result,
-                wait=False,
+                wait=True,
             )
             self.logger.debug(f"Goal sent to {self.server_name}")
             new_status = py_trees.common.Status.RUNNING
@@ -120,16 +109,15 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.server_state = feedback["state"]
         return
 
-def main():
-    #command_line_argument_parser().parse_args()
 
+def main():
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    
     blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=ActuatorNameSpace.tts.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.WRITE)
+    blackboardProva.register_key(key="result", access=py_trees.common.Access.WRITE)
     blackboardProva.result = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
     print(blackboardProva)
-
+    print(blackboardProva.result)
+ 
     rospy.init_node("speaker_default", log_level=rospy.INFO)
     
     speakerPyTree = SpeakerServicePytree("SpeakerServicePytreeTest")

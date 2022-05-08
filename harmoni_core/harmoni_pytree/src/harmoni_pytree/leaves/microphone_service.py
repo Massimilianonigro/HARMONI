@@ -7,26 +7,11 @@ import roslib
 from harmoni_common_lib.constants import State
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-#from harmoni_microphone.microphone_service import MicrophoneService
+
 # Other Imports
 from harmoni_common_lib.constants import SensorNameSpace
-from audio_common_msgs.msg import AudioData
-import pyaudio
-import wave
-import numpy as np
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+from harmoni_common_lib.constants import ActionType
 
 #py_tree
 import py_trees

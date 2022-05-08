@@ -6,23 +6,11 @@ import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 import harmoni_common_lib.helper_functions as hf
-from harmoni_tts.aws_tts_service import AWSTtsService
+
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace
 
 #py_tree
 import py_trees
@@ -43,7 +31,8 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
-        self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
+        self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_bot.result = {"message" : "htg"}
 
         super(AWSTtsServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))

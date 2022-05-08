@@ -7,18 +7,12 @@ import unittest, rospy, roslib, sys
 
 # Specific Imports
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
 from std_msgs.msg import String
-from harmoni_common_lib.action_client import HarmoniActionClient
-from std_msgs.msg import String
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace
-from collections import deque
-import os, io
-import ast
+from harmoni_common_lib.constants import ActuatorNameSpace, State
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.web_service import WebServicePytree
+from harmoni_pytree.leaves.web_service import WebServicePytree
 
 
 class TestWebPyTree(unittest.TestCase):

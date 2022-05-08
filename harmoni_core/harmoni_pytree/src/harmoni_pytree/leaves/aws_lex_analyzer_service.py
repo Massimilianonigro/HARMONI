@@ -5,24 +5,12 @@ import rospy
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-from harmoni_bot.aws_lex_service import AWSLexService
 
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import re
-import json
-import ast
-import sys
+from harmoni_common_lib.constants import ActionType, DialogueNameSpace
 
 #py_tree
 import py_trees
-import time
 
 import py_trees.console
 
@@ -39,9 +27,8 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_stt = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.stt.name)
         self.blackboard_stt.register_key("result", access=py_trees.common.Access.READ)
         self.blackboard_card_detect = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.card_detect.name)
-        self.blackboard_card_detect.register_key("result", access=py_trees.common.Access.READ)
-        self.blackboard_buttons = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.buttons.name)
-        self.blackboard_buttons.register_key("result", access=py_trees.common.Access.READ)
+        self.blackboard_card_detect.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_card_detect.result = "abc"
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+ PyTreeNameSpace.analyzer.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_mainactivity = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.mainactivity.name)
@@ -93,15 +80,15 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
                 )
                 self.logger.debug(f"Goal sent to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
-            elif self.blackboard_buttons.result != "null":
-                self.logger.debug(f"Sending goal to {self.server_name}")
-                self.service_client_lex.send_goal(
-                    action_goal = ActionType["REQUEST"].value,
-                    optional_data=self.blackboard_buttons.result,
-                    wait=False,
-                )
-                self.logger.debug(f"Goal sent to {self.server_name}")
-                new_status = py_trees.common.Status.RUNNING
+            # elif self.blackboard_buttons.result != "null":
+            #     self.logger.debug(f"Sending goal to {self.server_name}")
+            #     self.service_client_lex.send_goal(
+            #         action_goal = ActionType["REQUEST"].value,
+            #         optional_data=self.blackboard_buttons.result,
+            #         wait=False,
+            #     )
+            #     self.logger.debug(f"Goal sent to {self.server_name}")
+            #     new_status = py_trees.common.Status.RUNNING
             else:
                 self.blackboard_mainactivity.counter_no_answer += 1 
                 self.blackboard_bot.result = "void_answer"
@@ -125,8 +112,6 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
                 self.service_client_lex.cancel_all_goals()
                 self.client_result = None
                 self.logger.debug(f"Goal cancelled to {self.server_name}")
-                #self.service_client_lex.stop_tracking_goal()
-                #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
                 new_status = py_trees.common.Status.FAILURE

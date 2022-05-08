@@ -7,14 +7,9 @@ import unittest, rospy, roslib, sys
 
 # Specific Imports
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
 from std_msgs.msg import String
-from harmoni_common_lib.action_client import HarmoniActionClient
-from std_msgs.msg import String
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from collections import deque
-import os, io
-import ast
+from harmoni_common_lib.constants import ActuatorNameSpace, State
+
 import time
 #py_tree
 import py_trees
@@ -44,7 +39,7 @@ class TestFacePyTree(unittest.TestCase):
         self.blackboardProva.result_data = self.data
 
         additional_parameters = dict([
-            (ActuatorNameSpace.face.name,True)])   
+            (ActuatorNameSpace.face.name,True)])
         rospy.loginfo("--------------------"+str(additional_parameters)) 
         self.facePyTree =  FacialExpServicePytree("facePyTreeTest")
         self.facePyTree.setup(**additional_parameters)

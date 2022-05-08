@@ -6,24 +6,12 @@ import roslib
 
 from harmoni_common_lib.constants import State
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-# from harmoni_gesture.qt_gesture_interface import GestureInterface
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
+from harmoni_common_lib.constants import ActionType, State
 from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+
 
 #py_tree
 import py_trees
@@ -42,7 +30,7 @@ class GestureServicePytree(py_trees.behaviour.Behaviour):
 
         # here there is the inizialization of the blackboards
         self.blackboards = []
-        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace = PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key("gesture", access=py_trees.common.Access.READ)
 
         super(GestureServicePytree, self).__init__(name)

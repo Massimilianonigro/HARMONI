@@ -7,20 +7,13 @@ PKG = "test_lex"
 import unittest, rospy, roslib, sys
 
 # Specific Imports
-from actionlib_msgs.msg import GoalStatus
-from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
 from std_msgs.msg import String
-from harmoni_common_lib.action_client import HarmoniActionClient
-from std_msgs.msg import String
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace
-from collections import deque
-import os, io
-import ast
+from harmoni_common_lib.constants import State, DialogueNameSpace
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
-from harmoni_pytree.aws_lex_trigger_service import AWSLexTriggerServicePytree
+from harmoni_pytree.leaves.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
+from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
 
 class TestLexPyTree(unittest.TestCase):
 
@@ -62,7 +55,7 @@ class TestLexPyTree(unittest.TestCase):
     def test_leaf_pytree_bot(self):
         rospy.loginfo(f"The input data is {self.data}")
         for unused_i in range(0, 3):
-            self.botPyTree.tick_once()
+            self.botPyTree_analyzer.tick_once()
             time.sleep(0.5)
             print(self.blackboardProvaIn)
             print(self.blackboardProvaOut)

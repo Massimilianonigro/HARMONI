@@ -1,10 +1,15 @@
 <launch>
-    <include file="$(find harmoni_speaker)/launch/speaker_service.launch">
+    <param name="instance_id" value="default"/>  
+    <include file="$(find audio_play)/launch/play.launch">
+        <arg name="do_timestamp" value = "false"/> 
+        <arg name="format" value = "wave"/>
+        <arg name="sample_rate" value="22050"/>
     </include>
 
     <param name="instance_id" value="default"/>
-    <node pkg="harmoni_pytree" type="speaker_service.py" name="harmoni_speaker_default_pytree" output="screen"/>
+    <node pkg="harmoni_speaker" type="speaker_service.py" name="harmoni_speaker_default" output="screen"/>
 
 	<param name="test_speaker_input" value="$(find harmoni_tts)/temp_data/tts.wav"/>
-    <test test-name="test_speaker" pkg="harmoni_pytree" type="rostest_speaker_pytree.py" />
+    <test test-name="test_speaker" pkg="harmoni_pytree" type="rostest_speaker_pytree.py"/>
+    
 </launch>

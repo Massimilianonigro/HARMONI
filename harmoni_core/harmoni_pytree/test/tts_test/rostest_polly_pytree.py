@@ -7,18 +7,14 @@ import unittest, rospy, roslib, sys
 
 # Specific Imports
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
 from std_msgs.msg import String
-from harmoni_common_lib.action_client import HarmoniActionClient
 from std_msgs.msg import String
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace
-from collections import deque
-import os, io
+from harmoni_common_lib.constants import ActuatorNameSpace, State, DialogueNameSpace
 import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.aws_tts_service_pytree import AWSTtsServicePytree
+from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
 
 
 class TestPollyPyTree(unittest.TestCase):
