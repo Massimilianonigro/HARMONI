@@ -6,8 +6,6 @@ PKG = "test_face_pytree"
 import unittest, rospy, roslib, sys
 
 # Specific Imports
-from actionlib_msgs.msg import GoalStatus
-from std_msgs.msg import String
 from harmoni_common_lib.constants import ActuatorNameSpace, State
 
 import time
@@ -53,15 +51,6 @@ class TestFacePyTree(unittest.TestCase):
     
     def test_leaf_pytree_mouth(self):
         rospy.loginfo(f"The input data is {self.data}")
-        # for unused_i in range(0, 4):
-        #     print("htg : tick no. :", unused_i)
-        #     self.facePyTree.tick_once()
-        #     print("htg : ticked ")
-        #     time.sleep(0.5)
-            
-        #     print(self.blackboardProva)
-        # print("\n")
-
         try:
             self.facePyTree.tick_once()
             print(self.blackboardProva)

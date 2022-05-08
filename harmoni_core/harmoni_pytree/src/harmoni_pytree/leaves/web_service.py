@@ -5,20 +5,21 @@ import rospy, rospkg, roslib
 
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
 # from harmoni_web.web_service import WebService
 from harmoni_common_lib.constants import *
 import time
 
-# import wget
-import ast
 
 #py_tree
 import py_trees
 
 class WebServicePytree(py_trees.behaviour.Behaviour):
+    """
+    This class is a child class of behaviour class of pytree module. It sends requests to harmoni action
+    client and updates the leaf status according to the goal status. 
+    """
     def __init__(self, name = "WebServicePytree"):
         
         self.name = name
@@ -28,7 +29,10 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         self.client_result = None
         self.old_image = None
 
+        # Initialising blackboard
         self.blackboards = []
+
+        # blackboard to store the image data
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key("image", access=py_trees.common.Access.WRITE)
 
@@ -74,8 +78,6 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
                 self.service_client_yolo.cancel_all_goals()
                 self.client_result = None
                 self.logger.debug(f"Goal cancelled to {self.server_name}")
-                #self.service_client_yolo.stop_tracking_goal()
-                #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
                 new_status = py_trees.common.Status.FAILURE
@@ -85,20 +87,6 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         return new_status
 
     def terminate(self, new_status):
-        """
-        new_state = self.service_client_web.get_state()
-        print("terminate : ",new_state)
-        if new_state == GoalStatus.SUCCEEDED or new_state == GoalStatus.ABORTED or new_state == GoalStatus.LOST:
-            self.send_request = True
-        if new_state == GoalStatus.PENDING:
-            self.send_request = True
-            self.logger.debug(f"Cancelling goal to {self.server_name}")
-            self.service_client_web.cancel_all_goals()
-            self.client_result = None
-            self.logger.debug(f"Goal cancelled to {self.server_name}")
-            self.service_client_web.stop_tracking_goal()
-            self.logger.debug(f"Goal tracking stopped to {self.server_name}")
-        """
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):

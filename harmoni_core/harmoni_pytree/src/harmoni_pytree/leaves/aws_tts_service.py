@@ -60,9 +60,13 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
+
+        # if the request is not sent
         if self.send_request:
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
+
+            # sending action to the action server
             self.service_client_tts.send_goal(
                 action_goal = ActionType["REQUEST"].value,
                 optional_data = self.blackboard_bot.result["message"],
@@ -71,8 +75,11 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
             self.logger.debug(f"Goal sent to {self.server_name}")
             new_status = py_trees.common.Status.RUNNING
         else:
+            # getting the new state 
             new_state = self.service_client_tts.get_state()
             print("update : ",new_state)
+
+            # updating the leaf status according to the goal status
             if new_state == GoalStatus.ACTIVE:
                 new_status = py_trees.common.Status.RUNNING
             elif new_state == GoalStatus.SUCCEEDED:

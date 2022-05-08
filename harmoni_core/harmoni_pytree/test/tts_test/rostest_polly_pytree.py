@@ -6,12 +6,10 @@ PKG = "test_harmoni_polly"
 import unittest, rospy, roslib, sys
 
 # Specific Imports
-from actionlib_msgs.msg import GoalStatus
-from std_msgs.msg import String
-from std_msgs.msg import String
 from harmoni_common_lib.constants import ActuatorNameSpace, State, DialogueNameSpace
 import ast
 import time
+
 #py_tree
 import py_trees
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree

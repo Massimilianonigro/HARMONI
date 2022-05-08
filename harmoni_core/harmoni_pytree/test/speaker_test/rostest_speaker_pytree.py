@@ -6,8 +6,6 @@ PKG = "test_harmoni_speaker"
 import unittest, rospy, roslib, sys
 
 # Specific Imports
-from actionlib_msgs.msg import GoalStatus
-from std_msgs.msg import String
 from harmoni_common_lib.constants import ActuatorNameSpace, State
 import time
 #py_tree

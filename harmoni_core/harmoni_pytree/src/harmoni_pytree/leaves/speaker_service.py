@@ -13,13 +13,15 @@ import boto3
 
 import time
 
-import ast
-
 
 #py_tree
 import py_trees
 
 class SpeakerServicePytree(py_trees.behaviour.Behaviour):
+    """
+    This class is a child class of behaviour class of pytree module. It sends requests to harmoni action
+    client and updates the leaf status according to the goal status.
+    """
 
     def __init__(self, name = "SpeakerServicePytree"):
         self.name = name
@@ -32,13 +34,10 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         # list of blackboards
         self.blackboards = []
 
-        # attaching a blackboard
+        # blackboard to store text-to-speech data
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
-        # registering a key with "tts" namespace
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_speaker = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.speaker.name)
-        
-        print(self.blackboard_tts)
+    
         super(SpeakerServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -57,9 +56,12 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
     
     def update(self):
+        # if request is to be sent
         if self.send_request:
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
+
+            # sending the goal to action server
             self.service_client_speaker.send_goal(
                 action_goal = ActionType["DO"].value,
                 optional_data=self.blackboard_tts.result,
@@ -68,6 +70,7 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
             self.logger.debug(f"Goal sent to {self.server_name}")
             new_status = py_trees.common.Status.RUNNING
         else:
+            # updating the leaf state based on the goal status
             new_state = self.service_client_speaker.get_state()
             print(new_state)
             if new_state == GoalStatus.ACTIVE:
@@ -93,8 +96,6 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
             self.service_client_speaker.cancel_all_goals()
             self.client_result = None
             self.logger.debug(f"Goal cancelled to {self.server_name}")
-            #self.service_client_speaker.stop_tracking_goal()
-            #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):

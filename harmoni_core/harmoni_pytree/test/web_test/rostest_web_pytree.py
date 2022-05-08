@@ -6,10 +6,9 @@ PKG = "test_harmoni_web"
 import unittest, rospy, roslib, sys
 
 # Specific Imports
-from actionlib_msgs.msg import GoalStatus
-from std_msgs.msg import String
 from harmoni_common_lib.constants import ActuatorNameSpace, State
 import time
+
 #py_tree
 import py_trees
 from harmoni_pytree.leaves.web_service import WebServicePytree
@@ -52,7 +51,6 @@ class TestWebPyTree(unittest.TestCase):
         rospy.loginfo("Testweb: Started up. waiting for web startup")
         rospy.loginfo("Testweb: Started")
 
-   
     
     def test_leaf_pytree_web(self):
         rospy.loginfo(f"The input data is {self.data}")

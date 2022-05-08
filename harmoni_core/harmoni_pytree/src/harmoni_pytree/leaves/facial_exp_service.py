@@ -14,6 +14,10 @@ import time
 import py_trees
 
 class FacialExpServicePytree(py_trees.behaviour.Behaviour):
+    """
+    This class is a child class of behaviour class of pytree module. It sends requests to harmoni action
+    client and updates the leaf status according to the goal status.
+    """
     def __init__(self, name):
 
         self.name = name
@@ -88,8 +92,6 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
             self.service_client_mouth.cancel_all_goals()
             self.client_result = None
             self.logger.debug(f"Goal cancelled to {self.server_name}")
-            #self.service_client_mouth.stop_tracking_goal()
-            #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
@@ -108,13 +110,13 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         return
 
 def main():
-    #command_line_argument_parser().parse_args()
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
     blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=PyTreeNameSpace.scene.name)
     blackboardProva.register_key("face_exp", access=py_trees.common.Access.WRITE)
 
     blackboardProva.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+    
     """
     [{'start':10, 'type': 'gaze', 'id':'target', 'point': [1,5,10]}]
     [{'start': 1, 'type': 'au', 'id': 'au13', 'pose': 1}]
@@ -122,8 +124,6 @@ def main():
     [{'start': 5, 'type': 'action', 'id': 'saucy_face'}]
     [{'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]
     """
-   
-    print(blackboardProva)
 
     rospy.init_node("face_default", log_level=rospy.INFO)
 
