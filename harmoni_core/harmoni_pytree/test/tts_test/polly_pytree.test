@@ -6,6 +6,6 @@
     </include>
 <!--    <node pkg="harmoni_pytree" type="aws_tts_service.py" name="harmoni_tts_polly_default_pytree" output="screen"/>
 -->
-	<param name="test_polly_input" value="{'message':'Vorrei ordinare dei fiori'}"/>
+	<param name="test_polly_input" value="{'message':'I would like to order some flowers'}"/>
     <test test-name="test_polly" pkg="harmoni_pytree" type="rostest_polly_pytree.py" />
 </launch>

@@ -18,7 +18,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
     This class is a child class of behaviour class of pytree module. It sends requests to harmoni action
     client and updates the leaf status according to the goal status.
     """
-    def __init__(self, name):
+    def __init__(self, name, test_mode=False, test_input=None):
 
         self.name = name
         self.service_client_mouth = None
@@ -30,12 +30,21 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.blackboards = []
 
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
+        if test_mode:
+            self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
+            if test_input is None:
+                self.blackboard_scene.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+            else:
+                self.blackboard_scene.face_exp = test_input
+        else:
+            self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.READ)
 
         super(FacialExpServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
+
+        # setting up various action client
         self.server_name = "face"
         self.instance_id = "default"
         self.name_mouth = ActuatorNameSpace.face.name + "_mouth_" + self.instance_id
@@ -47,20 +56,20 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.service_client_mouth.setup_client(self.name_mouth, self._result_callback, self._feedback_callback)
         self.service_client_eyes.setup_client(self.name_eyes, self._result_callback, self._feedback_callback)
         self.service_client_nose.setup_client(self.name_nose, self._result_callback, self._feedback_callback)
+
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
-        
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
-        self.blackboard_scene.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-
+        # if request is to be sent
         if self.send_request:
             self.send_request = False
             self.data = self.blackboard_scene.face_exp
             self.logger.debug(f"Sending goal to {self.server_name}")
+            # client sends goal to the action server
             self.service_client_mouth.send_goal(
                 action_goal=ActionType.DO.value,
                 optional_data=self.data,
@@ -69,6 +78,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
             self.logger.debug(f"Goal sent to {self.server_name}")
             new_status = py_trees.common.Status.RUNNING
         else:
+            # update state based on goal status
             new_state = self.service_client_mouth.get_state()
             print(new_state)
             if new_state == GoalStatus.ACTIVE:

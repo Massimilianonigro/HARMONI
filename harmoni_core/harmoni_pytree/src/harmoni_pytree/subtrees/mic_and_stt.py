@@ -27,8 +27,8 @@ from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
 from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
 from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 #from harmoni_pytree.leaves.gesture_service import GestureServicePytree
-from harmoni_pytree.leaves.subtree_result_main import SubTreeResultMain
-from harmoni_pytree.leaves.scene_manager_main import SceneManagerMain
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.leaves.redundant.subtree_result_main import SubTreeResultMain
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.leaves.redundant.scene_manager_main import SceneManagerMain
 # from harmoni_pytree.leaves.custom_yolo_service import ImageAICustomServicePytree
 
 ##############################################################################

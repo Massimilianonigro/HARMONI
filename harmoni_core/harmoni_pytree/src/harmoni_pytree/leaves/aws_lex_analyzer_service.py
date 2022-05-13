@@ -15,7 +15,7 @@ import py_trees
 import py_trees.console
 
 class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
-    def __init__(self, name):
+    def __init__(self, name, test_mode=False, test_input=None):
         self.name = name
         self.server_state = None
         self.service_client_lex = None
@@ -24,15 +24,23 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
         
-        self.blackboard_stt = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.stt.name)
-        self.blackboard_stt.register_key("result", access=py_trees.common.Access.READ)
-        self.blackboard_card_detect = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.card_detect.name)
-        self.blackboard_card_detect.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_card_detect.result = "abc"
+        # self.blackboard_card_detect = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.card_detect.name)
+        # self.blackboard_card_detect.register_key("result", access=py_trees.common.Access.WRITE)
+        # self.blackboard_card_detect.result = "abc"
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+ PyTreeNameSpace.analyzer.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_mainactivity = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.mainactivity.name)
         self.blackboard_mainactivity.register_key("counter_no_answer", access=py_trees.common.Access.WRITE)
+
+        self.blackboard_stt = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.stt.name)
+        if test_mode:
+            self.blackboard_stt.register_key("result", access=py_trees.common.Access.WRITE)
+            if test_input is None:
+                self.blackboard_stt.result = "I want to buy some flowers"
+            else:
+                self.blackboard_stt.result = test_input
+        else:
+            self.blackboard_stt.register_key("result", access=py_trees.common.Access.READ)
         
         super(AWSLexAnalyzerServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -62,16 +70,7 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
     def update(self):
         if self.send_request:
             self.send_request = False
-            if self.blackboard_card_detect.result != "null":
-                self.logger.debug(f"Sending  again goal to {self.server_name}")
-                self.service_client_lex.send_goal(
-                    action_goal = ActionType["REQUEST"].value,
-                    optional_data=self.blackboard_card_detect.result,
-                    wait=False,
-                )
-                self.logger.debug(f"Goal sent to {self.server_name}")
-                new_status = py_trees.common.Status.RUNNING
-            elif self.blackboard_stt.result != "null":
+            if self.blackboard_stt.result != "null":
                 self.logger.debug(f"Sending goal to {self.server_name}")
                 self.service_client_lex.send_goal(
                     action_goal = ActionType["REQUEST"].value,
@@ -80,6 +79,16 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
                 )
                 self.logger.debug(f"Goal sent to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
+            # elif self.blackboard_card_detect.result != "null":
+            #     self.logger.debug(f"Sending  again goal to {self.server_name}")
+            #     self.service_client_lex.send_goal(
+            #         action_goal = ActionType["REQUEST"].value,
+            #         optional_data=self.blackboard_card_detect.result,
+            #         wait=False,
+            #     )
+            #     self.logger.debug(f"Goal sent to {self.server_name}")
+            #     new_status = py_trees.common.Status.RUNNING
+
             # elif self.blackboard_buttons.result != "null":
             #     self.logger.debug(f"Sending goal to {self.server_name}")
             #     self.service_client_lex.send_goal(
@@ -101,6 +110,8 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
             elif new_state == GoalStatus.SUCCEEDED:
                 if self.client_result is not None:
                     self.blackboard_bot.result = eval(self.client_result)
+                    print("htg : result received")
+                    print(self.blackboard_bot.result)
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
                 else:

@@ -20,7 +20,7 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
     This class is a child class of behaviour class of pytree module. It sends requests to harmoni action
     client and updates the leaf status according to the goal status. 
     """
-    def __init__(self, name = "WebServicePytree"):
+    def __init__(self, name = "WebServicePytree", test_mode=False, test_input=None):
         
         self.name = name
         self.service_client_web = None
@@ -34,8 +34,15 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
 
         # blackboard to store the image data
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("image", access=py_trees.common.Access.WRITE)
-
+        #self.blackboard_scene.image = 
+        if test_mode:
+            self.blackboard_scene.register_key("image", access=py_trees.common.Access.WRITE)
+            if test_input is None:
+                self.blackboard_scene.image = "[{'component_id':'img_only', 'set_content':'https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png'},{'component_id':'raccolta_container', 'set_content': ''}]"
+            else:
+                self.blackboard_scene.image = test_input
+        else:
+            self.blackboard_scene.register_key("image", access=py_trees.common.Access.READ)
         super(WebServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -51,12 +58,12 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self): 
-        self.blackboard_scene.image = "[{'component_id':'img_only', 'set_content':'https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png'},{'component_id':'raccolta_container', 'set_content': ''}]"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
         if self.old_image != self.blackboard_scene.image:
             self.logger.debug(f"Sending goal to {self.server_name}")
+            # client sending goal to the action server
             self.service_client_web.send_goal(
                 action_goal = ActionType["DO"].value,
                 optional_data = self.blackboard_scene.image,

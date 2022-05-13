@@ -52,8 +52,8 @@ class Buttons(py_trees.behaviour.Behaviour):
                     self.read_serial = str(self.read_serial[0])
                     print(self.read_serial)
                     if self.read_serial == "b'pressb2\\r\\n'":
-                        print("si")
-                        self.blackboard_buttons.result = "si"
+                        print("yes")
+                        self.blackboard_buttons.result = "yes"
                         new_status = py_trees.common.Status.SUCCESS
                     elif self.read_serial == "b'pressb1\\r\\n'":
                         print("no")

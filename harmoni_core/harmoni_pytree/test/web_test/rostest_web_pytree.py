@@ -45,7 +45,7 @@ class TestWebPyTree(unittest.TestCase):
         additional_parameters = dict([
             (ActuatorNameSpace.web.name,False)])   
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        self.webPyTree =  WebServicePytree("webPyTreeTest")
+        self.webPyTree =  WebServicePytree("webPyTreeTest", test_mode=True, test_input=self.data)
         self.webPyTree.setup(**additional_parameters)
 
         rospy.loginfo("Testweb: Started up. waiting for web startup")

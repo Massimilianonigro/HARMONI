@@ -48,7 +48,7 @@ class TestPollyPyTree(unittest.TestCase):
         additional_parameters = dict([
             (ActuatorNameSpace.tts.name,False)])   
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        self.ttsPyTree =  AWSTtsServicePytree("ttsPyTreeTest")
+        self.ttsPyTree =  AWSTtsServicePytree("ttsPyTreeTest", test_mode=True, test_input=self.data)
         self.ttsPyTree.setup(**additional_parameters)
 
         rospy.loginfo("Testtts: Started up. waiting for tts startup")
@@ -59,10 +59,8 @@ class TestPollyPyTree(unittest.TestCase):
     def test_leaf_pytree_tts(self):
         rospy.loginfo(f"The input data is {self.data}")
         for unused_i in range(0, 4):
-            print("htg: ticks: ", unused_i)
             self.ttsPyTree.tick_once()
-            time.sleep(0.5)
-            print("htg: ticked ")
+            time.sleep(1)
             print(self.blackboardProva)
         print("\n")
         return

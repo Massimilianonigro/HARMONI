@@ -39,7 +39,7 @@ class TestFacePyTree(unittest.TestCase):
         additional_parameters = dict([
             (ActuatorNameSpace.face.name,True)])
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        self.facePyTree =  FacialExpServicePytree("facePyTreeTest")
+        self.facePyTree =  FacialExpServicePytree("facePyTreeTest", test_mode=True, test_input=self.data)
         self.facePyTree.setup(**additional_parameters)
 
         self.result = True

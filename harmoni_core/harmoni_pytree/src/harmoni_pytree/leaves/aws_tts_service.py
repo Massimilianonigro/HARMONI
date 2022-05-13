@@ -22,7 +22,7 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
     This class is a child class of behaviour class of pytree module. It sends requests to harmoni action
     client and updates the status according to the goal status.
     """
-    def __init__(self, name):
+    def __init__(self, name, test_mode=False, test_input=None):
         self.name = name
         self.server_state = None
         self.service_client_tts = None
@@ -38,12 +38,20 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         
         # blackboard to store data to senf to the action server
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
-        self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
+        if test_mode:
+            self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
+            if test_input is None:
+                self.blackboard_bot.result = {"message": "Hi, I'm Kitty"}
+            else:
+                self.blackboard_bot.result = test_input
+        else:
+            self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
 
         super(AWSTtsServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
+        # setting up the action client
         self.service_client_tts = HarmoniActionClient(self.name)
         self.server_name = "tts_default"
         self.service_client_tts.setup_client(self.server_name, 
@@ -51,12 +59,12 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
                                             self._feedback_callback)
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         
+        # initiating the key value of blackboard
         self.blackboard_tts.result = "null"
 
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):  
-        self.blackboard_bot.result = {"message": "Hi, I'm Kitty"}
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):

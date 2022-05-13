@@ -38,7 +38,7 @@ class TestSpeakerPyTree(unittest.TestCase):
         additional_parameters = dict([
             (ActuatorNameSpace.speaker.name,False)])   
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        self.speakerPyTree =  SpeakerServicePytree("speakerPyTreeTest")
+        self.speakerPyTree =  SpeakerServicePytree("speakerPyTreeTest", test_mode=True, test_input=self.data)
         self.speakerPyTree.setup(**additional_parameters)
 
         self.result = True

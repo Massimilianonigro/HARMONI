@@ -17,7 +17,7 @@ import py_trees.console as console
 
 from harmoni_common_lib.constants import *
 
-from harmoni_pytree.leaves.buttons import Buttons
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.leaves.buttons import Buttons
 from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
 from harmoni_pytree.leaves.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
@@ -27,8 +27,8 @@ from harmoni_pytree.leaves.lip_sync_service import LipSyncServicePytree
 from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
 from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 #from harmoni_pytree.leaves.gesture_service import GestureServicePytree
-from harmoni_pytree.leaves.subtree_result_main import SubTreeResultMain
-from harmoni_pytree.leaves.scene_manager_main import SceneManagerMain
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.leaves.redundant.subtree_result_main import SubTreeResultMain
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.leaves.redundant.scene_manager_main import SceneManagerMain
 from harmoni_pytree.leaves.custom_yolo_service import ImageAICustomServicePytree
 
 ##############################################################################

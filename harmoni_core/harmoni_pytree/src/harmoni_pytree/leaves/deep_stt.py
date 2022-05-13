@@ -39,12 +39,7 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
-        """
-         for parameter in additional_parameters:
-            print(parameter, additional_parameters[parameter])  
-            if(parameter =="SpeechToTextServicePytree_mode"):
-                self.mode = additional_parameters[parameter]
-        """
+
         self.service_client_stt = HarmoniActionClient(self.name)
         self.server_name = "stt_default"
         self.service_client_stt.setup_client(self.server_name, 

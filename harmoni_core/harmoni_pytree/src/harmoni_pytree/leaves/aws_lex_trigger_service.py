@@ -69,7 +69,6 @@ class AWSLexTriggerServicePytree(py_trees.behaviour.Behaviour):
                     self.blackboard_bot.result = eval(self.client_result)
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
-                    print("htg", self.blackboard_bot)
                 else:
                     self.logger.debug(f"Waiting fot the result ({self.server_name})")
                     new_status = py_trees.common.Status.RUNNING

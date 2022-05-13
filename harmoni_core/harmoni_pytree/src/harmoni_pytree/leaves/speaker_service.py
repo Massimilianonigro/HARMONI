@@ -23,7 +23,7 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
     client and updates the leaf status according to the goal status.
     """
 
-    def __init__(self, name = "SpeakerServicePytree"):
+    def __init__(self, name = "SpeakerServicePytree", test_mode=False, test_input=None):
         self.name = name
         self.service_client_speaker = None
         self.client_result = None
@@ -36,8 +36,15 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
 
         # blackboard to store text-to-speech data
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
-        self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
-    
+        if test_mode:
+            self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
+            if test_input is None:
+                self.blackboard_tts.result = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
+            else:
+                self.blackboard_tts.result = test_input
+        else:
+            self.blackboard_tts.register_key("result", access=py_trees.common.Access.READ)
+
         super(SpeakerServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -52,7 +59,6 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
-        self.blackboard_tts.result = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
     
     def update(self):

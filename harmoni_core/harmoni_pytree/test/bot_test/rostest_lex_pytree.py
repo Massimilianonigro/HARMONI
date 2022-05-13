@@ -12,8 +12,8 @@ from harmoni_common_lib.constants import State, DialogueNameSpace
 import time
 #py_tree
 import py_trees
-# from harmoni_pytree.leaves.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
-from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
+from harmoni_pytree.leaves.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
+# from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
 
 class TestLexPyTree(unittest.TestCase):
 
@@ -32,6 +32,7 @@ class TestLexPyTree(unittest.TestCase):
         self.blackboardProvaIn = py_trees.blackboard.Client(name="blackboardProva", namespace=DialogueNameSpace.bot.name)
         self.blackboardProvaIn.register_key("result_data", access=py_trees.common.Access.WRITE)
         self.blackboardProvaIn.register_key("result_message", access=py_trees.common.Access.WRITE)
+
         self.blackboardProvaOut = py_trees.blackboard.Client(name="blackboardProva", namespace=DialogueNameSpace.bot.name + "output")
         self.blackboardProvaOut.register_key("result_data", access=py_trees.common.Access.READ)
         self.blackboardProvaOut.register_key("result_message", access=py_trees.common.Access.READ)
@@ -43,10 +44,12 @@ class TestLexPyTree(unittest.TestCase):
         additional_parameters = dict([
             (DialogueNameSpace.bot.name,False)])   
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        # self.botPyTree_analyzer = AWSLexAnalyzerServicePytree("botPyTree_analyzer_Test")
-        # self.botPyTree_analyzer.setup(**additional_parameters)
-        self.botPyTree_trigger = AWSLexTriggerServicePytree("botPyTree_trigger_Test")
-        self.botPyTree_trigger.setup(**additional_parameters)
+        self.botPyTree_analyzer = AWSLexAnalyzerServicePytree("botPyTree_analyzer_Test", test_mode=True, test_input=self.data)
+        self.botPyTree_analyzer.setup(**additional_parameters)
+        #self.botPyTree_trigger = AWSLexTriggerServicePytree("botPyTree_trigger_Test")
+        #self.botPyTree_trigger.setup(**additional_parameters)
+
+        self.result_check = True
         rospy.loginfo("Testbot: Started up. waiting for bot startup")
         rospy.loginfo("Testbot: Started")
 
@@ -54,14 +57,19 @@ class TestLexPyTree(unittest.TestCase):
     
     def test_leaf_pytree_bot(self):
         rospy.loginfo(f"The input data is {self.data}")
-        for unused_i in range(0, 3):
-            # self.botPyTree_analyzer.tick_once()
-            self.botPyTree_trigger.tick_once()
-            time.sleep(0.5)
-            print("htg: ticks :", unused_i)
-            print(self.blackboardProvaIn)
-            print(self.blackboardProvaOut)
-        print("\n")
+        try:
+            for unused_i in range(0, 3):
+                self.botPyTree_analyzer.tick_once()
+                # self.botPyTree_trigger.tick_once()
+                time.sleep(1)
+                print(self.blackboardProvaIn)
+                print(self.blackboardProvaOut)
+            print("\n")
+        except Exception as e:
+            self.result_check = False
+
+        assert self.result_check == True
+
         return
     
 

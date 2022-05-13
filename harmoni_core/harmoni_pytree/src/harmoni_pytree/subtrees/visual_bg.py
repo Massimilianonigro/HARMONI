@@ -17,8 +17,8 @@ import py_trees.console as console
 import rospy
 from harmoni_common_lib.constants import *
 
-from harmoni_pytree.leaves.scene_manager_visualbg import SceneManagerVisualBg
-from harmoni_pytree.leaves.subtree_result_visualbg import SubTreeResultVisualBg
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.leaves.redundant.scene_manager_visualbg import SceneManagerVisualBg
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.leaves.redundant.subtree_result_visualbg import SubTreeResultVisualBg
 from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
 from harmoni_pytree.leaves.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
