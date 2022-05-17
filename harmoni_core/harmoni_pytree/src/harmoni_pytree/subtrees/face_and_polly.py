@@ -17,6 +17,8 @@ from harmoni_common_lib.constants import *
 
 from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
+from harmoni_pytree.leaves.facial_exp_service import FacialExpServicePytree
+
 ##############################################################################
 # Classes
 ##############################################################################
@@ -75,13 +77,15 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
     print(py_trees.display.unicode_blackboard())
 
 
-def create_root(name= "Speaker_TTS"):
+def create_root(name= "Face_Polly"):
 
     tts = AWSTtsServicePytree("TTSactivity")
     speaker = SpeakerServicePytree("SpeakerActivity")
-
+    face = FacialExpServicePytree("FaceActivity")
+    face_speaker = py_trees.composites.Parallel(name="face_speaker")
+    face_speaker.add_children([speaker, face])
     root = py_trees.composites.Sequence(name=name)
-    root.add_children([tts, speaker])
+    root.add_children([tts, face_speaker])
 
     return root
 

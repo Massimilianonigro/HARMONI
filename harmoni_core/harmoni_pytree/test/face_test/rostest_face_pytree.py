@@ -52,9 +52,11 @@ class TestFacePyTree(unittest.TestCase):
     def test_leaf_pytree_mouth(self):
         rospy.loginfo(f"The input data is {self.data}")
         try:
-            self.facePyTree.tick_once()
-            print(self.blackboardProva)
-            print("\n")
+            for unused_i in range(4):
+                self.facePyTree.tick_once()
+                time.sleep(1)
+                print(self.blackboardProva)
+                print("\n")
 
         except Exception as e:
             self.result = False
@@ -70,4 +72,5 @@ def main():
 
 
 if __name__ == "__main__":
+    print("htg : starting the test")
     main()
