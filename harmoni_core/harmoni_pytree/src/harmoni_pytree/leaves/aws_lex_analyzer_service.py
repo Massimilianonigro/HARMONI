@@ -110,12 +110,11 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
             elif new_state == GoalStatus.SUCCEEDED:
                 if self.client_result is not None:
                     self.blackboard_bot.result = eval(self.client_result)
-                    print("htg : result received")
                     print(self.blackboard_bot.result)
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
                 else:
-                    self.logger.debug(f"Waiting fot the result ({self.server_name})")
+                    self.logger.debug(f"Waiting for the result ({self.server_name})")
                     new_status = py_trees.common.Status.RUNNING
             elif new_state == GoalStatus.PENDING:
                 self.send_request = True

@@ -54,8 +54,6 @@ class HarmoniActionClient(object):
         self.action_result = {"do_action": None, "message": None}
         self.action_feedback = {"state": None}
         self.active_cb = None
-        rospy.logdebug("htg and zero2")
-        print("htg : inside harmoni action client")
         return
 
     # @brief Sends a goal to the ActionServer, and also registers callbacks
@@ -133,21 +131,16 @@ class HarmoniActionClient(object):
                 handle for action feedback.
             wait (bool): Indicates whether or not to wait
         """
-        print("htg : before action client")
         self.action_client = ActionClient(action_type, harmoniAction)
-        print("htg : after action client")
         self.simple_state = SimpleGoalState.DONE
         self.goal_handler = None
         self.done_condition = threading.Condition()
-        print("htg : after threading")
         if wait:
-            print("htg : inside wait")
             rospy.logdebug(
                 f"action_client waiting for {action_type} server to connect."
             )
-            print("htg : before server wait")
             self.action_client.wait_for_server()
-            print("htg : after waiting for server")
+
 
         self.result_cb_fnc = result_cb_fnc
         self.feedback_cb_fnc = feedback_cb_fnc

@@ -35,8 +35,6 @@ class AWSLexService(HarmoniServiceManager):
         self.region_name = param["region_name"]
         self.intentName = None
         self.state = State.INIT
-        print("htg")
-        print(self.user_id, self.bot_name, self.bot_alias, self.region_name)
         return
 
     def setup_aws_lex(self):

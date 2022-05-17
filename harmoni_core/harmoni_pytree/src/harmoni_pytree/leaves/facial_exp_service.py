@@ -45,7 +45,6 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
     def setup(self,**additional_parameters):
 
         # setting up various action client
-        print("htg : ", "setting uppppppp")
         self.server_name = "face"
         self.instance_id = "default"
         self.name_mouth = ActuatorNameSpace.face.name + "_mouth_" + self.instance_id
@@ -56,15 +55,8 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.service_client_eyes = HarmoniActionClient(self.name_eyes)
 
         self.service_client_eyes.setup_client(self.name_eyes, self._result_callback, self._feedback_callback)
-        print("htg : ","eyes setup")
-
         self.service_client_mouth.setup_client(self.name_mouth, self._result_callback, self._feedback_callback)
-        print("htg : ","mouth setup")
-
         self.service_client_nose.setup_client(self.name_nose, self._result_callback, self._feedback_callback)
-        print("htg : ","nose setup")
-
-        print("htg: setting up done")
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
@@ -77,7 +69,6 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
             self.send_request = False
             self.data = self.blackboard_scene.face_exp
             self.logger.debug(f"Sending goal to {self.server_name}")
-            print("htg : ", "update")
             # client sends goal to the action server
             self.service_client_mouth.send_goal(
                 action_goal=ActionType.DO.value,
