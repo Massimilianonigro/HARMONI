@@ -14,6 +14,8 @@ from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, Dialogue
 #py_tree
 import py_trees
 import time
+import json
+import ast
 
 import py_trees.console
 
@@ -135,7 +137,8 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
             f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
         # self.client_result = result["message"]
-        self.client_result = result
+        self.client_result = ast.literal_eval(result['message'])
+
         return
 
     def _feedback_callback(self, feedback):
