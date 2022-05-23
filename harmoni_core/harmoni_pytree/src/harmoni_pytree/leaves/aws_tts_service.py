@@ -36,6 +36,10 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
         
+        # blackboard for facial expressions
+        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
+
         # blackboard to store data to senf to the action server
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
         if test_mode:
@@ -58,13 +62,10 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
                                             self._result_callback,
                                             self._feedback_callback)
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
-        
-        # initiating the key value of blackboard
-        self.blackboard_tts.result = "null"
 
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
-    def initialise(self):  
+    def initialise(self):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
@@ -92,7 +93,8 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.RUNNING
             elif new_state == GoalStatus.SUCCEEDED:
                 if self.client_result is not None:
-                    self.blackboard_tts.result = self.client_result
+                    # self.blackboard_tts.result = self.client_result
+                    self.blackboard_scene.face_exp = self.client_result['behavior_data']
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
                 else:
@@ -132,7 +134,8 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
-        self.client_result = result["message"]
+        # self.client_result = result["message"]
+        self.client_result = result
         return
 
     def _feedback_callback(self, feedback):

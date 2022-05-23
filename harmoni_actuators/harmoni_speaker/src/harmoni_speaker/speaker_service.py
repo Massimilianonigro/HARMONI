@@ -120,7 +120,7 @@ def main():
         # params = rospy.get_param(service_name + "/" + instance_id + "_param/")
 
         s = SpeakerService(service_id)
-
+        
         service_server = HarmoniServiceServer(service_id, s)
 
         print(service_name)

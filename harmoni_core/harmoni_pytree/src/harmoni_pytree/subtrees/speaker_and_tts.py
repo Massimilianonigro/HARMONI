@@ -77,7 +77,7 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
 
 def create_root(name= "Speaker_TTS"):
 
-    tts = AWSTtsServicePytree("TTSactivity")
+    tts = AWSTtsServicePytree("TTSActivity")
     speaker = SpeakerServicePytree("SpeakerActivity")
 
     root = py_trees.composites.Sequence(name=name)
