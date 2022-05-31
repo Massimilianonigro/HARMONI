@@ -109,10 +109,10 @@ class MicrophoneService(HarmoniServiceManager):
         """Open the microphone audio stream with configured params """
         rospy.loginfo("Opening the audio input stream")
 
-        print(self.audio_format)
-        print(self.total_channels)
-        print(self.input_device_index)
-        print(self.chunk_size)
+        print("Audio format: ", self.audio_format)
+        print("Total channels: ", self.total_channels)
+        print("Input device index: ",self.input_device_index)
+        print("Chunk size: ",self.chunk_size)
 
         self.stream = self.p.open(
             format=self.audio_format,
@@ -145,6 +145,7 @@ class MicrophoneService(HarmoniServiceManager):
         # WAVE_OUTPUT_FILENAME = "recordedFile.wav"
         while not rospy.is_shutdown():
             if self.state == State.INIT:
+                print("htg: ", "State.INIT")
                 r.sleep()
             elif self.state == State.START:
                 latest_audio_data = self.stream.read(
@@ -154,11 +155,13 @@ class MicrophoneService(HarmoniServiceManager):
                 raw_audio_bitstream = np.frombuffer(latest_audio_data, np.uint8)
                 raw_audio = raw_audio_bitstream.tolist()
                 self.raw_mic_pub.publish(raw_audio)  # Publishing raw AudioData
+                print("htg: ", "State.START")
             elif (
                 self.state == State.SUCCESS
                 or self.state == State.FAILED
                 or self.state == State.PAUSE
             ):
+                print("htg: ", "State.BREAK")
                 break
             r.sleep()
         # waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
@@ -167,7 +170,7 @@ class MicrophoneService(HarmoniServiceManager):
         # waveFile.setframerate(RATE)
         # waveFile.writeframes(b''.join(Recordframes))
         # waveFile.close()
-        # rospy.loginfo("Shutting down")
+        rospy.loginfo("Shutting down")
         return
 
     def _get_device_index(self):

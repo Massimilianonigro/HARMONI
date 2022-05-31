@@ -11,16 +11,12 @@ import py_trees
 import time
 import rospy
 from random import randint
-import subprocess
-import operator
 import py_trees.console as console
-import running_or_failure as rf
 
 from harmoni_common_lib.constants import *
 
 from harmoni_pytree.leaves.deep_stt import DeepSpeechToTextServicePytree
 from harmoni_pytree.leaves.aws_lex_analyzer_service import AWSLexAnalyzerServicePytree
-from harmoni_pytree.leaves.aws_lex_trigger_service import AWSLexTriggerServicePytree
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
 from harmoni_pytree.leaves.facial_exp_service import FacialExpServicePytree
 from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
@@ -86,19 +82,18 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
 
 def create_root(name= "MicAndSTT"):
 
-    microphone = MicrophoneServicePytree("MicrophoneMainActivity")
+    # microphone = MicrophoneServicePytree("MicrophoneMainActivity")
     deep_stt = DeepSpeechToTextServicePytree("SpeechToTextMainActivity")
     speaker = SpeakerServicePytree("SpeakerActivity")
     tts = AWSTtsServicePytree("TTSActivity")
     chatbot_analyzer = AWSLexAnalyzerServicePytree("AwsLexAnalyzerPyTreeActivity")
-    chatbot_trigger = AWSLexTriggerServicePytree("AwsLexTriggerPyTreeActivity")
     face = FacialExpServicePytree("FaceActivity")
     face_speaker = py_trees.composites.Parallel(name="face_speaker")
     face_speaker.add_children([speaker, face])
 
 
     root = py_trees.composites.Sequence(name="mini_bot")
-    root.add_children([microphone, deep_stt, chatbot_analyzer, chatbot_trigger, tts, face_speaker])
+    root.add_children([deep_stt, chatbot_analyzer, tts, face_speaker])
 
     return root
 

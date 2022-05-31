@@ -4,7 +4,7 @@
         <arg name="format" value = "wave"/>
         <arg name="sample_rate" value="22050"/>
     </include>
-    
+
     <include file="$(find harmoni_speaker)/launch/speaker_service.launch"></include>
     
     <include file="$(find harmoni_tts)/launch/tts_service.launch"></include>
@@ -18,7 +18,6 @@
 	</include>
     <node pkg="harmoni_face" type="face_service.py" name="harmoni_face_default" output="screen"/>
     
-    <param name="test_speaker_input" value="$(find harmoni_tts)/temp_data/tts.wav"/>
     <param name="test_polly_input" value="{'message':'I would like to develop harmoni'}"/>
     <test test-name="test_face_and_polly" pkg="harmoni_pytree" type="face_and_polly_test.py"/>
 </launch>

@@ -7,7 +7,7 @@ import unittest, rospy, roslib, sys
 import traceback
 
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, State, DialogueNameSpace
+from harmoni_common_lib.constants import ActuatorNameSpace, State, DialogueNameSpace, DetectorNameSpace
 import ast
 import time
 
@@ -24,20 +24,20 @@ class TestPollyPyTree(unittest.TestCase):
         self.data = rospy.get_param(
             "test_polly_input"
         ) 
-        self.wav_loc = rospy.get_param(
-            "test_speaker_input"
-        ) 
+        # self.wav_loc = rospy.get_param(
+        #     "test_speaker_input"
+        # ) 
         self.data = ast.literal_eval(self.data)
         self.instance_id = rospy.get_param("instance_id")
         
         # NOTE currently no feedback, status, or result is received.
         py_trees.logging.level = py_trees.logging.Level.DEBUG
         
-        
+
         # blackboard for test-to-speech data, which is updated after result is fetched
         self.blackboard_tts = py_trees.blackboard.Client(name="blackboard_tts", namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_tts.result = self.wav_loc
+        # self.blackboard_tts.result = self.wav_loc
 
         # blackboard to store data to senf to the action server
         self.blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)

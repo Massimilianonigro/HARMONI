@@ -21,7 +21,17 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
     client and updates the leaf status according to the goal status. 
     """
     def __init__(self, name = "WebServicePytree", test_mode=False, test_input=None):
+        # @brief Constructor for initializing blackboard and their keys
+        #
+        # @param name Name of the pytree
+        # 
+        # @param test_mode The mode of running the leaf. If set to true, 
+        # blackboard keys are given WRITE access for initialization with a value. 
+        #
+        # @param test_input The input to the blackboard keys for testing the leaf. If None,
+        # then deafult value is given to the blackboard keys which will be used as test input.         
         
+        # Attribute initialization        
         self.name = name
         self.service_client_web = None
         self.server_state = None
@@ -47,7 +57,12 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
-        
+        # @brief Setting up of action client used for sending goals to the action server. Needs
+        # to called manually
+        #
+        # @param **additional_parameters Not used yet
+        #
+                
         self.service_client_web = HarmoniActionClient(self.name)
         self.server_name = "web_default"
         self.service_client_web.setup_client(self.server_name,
@@ -58,12 +73,17 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self): 
+        # @brief Does nothing relating to behaviour trees. This runs the first time your behaviour is ticked and anytime the
+        # status is not RUNNING thereafter.        
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
+        # @brief This is called every time the behaviour tree is ticked. Sending of request to the action server is done here.
+        # further status of the goal is updated here.    
         if self.old_image != self.blackboard_scene.image:
             self.logger.debug(f"Sending goal to {self.server_name}")
             # client sending goal to the action server
+            # the goal to send is of type DO
             self.service_client_web.send_goal(
                 action_goal = ActionType["DO"].value,
                 optional_data = self.blackboard_scene.image,
@@ -94,9 +114,17 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         return new_status
 
     def terminate(self, new_status):
+        # @brief This function is called whenever the behaviour switches to a non-running state(SUCCESS or FAILURE or ....).
+        # @param new_status The function is called with this parameter having the status of the behavior tree
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
+        # @brief This function is called when the action client receives a reult of the goal sent. Update 
+        # of client_result takes place here which is used for updating blackboard key
+        #
+        # @param result Contains the result of the goal sent by the client from harmoni action server
+        #        
+        
         """ Recieve and store result with timestamp """
         self.logger.debug("The result of the request has been received")
         self.logger.debug(
@@ -106,6 +134,8 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         return
 
     def _feedback_callback(self, feedback):
+        # @brief This function is called by action client when it receives feedback from the action server
+        # @param feeedback Contains the feedback sent by the harmoni action server.        
         """ Feedback is currently just logged """
         self.logger.debug("The feedback recieved is %s." % feedback)
         self.server_state = feedback["state"]

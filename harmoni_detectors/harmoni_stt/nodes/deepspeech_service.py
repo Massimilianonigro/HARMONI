@@ -59,7 +59,7 @@ class SpeechToTextService(HarmoniServiceManager):
 
         self.is_transcribe_once = False
         self.state = State.INIT
-        self.idle_count = 0;
+        self.idle_count = 0
         return
 
     def start(self):

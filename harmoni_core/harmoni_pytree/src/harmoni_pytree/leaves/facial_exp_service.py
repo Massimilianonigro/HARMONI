@@ -19,7 +19,17 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
     client and updates the leaf status according to the goal status.
     """
     def __init__(self, name, test_mode=False, test_input=None):
-
+                # @brief Constructor for initializing blackboard and their keys
+        #
+        # @param name Name of the pytree
+        # 
+        # @param test_mode The mode of running the leaf. If set to true, 
+        # blackboard keys are given WRITE access for initialization with a value. 
+        #
+        # @param test_input The input to the blackboard keys for testing the leaf. If None,
+        # then deafult value is given to the blackboard keys which will be used as test input. 
+        
+        # Attribute initialization
         self.name = name
         self.service_client_mouth = None
         self.service_client_eyes = None
@@ -29,6 +39,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
 
+        # blackboard containing the data for generating facial expressions
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         if test_mode:
             self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
@@ -44,7 +55,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
 
     def setup(self,**additional_parameters):
 
-        # setting up various action client
+        # setting up various action clients 
         self.server_name = "face"
         self.instance_id = "default"
         self.name_mouth = ActuatorNameSpace.face.name + "_mouth_" + self.instance_id
@@ -61,14 +72,20 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
+        # @brief Does nothing relating to behaviour trees. This runs the first time your behaviour is ticked and anytime the
+        # status is not RUNNING thereafter.        
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
+        # @brief This is called every time the behaviour tree is ticked. Sending of request to the action server is done here.
+        # further status of the goal is updated here.        
+        
         # if request is to be sent
         if self.send_request:
             self.send_request = False
             self.data = self.blackboard_scene.face_exp
             self.logger.debug(f"Sending goal to {self.server_name}")
+            
             # client sends goal to the action server
             self.service_client_mouth.send_goal(
                 action_goal=ActionType.DO.value,
@@ -92,6 +109,8 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         return new_status 
 
     def terminate(self, new_status):
+        # @brief This function is called whenever the behaviour switches to a non-running state(SUCCESS or FAILURE or ....).
+        # @param new_status The function is called with this parameter having the status of the behavior tree        
         new_state = self.service_client_mouth.get_state()
         print("terminate : ",new_state)
         if new_state == GoalStatus.SUCCEEDED or new_state == GoalStatus.ABORTED or new_state == GoalStatus.LOST:
@@ -105,6 +124,11 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
+        # @brief This function is called when the action client receives a reult of the goal sent. Update 
+        # of client_result takes place here which is used for updating blackboard key
+        #
+        # @param result Contains the result of the goal sent by the client from harmoni action server
+        #
         """ Recieve and store result with timestamp """
         self.logger.debug("The result of the request has been received")
         self.logger.debug(
@@ -114,6 +138,8 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         return
 
     def _feedback_callback(self, feedback):
+        # @brief This function is called by action client when it receives feedback from the action server
+        # @param feeedback Contains the feedback sent by the harmoni action server.
         """ Feedback is currently just logged """
         self.logger.debug("The feedback recieved is %s." % feedback)
         self.server_state = feedback["state"]
