@@ -16,6 +16,10 @@ import py_trees.console
 
 class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
     def __init__(self, name, test_mode=False, test_input=None):
+        
+        """
+        
+        """
         # @brief Constructor for initializing blackboard and their keys
         #
         # @param name Name of the pytree

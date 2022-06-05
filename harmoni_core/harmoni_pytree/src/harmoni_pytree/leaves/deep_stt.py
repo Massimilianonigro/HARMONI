@@ -127,7 +127,7 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
             else:
                 # raising exception in case of failure
                 new_status = py_trees.common.Status.FAILURE
-                print("htg: ")
+                print("htg: ", )
                 raise
         
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))

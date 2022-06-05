@@ -64,7 +64,6 @@ class TestDeepSpeech_Common(unittest.TestCase):
         index = 0
         audio_length = wf.getnframes()
         print("htg: ", "Starting to publish")
-        time.sleep(10)
         while index+chunk_size < audio_length:
             print("htg")
             data = wf.readframes(chunk_size)

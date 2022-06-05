@@ -58,7 +58,7 @@ class TestMiniBotPytree(unittest.TestCase):
 
    
     def test_leaf_pytree_tts(self):
-        rospy.loginfo(f"The speaker data is at {self.wav_loc}")
+        # rospy.loginfo(f"The speaker data is at {self.wav_loc}")
         try:
             for unused_i in range(0, 30):
                 self.root.tick_once()
