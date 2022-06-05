@@ -15,10 +15,10 @@ import os
 import operator
 from harmoni_common_lib.constants import *
 import running_or_failure as rf
-from harmoni_pytree.subtrees import visual_bg as v
-from harmoni_pytree.subtrees import interaction_bg as i 
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.subtrees.redundant import visual_bg as v
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.subtrees.redundant import interaction_bg as i 
 from harmoni_pytree.subtrees import mainactivity as m 
-from harmoni_pytree.subtrees import therapist as t 
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.subtrees.redundant import therapist as t 
 
 ##############################################################################
 # Classes

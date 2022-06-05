@@ -21,16 +21,15 @@ import py_trees.console
 class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
 
     def __init__(self, name = "DeepSpeechToTextServicePytree"):
-        # @brief Constructor for initializing blackboard and their keys
-        #
-        # @param name Name of the pytree
-        # 
-        # @param test_mode The mode of running the leaf. If set to true, 
-        # blackboard keys are given WRITE access for initialization with a value. 
-        #
-        # @param test_input The input to the blackboard keys for testing the leaf. If None,
-        # then deafult value is given to the blackboard keys which will be used as test input.     
-        
+        """Constructor for initializing blackboard and their keys
+
+        Args:
+            name (_type_): Name of the pytree
+            test_mode (bool, optional): The mode of running the leaf. If set to true, 
+            blackboard keys are given WRITE access for initialization with a value. Defaults to False.
+            test_input (_type_, optional): The input to the blackboard keys for testing the leaf. If None,
+            then deafult value is given to the blackboard keys which will be used as test input. Defaults to None.
+        """
         # Attribute initialization
         self.name = name
         self.service_client_stt = None
@@ -53,11 +52,9 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
-        # @brief Setting up of action client used for sending goals to the action server. Needs
-        # to called manually
-        #
-        # @param **additional_parameters Not used yet
-        
+        """Setting up of action client used for sending goals to the action server. Needs
+            to called manually.
+        """
          # initializing the action client used for sending goals to the harmoni action server
         self.service_client_stt = HarmoniActionClient(self.name)
         
@@ -73,13 +70,17 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
-        # @brief Does nothing relating to behaviour trees. This runs the first time your behaviour is ticked and anytime the
-        # status is not RUNNING thereafter.        
+        """Method that is called before starting the ticks.
+        """
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-        # @brief This is called every time the behaviour tree is ticked. Sending of request to the action server is done here.
-        # further status of the goal is updated here.
+        """This is called every time the behaviour tree is ticked. Sending of request to the action server is done here.
+        Further status of the goal is updated here.
+
+        Returns:
+            py_trees.common.Status: Status of the task 
+        """
         if self.send_request:
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
@@ -134,8 +135,11 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         return new_status
         
     def terminate(self, new_status):
-        # @brief This function is called whenever the behaviour switches to a non-running state(SUCCESS or FAILURE or ....).
-        # @param new_status The function is called with this parameter having the status of the behavior tree 
+        """This function is called whenever the behaviour switches to a non-running state(SUCCESS or FAILURE or ....).
+
+        Args:
+            new_status (py_trees.common.Status): The function is called with this parameter having the status of the behavior tree
+        """
         new_state = self.service_client_stt.get_state()
         print("terminate : ",new_state)
         if new_status == py_trees.common.Status.INVALID:
@@ -153,13 +157,12 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
-        # @brief This function is called when the action client receives a reult of the goal sent. Update 
-        # of client_result takes place here which is used for updating blackboard key
-        #
-        # @param result Contains the result of the goal sent by the client from harmoni action server
-        #
+        """This function is called when the action client receives a reult of the goal sent. Update 
+        of client_result takes place here which is used for updating blackboard key
 
-        """ Recieve and store result with timestamp """
+        Args:
+            result (dict): Contains the result of the goal sent by the client from harmoni action server
+        """
         self.logger.debug("The result of the request has been received")
         self.logger.debug(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
@@ -169,9 +172,10 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         return
 
     def _feedback_callback(self, feedback):
-        # @brief This function is called by action client when it receives feedback from the action server
-        # @param feeedback Contains the feedback sent by the harmoni action server.
-        """ Feedback is currently just logged """
+        """This function is called by action client when it receives feedback from the action server
+        Args:
+            feedback (dict): Contains the feedback sent by the harmoni action server.
+        """
         self.logger.debug("The feedback recieved is %s." % feedback)
         self.server_state = feedback["state"]
         return

@@ -25,6 +25,15 @@ from harmoni_pytree.leaves.facial_exp_service import FacialExpServicePytree
 
 
 def description(root):
+    """Function that returns a string having description 
+    of the subtree defined in this script
+
+    Args:
+        root (py_trees.behaviour.Behaviour): 
+
+    Returns:
+        str: string containing the description of the subtree
+    """
     content = "\n\n"
     content += "\n"
     content += "Tree having sequential children: Text-to-Speech and Speaker\n"
@@ -44,6 +53,11 @@ def description(root):
 
 
 def epilog():
+    """ Method for generating the text to display after the argument help 
+
+    Returns:
+        str: text that will be displayed after argument help
+    """
     if py_trees.console.has_colours:
         return console.cyan + "And his noodly appendage reached forth to tickle the blessed...\n" + console.reset
     else:
@@ -51,6 +65,11 @@ def epilog():
 
 
 def command_line_argument_parser():
+    """Method for constructing argument parser
+
+    Returns:
+        argparse.ArgumentParser: parser with required arguments added
+    """
     parser = argparse.ArgumentParser(description=description(create_root()),
                                      epilog=epilog(),
                                      formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -63,10 +82,21 @@ def command_line_argument_parser():
 
 
 def pre_tick_handler(behaviour_tree):
+    """Method which would be called before a single tick
+
+    Args:
+        behaviour_tree (py_trees.behaviour.Behaviour): The behaviour tree where this method is added
+    """
     print("\n--------- Run %s ---------\n" % behaviour_tree.count)
 
 
 def post_tick_handler(snapshot_visitor, behaviour_tree):
+    """Method which would be called after a single tick
+
+    Args:
+        snapshot_visitor (py_trees.visitors.SnapshotVisitor): The snapshot visitor for getting the visited leaves
+        behaviour_tree (py_trees.behaviour.Behaviour): The behaviour tree where this method is added 
+    """
     print(
         "\n" + py_trees.display.unicode_tree(
             root=behaviour_tree.root,
@@ -78,7 +108,14 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
 
 
 def create_root(name= "Face_Polly"):
+    """Method to create the composites of the leaves
 
+    Args:
+        name (str, optional): Name of the subtree. Defaults to "Face_Polly".
+
+    Returns:
+        py_trees.behaviour.Behaviour: Behaviour subtree
+    """
     tts = AWSTtsServicePytree("TTSactivity")
     speaker = SpeakerServicePytree("SpeakerActivity")
     face = FacialExpServicePytree("FaceActivity")

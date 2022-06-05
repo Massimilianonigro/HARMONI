@@ -13,9 +13,9 @@ import py_trees.console as console
 import os
 from harmoni_common_lib.constants import *
 from harmoni_pytree.leaves.yolo_service import ImageAIYoloServicePytree
-from harmoni_pytree.subtrees import session as s
-from harmoni_pytree.subtrees import reset as r
-from harmoni_pytree.subtrees import on_modules as o 
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.subtrees.redundant import session as s
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.subtrees.redundant import reset as r
+from harmoni_core.harmoni_pytree.src.harmoni_pytree.subtrees.redundant import on_modules as o 
 
 ##############################################################################
 # Classes
