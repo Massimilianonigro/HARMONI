@@ -16,4 +16,6 @@ After making a composite of leaves, there are other things you can add to the be
 
 As a conclusion, in order to make a comple behaviour tree, the relevant leaves ae required to be defined, and then progressively composites are required to be applied for defining the decision making process. Optionally, post_tick method, pre_tick method and snapshot visiter can be used for added functionality.  
 
-For detailed documentation click [here](https://py-trees.readthedocs.io/en/devel/composites.html). 
+For detailed documentation on composites click [here](https://py-trees.readthedocs.io/en/devel/composites.html). 
+## How to run subtrees?
+To run the subtrees, the esy way is to make a launch file which shall include all the nodes(or other launch files for running them) whose service, the subtree under concern requires. The launch should also run that subtree file. Generally the process of ticking takes place in the main of subtree file. An example of launch file can be found [here](../../../launch/subtrees/root.launch).
