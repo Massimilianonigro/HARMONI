@@ -145,7 +145,7 @@ class GestureService(HarmoniServiceManager):
             else:
                 gesture_data = data
             if gesture_data:
-                if gesture_data!="null":
+                if gesture_data!="null" and gesture_data!="":
                     self.parse_gesture_misty(gesture_data)
                     while not self.gesture_done:
                         self.state = State.REQUEST

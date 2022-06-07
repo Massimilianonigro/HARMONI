@@ -1,8 +1,10 @@
 pytree:
   default_param:
-    interaction: "meditation2" #or meditation
-    user_name: "Gail"
-    session: "session2"
-    researcher_name: "Micol"
+    interaction: "ppi" #or meditation
+    user_name: "Jen"
+    session: "session1"
+    researcher_name: "Minja"
     scene: 0
 
+
+    

@@ -923,7 +923,7 @@
                         "back_channel"    : ""
                     }, 
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>. Continue to visualise your loved one as you breathe.  </p> <p><break time='2s'/> Imagine that you are extending the golden light from your heart to your loved one, and that the golden light is easing his or her suffering.</p> <p><break time='2s'/> Extend this light out to them during your exhalation, with the strong heartfelt wish that they be free from his or her suffering. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Continue to visualise your loved one as you breathe.  </p> <p><break time='2s'/> Imagine that you are extending the golden light from your heart to your loved one, and that the golden light is easing his or her suffering.</p> <p><break time='2s'/> Extend this light out to them during your exhalation, with the strong heartfelt wish that they be free from his or her suffering. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -972,7 +972,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'><p><break time='2s'/> Silently recite to yourself</p> <p><break time='2s'/> May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness.</p> <p> <break time='2s'/>May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness. </p><break time='50s'/> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'><p><break time='2s'/> Silently recite to yourself</p> <p><break time='2s'/> May I be free from this suffering.</p> <p> <break time='2s'/>May I have joy and happiness.</p><break time='50s'/> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -993,7 +993,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now visualise someone you neither like nor dislike—someone you may see in your everyday life, such as a colleague or classmate with whom you are not familiar, a bus driver, or a stranger you pass on the street. [5 seconds] </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p>Now visualise someone you neither like nor dislike—someone you may see in your everyday life, such as a colleague or classmate with whom you are not familiar, a bus driver, or a stranger you pass on the street. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",
@@ -1021,7 +1021,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> See if this wish can be as strong as the wish for your own or a loved one’s suffering to be relieved. </p> <p>Silently recite to him or her. <break time='2s'/></p> <p><break time='2s'/>May you be free from this suffering. </p> <p><break time='2s'/> May you have joy and happiness.</p> <p><break time='2s'/> May you be free from this suffering.</p> <p> <break time='2s'/>May you have joy and happiness. </p> </prosody>",
+                        "utterance"     : "<prosody rate='slow' volume='soft'> <p> See if this wish can be as strong as the wish for your own or a loved one’s suffering to be relieved. </p> <p>Silently recite to him or her. <break time='2s'/></p>  <p><break time='2s'/> May you be free from this suffering.</p> <p> <break time='2s'/>May you have joy and happiness. </p> </prosody>",
                         "face"          : "null",
                         "gesture"       : "",
                         "sound"         : "",

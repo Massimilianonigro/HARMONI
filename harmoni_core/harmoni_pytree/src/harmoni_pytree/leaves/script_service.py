@@ -23,6 +23,8 @@ class ScriptService(py_trees.behaviour.Behaviour):
         self.blackboard_scene.register_key(key="gesture", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/max_number_scene", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_counter", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance_counter", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance_length", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_end", access=py_trees.common.Access.READ)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
@@ -39,13 +41,16 @@ class ScriptService(py_trees.behaviour.Behaviour):
             self.context = json.load(read_file)
         self.blackboard_scene.scene.max_number_scene= len(self.context[self.session])
         self.logger.debug("  %s [ScriptService::setup()]" % self.name)
+        self.blackboard_bot.result = self.context[self.session][0]["utterance"][0]
+        self.blackboard_scene.scene.utterance_length = len(self.context[self.session][0]["utterance"])
 
     def initialise(self):
         self.logger.debug("  %s [ScriptService::initialise()]" % self.name)
 
     def update(self):
         self.logger.debug("  %s [ScriptService::update()]" % self.name)
-        utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
+        self.blackboard_scene.scene.utterance_length = len(self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"])
+        utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"][self.blackboard_scene.scene.utterance_counter]
         gesture = self.context[self.session][self.blackboard_scene.scene.scene_counter]["gesture"]
         username = "USERNAME" 
         researcher = "RESEARCHERNAME"

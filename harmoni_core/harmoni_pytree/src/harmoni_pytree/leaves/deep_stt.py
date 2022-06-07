@@ -85,6 +85,7 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         if self.send_request:
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
+            rospy.sleep(2)
             self.service_client_stt.send_goal(
                 action_goal = ActionType["REQUEST"].value,
                 optional_data="",

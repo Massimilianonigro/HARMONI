@@ -74,7 +74,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-
+        
         if self.send_request:
             self.send_request = False
             self.data = self.blackboard_scene.face_exp

@@ -46,18 +46,19 @@ class BackchannelService(py_trees.behaviour.Behaviour):
         gesture = self.context[self.session][self.blackboard_scene.scene.scene_counter]["back_channel"]
         rospy.sleep(1)
         if self.blackboard_scene.scene.scene_counter == 0:
-            self.blackboard_bot.result = {
-                                                            "message":   utterance
-                                        }
-            self.blackboard_scene.gesture = gesture
+                self.blackboard_bot.result = {
+                                                                "message":   utterance
+                                            }
+                self.blackboard_scene.gesture = gesture
         elif self.blackboard_scene.scene.scene_end == "end":
             return py_trees.common.Status.FAILURE
-        
+        elif self.blackboard_scene.scene.scene_end == "call_researcher":
+            return py_trees.common.Status.FAILURE
         else:
-            self.blackboard_bot.result = {
-                                                            "message":  utterance
-                                        }
-            self.blackboard_scene.gesture = gesture
+                self.blackboard_bot.result = {
+                                                                "message":  utterance
+                                            }
+                self.blackboard_scene.gesture = gesture
         return py_trees.common.Status.SUCCESS
 
     def terminate(self, new_status):

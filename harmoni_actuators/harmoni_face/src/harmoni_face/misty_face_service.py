@@ -47,7 +47,6 @@ class EyesService(HarmoniServiceManager):
         [valid_face_expression, visemes] = self.get_face_data(data)
         try:
             self.state = State.REQUEST
-
             if visemes != []:
                 viseme_ids = list(map(lambda b: b["id"], visemes))
                 viseme_times = list(map(lambda b: b["start"], visemes))
@@ -228,7 +227,7 @@ class MouthService(HarmoniServiceManager):
         [valid_face_expression, visemes] = self.get_face_data(data)
         try:
             self.state = State.REQUEST
-
+            rospy.sleep(2)
             if visemes != []:
                 viseme_ids = list(map(lambda b: b["id"], visemes))
                 viseme_times = list(map(lambda b: b["start"], visemes))
@@ -344,41 +343,43 @@ class MouthService(HarmoniServiceManager):
         viseme_set = []
         facial_expression = []
         sentence = []
-        for b in behavior_data:
-            if "id" in b.keys():
-                if b["id"] in self.visemes:
-                    viseme_set.append(b)
-                if b["id"] in self.face_expression_names:
-                    facial_expression.append(b)
-            if "character" in b.keys():
-                sentence.append(b["value"])
-        # viseme = list(filter(lambda b: b["id"] in self.visemes, data))
-
-        # facial_expression = list(filter(lambda b: b["id"] in self.face_expression_names, data))
-        rospy.loginfo("These facial expressions include %s" % facial_expression)
-
-        ordered_facial_data = list(
-            sorted(facial_expression, key=lambda face: face["start"])
-        )
-
         validated_face_expr = []
-        for fexp in ordered_facial_data:
-            validated_face_expr.append(self.face_expression[fexp["id"]])
+        if len(behavior_data)!=0:
+            for b in behavior_data:
+                if "id" in b.keys():
+                    if b["id"] in self.visemes:
+                        viseme_set.append(b)
+                    if b["id"] in self.face_expression_names:
+                        facial_expression.append(b)
+                if "character" in b.keys():
+                    sentence.append(b["value"])
+            # viseme = list(filter(lambda b: b["id"] in self.visemes, data))
 
-        for i in range(0, len(viseme_set) - 1):
-            viseme_set[i]["duration"] = (
-                viseme_set[i + 1]["start"] - viseme_set[i]["start"]
+            # facial_expression = list(filter(lambda b: b["id"] in self.face_expression_names, data))
+            rospy.loginfo("These facial expressions include %s" % facial_expression)
+
+            ordered_facial_data = list(
+                sorted(facial_expression, key=lambda face: face["start"])
             )
 
-        viseme_set[-1]["duration"] = self.min_duration_viseme
+            
+            for fexp in ordered_facial_data:
+                validated_face_expr.append(self.face_expression[fexp["id"]])
 
-        viseme_behaviors = list(
-            filter(lambda b: b["duration"] >= self.min_duration_viseme, viseme_set)
-        )
-        ordered_visemes = list(sorted(viseme_behaviors, key=lambda b: b["start"]))
-        rospy.loginfo("The validated facial expressions are %s" % validated_face_expr)
-        rospy.loginfo("The validated visemes are %s" % viseme_set)
-        print("Finished getting face data for sentence:", sentence)
+            for i in range(0, len(viseme_set) - 1):
+                viseme_set[i]["duration"] = (
+                    viseme_set[i + 1]["start"] - viseme_set[i]["start"]
+                )
+
+            viseme_set[-1]["duration"] = self.min_duration_viseme
+
+            viseme_behaviors = list(
+                filter(lambda b: b["duration"] >= self.min_duration_viseme, viseme_set)
+            )
+            ordered_visemes = list(sorted(viseme_behaviors, key=lambda b: b["start"]))
+            rospy.loginfo("The validated facial expressions are %s" % validated_face_expr)
+            rospy.loginfo("The validated visemes are %s" % viseme_set)
+            print("Finished getting face data for sentence:", sentence)
         return (validated_face_expr, viseme_set)
 
 
