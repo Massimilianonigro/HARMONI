@@ -69,7 +69,6 @@ class TestDeepSpeech_Common(unittest.TestCase):
             data = wf.readframes(chunk_size)
             self.audio_pub.publish(data)
             index = index+chunk_size
-            time.sleep(0.2)
 
         rospy.loginfo(
             f"TestDeepSpeech: audio subscribed to by #{self.output_sub.get_num_connections()} connections."

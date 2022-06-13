@@ -62,7 +62,6 @@ class TestMiniBotPytree(unittest.TestCase):
         try:
             for unused_i in range(0, 30):
                 self.root.tick_once()
-                time.sleep(1)
                 print("Tick number: ", unused_i)
                 print("htg: ", self.blackboard_scene)
                 print("htg: ", self.blackboard_stt)

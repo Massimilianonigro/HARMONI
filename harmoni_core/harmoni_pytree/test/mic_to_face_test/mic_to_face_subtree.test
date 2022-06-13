@@ -4,7 +4,7 @@
         <arg name="format" value = "wave"/>
         <arg name="sample_rate" value="22050"/>
     </include>
-    
+
     <include file="$(find harmoni_stt)/launch/stt_deepspeech_service.launch"></include>
 
     <include file="$(find harmoni_bot)/launch/bot_service.launch"></include>

@@ -46,7 +46,23 @@ What's more? You can also render the behaviour tree as a graph for visualization
 ```bash
 py_trees.display.render_dot_tree(arg)
 ```
-where `arg` is the instance of `py_trees.behaviour.Behaviour`(basically the subtree) that you would like to render.   
+where `arg` is the instance of `py_trees.behaviour.Behaviour`(basically the subtree) that you would like to render. The output can be generated as `*.png`, `*.dot` or `*.svg`. Below is an example of a parallel composite:  
+
+![Demo parallel composite](./images/demo_parallel.png)
+
+The composite used for creating the above tree is as follows:
+```python
+def create_root():
+    children = []
+    for idx, action in enumerate(["Action 1", "Action 2", "Action 3"]):
+        children.append(py_trees.behaviours.Count(name=action,
+                                                      fail_until=1,
+                                                      running_until=2,
+                                                      success_until=10))
+    root = py_trees.composites.Parallel(name="demo_parallel")
+    root.add_children(children)
+    return root
+```
 
 As a conclusion, in order to make a comple behaviour tree, the relevant leaves ae required to be defined, and then progressively composites are required to be applied for defining the decision making process. Optionally, post_tick method, pre_tick method and snapshot visiter can be used for added functionality.  
 
