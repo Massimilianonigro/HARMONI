@@ -13,7 +13,7 @@ import time
 
 #py_tree
 import py_trees
-from harmoni_pytree.subtrees.speaker_and_tts import *
+from harmoni_pytree.subtrees.mic_and_stt import *
 
 
 class TestPollyPyTree(unittest.TestCase):
@@ -21,13 +21,6 @@ class TestPollyPyTree(unittest.TestCase):
     def setUp(self):
 
         rospy.init_node("test_speaker_and_tts", log_level=rospy.INFO)
-        self.data = rospy.get_param(
-            "test_polly_input"
-        ) 
-        self.wav_loc = rospy.get_param(
-            "test_speaker_input"
-        ) 
-        self.data = ast.literal_eval(self.data)
         self.instance_id = rospy.get_param("instance_id")
         
         # NOTE currently no feedback, status, or result is received.
@@ -37,12 +30,7 @@ class TestPollyPyTree(unittest.TestCase):
         # blackboard for test-to-speech data, which is updated after result is fetched
         self.blackboard_tts = py_trees.blackboard.Client(name="blackboard_tts", namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_tts.result = self.wav_loc
 
-        # blackboard to store data to senf to the action server
-        self.blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
-        self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_bot.result = self.data
 
         self.root = create_root()
         self.tree = behaviour_tree = py_trees.trees.BehaviourTree(self.root)
@@ -53,9 +41,9 @@ class TestPollyPyTree(unittest.TestCase):
 
    
     def test_leaf_pytree_tts(self):
-        rospy.loginfo(f"The input data is {self.data}")
+        rospy.loginfo(f"Starting to tick")
         try:
-            for unused_i in range(0, 4):
+            for unused_i in range(0, 10):
                 self.root.tick_once()
                 time.sleep(1)
                 print("Tick number: ", unused_i)

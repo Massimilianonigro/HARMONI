@@ -37,12 +37,6 @@ class LipSyncServicePytree(py_trees.behaviour.Behaviour):
 
     def setup(self,**additional_parameters):
         self.logger.debug("Begin %s.setup()" % (self.__class__.__name__))
-        """
-        for parameter in additional_parameters:
-            print(parameter, additional_parameters[parameter])  
-            if(parameter == ActuatorNameSpace.face.name):
-                self.mode = additional_parameters[parameter]        
-        """
         self.service_client_face = HarmoniActionClient(self.name)
         self.server_name = "face"
         

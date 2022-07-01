@@ -10,6 +10,11 @@ import time
 
 class Buttons(py_trees.behaviour.Behaviour):
     def __init__(self, name):
+        """Constructor for initializing blackboard and their keys
+
+        Args:
+            name (str): Name of the pytree
+        """
         self.name = name
         self.blackboards = []
         self.blackboard_buttons = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.buttons.name)
@@ -19,6 +24,10 @@ class Buttons(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self):
+        """Setting up of action client used for sending goals to the action server. Needs
+            to called manually.
+        """
+        
         self.wemos = serial.Serial("/dev/ttyUSB0",timeout=1)
         self.blackboard_buttons.result = "null"
         self.read_serial = []
@@ -27,10 +36,18 @@ class Buttons(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
+        """Method that is called before starting the ticks.
+        """
         self.blackboard_buttons.result = "null"
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
+        """This is called every time the behaviour tree is ticked. Sending of request to the action server is done here.
+        Further status of the goal is updated here.
+
+        Returns:
+            py_trees.common.Status: Status of the task 
+        """
         if self.start_time == None:
             self.start_time = time.time() #time.time() is the current time
             print("Timer started at: ", self.start_time)
@@ -70,6 +87,11 @@ class Buttons(py_trees.behaviour.Behaviour):
 
 
     def terminate(self, new_status):
+        """This function is called whenever the behaviour switches to a non-running state(SUCCESS or FAILURE or ....).
+
+        Args:
+            new_status (py_trees.common.Status): The function is called with this parameter having the status of the behavior tree
+        """
         self.start_time = None
         self.logger.debug("  %s [Foo::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
 

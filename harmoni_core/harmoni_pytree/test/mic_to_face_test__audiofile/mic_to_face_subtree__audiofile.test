@@ -22,6 +22,7 @@
 	</include>
     <node pkg="harmoni_face" type="face_service.py" name="harmoni_face_default" output="screen"/>
 
-    <node pkg="harmoni_pytree" type="mic_to_face.py" name="harmoni_pytree_default" output="screen"/>
-    
+    <param name="test_deepspeech_input" value="$(find harmoni_stt)/test_data/recordedFile_16k"/>
+    <test test-name="test_mic_to_face" pkg="harmoni_pytree" type="mic_to_face_test__audiofile.py"/>
+    <node pkg="harmoni_pytree" type="audio_publisher.py" name="deepspeech_audio_publisher" output="screen"/>
 </launch>

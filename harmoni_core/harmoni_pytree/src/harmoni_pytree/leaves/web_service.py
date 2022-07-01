@@ -24,10 +24,10 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         """Constructor for initializing blackboard and their keys
 
         Args:
-            name (_type_): Name of the pytree
+            name (str): Name of the pytree
             test_mode (bool, optional): The mode of running the leaf. If set to true, 
             blackboard keys are given WRITE access for initialization with a value. Defaults to False.
-            test_input (_type_, optional): The input to the blackboard keys for testing the leaf. If None,
+            test_input (list, optional): The input to the blackboard keys for testing the leaf. If None,
             then deafult value is given to the blackboard keys which will be used as test input. Defaults to None.
         """
         # Attribute initialization        

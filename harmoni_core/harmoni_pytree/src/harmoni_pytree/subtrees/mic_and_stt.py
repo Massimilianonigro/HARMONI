@@ -5,20 +5,14 @@
 
 import argparse
 import functools
-from py_trees.behaviours import dummy
-from py_trees.idioms import either_or
 import py_trees
 import time
 import rospy
-from random import randint
-import subprocess
-import operator
 import py_trees.console as console
-import running_or_failure as rf
 
 from harmoni_common_lib.constants import *
 
-from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
+from harmoni_pytree.leaves.deep_stt import DeepSpeechToTextServicePytree
 from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
 
 
@@ -32,7 +26,7 @@ def description(root):
     of the subtree defined in this script
 
     Args:
-        root (py_trees.behaviour.Behaviour): 
+        root (py_trees.behaviour.Behaviour): Root of the pytree 
 
     Returns:
         str: string containing the description of the subtree
@@ -120,7 +114,7 @@ def create_root(name= "MicAndSTT"):
         py_trees.behaviour.Behaviour: Behaviour subtree
     """
     microphone=MicrophoneServicePytree("MicrophoneMainActivity")
-    stt=SpeechToTextServicePytree("SpeechToTextMainActivity")
+    stt=DeepSpeechToTextServicePytree("DeepSpeechToTextMainActivity")
 
     root = py_trees.composites.Sequence(name="MicAndSTT")
     root.add_children([microphone, stt])

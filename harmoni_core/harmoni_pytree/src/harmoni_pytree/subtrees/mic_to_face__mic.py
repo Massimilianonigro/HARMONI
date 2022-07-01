@@ -32,7 +32,7 @@ def description(root):
     of the subtree defined in this script
 
     Args:
-        root (py_trees.behaviour.Behaviour): 
+        root (py_trees.behaviour.Behaviour): Root of the pytree
 
     Returns:
         str: string containing the description of the subtree
@@ -110,7 +110,7 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
     print(py_trees.display.unicode_blackboard())
 
 
-def create_root(name= "MicAndSTT"):
+def create_root(name= "MicToFace"):
     """Method to create the composites of the leaves
 
     Args:
@@ -119,7 +119,8 @@ def create_root(name= "MicAndSTT"):
     Returns:
         py_trees.behaviour.Behaviour: Behaviour subtree
     """
-    # microphone = MicrophoneServicePytree("MicrophoneMainActivity")
+    
+    microphone = MicrophoneServicePytree("MicrophoneMainActivity")
     deep_stt = DeepSpeechToTextServicePytree("SpeechToTextMainActivity")
     speaker = SpeakerServicePytree("SpeakerActivity")
     tts = AWSTtsServicePytree("TTSActivity")
@@ -130,7 +131,7 @@ def create_root(name= "MicAndSTT"):
 
 
     root = py_trees.composites.Sequence(name="mini_bot")
-    root.add_children([deep_stt, chatbot_analyzer, tts, face_speaker])
+    root.add_children([microphone, deep_stt, chatbot_analyzer, tts, face_speaker])
 
     return root
 

@@ -19,10 +19,10 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
         """Constructor for initializing blackboard and their keys
 
         Args:
-            name (_type_): Name of the pytree
+            name (str): Name of the pytree
             test_mode (bool, optional): The mode of running the leaf. If set to true, 
             blackboard keys are given WRITE access for initialization with a value. Defaults to False.
-            test_input (_type_, optional): The input to the blackboard keys for testing the leaf. If None,
+            test_input (str, optional): The input to the blackboard keys for testing the leaf. If None,
             then deafult value is given to the blackboard keys which will be used as test input. Defaults to None.
         """
 
@@ -95,7 +95,6 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
             self.send_request = False
             if self.blackboard_stt.result != "null":
                 self.logger.debug(f"Sending goal to {self.server_name}")
-                
                 # the goal to send is of type REQUEST
                 self.service_client_lex.send_goal(
                     action_goal = ActionType["REQUEST"].value,
@@ -123,7 +122,6 @@ class AWSLexAnalyzerServicePytree(py_trees.behaviour.Behaviour):
                     
                     #updating the value of the key of backboard
                     self.blackboard_bot.result = eval(self.client_result)
-                    print(self.blackboard_bot.result)
                     
                     # setting the client_result to None again before fetching new value
                     self.client_result = None

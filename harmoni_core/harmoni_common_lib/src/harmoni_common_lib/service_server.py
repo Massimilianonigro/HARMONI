@@ -6,6 +6,7 @@ import roslib
 from harmoni_common_lib.constants import State, ActionType
 from harmoni_common_lib.action_server import HarmoniActionServer
 import threading
+import time
 
 
 class HarmoniServiceServer(HarmoniActionServer, object):
@@ -179,14 +180,17 @@ class HarmoniServiceServer(HarmoniActionServer, object):
                 target=self.service_manager.request, args=(goal.optional_data,)
             )
             t.start()
-
+            # print("htg_sensei")
             while not self.service_manager.response_received:
                 if self.get_preemption_status():
                     preempted = True
                 pr.sleep()
-
+            
+            t.join()
+                        
             if not hasattr(self.service_manager, "result_msg"):
                 self.service_manager.result_msg = ""
+            
 
             if preempted or self.service_manager.state == State.FAILED:
                 self.send_result(

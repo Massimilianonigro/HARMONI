@@ -25,10 +25,10 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         """Constructor for initializing blackboard and their keys
 
         Args:
-            name (_type_): Name of the pytree
+            name (str): Name of the pytree
             test_mode (bool, optional): The mode of running the leaf. If set to true, 
             blackboard keys are given WRITE access for initialization with a value. Defaults to False.
-            test_input (_type_, optional): The input to the blackboard keys for testing the leaf. If None,
+            test_input (dict, optional): The input to the blackboard keys for testing the leaf. If None,
             then deafult value is given to the blackboard keys which will be used as test input. Defaults to None.
         """
 
@@ -52,7 +52,7 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
 
         # blackboard to store data to send to the action server(contains result from lex chatbot)
-        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.analyzer.name)
         
         # initialization of the stt keys based in test_mode and test_input values 
         if test_mode:

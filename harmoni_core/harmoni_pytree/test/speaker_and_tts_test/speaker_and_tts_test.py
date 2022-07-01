@@ -40,7 +40,7 @@ class TestPollyPyTree(unittest.TestCase):
         self.blackboard_tts.result = self.wav_loc
 
         # blackboard to store data to senf to the action server
-        self.blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.analyzer.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_bot.result = self.data
 

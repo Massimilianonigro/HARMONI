@@ -42,33 +42,30 @@ class TestDeepSpeech_Common(unittest.TestCase):
             self.text_received_callback,
         )
 
-        # startup stt node
-        self.server = "stt_default"
-        self.client = HarmoniActionClient(self.server)
-        self.client.setup_client(
-            self.server, self._result_callback, self._feedback_callback, wait=True
-        )
-        rospy.loginfo("TestDeepSpeech: Turning ON stt server")
-        self.client.send_goal(
-            action_goal=ActionType.ON, optional_data="Setup", wait=False
-        )
-        rospy.loginfo("TestDeepSpeech: Started up. waiting for DeepSpeech startup")
-
-        time.sleep(5)
-
-        rospy.loginfo("TestDeepSpeech: publishing audio")
+        self.audio_pub_signal = False
+        rospy.Subscriber("audio_pub_signal", String, self.audio_signal_callback)
 
         chunk_size = 1024
         wf = wave.open(self.test_file)
         # read data (based on the chunk size)
         index = 0
         audio_length = wf.getnframes()
-        print("htg: ", "Starting to publish")
-        while index+chunk_size < audio_length:
-            print("htg")
+        max_repeat_count = 10
+        repeat_count = 0
+        while True:# index+chunk_size < audio_length:
+            if not self.audio_pub_signal:
+                continue
+            if repeat_count >= max_repeat_count:
+                break
             data = wf.readframes(chunk_size)
             self.audio_pub.publish(data)
             index = index+chunk_size
+            time.sleep(0.2)
+            if index+chunk_size > audio_length:
+                repeat_count += 1
+                index = 0
+                wf = wave.open(self.test_file)
+                audio_length = wf.getnframes()
 
         rospy.loginfo(
             f"TestDeepSpeech: audio subscribed to by #{self.output_sub.get_num_connections()} connections."
@@ -93,7 +90,10 @@ class TestDeepSpeech_Common(unittest.TestCase):
     def _detecting_callback(self, data):
         rospy.loginfo(f"TestDeepSpeech: Detecting: {data}")
         self.result = True
-
+    
+    def audio_signal_callback(self, data):
+        rospy.loginfo(f"Received audio publishing signal")
+        self.audio_pub_signal = True
 
 def main():
     # TODO combine validity tests into test suite so that setup doesn't have to run over and over.
@@ -105,5 +105,4 @@ def main():
 
 
 if __name__ == "__main__":
-    
     main()

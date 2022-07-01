@@ -7,6 +7,7 @@ import time
 
 import py_trees.console as console
 
+
 ##############################################################################
 # Classes
 ##############################################################################
@@ -71,7 +72,6 @@ def main():
     args = command_line_argument_parser().parse_args()
     print(description())
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    print("htg")
     root = create_root()
 
     ####################

@@ -24,11 +24,7 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         """Constructor for initializing blackboard and their keys
 
         Args:
-            name (_type_): Name of the pytree
-            test_mode (bool, optional): The mode of running the leaf. If set to true, 
-            blackboard keys are given WRITE access for initialization with a value. Defaults to False.
-            test_input (_type_, optional): The input to the blackboard keys for testing the leaf. If None,
-            then deafult value is given to the blackboard keys which will be used as test input. Defaults to None.
+            name (str): Name of the pytree
         """
         # Attribute initialization
         self.name = name
@@ -84,11 +80,11 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         if self.send_request:
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
-            print("htg: ", "deep speech sending goal")
             
             # the goal to send is of type ON
+            # changed ActionType from "ON" to "REQUEST"
             self.service_client_stt.send_goal(
-                action_goal = ActionType["ON"].value,
+                action_goal = ActionType["REQUEST"].value,
                 optional_data="",
                 wait=False,
             )
@@ -106,7 +102,6 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.RUNNING
             elif new_state == GoalStatus.SUCCEEDED:
                 if self.client_result is not None:
-                    print("htg: ", "changing stt blackboard")
                     
                     # updating the value of blackboard key to store the result of harmoni action server
                     self.blackboard_stt.result = self.client_result
@@ -128,7 +123,6 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
             else:
                 # raising exception in case of failure
                 new_status = py_trees.common.Status.FAILURE
-                print("htg: ", )
                 raise
         
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
@@ -168,7 +162,6 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
             f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
         self.client_result = result["message"]
-        print("htg: ", result)
         return
 
     def _feedback_callback(self, feedback):

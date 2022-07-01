@@ -145,7 +145,6 @@ class MicrophoneService(HarmoniServiceManager):
         # WAVE_OUTPUT_FILENAME = "recordedFile.wav"
         while not rospy.is_shutdown():
             if self.state == State.INIT:
-                print("htg: ", "State.INIT")
                 r.sleep()
             elif self.state == State.START:
                 latest_audio_data = self.stream.read(
@@ -155,13 +154,11 @@ class MicrophoneService(HarmoniServiceManager):
                 raw_audio_bitstream = np.frombuffer(latest_audio_data, np.uint8)
                 raw_audio = raw_audio_bitstream.tolist()
                 self.raw_mic_pub.publish(raw_audio)  # Publishing raw AudioData
-                print("htg: ", "State.START")
             elif (
                 self.state == State.SUCCESS
                 or self.state == State.FAILED
                 or self.state == State.PAUSE
             ):
-                print("htg: ", "State.BREAK")
                 break
             r.sleep()
         # waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')

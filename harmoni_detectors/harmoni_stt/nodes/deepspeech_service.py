@@ -12,7 +12,6 @@ from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpa
 from harmoni_stt.deepspeech_client import DeepSpeechClient
 from audio_common_msgs.msg import AudioData
 from std_msgs.msg import String
-from std_msgs.msg import Int32
 import numpy as np
 
 
@@ -31,7 +30,9 @@ class SpeechToTextService(HarmoniServiceManager):
         self.beam_width = param["beam_width"]
         self.t_wait = param["t_wait"]
         self.subscriber_id = param["subscriber_id"]
-
+        self.response_received = False
+        self.result_msg = ''
+        self.stt_response = ''
         self.service_id = hf.get_child_id(self.name)
 
         self.ds_client = DeepSpeechClient(
@@ -53,13 +54,9 @@ class SpeechToTextService(HarmoniServiceManager):
         self.text_pub = rospy.Publisher(
             DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
         )
-        self.idle_pub = rospy.Publisher(
-            "deepspeech/idle_state", Int32, queue_size=10
-        )
 
         self.is_transcribe_once = False
         self.state = State.INIT
-        self.idle_count = 0
         return
 
     def start(self):
@@ -113,31 +110,37 @@ class SpeechToTextService(HarmoniServiceManager):
         Final text, as determined by the DeepSpeech client, is published.
         """
         text = self._transcribe_chunk(data)
-        if text == "":
-            self.idle_count += 1
-            idle_pub.publish(idle_count)
-        else:
-            self.idle_count = 0
         if text:
             text = self.ds_client.finish_stream()
+            self.stt_response = text
             self.text_pub.publish(text)
             if is_transcribe_once:
+                self.response_received = True
                 self.stop()
             else:
                 self.ds_client.start_stream()
         return
 
-    def request(self, data):
+    def request(self, data, **kwargs):
         """
         Request to DeepSpeech client: requests to transcribe one instance of speech. Text is considered final based on
         the duration of the `t_wait` parameter.
         """
         rospy.loginfo("Start the %s request" % self.name)
+
         self.state = State.START
+        self.response_received = False
         if not self.ds_client.is_streaming:
             self.ds_client.start_stream()
         self.is_transcribe_once = True
-        return
+        r = rospy.Rate(1)
+        while not self.response_received:
+            r.sleep()
+        self.state = State.SUCCESS
+        self.result_msg = self.stt_response
+        self.response_received = True
+
+        return {"response": self.state, "message": self.result_msg}
 
     def _transcribe_chunk(self, data):
         """Passes one chunk of audio to the DeepSpeech client"""

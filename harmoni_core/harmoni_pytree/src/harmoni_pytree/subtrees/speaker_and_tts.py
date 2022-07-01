@@ -27,7 +27,7 @@ def description(root):
     of the subtree defined in this script
 
     Args:
-        root (py_trees.behaviour.Behaviour): 
+        root (py_trees.behaviour.Behaviour): Root of the pytree
 
     Returns:
         str: string containing the description of the subtree

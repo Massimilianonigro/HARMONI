@@ -5,6 +5,8 @@
         <arg name="sample_rate" value="22050"/>
     </include>
 
+    <include file="$(find harmoni_microphone)/launch/microphone_service.launch"></include>
+    
     <include file="$(find harmoni_stt)/launch/stt_deepspeech_service.launch"></include>
 
     <include file="$(find harmoni_bot)/launch/bot_service.launch"></include>
@@ -23,7 +25,5 @@
     <node pkg="harmoni_face" type="face_service.py" name="harmoni_face_default" output="screen"/>
 
     <param name="test_deepspeech_input" value="$(find harmoni_stt)/test_data/recordedFile_16k"/>
-    <test test-name="test_mic_to_face" pkg="harmoni_pytree" type="mic_to_face_test.py"/>
-    <node pkg="harmoni_pytree" type="audio_publisher.py" name="deepspeech_audio_publisher" output="screen"/>
-    
+    <test test-name="test_mic_to_face" pkg="harmoni_pytree" type="mic_to_face_test__mic.py"/>
 </launch>
