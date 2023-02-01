@@ -89,7 +89,7 @@ def main():
     try:
         rospy.init_node(service_name, log_level=rospy.DEBUG)
         params = rospy.get_param(service_name + "/" + instance_id + "_param/")
-        s = AWSLexService(service_id, params)
+        s = GoogleService(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
         service_server.start_sending_feedback()
         rospy.spin()

@@ -1,4 +1,4 @@
-# Configuration file for the microphone
+# Configuration file for the dialogue
 bot:
   micol_param:
     user_id: "micol_testing_1"
@@ -10,6 +10,13 @@ bot:
     bot_name: "QTRobot"
     bot_alias: "DemoBot"
     region_name: "eu-west-2"
+
+chat_gpt:
+  default_param:
+    user_id: "Micol"
+    bot_name: "QTRobot"
+    bot_alias: "DemoBot"
+
 
 google:
   default_param:
