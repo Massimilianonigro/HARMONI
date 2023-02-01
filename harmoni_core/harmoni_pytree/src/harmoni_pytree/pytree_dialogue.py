@@ -6,15 +6,9 @@
 
 import argparse
 import functools
-from py_trees.behaviours import dummy
 import py_trees.console as console
-from py_trees.idioms import either_or
 import py_trees
-import time
 import rospy
-from random import randint
-import subprocess
-import operator
 from harmoni_common_lib.constants import *
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
 from harmoni_pytree.leaves.script_service import ScriptService
@@ -28,8 +22,7 @@ from harmoni_pytree.leaves.check_stt_result import CheckSTTResult
 from harmoni_pytree.leaves.gesture_service import GestureServicePytree
 from harmoni_pytree.leaves.wait_results import WaitResults
 from harmoni_pytree.leaves.backchannel_service import BackchannelService
-from harmoni_common_lib.constants import ActuatorNameSpace, DialogueNameSpace, State
-import sys
+from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
 
 ##############################################################################
 # Classes
@@ -92,7 +85,8 @@ def create_root_dialogue_sensing():
     speaker = SpeakerServicePytree("SpeakerPyTreeTest")
     face = LipSyncServicePytree("FacePyTreeTest")
     microphone=MicrophoneServicePytree("MicrophoneMainActivity")
-    stt=DeepSpeechToTextServicePytree("SpeechToTextMainActivity")
+    #stt=DeepSpeechToTextServicePytree("SpeechToTextMainActivity")
+    stt=SpeechToTextServicePytree("SpeechToTextMainActivity")
     parall_speaker_face = py_trees.composites.Parallel("Playing")
     sequence_speaking.add_child(chatbot)
     sequence_speaking.add_child(tts)
