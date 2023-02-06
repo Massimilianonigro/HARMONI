@@ -13,6 +13,7 @@ class CheckSTTResult(py_trees.behaviour.Behaviour):
         self.scene = params['scene']
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.READ)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_end", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/max_number_scene", access=py_trees.common.Access.READ)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_counter", access=py_trees.common.Access.WRITE)
@@ -36,6 +37,7 @@ class CheckSTTResult(py_trees.behaviour.Behaviour):
             self.blackboard_scene.scene.scene_end = 'end'
         else:
             if self.blackboard_scene.scene.scene_counter < self.blackboard_scene.scene.max_number_scene -1:
+                #self.blackboard_scene.scene.utterance = self.blackboard_stt.result
                 if self.blackboard_scene.scene.scene_counter == 1:
                     confirmation = "yes"
                     #if confirmation in self.blackboard_stt.result: 

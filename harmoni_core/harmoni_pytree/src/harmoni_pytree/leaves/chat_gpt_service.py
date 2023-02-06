@@ -6,7 +6,7 @@ from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
 import harmoni_common_lib.helper_functions as hf
-from harmoni_bot.chat_gpt_service import ChatGPTService
+from harmoni_bot.chatgpt_service import ChatGPTService
 
 # Specific Imports
 from harmoni_common_lib.constants import ActionType, DialogueNameSpace
@@ -26,7 +26,7 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("utterance", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.READ)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
 
@@ -54,18 +54,20 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
             self.logger.debug(f"Sending goal to {self.server_name}")
             self.service_client_chatgpt.send_goal(
                 action_goal = ActionType["REQUEST"].value,
-                optional_data=self.blackboard_scene.utterance,
+                optional_data=self.blackboard_scene.scene.utterance,
                 wait=False,
             )
             self.logger.debug(f"Goal sent to {self.server_name}")
             new_status = py_trees.common.Status.RUNNING
         else:
+            rospy.loginfo("_================_______The client results is " +str(self.client_result))
             new_state = self.service_client_chatgpt.get_state()
             print("update : ", new_state)
             if new_state == GoalStatus.ACTIVE:
                 new_status = py_trees.common.Status.RUNNING
             elif new_state == GoalStatus.SUCCEEDED:
                 if self.client_result is not None:
+                    rospy.loginfo("________________________The client results is " +str(self.client_result))
                     self.blackboard_bot.result = eval(self.client_result)
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
@@ -122,13 +124,13 @@ def main():
     #command_line_argument_parser().parse_args()
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=PyTreeNameSpace.scene.name)
-    blackboardProva.register_key("utterance", access=py_trees.common.Access.WRITE)
-    blackboardProva.utterance = "domanda raccolta"
-    blackboardProva2 = py_trees.blackboard.Client(name="blackboardProva2", namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
-    blackboardProva2.register_key("result", access=py_trees.common.Access.READ)                        
-    print(blackboardProva)
-    print(blackboardProva2)
+    blackboardinput = py_trees.blackboard.Client(name="blackboardinput", namespace=PyTreeNameSpace.scene.name)
+    blackboardinput.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.WRITE)
+    blackboardinput.scene.utterance = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?"
+    blackboardoutput= py_trees.blackboard.Client(name="blackboardoutput", namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
+    blackboardoutput.register_key("result", access=py_trees.common.Access.READ)                        
+    print(blackboardinput)
+    print(blackboardoutput)
 
     rospy.init_node("bot_default", log_level=rospy.INFO)
     
@@ -137,9 +139,9 @@ def main():
     try:
         for unused_i in range(0, 10):
             chatGPTPyTree.tick_once()
-            time.sleep(0.5)
-            print(blackboardProva)
-            print(blackboardProva2)
+            time.sleep(1)
+            print(blackboardinput)
+            print(blackboardoutput)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")
