@@ -41,7 +41,7 @@ class ScriptService(py_trees.behaviour.Behaviour):
         with open(pattern_script_path, "r") as read_file:
             self.context = json.load(read_file)
         self.blackboard_scene.scene.max_number_scene= len(self.context[self.session])
-        self.blackboard_scene.scene.utterance= self.context[self.session][0]["utterance"]
+        self.blackboard_scene.scene.utterance = self.context[self.session][0]["utterance"]
         self.logger.debug("  %s [ScriptService::setup()]" % self.name)
 
     def initialise(self):
@@ -49,9 +49,10 @@ class ScriptService(py_trees.behaviour.Behaviour):
 
     def update(self):
         self.logger.debug("  %s [ScriptService::update()]" % self.name)
-
         if self.blackboard_scene.scene.scene_counter == "":
             utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
+        elif self.blackboard_scene.scene.scene_counter == 0:
+            utterance = self.context[self.session][0]["utterance"]
         else:
             utterance = self.blackboard_stt.result
         self.blackboard_scene.scene.utterance = utterance

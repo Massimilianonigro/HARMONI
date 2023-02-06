@@ -65,6 +65,8 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
 
     def update(self):    
         if self.send_request:
+            rospy.loginfo("-------------------THE MESSAGE RECEIVED IS ")
+            rospy.loginfo(self.blackboard_bot.result["message"])
             self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
             self.service_client_tts.send_goal(

@@ -61,7 +61,6 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
             self.logger.debug(f"Goal sent to {self.server_name}")
             new_status = py_trees.common.Status.RUNNING
         else:
-            rospy.loginfo("_================_______The client results is " +str(self.client_result))
             new_state = self.service_client_chatgpt.get_state()
             print("update : ", new_state)
             if new_state == GoalStatus.ACTIVE:
@@ -69,7 +68,10 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
             elif new_state == GoalStatus.SUCCEEDED:
                 if self.client_result is not None:
                     rospy.loginfo("________________________The client results is " +str(self.client_result))
-                    self.blackboard_bot.result = eval(self.client_result)
+                    self.blackboard_bot.result = self.client_result
+                    self.blackboard_bot.result  = {
+                                                            "message":   self.client_result
+                                        }
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
                 else:
