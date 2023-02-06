@@ -66,14 +66,18 @@ class ChatGPTService(HarmoniServiceManager):
             model="text-davinci-003",
             prompt=input_text,
             temperature=0.9,
-            max_tokens=150,
+            max_tokens=150,#150,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0.6,
             stop=[" Human:", " AI:"]
             )
+            rospy.loginfo("++++++++++++++++++++++++++++++++++++")
+            rospy.loginfo(gpt_response)
             rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
-            self.result_msg = gpt_response
+            response = gpt_response['choices'][0]['text']
+            ai_response = response.split("AI:")[-1]
+            self.result_msg = ai_response
             self.response_received = True
             self.state = State.SUCCESS
         except rospy.ServiceException:
@@ -96,7 +100,7 @@ def main():
         s = ChatGPTService(service_id, params)
         s.setup_chat_gpt()
         service_server = HarmoniServiceServer(service_id, s)
-        s.request("The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: I want to do a positive psychology exercise")
+        #s.request("The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: I want to do a positive psychology exercise")
         print(service_name)
         print("**********************************************************************************************")
         print(service_id)

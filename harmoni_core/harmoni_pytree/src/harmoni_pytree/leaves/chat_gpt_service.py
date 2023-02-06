@@ -51,6 +51,7 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
     def update(self):              
         if self.send_request:
             self.send_request = False
+            rospy.loginfo("The utterance is " + str(self.blackboard_scene.scene.utterance))
             self.logger.debug(f"Sending goal to {self.server_name}")
             self.service_client_chatgpt.send_goal(
                 action_goal = ActionType["REQUEST"].value,
@@ -120,32 +121,3 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.server_state = feedback["state"]
         return
 
-def main():
-    #command_line_argument_parser().parse_args()
-
-    py_trees.logging.level = py_trees.logging.Level.DEBUG
-    blackboardinput = py_trees.blackboard.Client(name="blackboardinput", namespace=PyTreeNameSpace.scene.name)
-    blackboardinput.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.WRITE)
-    blackboardinput.scene.utterance = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?"
-    blackboardoutput= py_trees.blackboard.Client(name="blackboardoutput", namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
-    blackboardoutput.register_key("result", access=py_trees.common.Access.READ)                        
-    print(blackboardinput)
-    print(blackboardoutput)
-
-    rospy.init_node("bot_default", log_level=rospy.INFO)
-    
-    chatGPTPyTree = ChatGPTServicePytree("ChatGPTServicePytreeTest")
-    chatGPTPyTree.setup()
-    try:
-        for unused_i in range(0, 10):
-            chatGPTPyTree.tick_once()
-            time.sleep(1)
-            print(blackboardinput)
-            print(blackboardoutput)
-        print("\n")
-    except KeyboardInterrupt:
-        print("Exception occurred")
-        pass
-
-if __name__ == "__main__":
-    main()
