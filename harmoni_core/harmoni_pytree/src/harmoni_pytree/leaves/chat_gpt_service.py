@@ -27,6 +27,7 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
 
@@ -48,46 +49,48 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
     def initialise(self):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
-    def update(self):              
-        if self.send_request:
-            self.send_request = False
-            rospy.loginfo("The utterance is " + str(self.blackboard_scene.scene.utterance))
-            self.logger.debug(f"Sending goal to {self.server_name}")
-            self.service_client_chatgpt.send_goal(
-                action_goal = ActionType["REQUEST"].value,
-                optional_data=self.blackboard_scene.scene.utterance,
-                wait=False,
-            )
-            self.logger.debug(f"Goal sent to {self.server_name}")
-            new_status = py_trees.common.Status.RUNNING
-        else:
-            new_state = self.service_client_chatgpt.get_state()
-            print("update : ", new_state)
-            if new_state == GoalStatus.ACTIVE:
-                new_status = py_trees.common.Status.RUNNING
-            elif new_state == GoalStatus.SUCCEEDED:
-                if self.client_result is not None:
-                    rospy.loginfo("________________________The client results is " +str(self.client_result))
-                    self.blackboard_bot.result = self.client_result
-                    self.blackboard_bot.result  = {
-                                                            "message":   self.client_result
-                                        }
-                    self.client_result = None
-                    new_status = py_trees.common.Status.SUCCESS
-                else:
-                    self.logger.debug(f"Waiting fot the result ({self.server_name})")
-                    new_status = py_trees.common.Status.RUNNING
-            elif new_state == GoalStatus.PENDING:
-                self.send_request = True
-                self.logger.debug(f"Cancelling goal to {self.server_name}")
-                self.service_client_chatgpt.cancel_all_goals()
-                self.client_result = None
-                self.logger.debug(f"Goal cancelled to {self.server_name}")
+    def update(self):   
+        if self.blackboard_scene.scene.nlp:           
+            if self.send_request:
+                self.send_request = False
+                rospy.loginfo("The utterance is " + str(self.blackboard_scene.scene.utterance))
+                self.logger.debug(f"Sending goal to {self.server_name}")
+                self.service_client_chatgpt.send_goal(
+                    action_goal = ActionType["REQUEST"].value,
+                    optional_data=self.blackboard_scene.scene.utterance,
+                    wait=False,
+                )
+                self.logger.debug(f"Goal sent to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
-                new_status = py_trees.common.Status.FAILURE
-                raise
-
+                new_state = self.service_client_chatgpt.get_state()
+                print("update : ", new_state)
+                if new_state == GoalStatus.ACTIVE:
+                    new_status = py_trees.common.Status.RUNNING
+                elif new_state == GoalStatus.SUCCEEDED:
+                    if self.client_result is not None:
+                        rospy.loginfo("________________________The client results is " +str(self.client_result))
+                        self.blackboard_bot.result = self.client_result
+                        self.blackboard_bot.result  = {
+                                                                "message":   self.client_result
+                                            }
+                        self.client_result = None
+                        new_status = py_trees.common.Status.SUCCESS
+                    else:
+                        self.logger.debug(f"Waiting fot the result ({self.server_name})")
+                        new_status = py_trees.common.Status.RUNNING
+                elif new_state == GoalStatus.PENDING:
+                    self.send_request = True
+                    self.logger.debug(f"Cancelling goal to {self.server_name}")
+                    self.service_client_chatgpt.cancel_all_goals()
+                    self.client_result = None
+                    self.logger.debug(f"Goal cancelled to {self.server_name}")
+                    new_status = py_trees.common.Status.RUNNING
+                else:
+                    new_status = py_trees.common.Status.FAILURE
+                    raise
+        else:
+            new_status = py_trees.common.Status.SUCCESS
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
 

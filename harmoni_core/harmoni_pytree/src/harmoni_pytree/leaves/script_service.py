@@ -21,6 +21,7 @@ class ScriptService(py_trees.behaviour.Behaviour):
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key="gesture", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/max_number_scene", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_counter", access=py_trees.common.Access.READ)
@@ -42,6 +43,7 @@ class ScriptService(py_trees.behaviour.Behaviour):
             self.context = json.load(read_file)
         self.blackboard_scene.scene.max_number_scene= len(self.context[self.session])
         self.blackboard_scene.scene.utterance = self.context[self.session][0]["utterance"]
+        self.blackboard_scene.scene.nlp = self.context[self.session][0]["nlp"]
         self.logger.debug("  %s [ScriptService::setup()]" % self.name)
 
     def initialise(self):
@@ -49,12 +51,19 @@ class ScriptService(py_trees.behaviour.Behaviour):
 
     def update(self):
         self.logger.debug("  %s [ScriptService::update()]" % self.name)
+        self.blackboard_scene.scene.nlp = self.context[self.session][self.blackboard_scene.scene.scene_counter]["nlp"]
         if self.blackboard_scene.scene.scene_counter == "":
             utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
         elif self.blackboard_scene.scene.scene_counter == 0:
             utterance = self.context[self.session][0]["utterance"]
         else:
-            utterance = self.blackboard_stt.result
+            if self.blackboard_scene.scene.nlp:
+                if self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"] == "":
+                    utterance = self.blackboard_stt.result
+                else:
+                    utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
+            else: 
+                utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
         self.blackboard_scene.scene.utterance = utterance
         gesture = self.context[self.session][self.blackboard_scene.scene.scene_counter]["gesture"]
         username = "USERNAME" 
