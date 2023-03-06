@@ -17,7 +17,7 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: I want to do a positive psychology exercise. \nAI: Sure, what king of positive psychology exercise would you like to do? \nHuman: Gratitude exercise.",
+            "utterance"     : "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?", 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
@@ -29,6 +29,30 @@
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },        
+        {
+            "utterance"     : "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today? \nHuman: I want to do a positive psychology exercise. \nAI: Sure, what king of positive psychology exercise would you like to do? \nHuman: Gratitude exercise.",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         }
