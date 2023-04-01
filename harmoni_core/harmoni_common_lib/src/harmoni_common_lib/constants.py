@@ -56,6 +56,7 @@ class DetectorNameSpace(Enum):
     card_detect = "/harmoni/detecting/card_detect/"
     imageai_yolo = "/harmoni/detecting/imageai/yolo"
     imageai_custom_yolo = "/harmoni/detecting/imageai/custom_yolo"
+    fer = "/harmoni/detecting/fer/"
 
 class DialogStateLex(Enum):
     CONFIRM_INTENT = "ConfirmIntent" 
