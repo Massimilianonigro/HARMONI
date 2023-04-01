@@ -14,11 +14,12 @@ from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpa
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 import cv2
-from std_msgs.msg import String
+from std_msgs.msg import String, Float64MultiArray
 import numpy as np
 import os
 import io
 import subprocess
+import pandas as pd
 
 class OpenFaceDetector(HarmoniServiceManager):
     """Face expression recognition detector based off of OpenFace
@@ -60,10 +61,15 @@ class OpenFaceDetector(HarmoniServiceManager):
             String,
             queue_size=1,
         )
-        self.detections = []
+        #self.detections = Float64MultiArray()
         self.counter = 0
         self._cv_bridge = CvBridge()
         self.state = State.INIT
+
+
+    def setup():
+        return
+
 
     def start(self, rate=""):
         """
@@ -107,21 +113,35 @@ class OpenFaceDetector(HarmoniServiceManager):
             command_line += ' -f ' + self.input_dir + 'frame%d.jpg'%(self.counter) + ' -out_dir ' +self.output_dir + ' -aus'
             openface_process = subprocess.Popen(command_line, shell = True)
             if self.counter == self._n_frames:
-                rospy.sleep(0.1)
+                
                 if self.counter_initial:
                     self.counter = 1
                     self.counter_initial = False
                 else:
                     self.counter = self._n_frames_overlap
+                self._detection = []
                 for i in range(self._n_frames_overlap):
                     os.rename(self.input_dir + 'frame%d.jpg'%(self._n_frames - self._n_frames_overlap + i),  self.input_dir + 'frame%d.jpg'%(i + self.counter))
                 csv_files = os.listdir(self.output_dir)
+                rospy.sleep(0.1)
                 for f in csv_files:
                     if ".csv" in f:
-                        aus = np.genfromtxt(self.output_dir + f, delimiter=',')
-                        aus[np.isnan(aus)] = 0
-                        self.detections.append(aus)
-                self._face_pub.publish(str(self.detections))
+                        rospy.loginfo(self.output_dir + f)
+                        aus = pd.read_csv(self.output_dir + f)
+                        aus = aus.drop(columns=["frame","face_id","timestamp","confidence","success"])
+                        aus = aus.fillna(0)
+                        values = aus.values[:1][0]
+                        new_values = []
+                        for j in range(len(values)):
+                            new_values.append(float(values[j]))
+                        self._detection.append(new_values)
+                rospy.loginfo("")
+                rospy.loginfo("")
+                rospy.loginfo("")
+                rospy.loginfo(self._detection)
+                #self._detection = [[float(self._detection[i][j]) for j in range(len(self._detection)) for i in range(len(self._detection[0]))]]
+                #self.detections.data = self._detection
+                self._face_pub.publish(str(self._detection))
 
 
 def main():
@@ -137,7 +157,7 @@ def main():
 
         s = OpenFaceDetector(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
-        #s.start(1)
+        s.start(1)
         service_server.start_sending_feedback()
         
         rospy.spin()

@@ -60,12 +60,16 @@ class TestOpenFace_Common(unittest.TestCase):
         self.server = "/harmoni/detecting/openface/default"
         self.client = HarmoniActionClient(self.server)
         rospy.loginfo("***********SETTING UP CLIENT")
+        rospy.loginfo(self.server)
         self.client.setup_client(
             self.server, self._result_callback, self._feedback_callback, wait=True
         )
         rospy.loginfo("DONE SETTING UP****************")
         rospy.loginfo("TestOpenFace_Common: Turning ON openface server")
         
+        self.client.send_goal(
+            action_goal=ActionType.ON, wait=False
+        )
         rospy.loginfo("TestOpenFace_Common: Started up. waiting for face detect startup")
 
         # wait for start state
@@ -117,15 +121,13 @@ class TestOpenFace_Valid(TestOpenFace_Common):
         #    self.image_pub.publish(
         #        self.cv_bridge.cv2_to_imgmsg(self.image, encoding=self.img_encoding)
         #    )
-        rospy.loginfo("DONE SETTING UP****************")
-        rospy.loginfo("TestOpenFace_Common: Turning ON openface server")
         
-        self.client.send_goal(
-            action_goal=ActionType.ON, wait=False
-        )
         while not rospy.is_shutdown() and not self.result:
             print('WAIT')
-
+            rospy.sleep(2)
+        self.client.send_goal(
+            action_goal=ActionType.OFF, wait=False
+        )
         assert self.result == True
 
 

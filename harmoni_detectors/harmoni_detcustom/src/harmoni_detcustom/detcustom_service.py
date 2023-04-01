@@ -11,15 +11,12 @@ import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
 from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
-from cv_bridge import CvBridge
-from sensor_msgs.msg import Image
-import cv2
-from FaceChannel.FaceChannelV1.FaceChannelV1 import FaceChannelV1
-from FaceChannel.FaceChannelV1.imageProcessingUtil import imageProcessingUtil
-from std_msgs.msg import String
+from std_msgs.msg import String, Bool
 import numpy as np
 import os
 import io
+import ast
+import tensorflow as tf
 
 class CustomDetector(HarmoniServiceManager):
     """Face expression recognition detector based off of FaceChannels
@@ -30,34 +27,35 @@ class CustomDetector(HarmoniServiceManager):
     """
 
 
-    def __init__(self, name, param, detector_threshold=0):
+    def __init__(self, name, param):
         super().__init__(name)
         self._rate = param["rate_frame"]
         self.subscriber_id = param["subscriber_id"]
-        self.robot_subscriber_id = param["robot_subscriber_id"]
-        self.detector_threshold = detector_threshold
+        self.model_dir = param["model_dir"]
+        self.model_name = param["model_name"]
         self.service_id = name
-        self._image_source_camera = SensorNameSpace.camera.value + self.subscriber_id
-        self._image_source_robot = self.robot_subscriber_id
-        print("Expected image source: ", self._image_source_robot)
-        self._image_sub = (
+        self._aus_sub = (
             None  # assign this when start() called. #TODO test subscription during init
         )
-        self._face_size = (64, 64) 
-        self._image_processing = imageProcessingUtil()
+        
         print(
             "Expected detected destination: ",
             DetectorNameSpace.detcustom.value + self.service_id,
         )
-        self._face_pub = rospy.Publisher(
+        self._ir_pub = rospy.Publisher(
             self.service_id,
-            String,
+            Bool,
             queue_size=1,
         )
-        self.detector = FaceChannelV1("Dim", loadModel=True)
-        self.detections = []
-        self._cv_bridge = CvBridge()
+        self._openface_topic = DetectorNameSpace.openface.value + self.subscriber_id 
+        json_file = open(self.model_dir + self.model_name + '.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        self._custom_model = tf.keras.models.model_from_json(loaded_model_json) 
+        self._custom_model.load_weights(self.model_dir + self.model_name + '.h5')
+        self.prediction = 0
         self.state = State.INIT
+
 
     def start(self, rate=""):
         """
@@ -69,8 +67,8 @@ class CustomDetector(HarmoniServiceManager):
         rospy.loginfo("==== STARTED")
         self.state = State.START
         self._rate = rate
-        self._image_sub = rospy.Subscriber(
-            self._image_source_robot, Image, self.detect_callback
+        self._aus_sub = rospy.Subscriber(
+            self._openface_topic, String, self.detect_callback
         )
         
 
@@ -85,23 +83,20 @@ class CustomDetector(HarmoniServiceManager):
     def pause(self):
         self.stop()
 
-    def detect_callback(self, image):
+    def detect_callback(self, data):
         """Uses image to detect and publish face info.
         Args:
-            image(Image): the image we want to run face detection on.
+            data(data): String from the openface
         """
-        rospy.loginfo("=== DETECTING A CALLBACK HERE")
-        frame = self._cv_bridge.imgmsg_to_cv2(image, desired_encoding='rgb8')
-        rospy.loginfo("Made it past the bridge")
-        if frame is not None:
-            face_points, face = self._image_processing.detectFace(frame)
-            if not len(face) == 0: # if a face is detected
-                face = self._image_processing.preProcess(face, self._face_size)
-                dimensional_detcustom = np.array(self.detector.predict(face, preprocess = False))
-                self.detections = [dimensional_detcustom[0][0][0],dimensional_detcustom[1][0][0]] #arousal, valences
-                rospy.loginfo(self.detections)
-                self._face_pub.publish(str(self.detections))
-
+        result = data.data
+        #data_array = np.array(result)#
+        data_array = ast.literal_eval(result)
+        input_data = np.array(data_array)
+        input_data = input_data.reshape(1, input_data.shape[0], input_data.shape[1])
+        rospy.loginfo(input_data.shape)
+        prediction = self._custom_model.predict(input_data)
+        self.prediction = np.argmax(prediction)
+        self._ir_pub.publish(self.prediction)
 
 def main():
 
