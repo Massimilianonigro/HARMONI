@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find harmoni_openface)/launch/openface_service.launch">
+        <arg name="instance_id" value = "default"/> 
+    </include>
+
+    <param name="test_openface_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <test test-name="test_openface" pkg="harmoni_openface" type="test_openface.py"/>
+</launch>

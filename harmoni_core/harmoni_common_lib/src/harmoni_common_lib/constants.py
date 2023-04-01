@@ -59,27 +59,8 @@ class DetectorNameSpace(Enum):
     imageai_custom_yolo = "/harmoni/detecting/imageai/custom_yolo"
     fer = "/harmoni/detecting/fer/"
     detcustom = "/harmoni/detecting/detcustom/"
+    openface = "/harmoni/detecting/openface/"
 
-class DialogStateLex(Enum):
-    CONFIRM_INTENT = "ConfirmIntent" 
-    ELICIT_INTENT = "ElicitIntent"
-    ELICIT_SLOT = "ElicitSlot"
-    FAILED = "Failed"
-    FULFILLED = "Fulfilled"
-    READY_FOR_FULFILLMENT = "ReadyForFulfillment"
-    UNKNOWN_TO_SDK_VERSION = "UnknownToSdkVersion"
-
-#these class is used to store the names of the intent of the bot in amazon lex
-class IntentName(Enum):
-    INTERACTION = "Background_noInterazione"    # no interaction background
-    VISUAL = "Background_visivo"                # visual background
-    CARTA = "Carta"                             # paper
-    RACCOLTA = "ConfirmRaccolta"                # confirm recycling
-    PLASTICA = "Plastica"                       # plastic
-    STOP = "Stop"                               # stop
-    VETRO = "Vetro"                             # glass
-    OMBRELLO = "Ombrello"                       # umbrella
-    NOCAPITO = "NonHoCapito"                    # I can't undestand
 
 class Resources(Enum):
     face = ["eyes", "mouth", "nose"]

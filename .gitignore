@@ -127,3 +127,7 @@ harmoni_detectors/harmoni_imageai/src/*.json
 **/config/configuration.yaml
 harmoni_models/stt/*
 harmoni_models/ir/*
+OpenFace/
+
+temp_data
+temp_output
