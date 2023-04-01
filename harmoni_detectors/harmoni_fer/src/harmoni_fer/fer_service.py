@@ -90,9 +90,7 @@ class FERDetector(HarmoniServiceManager):
         Args:
             image(Image): the image we want to run face detection on.
         """
-        rospy.loginfo("=== DETECTING A CALLBACK HERE")
         frame = self._cv_bridge.imgmsg_to_cv2(image, desired_encoding='rgb8')
-        rospy.loginfo("Made it past the bridge")
         if frame is not None:
             face_points, face = self._image_processing.detectFace(frame)
             if not len(face) == 0: # if a face is detected
@@ -101,7 +99,6 @@ class FERDetector(HarmoniServiceManager):
                 self.detections = [dimensional_fer[0][0][0],dimensional_fer[1][0][0]] #arousal, valences
                 rospy.loginfo(self.detections)
                 self._face_pub.publish(str(self.detections))
-
 
 def main():
 
