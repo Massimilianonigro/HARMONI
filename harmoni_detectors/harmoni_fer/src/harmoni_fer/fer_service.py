@@ -54,6 +54,13 @@ class FERDetector(HarmoniServiceManager):
             String,
             queue_size=1,
         )
+        self._face_baseline_pub = rospy.Publisher(
+            self.service_id,
+            String,
+            queue_size=1,
+        )
+        self.valence_baseline = []
+        self.baseline = True
         self.detector = FaceChannelV1("Dim", loadModel=True)
         self.detections = []
         self._cv_bridge = CvBridge()
@@ -66,6 +73,15 @@ class FERDetector(HarmoniServiceManager):
                 Note that this rate should be limited by subscribed camera framerate.
                 TODO: actually use this rate. Rate currently matches camera publish rate regardless of this setting
         """
+        def baseline_cb(event):
+            self.baseline = False
+            maxval = np.max(self.valence_baseline)
+            minval = np.min(self.valence_baseline)
+            valence_values = [minval, maxval]
+            rospy.loginfo("BASELINE DONE")
+            rospy.loginfo(str(valence_values))
+            self._face_baseline_pub.publish(str(valence_values))
+        rospy.Timer(rospy.Duration(60), baseline_cb)
         rospy.loginfo("==== STARTED")
         self.state = State.START
         self._rate = rate
@@ -98,6 +114,8 @@ class FERDetector(HarmoniServiceManager):
                 dimensional_fer = np.array(self.detector.predict(face, preprocess = False))
                 self.detections = [dimensional_fer[0][0][0],dimensional_fer[1][0][0]] #arousal, valences
                 rospy.loginfo(self.detections)
+                if self.baseline:
+                    self.valence_baseline.append(self.detections[1])
                 self._face_pub.publish(str(self.detections))
 
 def main():
