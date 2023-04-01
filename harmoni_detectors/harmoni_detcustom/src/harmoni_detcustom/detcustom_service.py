@@ -21,7 +21,7 @@ import numpy as np
 import os
 import io
 
-class FERDetector(HarmoniServiceManager):
+class CustomDetector(HarmoniServiceManager):
     """Face expression recognition detector based off of FaceChannels
     Args:
         detector_threshold(float): Confidence threshold for faces. Positive values
@@ -47,7 +47,7 @@ class FERDetector(HarmoniServiceManager):
         self._image_processing = imageProcessingUtil()
         print(
             "Expected detected destination: ",
-            DetectorNameSpace.fer.value + self.service_id,
+            DetectorNameSpace.detcustom.value + self.service_id,
         )
         self._face_pub = rospy.Publisher(
             self.service_id,
@@ -97,26 +97,26 @@ class FERDetector(HarmoniServiceManager):
             face_points, face = self._image_processing.detectFace(frame)
             if not len(face) == 0: # if a face is detected
                 face = self._image_processing.preProcess(face, self._face_size)
-                dimensional_fer = np.array(self.detector.predict(face, preprocess = False))
-                self.detections = [dimensional_fer[0][0][0],dimensional_fer[1][0][0]] #arousal, valences
+                dimensional_detcustom = np.array(self.detector.predict(face, preprocess = False))
+                self.detections = [dimensional_detcustom[0][0][0],dimensional_detcustom[1][0][0]] #arousal, valences
                 rospy.loginfo(self.detections)
                 self._face_pub.publish(str(self.detections))
 
 
 def main():
 
-    service_name = DetectorNameSpace.fer.name  
+    service_name = DetectorNameSpace.detcustom.name  
     instance_id = rospy.get_param("instance_id")  # "default"
-    service_id = DetectorNameSpace.fer.value + instance_id
+    service_id = DetectorNameSpace.detcustom.value + instance_id
 
     try:
         rospy.init_node(service_name, log_level=rospy.INFO)
 
-        params = rospy.get_param(DetectorNameSpace.fer.name +'/'+ instance_id + "_param/")
+        params = rospy.get_param(DetectorNameSpace.detcustom.name +'/'+ instance_id + "_param/")
 
-        s = FERDetector(service_id, params)
+        s = CustomDetector(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
-        #s.start(1)
+        s.start(1)
         service_server.start_sending_feedback()
         
         rospy.spin()

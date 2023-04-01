@@ -44,6 +44,7 @@ class ActuatorNameSpace(Enum):
     tts = "/harmoni/actuating/tts/"
     web = "/harmoni/actuating/web/"
     gesture = "/harmoni/actuating/gesture/"
+    sentiment = "/harmoni/actuating/sentiment/"
 
 
 class DialogueNameSpace(Enum):
@@ -57,6 +58,7 @@ class DetectorNameSpace(Enum):
     imageai_yolo = "/harmoni/detecting/imageai/yolo"
     imageai_custom_yolo = "/harmoni/detecting/imageai/custom_yolo"
     fer = "/harmoni/detecting/fer/"
+    detcustom = "/harmoni/detecting/detcustom/"
 
 class DialogStateLex(Enum):
     CONFIRM_INTENT = "ConfirmIntent" 

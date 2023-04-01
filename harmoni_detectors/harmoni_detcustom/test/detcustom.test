@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find harmoni_detcustom)/launch/detcustom_service.launch">
+        <arg name="instance_id" value = "default"/> 
+    </include>
+
+    <param name="test_detcustom_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <test test-name="test_detcustom" pkg="harmoni_detcustom" type="test_detcustom.py"/>
+</launch>
