@@ -31,6 +31,8 @@ class CheckSTTResult(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [CheckSTTResult::initialise()]" % self.name)
 
     def update(self):
+
+        ### TODO: IMPLEMENT A CHECK OF SENTIMENT, AND UTTERANCE ITSELF.
         self.logger.debug("  %s [CheckSTTResult::update()]" % self.name)
         if self.blackboard_scene.scene.scene_end == 'call_researcher':
             rospy.sleep(5)

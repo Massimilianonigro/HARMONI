@@ -49,6 +49,7 @@ class ActuatorNameSpace(Enum):
 
 class DialogueNameSpace(Enum):
     bot = "/harmoni/dialoging/bot/"
+    rl = "/harmoni/dialoging/rl/"
 
 
 class DetectorNameSpace(Enum):

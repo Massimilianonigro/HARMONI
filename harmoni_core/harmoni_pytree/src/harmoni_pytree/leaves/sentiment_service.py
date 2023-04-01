@@ -30,7 +30,7 @@ import time
 
 import py_trees.console
 
-class SenitmentServicePytree(py_trees.behaviour.Behaviour):
+class SentimentServicePytree(py_trees.behaviour.Behaviour):
     def __init__(self, name):
         self.name = name
         self.server_state = None
@@ -45,7 +45,7 @@ class SenitmentServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
 
-        super(SenitmentServicePytree, self).__init__(name)
+        super(SentimentServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
@@ -153,7 +153,7 @@ def main():
 
     rospy.init_node("sentiment_default", log_level=rospy.INFO)
     
-    sentimentPyTree = SenitmentServicePytree("SenitmentServicePytree")
+    sentimentPyTree = SentimentServicePytree("SentimentServicePytree")
     sentimentPyTree.setup()
     try:
         for unused_i in range(0, 10):
