@@ -157,7 +157,7 @@ def main():
 
         s = OpenFaceDetector(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
-        s.start(1)
+        #s.start(1)
         service_server.start_sending_feedback()
         
         rospy.spin()

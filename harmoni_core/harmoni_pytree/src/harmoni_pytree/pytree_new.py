@@ -23,7 +23,11 @@ from harmoni_pytree.leaves.gesture_service import GestureServicePytree
 from harmoni_pytree.leaves.wait_results import WaitResults
 from harmoni_pytree.leaves.backchannel_service import BackchannelService
 from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
-from harmoni_pytree.leaves import *
+from harmoni_pytree.leaves.openface_service import OpenFaceServicePytree
+from harmoni_pytree.leaves.vad_service import VADServicePytree
+from harmoni_pytree.leaves.detcustom_service import DetCustomServicePytree
+from harmoni_pytree.leaves.RL_service import RLPytreeService
+from harmoni_pytree.leaves.sentiment_service import SentimentServicePytree
 
 ##############################################################################
 # Classes
@@ -79,25 +83,27 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
     #print(py_trees.display.unicode_blackboard())
 
 def create_root(params):
-    root = py_trees.composites.Parallel("Interaction")
-    detectors_parallel = py_trees.composites.Parallel("Detectors", policy = "SuccessOnAll")
+    root = py_trees.composites.Parallel("Interaction") #), policy = SuccessOnAll)
+    detectors_parallel = py_trees.composites.Parallel("Detectors")#, policy = SuccessOnAll)
     openface = OpenFaceServicePytree("OpenFace")
-    fer = FERServicePytree("FER")
+    vad = VADServicePytree("VAD")
+    #fer = FERServicePytree("FER")
     rl = RLPytreeService("RL")
     detcustom = DetCustomServicePytree("DetCustom")
-    detectors_parallel.add_children([openface, fer, detcustom])
-    dialogue_sequence = py_trees.composites.Sequence("Dialogue", memory=True)
-    sequence_speaking = py_trees.composites.Sequence("Speaking", memory=True)
-    sequence_backchanneling = py_trees.composites.Sequence("Backchanneling", memory=True)
-    sequence_sensing = py_trees.composites.Sequence("Sensing", memory=True)
-    parallel_sensing_backchanneling = py_trees.composites.Parallel("Listening", policy = "SuccessOnAll")
+    #detectors_parallel.add_children([openface, fer, detcustom, vad])
+    detectors_parallel.add_children([openface, detcustom, vad])
+    dialogue_sequence = py_trees.composites.Sequence("Dialogue")#, memory=True)
+    sequence_speaking = py_trees.composites.Sequence("Speaking")#, memory=True)
+    sequence_backchanneling = py_trees.composites.Sequence("Backchanneling")#, memory=True)
+    sequence_sensing = py_trees.composites.Sequence("Sensing")#, memory=True)
+    parallel_sensing_backchanneling = py_trees.composites.Parallel("Listening")#, policy = SuccessOnAll)
     chatbot = ChatGPTServicePytree("ChatGPTPyTreeTest")
     tts = AWSTtsServicePytree("TextToSpeech")
     tts_back = AWSTtsServicePytree("TextToSpeechBackchannel")
     script = ScriptService("Script", params)
     gesture = GestureServicePytree("Gesture")
     speaker = SpeakerServicePytree("Speaker")
-    sentiment = SentimentServicePytree("Sentiment")
+    #sentiment = SentimentServicePytree("Sentiment")
     gesture_back = GestureServicePytree("GestureBackchannel")
     speaker_back = SpeakerServicePytree("SpeakerBackchannel")
     face = LipSyncServicePytree("Face")
@@ -106,8 +112,8 @@ def create_root(params):
     stt=DeepSpeechToTextServicePytree("SpeechToText")
     checkstt = CheckSTTResult("CheckResults", params)
     backchanneling_script = BackchannelService("BackchannelScript", params)
-    parall_speaker_face = py_trees.composites.Parallel("Playing", policy = "SuccessOnAll")
-    parall_playing_back = py_trees.composites.Parallel("PlayingBackchannel", policy = "SuccessOnAll")
+    parall_speaker_face = py_trees.composites.Parallel("Playing")#, policy = SuccessOnAll)
+    parall_playing_back = py_trees.composites.Parallel("PlayingBackchannel")#, policy = SuccessOnAll)
     sequence_backchanneling.add_children([backchanneling_script, tts_back, parall_playing_back])
     sequence_speaking.add_child(script)
     sequence_speaking.add_child(chatbot)
@@ -117,10 +123,11 @@ def create_root(params):
     parall_speaker_face.add_child(speaker)
     parall_speaker_face.add_child(face)
     parall_speaker_face.add_child(gesture)
-    sequence_sensing.add_children([microphone, stt, sentiment, checkstt])
+    sequence_sensing.add_children([microphone, stt, checkstt, rl])
     parallel_sensing_backchanneling.add_children([sequence_sensing, sequence_backchanneling])
     dialogue_sequence.add_children([sequence_speaking, parallel_sensing_backchanneling])
     root.add_children([detectors_parallel, dialogue_sequence])
+    #root = dialogue_sequence
     return root
 
  ##############################################################################
@@ -134,6 +141,9 @@ def main():
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     params = rospy.get_param("pytree/default_param/")
     root =create_root(params)
+
+    print("########################################################")
+
     print(description(root))
         
     ####################
@@ -143,11 +153,14 @@ def main():
     rospy.init_node("test_default", log_level=rospy.INFO)
     
     behaviour_tree = py_trees.trees.BehaviourTree(root)
+    print(py_trees.display.unicode_tree(root=root))
+
     behaviour_tree.add_pre_tick_handler(pre_tick_handler)
     behaviour_tree.visitors.append(py_trees.visitors.DebugVisitor())
     snapshot_visitor = py_trees.visitors.SnapshotVisitor()
-    behaviour_tree.add_post_tick_handler(functools.partial(post_tick_handler, snapshot_visitor))
     behaviour_tree.visitors.append(snapshot_visitor)
+    behaviour_tree.add_post_tick_handler(functools.partial(post_tick_handler, snapshot_visitor))
+    
     behaviour_tree.setup(timeout=15)
 
     ####################
@@ -162,7 +175,6 @@ def main():
     except KeyboardInterrupt:
         behaviour_tree.interrupt()
     print("\n")
-
 
 if __name__ == "__main__":
     main()   

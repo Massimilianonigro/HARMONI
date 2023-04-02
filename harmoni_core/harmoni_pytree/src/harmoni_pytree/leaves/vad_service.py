@@ -30,31 +30,31 @@ import time
 
 import py_trees.console
 
-class OpenFaceServicePytree(py_trees.behaviour.Behaviour):
+class VADServicePytree(py_trees.behaviour.Behaviour):
 
-    def __init__(self, name = "OpenFaceServicePytree"):
+    def __init__(self, name = "VADServicePytree"):
         self.name = name
         self.server_state = None
-        self.service_client_openface = None
+        self.service_client_vad = None
         self.client_result = None
         self.server_name = None
         self.send_request = True
 
         self.blackboards = []
-        self.blackboard_face_detection = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.openface.name)
+        self.blackboard_face_detection = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.vad.name)
         #self.blackboard_face_detection.register_key("result", access=py_trees.common.Access.WRITE)
-        super(OpenFaceServicePytree, self).__init__(name)
+        super(VADServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):    
-        self.service_client_openface = HarmoniActionClient(self.name)
-        self.server_name = DetectorNameSpace.openface.value + "default"
-        self.service_client_openface.setup_client(self.server_name, 
+        self.service_client_vad = HarmoniActionClient(self.name)
+        self.server_name = DetectorNameSpace.vad.value + "default"
+        self.service_client_vad.setup_client(self.server_name, 
                                             self._result_callback,
                                             self._feedback_callback,
                                             wait = True)
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
-        self.service_client_openface.send_goal(
+        self.service_client_vad.send_goal(
                 action_goal = ActionType.ON,
                 optional_data="Setup",
                 wait=False,
@@ -65,7 +65,7 @@ class OpenFaceServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-        new_state = self.service_client_openface.get_state()
+        new_state = self.service_client_vad.get_state()
         rospy.loginfo(new_state)
         if new_state == GoalStatus.ACTIVE:
             new_status = py_trees.common.Status.RUNNING
@@ -81,17 +81,17 @@ class OpenFaceServicePytree(py_trees.behaviour.Behaviour):
         return new_status
         
     def terminate(self, new_status):
-        new_state = self.service_client_openface.get_state()
+        new_state = self.service_client_vad.get_state()
         print("terminate : ",new_state)
         if new_state == GoalStatus.SUCCEEDED or new_state == GoalStatus.ABORTED or new_state == GoalStatus.LOST:
             self.send_request = True
         if new_state == GoalStatus.PENDING:
             self.send_request = True
             self.logger.debug(f"Cancelling goal to {self.server_name}")
-            self.service_client_service_client_openface.cancel_all_goals()
+            self.service_client_service_client_vad.cancel_all_goals()
             self.client_result = None
             self.logger.debug(f"Goal cancelled to {self.server_name}")
-            #self.service_client_openface.stop_tracking_goal()
+            #self.service_client_vad.stop_tracking_goal()
             #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
@@ -116,21 +116,21 @@ def main():
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
     #rospy init node mi fa diventare un nodo ros
-    rospy.init_node("openface_default", log_level=rospy.INFO)
+    rospy.init_node("vad_default", log_level=rospy.INFO)
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.openface.name)
+    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.vad.name)
     blackboardProva.register_key("result", access=py_trees.common.Access.READ)
     print(blackboardProva)
 
-    openfacePyTree = OpenFaceServicePytree("OpenFaceServicePytree")
+    vadPyTree = VADServicePytree("VADServicePytreeTest")
 
     additional_parameters = dict([
-        ("OpenFaceServicePytree_mode",False)])
+        ("VADServicePytree_mode",False)])
 
-    openfacePyTree.setup(**additional_parameters)
+    vadPyTree.setup(**additional_parameters)
     try:
         for unused_i in range(0, 10):
-            openfacePyTree.tick_once()
+            vadPyTree.tick_once()
             time.sleep(2)
             print(blackboardProva)
         print("\n")

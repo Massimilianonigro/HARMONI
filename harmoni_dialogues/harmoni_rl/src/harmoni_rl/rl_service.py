@@ -45,9 +45,9 @@ class RLService(HarmoniServiceManager):
         self.fer_baseline = []
         self.stt_received = False
         ### TO SIMULATE STT RECEIVED
-        def baseline_cb(event):
-            self.stt_received = True
-        rospy.Timer(rospy.Duration(100), baseline_cb)
+        #def baseline_cb(event):
+        #self.stt_received = True
+        #rospy.Timer(rospy.Duration(1), baseline_cb)
         return
 
     def _fer_detector_cb(self, data):
@@ -88,8 +88,8 @@ class RLService(HarmoniServiceManager):
         data = data.data
         rospy.loginfo("==================== STT DETECTION RECEIVED")
         rospy.loginfo(data)
-        if data:
-            self.stt_received = True
+        #if data:
+        #    self.stt_received = True
         return
 
     def request(self, exercise):
@@ -108,8 +108,8 @@ class RLService(HarmoniServiceManager):
         result = {"response": False, "message": None}
         try:
             ####
-            while not self.stt_received:
-                rospy.sleep(1)
+            #while not self.stt_received:
+            #    rospy.sleep(1)
             #to uncomment once the FER is working again
             #Vmax = self.fer_baseline[1]
             #Vmin = self.fer_baseline[0]
@@ -154,7 +154,7 @@ def main():
         params = rospy.get_param(service_name + "/" + instance_id + "_param/")
         s = RLService(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
-        s.request("savouring")
+        #s.request("savouring")
         print(service_name)
         print("**********************************************************************************************")
         print(service_id)

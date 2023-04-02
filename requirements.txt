@@ -5,12 +5,12 @@ dlib
 imutils
 pyaudio
 pyaml
-empy
-rospkg
-catkin_pkg
-catkin_tools
-boto3
-awscli
+#empy
+#rospkg
+#catkin_pkg
+#catkin_tools
+#boto3
+#awscli
 google-cloud-speech==1.3.2
 dialogflow
 google-api-python-client
@@ -22,6 +22,7 @@ func_timeout
 datetimerange
 wget
 pytrees
-#tensorflow
+tensorflow
 openai
 python-dotenv
+transformers

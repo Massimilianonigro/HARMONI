@@ -7,7 +7,7 @@ import gym
 import rospy
 
 class RLActionsName:
-    ACTION1 = "Followup"
+    ACTION1 = "FollowUp"
     ACTION2 = "NewEpisode"
     ACTION3 = "RepairStrategy"
  

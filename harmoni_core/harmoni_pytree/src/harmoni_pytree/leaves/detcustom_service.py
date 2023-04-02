@@ -70,11 +70,11 @@ class DetCustomServicePytree(py_trees.behaviour.Behaviour):
         if new_state == GoalStatus.ACTIVE:
             new_status = py_trees.common.Status.RUNNING
         elif new_state == GoalStatus.SUCCEEDED:
-                new_status = py_trees.common.Status.RUNNING
+                new_status = py_trees.common.Status.SUCCESS
         elif new_state == GoalStatus.PENDING:
             new_status = py_trees.common.Status.RUNNING
         elif new_state == GoalStatus.ABORTED:
-            new_status = py_trees.common.Status.RUNNING
+            new_status = py_trees.common.Status.SUCCESS
         else:
             new_status = py_trees.common.Status.FAILURE
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
