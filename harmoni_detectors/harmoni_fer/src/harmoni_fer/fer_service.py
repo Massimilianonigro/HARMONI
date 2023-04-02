@@ -20,6 +20,7 @@ from std_msgs.msg import String
 import numpy as np
 import os
 import io
+from tensorflow import keras 
 
 class FERDetector(HarmoniServiceManager):
     """Face expression recognition detector based off of FaceChannels
@@ -55,13 +56,13 @@ class FERDetector(HarmoniServiceManager):
             queue_size=1,
         )
         self._face_baseline_pub = rospy.Publisher(
-            self.service_id,
+            self.service_id + "/baseline",
             String,
             queue_size=1,
         )
         self.valence_baseline = []
         self.baseline = True
-        self.detector = FaceChannelV1("Dim", loadModel=True)
+        self.face_channel_detector = FaceChannelV1("Dim", loadModel=True)
         self.detections = []
         self._cv_bridge = CvBridge()
         self.state = State.INIT
@@ -86,7 +87,7 @@ class FERDetector(HarmoniServiceManager):
         self.state = State.START
         self._rate = rate
         self._image_sub = rospy.Subscriber(
-            self._image_source_robot, Image, self.detect_callback
+            self._image_source_robot, Image, self._facechannel_detect_callback
         )
         
 
@@ -101,7 +102,7 @@ class FERDetector(HarmoniServiceManager):
     def pause(self):
         self.stop()
 
-    def detect_callback(self, image):
+    def _facechannel_detect_callback(self, image):
         """Uses image to detect and publish face info.
         Args:
             image(Image): the image we want to run face detection on.
@@ -111,7 +112,7 @@ class FERDetector(HarmoniServiceManager):
             face_points, face = self._image_processing.detectFace(frame)
             if not len(face) == 0: # if a face is detected
                 face = self._image_processing.preProcess(face, self._face_size)
-                dimensional_fer = np.array(self.detector.predict(face, preprocess = False))
+                dimensional_fer = np.array(self.face_channel_detector.predict(face, preprocess = False))
                 self.detections = [dimensional_fer[0][0][0],dimensional_fer[1][0][0]] #arousal, valences
                 rospy.loginfo(self.detections)
                 if self.baseline:
@@ -131,7 +132,7 @@ def main():
 
         s = FERDetector(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
-        #s.start(1)
+        s.start(1)
         service_server.start_sending_feedback()
         
         rospy.spin()

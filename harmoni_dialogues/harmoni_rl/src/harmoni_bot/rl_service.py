@@ -3,14 +3,14 @@
 # Common Imports
 import rospy
 from dotenv import load_dotenv
-from harmoni_common_lib.constants import State
+from harmoni_common_lib.constants import *
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
+from std_msgs.msg import String, Bool
 # Specific Imports
-from harmoni_common_lib.constants import DialogueNameSpace
-import openai
 import os
+import ast
 
 class RLService(HarmoniServiceManager):
     """This is a class representation of a harmoni_dialogue service
@@ -27,30 +27,51 @@ class RLService(HarmoniServiceManager):
         """Constructor method: Initialization of variables and lex parameters + setting up"""
         super().__init__(name)
         """ Initialization of variables and lex parameters """
-        self.user_id = param["user_id"]
-        self.rl_name = param["rl_name"]
-        self.rl_alias = param["rl_alias"]
-        self.region_name = param["region_name"]
-        self.intentName = None
+        self.subscriber_id = param['subscriber_id']
         self.state = State.INIT
+        self._fer_sub = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id, String, self._fer_detector_cb, queue_size=1)
+        self._detcustom_sub = rospy.Subscriber(DetectorNameSpace.detcustom.value + self.subscriber_id, Bool, self._detcustom_detector_cb, queue_size=1)
+        self._vad_sub = rospy.Subscriber(DetectorNameSpace.vad.value + self.subscriber_id, Bool, self._vad_detector_cb, queue_size=1)
+        self._stt_sub = rospy.Subscriber(DetectorNameSpace.stt.value + self.subscriber_id, String, self._stt_detector_cb, queue_size=1)
         return
 
-    def setup_rl(self):
-        """[summary] Setup the lex request, connecting to RL services"""
-        env_path="/root/harmoni_catkin_ws/src/HARMONI/.env"
-        load_dotenv(env_path)
-        rospy.loginfo("Connecting to GPT")
-        openai.organization = "org-c177RgKPMbEYIWkVXobIkNcv"
-        openai.api_key = os.getenv("OPENAI_API_KEY")
-        openai.Model.list()
-        rospy.loginfo("Connected")
+    def _fer_detector_cb(self, data):
+        data = ast.literal_eval(data.data)
+        rospy.loginfo("==================== FER DETECTION RECEIVED")
+        rospy.loginfo(data)
+        if self.state == State.REQUEST:
+            self.fer.append(data)
         return
 
-    def request(self, input_text):
+    def _detcustom_detector_cb(self, data):
+        data = data.data
+        rospy.loginfo("==================== IR DETECTION RECEIVED")
+        rospy.loginfo(data)
+        if self.state == State.REQUEST:
+            self.detcustom.append(data)
+        return
+    
+    def _vad_detector_cb(self, data):
+        data = data.data
+        rospy.loginfo("==================== VAD DETECTION RECEIVED")
+        rospy.loginfo(data)
+        if self.state ==  State.REQUEST:
+            self.vad.append(data)
+        return
+
+    def _stt_detector_cb(self, data):
+        data = ast.literal_eval(data.data)
+        rospy.loginfo("==================== STT DETECTION RECEIVED")
+        rospy.loginfo(data)
+        if self.state ==  State.REQUEST:
+            self.stt.append(data)
+        return
+
+    def request(self, exercise):
         """[summary]
 
         Args:
-            input_text (str): User request (or input text) for triggering Lex Intent
+            exercise (str): Exercise current state
 
         Returns:
             object: It containes information about the response received (bool) and response message (str)
@@ -59,24 +80,9 @@ class RLService(HarmoniServiceManager):
         """
         rospy.loginfo("Start the %s request" % self.name)
         self.state = State.REQUEST
-        textdata = input_text
         result = {"response": False, "message": None}
         try:
-            gpt_response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=input_text,
-            temperature=0.9,
-            max_tokens=150,#150,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0.6,
-            stop=[" Human:", " AI:"]
-            )
-            rospy.loginfo("++++++++++++++++++++++++++++++++++++")
-            rospy.loginfo(gpt_response)
-            rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
-            response = gpt_response['choices'][0]['text']
-            ai_response = response.split("AI:")[-1]
+            ####
             self.result_msg = ai_response
             self.response_received = True
             self.state = State.SUCCESS
@@ -89,7 +95,7 @@ class RLService(HarmoniServiceManager):
 
 def main():
     """[summary]
-    Main function for starting HarmoniChatGPT service
+    Main function for starting HarmoniRLService service
     """
     service_name = DialogueNameSpace.rl.name
     instance_id = rospy.get_param("instance_id")  # "default"
@@ -97,8 +103,7 @@ def main():
     try:
         rospy.init_node(service_name, log_level=rospy.DEBUG)
         params = rospy.get_param(service_name + "/" + instance_id + "_param/")
-        s = ChatGPTService(service_id, params)
-        s.setup_chat_gpt()
+        s = RLService(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
         #s.request("The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: I want to do a positive psychology exercise")
         print(service_name)

@@ -23,6 +23,8 @@ roslaunch harmoni_sensors microphone_service.launch
 roslaunch harmoni_vad vad_service.launch
 ```
 
+It publish at /harmoni/detecting/vad/default a boolean (1: VAD present, 0: VAD absent)
+
 ## Testing
 
 microphone will open and one frame will be captured and put as input of the FER model. Once the output of the VAD service arrives another frame will be captured and again used as input for FER model and so on. 
