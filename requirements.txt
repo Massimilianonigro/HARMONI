@@ -1,5 +1,5 @@
 opencv-python
-packaging==19.1
+packaging
 soundfile
 dlib
 imutils
@@ -22,6 +22,6 @@ func_timeout
 datetimerange
 wget
 pytrees
-tensorflow==2.4.0
+tensorflow
 openai
 python-dotenv
