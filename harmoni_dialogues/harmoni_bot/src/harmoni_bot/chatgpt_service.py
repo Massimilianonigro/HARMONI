@@ -61,21 +61,26 @@ class ChatGPTService(HarmoniServiceManager):
         self.state = State.REQUEST
         textdata = input_text
         result = {"response": False, "message": None}
+        role = textdata.split("*")[1]
+        content = textdata.split("*")[2]
+        messages_array = []
+        messages_array.append({"role": role, "content": content})
         try:
-            gpt_response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=input_text,
+            
+            gpt_response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages = messages_array,
             temperature=0.9,
             max_tokens=150,#150,
             top_p=1,
             frequency_penalty=0,
-            presence_penalty=0.6,
-            stop=[" Human:", " AI:"]
+            presence_penalty=0.6
             )
             rospy.loginfo("++++++++++++++++++++++++++++++++++++")
             rospy.loginfo(gpt_response)
-            rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
-            response = gpt_response['choices'][0]['text']
+            #rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
+            #response = gpt_response['choices'][0]['text']
+            response = gpt_response['choices'][0]['message']['content']
             ai_response = response.split("AI:")[-1]
             self.result_msg = ai_response
             self.response_received = True

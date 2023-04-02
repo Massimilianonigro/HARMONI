@@ -1,15 +1,9 @@
 {
-    "session1" :   [   
+    "session1" :   [ 
+          
+       
         {
-            "utterance"     : "Hi, my name is Botty. What is your name?",
-            "nlp"           :  0,
-            "face"          : "null",
-            "gesture"       : "QT/bye",
-            "sound"         : "",
-            "back_channel"    : ""
-        },
-        {
-            "utterance"     : "Nice to meet you USERNAME! Today we are going to do a positive psychology exercise. Is that okay?",
+            "utterance"     : "Can you think of an example on gratitude of something that's happened in the last week or so? ",
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
@@ -17,7 +11,7 @@
             "back_channel"    : ""
         },
         {
-            "utterance"     : "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?", 
+            "utterance"     : "", 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
@@ -48,6 +42,22 @@
             "sound"         : "",
             "back_channel"    : ""
         },        
+        {
+            "utterance"     : "Hi, my name is Botty. What is your name?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "QT/bye",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "Nice to meet you USERNAME! Today we are going to do a positive psychology exercise. Is that okay?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
         {
             "utterance"     : "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today? \nHuman: I want to do a positive psychology exercise. \nAI: Sure, what king of positive psychology exercise would you like to do? \nHuman: Gratitude exercise.",
             "nlp"           :  1,

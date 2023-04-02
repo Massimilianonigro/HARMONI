@@ -5,12 +5,13 @@ import numpy as np
 import d3rlpy
 import gym
 import rospy
+import random
 
 class RLActionsName:
-    ACTION1 = "FollowUp"
-    ACTION2 = "NewEpisode"
-    ACTION3 = "RepairStrategy"
- 
+    ACTION1 = "1"
+    ACTION2 = "2"
+    ACTION3 = "3"
+    ACTION4 = "4"
 
 
 class RLCore:
@@ -43,5 +44,6 @@ class RLCore:
         )
 
     def test():
-        rospy.sleep(4)
-        return RLActionsName.ACTION1
+        action = random.choices(["1", "2", "3", "4"])
+        
+        return action[0]

@@ -55,6 +55,8 @@ class ScriptService(py_trees.behaviour.Behaviour):
 
     def update(self):
         self.logger.debug("  %s [ScriptService::update()]" % self.name)
+        rospy.loginfo(self.blackboard_stt.result)
+
         self.blackboard_scene.scene.nlp = self.context[self.session][self.blackboard_scene.scene.scene_counter]["nlp"]
         if self.blackboard_scene.scene.scene_counter == "":
             utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
@@ -63,20 +65,24 @@ class ScriptService(py_trees.behaviour.Behaviour):
         else:
             if self.blackboard_scene.scene.nlp:
                 if self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"] == "":
-                    utterance = "\n Human: " + self.blackboard_stt.result
+                    utterance = "*system*\nAI: Can you think of an example on gratitude of something that's happened in the last week or so? \nHuman: " + self.blackboard_stt.result + "\nAI: "
                 else:
                     utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
             else: 
                 utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
-            if self.blackboard_scene.scene.action == 1:
-                print("+++++++++++++++++++++++++ 1")
-                utterance += "Can you ask me a follow up question on this exercise?"
-            elif self.blackboard_scene.scene.action == 2:
-                print("+++++++++++++++++++++++++ 2")
-                utterance += "Can you please tell me another small thing you were grateful for?"
-            elif self.blackboard_scene.scene.action == 3:
-                print("+++++++++++++++++++++++++ 3")
-                utterance += "\n AI: Sorry if I made some mistakes, I'm learning and improving."
+            if self.blackboard_scene.scene.action == "1":
+                rospy.loginfo("+++++++++++++++++++++++++ 1")
+                utterance += "*user*\nHuman: Can you ask me a follow up question on this exercise?"
+            elif self.blackboard_scene.scene.action == "2":
+                rospy.loginfo("+++++++++++++++++++++++++ 2")
+                utterance += "*assistant*\nAI: Can you please tell me another small thing you were grateful for?"
+            elif self.blackboard_scene.scene.action == "3":
+                rospy.loginfo("+++++++++++++++++++++++++ 3")
+                utterance += "*assistant*\nAI: Sorry if I made some mistakes, I'm learning and improving."
+            elif self.blackboard_scene.scene.action == "4":
+                rospy.loginfo("+++++++++++++++++++++++++ 4")
+            
+            
         self.blackboard_scene.scene.utterance = utterance
         gesture = self.context[self.session][self.blackboard_scene.scene.scene_counter]["gesture"]
         username = "USERNAME" 
