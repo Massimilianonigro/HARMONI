@@ -1,9 +1,13 @@
-<!-- This is an example launch file for how a ROS application could use a node -->
+<!-- <include file="$(find harmoni_fer)/launch/fer_service.launch">
+            <arg name="instance_id" value = "$(arg instance_id)"/> 
+    </include>
+	This is an example launch file for how a ROS application could use a node -->
 <launch>
 	<arg name="instance_id" default="default"/>
 	<rosparam file="$(find harmoni_rl)/config/configuration.yaml" subst_value="True"/>
 	<param name="instance_id" value="$(arg instance_id)"/>
-	<include file="$(find harmoni_fer)/launch/fer_service.launch">
+	
+	<include file="$(find harmoni_stt)/launch/stt_service.launch">
             <arg name="instance_id" value = "$(arg instance_id)"/> 
     </include>
 	<include file="$(find harmoni_vad)/launch/vad_service.launch">

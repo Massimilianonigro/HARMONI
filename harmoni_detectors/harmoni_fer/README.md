@@ -10,7 +10,6 @@ In order to use FaceChannel import the python library by running the following c
 
 ```bash 
 $ pip install facechannel
-$ pip install tensorflow==2.4.0
 ``` 
 
 

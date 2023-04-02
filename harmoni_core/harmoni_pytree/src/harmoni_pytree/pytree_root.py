@@ -128,11 +128,11 @@ def create_root_old(params):
     return root
 
 def create_root(params):
-    root = py_trees.composites.Sequence("Dialogue")
-    sequence_speaking = py_trees.composites.Sequence("Speaking")
-    sequence_backchanneling = py_trees.composites.Sequence("Backchanneling")
-    sequence_sensing = py_trees.composites.Sequence("Sensing")
-    parallel_sensing_backchanneling = py_trees.composites.Parallel("Listening")
+    root = py_trees.composites.Sequence("Dialogue", memory=True)
+    sequence_speaking = py_trees.composites.Sequence("Speaking", memory=True)
+    sequence_backchanneling = py_trees.composites.Sequence("Backchanneling", memory=True)
+    sequence_sensing = py_trees.composites.Sequence("Sensing", memory=True)
+    parallel_sensing_backchanneling = py_trees.composites.Parallel("Listening", memory=True)
     tts = AWSTtsServicePytree("TextToSpeech")
     tts_back = AWSTtsServicePytree("TextToSpeechBackchannel")
     script = ScriptService("Script", params)
@@ -146,8 +146,8 @@ def create_root(params):
     stt=DeepSpeechToTextServicePytree("SpeechToText")
     checkstt = CheckSTTResult("CheckResults", params)
     backchanneling_script = BackchannelService("BackchannelScript", params)
-    parall_speaker_face = py_trees.composites.Parallel("Playing")
-    parall_playing_back = py_trees.composites.Parallel("PlayingBackchannel")
+    parall_speaker_face = py_trees.composites.Parallel("Playing", memory=True)
+    parall_playing_back = py_trees.composites.Parallel("PlayingBackchannel", memory=True)
     sequence_backchanneling.add_children([backchanneling_script, tts_back, parall_playing_back])
     sequence_speaking.add_child(script)
     sequence_speaking.add_child(tts)
