@@ -28,6 +28,7 @@ from harmoni_pytree.leaves.vad_service import VADServicePytree
 from harmoni_pytree.leaves.detcustom_service import DetCustomServicePytree
 from harmoni_pytree.leaves.RL_service import RLPytreeService
 from harmoni_pytree.leaves.sentiment_service import SentimentServicePytree
+from harmoni_pytree.leaves.fer_service import FERServicePytree
 
 ##############################################################################
 # Classes
@@ -87,11 +88,11 @@ def create_root(params):
     detectors_parallel = py_trees.composites.Parallel("Detectors")#, policy = SuccessOnAll)
     openface = OpenFaceServicePytree("OpenFace")
     vad = VADServicePytree("VAD")
-    #fer = FERServicePytree("FER")
+    fer = FERServicePytree("FER")
     rl = RLPytreeService("RL")
     detcustom = DetCustomServicePytree("DetCustom")
-    #detectors_parallel.add_children([openface, fer, detcustom, vad])
-    detectors_parallel.add_children([openface, detcustom, vad])
+    detectors_parallel.add_children([openface, fer, detcustom, vad])
+    #detectors_parallel.add_children([openface, detcustom, vad])
     dialogue_sequence = py_trees.composites.Sequence("Dialogue")#, memory=True)
     sequence_speaking = py_trees.composites.Sequence("Speaking")#, memory=True)
     sequence_backchanneling = py_trees.composites.Sequence("Backchanneling")#, memory=True)

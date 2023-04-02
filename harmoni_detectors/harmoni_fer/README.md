@@ -5,11 +5,13 @@ FER (facial expression recognition) is a packege which used the state-of-the-art
 
 
 ## Setup
+Run this detector in another container: harmoni_detector_fer.
 
-In order to use FaceChannel import the python library by running the following commands:
+Enter the container, and then, in order to use FaceChannel import the python library by running the following commands:
 
 ```bash 
 $ pip install facechannel
+$ pip install protobuf==3.20.*
 ``` 
 
 

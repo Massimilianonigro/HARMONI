@@ -20,7 +20,6 @@ from std_msgs.msg import String
 import numpy as np
 import os
 import io
-from tensorflow import keras 
 
 class FERDetector(HarmoniServiceManager):
     """Face expression recognition detector based off of FaceChannels
@@ -44,11 +43,9 @@ class FERDetector(HarmoniServiceManager):
         self._image_sub = (
             None  # assign this when start() called. #TODO test subscription during init
         )
-        self._face_size = (64, 64) 
-        self._image_processing = imageProcessingUtil()
         print(
             "Expected detected destination: ",
-            DetectorNameSpace.fer.value + self.service_id,
+            DetectorNameSpace.fer.value + self.subscriber_id,
         )
         self._face_pub = rospy.Publisher(
             self.service_id,
@@ -62,7 +59,9 @@ class FERDetector(HarmoniServiceManager):
         )
         self.valence_baseline = []
         self.baseline = True
+        self._face_size = (64, 64) 
         self.face_channel_detector = FaceChannelV1("Dim", loadModel=True)
+        self._image_processing = imageProcessingUtil()
         self.detections = []
         self._cv_bridge = CvBridge()
         self.state = State.INIT
