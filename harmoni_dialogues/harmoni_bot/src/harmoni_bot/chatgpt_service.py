@@ -33,6 +33,7 @@ class ChatGPTService(HarmoniServiceManager):
         self.bot_alias = param["bot_alias"]
         self.region_name = param["region_name"]
         self.intentName = None
+        self.stop_request = False
         self.state = State.INIT
         return
 
@@ -69,28 +70,50 @@ class ChatGPTService(HarmoniServiceManager):
             rospy.loginfo(m)
             role = m[1]
             content = m[2]
-            messages_array.append({"role": role, "content": content})
+            if content!="":
+                moderation_check = openai.Moderation.create(
+                        input = content
+                )
+                flagged = moderation_check["results"][0]
+            if not flagged:
+                messages_array.append({"role": role, "content": content})
+            else:
+                self.stop_request = True
         try:
-            
-            gpt_response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages = messages_array,
-            temperature=0.9,
-            max_tokens=150,#150,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0.6
-            )
-            rospy.loginfo("++++++++++++++++++++++++++++++++++++")
-            rospy.loginfo(gpt_response)
-            #rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
-            #response = gpt_response['choices'][0]['text']
-            response = gpt_response['choices'][0]['message']['content']
-            ai_response = response.split("AI:")[-1]
-            ai_response = ai_response.replace("Sure", "")
-            self.result_msg = ai_response
-            self.response_received = True
-            self.state = State.SUCCESS
+            if not self.stop_request:
+                gpt_response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages = messages_array,
+                temperature=0.9,
+                max_tokens=150,#150,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0.6
+                )
+                
+                rospy.loginfo("++++++++++++++++++++++++++++++++++++")
+                rospy.loginfo(gpt_response)
+                #rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
+                #response = gpt_response['choices'][0]['text']
+                response = gpt_response['choices'][0]['message']['content']
+                ai_response = response.split("AI:")[-1]
+                ai_response = ai_response.replace("Sure", "")
+                moderation_check = openai.Moderation.create(
+                    input = ai_response
+                )
+                flagged = moderation_check["results"][0]
+                if flagged:
+                    self.result_msg = ai_response
+                    self.response_received = True
+                    self.state = State.SUCCESS
+                else:
+                    self.result_msg = "Can you please repeat that?"
+                    self.response_received = True
+                    self.state = State.SUCCESS
+            else:
+                self.result_msg = "I found your sentence very inappropriate."
+                self.response_received = True
+                self.state = State.SUCCESS
         except rospy.ServiceException:
             self.state = State.FAILED
             rospy.loginfo("Service call failed")
