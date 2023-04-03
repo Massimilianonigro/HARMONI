@@ -57,7 +57,7 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
                 self.logger.debug(f"Sending goal to {self.server_name}")
                 self.service_client_chatgpt.send_goal(
                     action_goal = ActionType["REQUEST"].value,
-                    optional_data=self.blackboard_scene.scene.utterance,
+                    optional_data=str(self.blackboard_scene.scene.utterance),
                     wait=False,
                 )
                 self.logger.debug(f"Goal sent to {self.server_name}")
@@ -90,6 +90,9 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
                     new_status = py_trees.common.Status.FAILURE
                     raise
         else:
+            self.blackboard_bot.result = {
+                                                "message":   self.blackboard_scene.scene.utterance
+                                            }
             new_status = py_trees.common.Status.SUCCESS
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status

@@ -11,6 +11,7 @@ import harmoni_common_lib.helper_functions as hf
 from harmoni_common_lib.constants import DialogueNameSpace
 import openai
 import os
+import ast
 
 class ChatGPTService(HarmoniServiceManager):
     """This is a class representation of a harmoni_dialogue service
@@ -59,12 +60,16 @@ class ChatGPTService(HarmoniServiceManager):
         """
         rospy.loginfo("Start the %s request" % self.name)
         self.state = State.REQUEST
-        textdata = input_text
+        input_text = ast.literal_eval(input_text)
         result = {"response": False, "message": None}
-        role = textdata.split("*")[1]
-        content = textdata.split("*")[2]
+        rospy.loginfo("=============================== UTTERANCE IS")
         messages_array = []
-        messages_array.append({"role": role, "content": content})
+        for message in input_text:
+            m =  message.split("*")
+            rospy.loginfo(m)
+            role = m[1]
+            content = m[2]
+            messages_array.append({"role": role, "content": content})
         try:
             
             gpt_response = openai.ChatCompletion.create(
@@ -82,6 +87,7 @@ class ChatGPTService(HarmoniServiceManager):
             #response = gpt_response['choices'][0]['text']
             response = gpt_response['choices'][0]['message']['content']
             ai_response = response.split("AI:")[-1]
+            ai_response = ai_response.replace("Sure", "")
             self.result_msg = ai_response
             self.response_received = True
             self.state = State.SUCCESS

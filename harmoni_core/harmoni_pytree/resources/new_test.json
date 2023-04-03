@@ -1,0 +1,192 @@
+{
+    "dictionary_session1" :   [ 
+
+        {
+            "name"          : "followup",
+            "id"            : 1,
+            "utterance"     : " Can you ask me a follow up question on this exercise? ",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "newepisode",
+            "id"            : 2,
+            "utterance"     : " Can you please tell me another small thing you were grateful for? ",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        ,
+        {
+            "name"          : "repairstrategy",
+            "id"            : 3,
+            "utterance"     : " Sorry if I made some mistakes, I'm learning and improving. ",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "QT/emotions/sad",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "",
+            "id"            : 4,
+            "utterance"     : "",
+            "nlp"           : 1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+    ],
+    "session1" :   [ 
+        {
+            "utterance"     : "Hi, my name is Botty. What is your name?",
+            "rl"            :  0,
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "We'll do an exercise on gratitude. Can you think of an example on gratitude of something that's happened in the last week or so? ",
+            "rl"            :  0,
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },        
+        
+        {
+            "utterance"     : "Thank you for having share this with me!",
+            "rl"            :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+
+                ],
+    "session2" :   [ 
+        {
+            "utterance"     : "Hi, my name is Botty. What is your name?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "QT/bye",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "Nice to meet you USERNAME! Today we are going to do a positive psychology exercise. Is that okay?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "Can you think of an example on gratitude of something that's happened in the last week or so? ",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "", 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },        
+        
+        {
+            "utterance"     : "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today? \nHuman: I want to do a positive psychology exercise. \nAI: Sure, what king of positive psychology exercise would you like to do? \nHuman: Gratitude exercise.",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+
+                ],
+    
+    "error_handling"    :   
+                            {   
+                                "call_researcher"   :   {
+                                                        "utterance"     : "I will call the researcher to help you!",
+                                                        "face"          : "null",
+                                                        "gesture"       : "null",
+                                                        "sound"         : "null",
+                                                        "do_trigger"    : "False"
+                                                    }
+                            }                  
+}

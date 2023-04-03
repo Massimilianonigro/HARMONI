@@ -157,7 +157,7 @@ def main():
     print(py_trees.display.unicode_tree(root=root))
 
     behaviour_tree.add_pre_tick_handler(pre_tick_handler)
-    behaviour_tree.visitors.append(py_trees.visitors.DebugVisitor())
+    #behaviour_tree.visitors.append(py_trees.visitors.DebugVisitor())
     snapshot_visitor = py_trees.visitors.SnapshotVisitor()
     behaviour_tree.visitors.append(snapshot_visitor)
     behaviour_tree.add_post_tick_handler(functools.partial(post_tick_handler, snapshot_visitor))
