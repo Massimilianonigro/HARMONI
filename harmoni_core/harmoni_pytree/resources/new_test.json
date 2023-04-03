@@ -14,7 +14,7 @@
         {
             "name"          : "newepisode",
             "id"            : 2,
-            "utterance"     : " Can you please tell me another small thing you were grateful for? ",
+            "utterance"     : "Thank you for sharing this. Can you please tell me another small thing you were grateful for? ",
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
@@ -49,7 +49,7 @@
             "rl"            :  0,
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "QT/bye",
             "sound"         : "",
             "back_channel"    : ""
         },
