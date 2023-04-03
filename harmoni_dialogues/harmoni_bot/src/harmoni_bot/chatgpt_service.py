@@ -32,8 +32,8 @@ class ChatGPTService(HarmoniServiceManager):
         self.bot_name = param["bot_name"]
         self.bot_alias = param["bot_alias"]
         self.region_name = param["region_name"]
-        self.intentName = None
         self.stop_request = False
+        self.flagged_sentence = []
         self.state = State.INIT
         return
 
@@ -71,14 +71,19 @@ class ChatGPTService(HarmoniServiceManager):
             role = m[1]
             content = m[2]
             if content!="":
-                moderation_check = openai.Moderation.create(
-                        input = content
-                )
-                flagged = moderation_check["results"][0]["flagged"]
+                if content not in self.flagged_sentence:
+                    moderation_check = openai.Moderation.create(
+                            input = content
+                    )
+                    flagged = moderation_check["results"][0]["flagged"]
+                else:
+                    flagged = False
+        
             if not flagged:
                 messages_array.append({"role": role, "content": content})
             else:
                 self.stop_request = True
+                self.flagged_sentence.append(content)
         try:
             if not self.stop_request:
                 gpt_response = openai.ChatCompletion.create(
@@ -107,7 +112,8 @@ class ChatGPTService(HarmoniServiceManager):
                 else:
                     self.result_msg = "Can you please repeat that?"
             else:
-                self.result_msg = "I found your sentence very inappropriate."
+                self.result_msg = "I found your sentence very inappropriate. Let's finish the interaction here!"
+                self.stop_request = False
             self.response_received = True
             self.state = State.SUCCESS
         except rospy.ServiceException:
