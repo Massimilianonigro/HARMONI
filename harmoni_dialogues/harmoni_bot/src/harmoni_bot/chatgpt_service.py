@@ -74,7 +74,7 @@ class ChatGPTService(HarmoniServiceManager):
                 moderation_check = openai.Moderation.create(
                         input = content
                 )
-                flagged = moderation_check["results"][0]
+                flagged = moderation_check["results"][0]["flagged"]
             if not flagged:
                 messages_array.append({"role": role, "content": content})
             else:
@@ -101,19 +101,15 @@ class ChatGPTService(HarmoniServiceManager):
                 moderation_check = openai.Moderation.create(
                     input = ai_response
                 )
-                flagged = moderation_check["results"][0]
-                if flagged:
+                flagged = moderation_check["results"][0]["flagged"]
+                if not flagged:
                     self.result_msg = ai_response
-                    self.response_received = True
-                    self.state = State.SUCCESS
                 else:
                     self.result_msg = "Can you please repeat that?"
-                    self.response_received = True
-                    self.state = State.SUCCESS
             else:
                 self.result_msg = "I found your sentence very inappropriate."
-                self.response_received = True
-                self.state = State.SUCCESS
+            self.response_received = True
+            self.state = State.SUCCESS
         except rospy.ServiceException:
             self.state = State.FAILED
             rospy.loginfo("Service call failed")
