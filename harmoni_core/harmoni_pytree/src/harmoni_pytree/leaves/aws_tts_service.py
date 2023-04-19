@@ -40,11 +40,13 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
 
         # here there is the inizialization of the blackboards
         self.blackboards = []
+        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
+        
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
-
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
         super(AWSTtsServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -64,43 +66,46 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):    
-        if self.send_request:
-            rospy.loginfo("-------------------THE MESSAGE RECEIVED IS ")
-            rospy.loginfo(self.blackboard_bot.result["message"])
-            self.send_request = False
-            self.logger.debug(f"Sending goal to {self.server_name}")
-            self.service_client_tts.send_goal(
-                action_goal = ActionType["REQUEST"].value,
-                optional_data = self.blackboard_bot.result["message"],
-                wait=False,
-            )
-            self.logger.debug(f"Goal sent to {self.server_name}")
-            new_status = py_trees.common.Status.RUNNING
-        else:
-            new_state = self.service_client_tts.get_state()
-            print("update : ",new_state)
-            if new_state == GoalStatus.ACTIVE:
-                new_status = py_trees.common.Status.RUNNING
-            elif new_state == GoalStatus.SUCCEEDED:
-                if self.client_result is not None:
-                    self.blackboard_tts.result = self.client_result
-                    self.client_result = None
-                    new_status = py_trees.common.Status.SUCCESS
-                else:
-                    self.logger.debug(f"Waiting fot the result ({self.server_name})")
-                    new_status = py_trees.common.Status.RUNNING
-            elif new_state == GoalStatus.PENDING:
-                self.send_request = True
-                self.logger.debug(f"Cancelling goal to {self.server_name}")
-                self.service_client_tts.cancel_all_goals()
-                self.client_result = None
-                self.logger.debug(f"Goal cancelled to {self.server_name}")
-                #self.service_client_tts.stop_tracking_goal()
-                #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
+        if self.blackboard_scene.scene.nlp == 2:
+            new_status = py_trees.common.Status.SUCCESS
+        else:  
+            if self.send_request:
+                rospy.loginfo("-------------------THE MESSAGE RECEIVED IS ")
+                rospy.loginfo(self.blackboard_bot.result["message"])
+                self.send_request = False
+                self.logger.debug(f"Sending goal to {self.server_name}")
+                self.service_client_tts.send_goal(
+                    action_goal = ActionType["REQUEST"].value,
+                    optional_data = self.blackboard_bot.result["message"],
+                    wait=False,
+                )
+                self.logger.debug(f"Goal sent to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
-                new_status = py_trees.common.Status.FAILURE
-                raise
+                new_state = self.service_client_tts.get_state()
+                print("update : ",new_state)
+                if new_state == GoalStatus.ACTIVE:
+                    new_status = py_trees.common.Status.RUNNING
+                elif new_state == GoalStatus.SUCCEEDED:
+                    if self.client_result is not None:
+                        self.blackboard_tts.result = self.client_result
+                        self.client_result = None
+                        new_status = py_trees.common.Status.SUCCESS
+                    else:
+                        self.logger.debug(f"Waiting fot the result ({self.server_name})")
+                        new_status = py_trees.common.Status.RUNNING
+                elif new_state == GoalStatus.PENDING:
+                    self.send_request = True
+                    self.logger.debug(f"Cancelling goal to {self.server_name}")
+                    self.service_client_tts.cancel_all_goals()
+                    self.client_result = None
+                    self.logger.debug(f"Goal cancelled to {self.server_name}")
+                    #self.service_client_tts.stop_tracking_goal()
+                    #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
+                    new_status = py_trees.common.Status.RUNNING
+                else:
+                    new_status = py_trees.common.Status.FAILURE
+                    raise
 
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status

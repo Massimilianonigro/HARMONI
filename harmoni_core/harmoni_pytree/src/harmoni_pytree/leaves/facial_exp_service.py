@@ -50,6 +50,8 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
+        
 
         super(FacialExpServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -74,27 +76,29 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-
-        if self.send_request:
-            self.send_request = False
-            self.data = self.blackboard_scene.face_exp
-            self.logger.debug(f"Sending goal to {self.server_name}")
-            self.service_client_mouth.send_goal(
-                action_goal=ActionType.DO.value,
-                optional_data=self.data,
-                wait=True,
-            )
-            self.logger.debug(f"Goal sent to {self.server_name}")
-            new_status = py_trees.common.Status.RUNNING
-        else:
-            new_state = self.service_client_mouth.get_state()
-            print(new_state)
-            if new_state == GoalStatus.ACTIVE:
+        if self.blackboard_scene.scene.nlp == 2:
+            new_status = py_trees.common.Status.SUCCESS
+        else:  
+            if self.send_request:
+                self.send_request = False
+                self.data = self.blackboard_scene.face_exp
+                self.logger.debug(f"Sending goal to {self.server_name}")
+                self.service_client_mouth.send_goal(
+                    action_goal=ActionType.DO.value,
+                    optional_data=self.data,
+                    wait=True,
+                )
+                self.logger.debug(f"Goal sent to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
-            elif new_state == GoalStatus.SUCCEEDED:
-                new_status = py_trees.common.Status.SUCCESS
             else:
-                new_status = py_trees.common.Status.FAILURE
+                new_state = self.service_client_mouth.get_state()
+                print(new_state)
+                if new_state == GoalStatus.ACTIVE:
+                    new_status = py_trees.common.Status.RUNNING
+                elif new_state == GoalStatus.SUCCEEDED:
+                    new_status = py_trees.common.Status.SUCCESS
+                else:
+                    new_status = py_trees.common.Status.FAILURE
 
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status 

@@ -1,0 +1,292 @@
+{
+    "session1" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hi, my name is Botty. We may have already met or you may have met my little robotic friend, and since then I have had some updates. What is your name?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  1,
+        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. I'll remind you what it is.  The aim of positive psychology is to guide you towards focusing on positive things in your life. And the reason for this is that often negative things in our life can get a lot of our attention while the positive things are harder to focus on. And if we don't focus on them, they're then harder to recall when we try and remember them later on. So in total we'll be doing 4 sessions together, focusing on four different exercises from positive psychology approaches. Is that okay?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  2,
+        	"utterance" 	: "The first exercise is called savouring. So savouring is about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could kind of think of something small, a small positive thing that's happened, maybe if you cast your memory back to the last week. So something good that's either happening right now or a pleasant memory from the last week or so. It could actually be something that will happen in the future. I'll give you about 30 seconds to think about that. <break time='10s'/>. Please share this with me.",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        {
+            "id"            :  3,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "<break time='3s'/> What did you think?",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "",
+            "error"         : "interruption", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  5,
+            "utterance"     : "",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  6,
+            "utterance"     : "Thank you for sharing this. Could you think of a second example of a memory, a positive memory, that you could savour, maybe something from the last month or so?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },        
+        {
+            "id"            :  7,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  8,
+            "utterance"     : "",
+            "error"         : "non-responding", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  9,
+            "utterance"     : "",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  10,
+            "utterance"     : "Thank you for sharing this USERNAME. Bye!!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+
+     ],
+     "session1_empathic" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hi, my name is Botty. We may have already met or you may have met my little robotic friend, and since then I have had some updates. What is your name?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  1,
+        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. I'll remind you what it is.  The aim of positive psychology is to guide you towards focusing on positive things in your life. And the reason for this is that often negative things in our life can get a lot of our attention while the positive things are harder to focus on. And if we don't focus on them, they're then harder to recall when we try and remember them later on. So in total we'll be doing 4 sessions together, focusing on four different exercises from positive psychology approaches. Is that okay?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  2,
+        	"utterance" 	: "The first exercise is called savouring. So savouring is about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could kind of think of something small, a small positive thing that's happened, maybe if you cast your memory back to the last week. So something good that's either happening right now or a pleasant memory from the last week or so. It could actually be something that will happen in the future. I'll give you about 30 seconds to think about that. <break time='10s'/>. Please share this with me.",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+
+        {
+            "id"            :  3,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "<break time='3s'/> What did you think?",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "",
+            "error"         : "interruption", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  5,
+            "utterance"     : ". From what I am saying, return strictly only two words separated by a comma. The first word is one word on how I am feeling. The second word is positive or negative, depending on if the first is positive or negative. ",
+            "error"         : "interruption", 
+            "nlp"           :  2,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  6,
+            "utterance"     : "",
+            "error"         : "followup_interruption_", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  7,
+            "utterance"     : "",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  8,
+            "utterance"     : "Thank you for sharing this. Could you think of another example of a memory, a positive memory, that you could savour, maybe something from the last month or so?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },        
+        {
+            "id"            :  9,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  10,
+            "utterance"     : "",
+            "error"         : "non-responding", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  5,
+            "utterance"     : ". From what I am saying, return strictly only two words separated by a comma. The first word is one word on how I am feeling. The second word is positive or negative, depending on if the first is positive or negative. ",
+            "error"         : "non-responding", 
+            "nlp"           :  2,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  11,
+            "utterance"     : "",
+            "error"         : "followup_non-responding_", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  12,
+            "utterance"     : "",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  13,
+            "utterance"     : "Thank you for sharing this USERNAME. Bye!!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+
+     ],
+    
+    "repair_strategies"    :   [
+        {
+        "condition": "non-empathic",
+        "interruption": ["Oh, sorry, I think I interrupted you. My microphone isn't working well today. I'm trying to do better. Could you carry on?",  "Sorry, I interrupted you. The Wi-Fi is slow today and I'm having processing issues. I'll try not to interrupt you again. Please go on.", " I'm sorry, I thought you had finished speaking. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Please go ahead.", " Oh sorry, I didn't realize you were still talking. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please carry on."],
+        "non-responding": [" <break time='15s'/> Sorry, had you finished speaking? My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again.", "<break time='17s'/> Have you finished speaking? I'm sorry. The Wi-Fi is a bit slow today, so my processing is slower. I'll try to respond quicker next time.", "<break time='12s'/> Sorry, I didn't realize it was my turn to talk. my processing is a bit slow today due to the Wi-Fi. I'm trying to do better.", "<break time='18s'/> Sorry about that. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error."],
+        "generic": ["I'm sorry, I think I made a mistake. I'm trying to improve. Could you repeat that please?", "Sorry, I think that was an error on my part. I'm having problems with speech recognition today. Could you tell me again?", "Sorry, I think I made a mistake. I'm trying to do better. Could you repeat that please?", "That was probably a mistake. I'm sorry about the mistakes I make, I'm trying to get better. Please carry on.", "I apologize, I think that was a mistake. The Wi-Fi is slow today, so my processing is slower. Could you tell me that again?", "That was probably a mistake, I'm sorry. I'll try not to do that again. Could you tell me again about that?", "I'm sorry, that was an error. My microphone is not working very well today. Could you repeat that?", "I'm sorry about that, I've had a processing error. Could you tell me that again please?", "I'm sorry about that, I think I made a mistake. I'm experiencing some technical issues. Could you repeat that please?", "Oh, sorry, I think that was an error. I'll try to not repeat that. Could you tell me that again?"]
+        }
+        ,
+        {
+    
+            
+        "condition": "empathic",
+        "interruption": ["Oh, sorry, I think I interrupted you. How did that make you feel?", " Sorry, I interrupted you. How are you feeling?", " I'm sorry, I thought you had finished speaking. How are you feeling?", " Oh sorry, I didn't realize you were still talking. How did that interruption make you feel?"],
+        "non-responding": ["<break time='15s'/> Sorry, had you finished speaking? How did my error in not responding make you feel?", "<break time='17s'/> Have you finished speaking? I'm sorry. How did that error make you feel?", "<break time='12s'/> Sorry, I didn't realize it was my turn to talk. How are you feeling?", "<break time='18s'/> Sorry about that. How did me not responding make you feel?"],
+        "followup_interruption_neg": ["I'm sorry, I understand it can make you feel $FEELINGWORD when I make mistakes. My intention is to listen to what you are saying, but sometimes I experience errors. My microphone isn't working well today. I'm trying to do better. Could you carry on?", "I'm sorry to hear that, I understand you might feel $FEELINGWORD when I interrupt you. I care about what you have to say, but sometimes I get things wrong. The Wi-Fi is slow today and I'm having processing issues. I'll try not to interrupt you again. Please go on.", "I'm sorry, I understand that you feel $FEELINGWORD when I interrupt. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Please go ahead.", "I'm sorry, I understand that you feel $FEELINGWORD. I want to know what you want to share, but sometimes I make mistakes. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please carry on."],
+        "followup_non-responding_neg": ["I'm sorry to hear that you feel $FEELINGWORD. I'm doing my best to respond to you, but sometimes I experience errors. My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again.", "I'm sorry, I understand you feel $FEELINGWORD. I want to respond to you, but sometimes I make mistakes. The Wi-Fi is a bit slow today, so my processing is slower. I'll try to respond quicker next time.", "I'm sorry to hear that, I understand it can make you feel $FEELINGWORD when I'm slow to respond. My intention is to respond to you, but sometimes I have errors. My processing is a bit slow today due to the Wi-Fi. I'm trying to do better.", "I'm sorry and I undeerstand you feel $FEELINGWORD when I don't respond. I'm doing my best to respond but sometimes I make mistakes. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error."],
+        "followup_interruption_pos": ["Thanks for being understanding. My intention is to listen to what you are saying, but sometimes I experience errors. My microphone isn't working well today. I'm trying to do better. Could you carry on?", "Thank you for understanding. I care about what you have to say, but sometimes I get things wrong. The Wi-Fi is slow today and I'm having processing issues. I'll try not to interrupt you again. Please go on.", "I appreciate you being understanding. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Please go ahead.", "I'm greatful that you're being understanding. I want to know what you want to share, but sometimes I make mistakes. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please carry on."],
+        "followup_non-responding_pos": ["Thank you for being understanding. I'm doing my best to respond to you, but sometimes I experience errors. My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again.", "I'm grateful for you being understanding. I want to respond to you, but sometimes I make mistakes. The Wi-Fi is a bit slow today, so my processing is slower. I'll try to respond quicker next time.", "I appreciate you being understanding when I'm slow to respond. My intention is to respond to you, but sometimes I have errors. My processing is a bit slow today due to the Wi-Fi. I'm trying to do better.", "I'm thankful you're understanding when I don't respond. I'm doing my best to respond but sometimes I make mistakes. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error."]
+     
+        }
+    ]
+
+}

@@ -269,9 +269,9 @@ class AWSTtsService(HarmoniServiceManager):
             text = (
                 '<speak><lang xml:lang="'
                 + self.language
-                + '">'
+                + '"><prosody rate="slow" volume= "soft">'
                 + text
-                + "</lang></speak>"
+                + "</prosody></lang></speak>"
             )
             json_response = self.tts.synthesize_speech(
                 Text=text,

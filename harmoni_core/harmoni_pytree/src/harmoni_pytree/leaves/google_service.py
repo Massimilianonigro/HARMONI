@@ -46,7 +46,9 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_microphone.register_key("state", access=py_trees.common.Access.READ)
         self.blackboard_stt = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.stt.name)
         self.blackboard_stt.register_key("result", access=py_trees.common.Access.WRITE)
-
+        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
+        
         super(SpeechToTextServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -65,51 +67,51 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
 
         self.blackboard_stt.result = "null"
-
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-
-        if self.send_request:
-            self.send_request = False
-            self.logger.debug(f"Sending goal to {self.server_name}")
-            self.service_client_stt.send_goal(
-                action_goal = ActionType["REQUEST"].value,
-                optional_data="",
-                wait=False,
-            )
-            self.logger.debug(f"Goal sent to {self.server_name}")
-            new_status = py_trees.common.Status.RUNNING
-        else:
-            new_state = self.service_client_stt.get_state()
-            print(new_state)
-            if new_state == GoalStatus.ACTIVE:
-                new_status = py_trees.common.Status.RUNNING
-            elif new_state == GoalStatus.SUCCEEDED:
-                if self.client_result is not None:
-                    self.blackboard_stt.result = self.client_result
-                    rospy.loginfo(self.blackboard_stt.result)
-                    self.client_result = None
-                    new_status = py_trees.common.Status.SUCCESS
-                else:
-                    self.logger.debug(f"Waiting fot the result ({self.server_name})")
-                    new_status = py_trees.common.Status.RUNNING
-            elif new_state == GoalStatus.PENDING:
-                self.send_request = True
-                self.logger.debug(f"Cancelling goal to {self.server_name}")
-                self.service_client_stt.cancel_all_goals()
-                self.client_result = None
-                self.logger.debug(f"Goal cancelled to {self.server_name}")
-                #self.service_client_stt.stop_tracking_goal()
-                #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
+        if self.blackboard_scene.scene.nlp == 2:
+            new_status = py_trees.common.Status.SUCCESS
+        else:  
+            if self.send_request:
+                self.send_request = False
+                self.logger.debug(f"Sending goal to {self.server_name}")
+                self.service_client_stt.send_goal(
+                    action_goal = ActionType["REQUEST"].value,
+                    optional_data="",
+                    wait=False,
+                )
+                self.logger.debug(f"Goal sent to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
-                new_status = py_trees.common.Status.FAILURE
-                raise
-        
+                new_state = self.service_client_stt.get_state()
+                print(new_state)
+                if new_state == GoalStatus.ACTIVE:
+                    new_status = py_trees.common.Status.RUNNING
+                elif new_state == GoalStatus.SUCCEEDED:
+                    if self.client_result is not None:
+                        self.blackboard_stt.result = self.client_result
+                        rospy.loginfo(self.blackboard_stt.result)
+                        self.client_result = None
+                        new_status = py_trees.common.Status.SUCCESS
+                    else:
+                        self.logger.debug(f"Waiting fot the result ({self.server_name})")
+                        new_status = py_trees.common.Status.RUNNING
+                elif new_state == GoalStatus.PENDING:
+                    self.send_request = True
+                    self.logger.debug(f"Cancelling goal to {self.server_name}")
+                    self.service_client_stt.cancel_all_goals()
+                    self.client_result = None
+                    self.logger.debug(f"Goal cancelled to {self.server_name}")
+                    #self.service_client_stt.stop_tracking_goal()
+                    #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
+                    new_status = py_trees.common.Status.RUNNING
+                else:
+                    new_status = py_trees.common.Status.FAILURE
+                    raise
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         

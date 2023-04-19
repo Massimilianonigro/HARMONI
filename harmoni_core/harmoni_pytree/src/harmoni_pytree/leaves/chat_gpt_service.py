@@ -30,6 +30,8 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_bot.register_key("feeling", access=py_trees.common.Access.WRITE)
+        self.blackboard_bot.register_key("sentiment", access=py_trees.common.Access.WRITE)
 
         super(ChatGPTServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -43,6 +45,8 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         
         self.blackboard_bot.result = "null"
+        self.blackboard_bot.feeling = "uncomfortable"
+        self.blackboard_bot.sentiment = "negative"
 
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
@@ -50,7 +54,7 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):   
-        if self.blackboard_scene.scene.nlp:           
+        if self.blackboard_scene.scene.nlp!=0:           
             if self.send_request:
                 self.send_request = False
                 rospy.loginfo("The utterance is " + str(self.blackboard_scene.scene.utterance))
@@ -74,6 +78,11 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
                         self.blackboard_bot.result  = {
                                                                 "message":   self.client_result
                                             }
+                        if self.blackboard_scene.scene.nlp == 2:
+                            if "," in self.client_result:
+                                feelings = self.client_result.split(",")
+                                self.blackboard_bot.feeling = feelings[0]
+                                self.blackboard_bot.sentiment = feelings[1]
                         self.client_result = None
                         new_status = py_trees.common.Status.SUCCESS
                     else:
