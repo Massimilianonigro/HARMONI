@@ -61,7 +61,7 @@ class RLService(HarmoniServiceManager):
 
     def _fer_detector_base_cb(self, data):
         data = ast.literal_eval(data.data)
-        rospy.loginfo("==================== FER DETECTION RECEIVED")
+        rospy.loginfo("==================== FER DETECTION BASELINE RECEIVED")
         rospy.loginfo(data)
         #if self.state == State.REQUEST:
         self.fer_baseline = data
@@ -70,10 +70,15 @@ class RLService(HarmoniServiceManager):
 
     def _detcustom_detector_cb(self, data):
         data = data.data
-        #rospy.loginfo("==================== IR DETECTION RECEIVED")
+        rospy.loginfo("==================== IR DETECTION RECEIVED")
         #rospy.loginfo(data)
         #if self.state == State.REQUEST:
+        if data == True:
+            data = 1
+        else:
+            data = 0
         self.detcustom.append(data)
+        rospy.loginfo(data)
         return
     
     def _vad_detector_cb(self, data):
@@ -81,6 +86,10 @@ class RLService(HarmoniServiceManager):
         #rospy.loginfo("==================== VAD DETECTION RECEIVED")
         #rospy.loginfo(data)
         #if self.state ==  State.REQUEST:
+        if data == True:
+            data = 1
+        else:
+            data = 0
         self.vad.append(data)
         return
 
@@ -118,7 +127,17 @@ class RLService(HarmoniServiceManager):
             #vad_observation = [len(self.var) - np.count_nonzero(self.var), np.count_nonzero(self.var)]
             #ir_observation = [len(self.detcustom) - np.count_nonzero(self.detcustom), np.count_nonzero(self.detcustom)]
             #interaction_observation = [exercise]
-            self.result_msg = RLCore.test()
+            rospy.loginfo("++++++++++++++++++++++++++++++ HERE")
+            rospy.loginfo(self.detcustom)
+            if len(self.detcustom)!=0:
+                errors = int(self.detcustom.count(1))
+                rospy.loginfo("The number of IRs are:" + str(errors))
+            else:
+                errors = 0
+            if errors > 3:
+                self.result_msg = "4"
+            else:
+                self.result_msg = RLCore.test()
             self.response_received = True
             self.state = State.SUCCESS
             self.vad = []

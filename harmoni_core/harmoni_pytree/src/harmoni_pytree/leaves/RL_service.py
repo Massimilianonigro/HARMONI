@@ -45,7 +45,7 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         
         self.blackboard_rl.result = "null"
-        self.blackboard_scene.scene.action = 0
+        self.blackboard_scene.scene.action = 1
 
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
@@ -53,6 +53,8 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self): 
+        rospy.loginfo("HEEEEREEEEEE ================= ")
+        rospy.loginfo(self.blackboard_scene.scene.rl)
         if self.blackboard_scene.scene.rl:
             if self.send_request:
                 self.send_request = False
@@ -60,7 +62,7 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
                 self.service_client_rl.send_goal(
                     action_goal = ActionType["REQUEST"].value,
                     optional_data = str(1), #self.blackboard_scene.scene.exercise,
-                    wait=False,
+                    wait=True,
                 )
                 self.logger.debug(f"Goal sent to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING

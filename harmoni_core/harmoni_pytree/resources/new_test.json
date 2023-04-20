@@ -1,10 +1,20 @@
 {
     "dictionary_session1" :   [ 
+        {
+            "name"          : "",
+            "id"            : 0,
+            "utterance"     : "",
+            "nlp"           : 1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
 
         {
             "name"          : "followup",
             "id"            : 1,
-            "utterance"     : " Can you ask me a follow up question on this exercise? ",
+            "utterance"     : " Can you ask me a follow up question on this savouring episode you have just shared? ",
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "null",
@@ -14,29 +24,147 @@
         {
             "name"          : "newepisode",
             "id"            : 2,
-            "utterance"     : "Thank you for sharing this. Can you please tell me another small thing you were grateful for? ",
+            "utterance"     : "Thank you for sharing this. Could you think of another example of a memory, a positive memory, that you could savour, maybe something from the last month or so? <break time='10s'/> Now please share it.",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "repairstrategy",
+            "id"            : 3,
+            "utterance"     : "That was probably a mistake. I'm sorry about the mistakes I make, I'm trying to get better. Please carry on.", 
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
             "back_channel"    : ""
         }
-        ,
+    ],
+    "dictionary_session2" :   [ 
         {
-            "name"          : "repairstrategy",
-            "id"            : 3,
-            "utterance"     : " Sorry if I made some mistakes, I'm learning and improving. ",
-            "nlp"           :  0,
+            "name"          : "",
+            "id"            : 0,
+            "utterance"     : "",
+            "nlp"           : 1,
             "face"          : "null",
-            "gesture"       : "QT/emotions/sad",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+
+        {
+            "name"          : "followup",
+            "id"            : 1,
+            "utterance"     : " Can you ask me a follow up question on this gratitude episode you have just shared? ",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
             "sound"         : "",
             "back_channel"    : ""
         },
         {
+            "name"          : "newepisode",
+            "id"            : 2,
+            "utterance"     : "That it's a lovely example.Feel free to take a bit more time to think of another example. So maybe if you think of something that you've been grateful for in the last couple of days. <break time='10s'/> Please share it with me. ",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "repairstrategy",
+            "id"            : 3,
+            "utterance"     : "I'm sorry, I think I made a mistake. I'm trying to improve. Could you repeat that please?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+    ],
+    "dictionary_session3" :   [ 
+        {
             "name"          : "",
-            "id"            : 4,
+            "id"            : 0,
             "utterance"     : "",
             "nlp"           : 1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+
+        {
+            "name"          : "followup",
+            "id"            : 1,
+            "utterance"     : " Can you ask me a follow up question on this accomplishment episode you have just shared? ",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "newepisode",
+            "id"            : 2,
+            "utterance"     : "And can you think of another example of an accomplishment, something smaller over the last week? I'll give you around 30 seconds to think about that.<break time='10s'/> Please share it with me.",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "repairstrategy",
+            "id"            : 3,
+            "utterance"     : "Oh, sorry, I think that was an error. I'll try to not repeat that. Could you tell me that again?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+    ],
+    "dictionary_session4" :   [ 
+        {
+            "name"          : "",
+            "id"            : 0,
+            "utterance"     : "",
+            "nlp"           : 1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+
+        {
+            "name"          : "followup",
+            "id"            : 1,
+            "utterance"     : " Can you ask me a follow up question on this one door closes one door opens episode you have just shared? ",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "newepisode",
+            "id"            : 2,
+            "utterance"     : "That's a really nice example. Can you think of another for me of when one opportunity might have closed down in another opened up? I'll give you around 30 seconds to think about that.<break time='10s'/> Please share it with me.",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "name"          : "repairstrategy",
+            "id"            : 3,
+            "utterance"     : "Sorry, I think that was an error on my part. I'm having problems with speech recognition today. Could you tell me again?",
+            "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
@@ -49,7 +177,7 @@
             "rl"            :  0,
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "QT/bye",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -68,6 +196,33 @@
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -179,14 +334,9 @@
 
                 ],
     
-    "error_handling"    :   
-                            {   
-                                "call_researcher"   :   {
-                                                        "utterance"     : "I will call the researcher to help you!",
-                                                        "face"          : "null",
-                                                        "gesture"       : "null",
-                                                        "sound"         : "null",
-                                                        "do_trigger"    : "False"
-                                                    }
-                            }                  
+        "repair_strategies"    :   [
+            {
+             "generic": ["I'm sorry, I think I made a mistake. I'm trying to improve. Could you repeat that please?", "Sorry, I think that was an error on my part. I'm having problems with speech recognition today. Could you tell me again?", "Sorry, I think I made a mistake. I'm trying to do better. Could you repeat that please?", "That was probably a mistake. I'm sorry about the mistakes I make, I'm trying to get better. Please carry on.", "I apologize, I think that was a mistake. The Wi-Fi is slow today, so my processing is slower. Could you tell me that again?", "That was probably a mistake, I'm sorry. I'll try not to do that again. Could you tell me again about that?", "I'm sorry, that was an error. My microphone is not working very well today. Could you repeat that?", "I'm sorry about that, I've had a processing error. Could you tell me that again please?", "I'm sorry about that, I think I made a mistake. I'm experiencing some technical issues. Could you repeat that please?", "Oh, sorry, I think that was an error. I'll try to not repeat that. Could you tell me that again?"]
+            }
+        ]        
 }

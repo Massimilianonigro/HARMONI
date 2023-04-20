@@ -11,7 +11,6 @@ class RLActionsName:
     ACTION1 = "1"
     ACTION2 = "2"
     ACTION3 = "3"
-    ACTION4 = "4"
 
 
 class RLCore:
@@ -44,6 +43,5 @@ class RLCore:
         )
 
     def test():
-        action = random.choices(["1", "2", "3", "4"])
-        
+        action = random.choices(["1", "2", "3"])
         return action[0]

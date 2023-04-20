@@ -44,7 +44,7 @@ class CustomDetector(HarmoniServiceManager):
             DetectorNameSpace.detcustom.value + self.service_id,
         )
         self._ir_pub = rospy.Publisher(
-            self.service_id,
+            DetectorNameSpace.detcustom.value + self.subscriber_id,
             Bool,
             queue_size=1,
         )

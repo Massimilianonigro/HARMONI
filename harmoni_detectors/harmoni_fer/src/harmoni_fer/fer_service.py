@@ -48,12 +48,12 @@ class FERDetector(HarmoniServiceManager):
             DetectorNameSpace.fer.value + self.subscriber_id,
         )
         self._face_pub = rospy.Publisher(
-            self.service_id,
+            DetectorNameSpace.fer.value + self.subscriber_id,
             String,
             queue_size=1,
         )
         self._face_baseline_pub = rospy.Publisher(
-            self.service_id + "/baseline",
+            DetectorNameSpace.fer.value + self.subscriber_id+"/baseline",
             String,
             queue_size=1,
         )
