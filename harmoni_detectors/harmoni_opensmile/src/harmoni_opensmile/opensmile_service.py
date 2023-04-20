@@ -21,6 +21,7 @@ import ast
 import pyaudio
 import wave
 import opensmile
+import pandas as pd
 
 class OpenSmileDetector(HarmoniServiceManager):
     """Face expression recognition detector based off of FaceChannels
@@ -43,7 +44,7 @@ class OpenSmileDetector(HarmoniServiceManager):
         )
         self._opensmile_pub = rospy.Publisher(
             self.service_id,
-            Bool,
+            String,
             queue_size=1,
         )
         self._mic_topic = SensorNameSpace.microphone.value + self.subscriber_id 
@@ -84,15 +85,7 @@ class OpenSmileDetector(HarmoniServiceManager):
     def _save_audio(self, data):
         data = np.frombuffer(data.data, np.uint8)
         if self.first_frame:
-            if self.counter == 10:
-                for i in range(0, 10):
-                    if os.path.exists(self.out_dir + 'audio' + str(i) +'.wav'):
-                        os.remove(self.out_dir + 'audio' + str(i) +'.wav')
-                    else:
-                        print("The file does not exist")
-                self.counter = 1
-            else:
-                self.counter +=1
+            rospy.loginfo("==== FIRST FRAME")
             filename = 'audio'+str(self.counter)#datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             p = pyaudio.PyAudio()
             #file_name = "audio_" + file_name_date
@@ -109,43 +102,40 @@ class OpenSmileDetector(HarmoniServiceManager):
             self.wf.writeframes(b"".join(data))
         return self.path_audio
 
-    def _opensmile_process(self, filename):
-        done = False
+    def _opensmile_process(self, data):
         rospy.loginfo("++++ OPENSMILE PROCESSING ")
         sampling_rate = 16000
         smile = opensmile.Smile(
             feature_set = opensmile.FeatureSet.eGeMAPSv02,
             feature_level = 'lld',
-            options = {'frameMode': 'fixed', 'frameSize': 0.01, 'frameStep': 1},
+            options = {'frameMode': 'fixed', 'frameSize': 1, 'frameStep': 1},
             verbose = True,
         )
-        feature_vector = smile.process_files([filename])
-        filename = filename.split(".")[0]
-        feature_vector.to_csv(filename + '.csv')
-        done = True
-        
-        
-        return done
+        feature_vector = smile.process_signal(data, sampling_rate)
+        return feature_vector
 
     def detect_callback(self, data):
         """Uses audio to detect and publish that the opensmile has processed the audio file info.
         Args:
             data(data): String from the opensmile
         """
-        self._save_audio(data)
-        if self.first_frame:
-            self.filename = self.path_audio
-            self.first_frame = False
-            def baseline_cb(event):
-                self.done = self._opensmile_process(self.filename)
-                filename = self.path_audio.split(".")[0]
-                if self.done: 
-                    self._opensmile_pub.publish(self.done)
-                    self.first_frame = True
-                    self.done = False
-            rospy.Timer(rospy.Duration(10), baseline_cb)
-            
-            
+        data = np.frombuffer(data.data, np.uint8)
+        if self.counter == 0:
+            self._detection = []
+        elif self.counter == 100:
+            self._opensmile_pub.publish(str(self._detection))
+            self._detection = []
+            self.counter = 0
+        self.counter +=1
+        feature_vector = self._opensmile_process(data)
+        df = pd.DataFrame(data=feature_vector)
+        opensmile_features = df.drop(df.columns[[0, 1]], axis =1)
+        opensmile_features = opensmile_features.fillna(0)
+        values = opensmile_features.values[:1][0]
+        new_values = []
+        for j in range(len(values)):
+            new_values.append(float(values[j]))
+        self._detection.append(new_values)
 
 def main():
 
