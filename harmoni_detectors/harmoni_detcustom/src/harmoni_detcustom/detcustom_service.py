@@ -32,7 +32,8 @@ class CustomDetector(HarmoniServiceManager):
         self._rate = param["rate_frame"]
         self.subscriber_id = param["subscriber_id"]
         self.model_dir = param["model_dir"]
-        self.model_name = param["model_name"]
+        self.model_name_face = param["model_name_face"]
+        self.model_name_audio = param["model_name_audio"]
         self.service_id = name
         self._aus_sub = (
             None  # assign this when start() called. #TODO test subscription during init
@@ -48,11 +49,18 @@ class CustomDetector(HarmoniServiceManager):
             queue_size=1,
         )
         self._openface_topic = DetectorNameSpace.openface.value + self.subscriber_id 
-        json_file = open(self.model_dir + self.model_name + '.json', 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
-        self._custom_model = tf.keras.models.model_from_json(loaded_model_json) 
-        self._custom_model.load_weights(self.model_dir + self.model_name + '.h5')
+        self._opensmile_topic = DetectorNameSpace.opensmile.value + self.subscriber_id 
+        json_file_face = open(self.model_dir + self.model_name_face + '.json', 'r')
+        loaded_model_json_face = json_file_face.read()
+        json_file_face.close()
+        self._custom_model_face = tf.keras.models.model_from_json(loaded_model_json_face) 
+        self._custom_model_face.load_weights(self.model_dir + self.model_name_face + '.h5')
+
+        json_file_audio = open(self.model_dir + self.model_name_audio + '.json', 'r')
+        loaded_model_json_audio = json_file_audio.read()
+        json_file_audio.close()
+        self._custom_model_audio = tf.keras.models.model_from_json(loaded_model_json_audio) 
+        self._custom_model_audio.load_weights(self.model_dir + self.model_name_audio + '.h5')
         self.prediction = 0
         self.state = State.INIT
 
@@ -70,6 +78,9 @@ class CustomDetector(HarmoniServiceManager):
         self._aus_sub = rospy.Subscriber(
             self._openface_topic, String, self.detect_callback
         )
+        self._opensmile_sub = rospy.Subscriber(
+            self._opensmile_topic, String, self.audio_detect_callback
+        )
         
 
     def stop(self):
@@ -83,6 +94,24 @@ class CustomDetector(HarmoniServiceManager):
     def pause(self):
         self.stop()
 
+    def audio_detect_callback(self, data):
+        """Uses image to detect and publish face info.
+        Args:
+            data(data): String from the openface
+        """
+        result = data.data
+        #data_array = np.array(result)#
+        data_array = ast.literal_eval(result)
+        if len(data_array)!=0:
+            data_array = data_array[0::10]
+            input_data = np.array(data_array)
+            input_data = input_data.reshape(1, input_data.shape[0], input_data.shape[1])
+            rospy.loginfo(input_data.shape)
+            prediction = self._custom_model_audio.predict(input_data)
+            self.prediction = np.argmax(prediction)
+            self._ir_pub.publish(self.prediction)
+
+
     def detect_callback(self, data):
         """Uses image to detect and publish face info.
         Args:
@@ -91,12 +120,14 @@ class CustomDetector(HarmoniServiceManager):
         result = data.data
         #data_array = np.array(result)#
         data_array = ast.literal_eval(result)
-        input_data = np.array(data_array)
-        input_data = input_data.reshape(1, input_data.shape[0], input_data.shape[1])
-        rospy.loginfo(input_data.shape)
-        prediction = self._custom_model.predict(input_data)
-        self.prediction = np.argmax(prediction)
-        self._ir_pub.publish(self.prediction)
+        if len(data_array)!=0:
+            data_array = data_array[0::30]
+            input_data = np.array(data_array)
+            input_data = input_data.reshape(1, input_data.shape[0], input_data.shape[1])
+            rospy.loginfo(input_data.shape)
+            prediction = self._custom_model_face.predict(input_data)
+            self.prediction = np.argmax(prediction)
+            self._ir_pub.publish(self.prediction)
 
 def main():
 

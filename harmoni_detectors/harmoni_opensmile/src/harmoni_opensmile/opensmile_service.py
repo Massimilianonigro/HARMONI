@@ -37,6 +37,7 @@ class OpenSmileDetector(HarmoniServiceManager):
         self._rate = param["rate_frame"]
         self.subscriber_id = param["subscriber_id"]
         self.out_dir = param["output_dir"]
+        self.sampling_rate = param["sampling_rate"]
         self.service_id = name
         print(
             "Expected detected destination: ",
@@ -82,29 +83,8 @@ class OpenSmileDetector(HarmoniServiceManager):
     def pause(self):
         self.stop()
 
-    def _save_audio(self, data):
-        data = np.frombuffer(data.data, np.uint8)
-        if self.first_frame:
-            rospy.loginfo("==== FIRST FRAME")
-            filename = 'audio'+str(self.counter)#datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            p = pyaudio.PyAudio()
-            #file_name = "audio_" + file_name_date
-            self.path_audio = self.out_dir + filename + ".wav"
-            self.wf = wave.open(self.path_audio, "wb")
-            self.wf.setnchannels(1)
-            self.wf.setsampwidth(
-                p.get_sample_size(pyaudio.paInt16)
-            )
-            self.wf.setframerate(16000)
-            self.wf.setnframes(1600)
-            self.wf.writeframes(b"".join(data))
-        else:
-            self.wf.writeframes(b"".join(data))
-        return self.path_audio
-
     def _opensmile_process(self, data):
-        rospy.loginfo("++++ OPENSMILE PROCESSING ")
-        sampling_rate = 16000
+        sampling_rate = self.sampling_rate
         smile = opensmile.Smile(
             feature_set = opensmile.FeatureSet.eGeMAPSv02,
             feature_level = 'lld',
@@ -128,8 +108,7 @@ class OpenSmileDetector(HarmoniServiceManager):
             self.counter = 0
         self.counter +=1
         feature_vector = self._opensmile_process(data)
-        df = pd.DataFrame(data=feature_vector)
-        opensmile_features = df.drop(df.columns[[0, 1]], axis =1)
+        opensmile_features = pd.DataFrame(data=feature_vector)
         opensmile_features = opensmile_features.fillna(0)
         values = opensmile_features.values[:1][0]
         new_values = []
@@ -150,7 +129,7 @@ def main():
 
         s = OpenSmileDetector(service_id, params)
         service_server = HarmoniServiceServer(service_id, s)
-        s.start(1)
+        #s.start(1)
         service_server.start_sending_feedback()
         
         rospy.spin()
