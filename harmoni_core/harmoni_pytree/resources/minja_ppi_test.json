@@ -37,6 +37,26 @@
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  9,
+            "utterance"     : "",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  3,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
             "sound"         : "<break time='3s'/> What did you think?",
             "back_channel"    : ""
         },
@@ -72,7 +92,28 @@
         },        
         {
             "id"            :  7,
-            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "utterance"     : "Can you ask me a follow up question on this savouring experience I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        ,  
+        {
+            "id"            :  9,
+            "utterance"     : "",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },      
+        {
+            "id"            :  7,
+            "utterance"     : "Can you ask me a follow up question on this savouring experience I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",

@@ -110,7 +110,7 @@ def create_root(params):
     face = LipSyncServicePytree("Face")
     face_back = LipSyncServicePytree("FaceBackchannel")
     microphone=MicrophoneServicePytree("Microphone")
-    stt=DeepSpeechToTextServicePytree("SpeechToText")
+    stt=SpeechToTextServicePytree("SpeechToText")
     checkstt = CheckSTTResult("CheckResults", params)
     backchanneling_script = BackchannelService("BackchannelScript", params)
     parall_speaker_face = py_trees.composites.Parallel("Playing")#, policy = SuccessOnAll)
