@@ -60,6 +60,7 @@ class DetectorNameSpace(Enum):
     fer = "/harmoni/detecting/fer/"
     detcustom = "/harmoni/detecting/detcustom/"
     openface = "/harmoni/detecting/openface/"
+    opensmile = "/harmoni/detecting/opensmile/"
     vad = "/harmoni/detecting/vad/"
 
 

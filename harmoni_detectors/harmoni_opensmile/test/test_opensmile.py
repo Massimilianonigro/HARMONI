@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-PKG = "test_harmoni_detcustom"
+PKG = "test_harmoni_opensmile"
 # Common Imports
 import unittest, rospy, roslib, sys
 
@@ -34,8 +34,8 @@ class TestFaceExprRec_Common(unittest.TestCase):
         self.result = False
         self.detections = []
         self.img_encoding = "rgb8"  # NOTE: There's a weird bug with facenet and ROS Kinetic which will crash if this is set to "bgr8"
-        self.image = cv2.imread(rospy.get_param("test_detcustom_input"))
-        rospy.init_node("test_detcustom", log_level=rospy.INFO)
+        self.image = cv2.imread(rospy.get_param("test_opensmile_input"))
+        rospy.init_node("test_opensmile", log_level=rospy.INFO)
         self.rate = rospy.Rate(1)
         self.cv_bridge = CvBridge()
         # provide mock camera
@@ -47,24 +47,24 @@ class TestFaceExprRec_Common(unittest.TestCase):
         )
 
         self.output_sub = rospy.Subscriber(
-            DetectorNameSpace.detcustom.value + "default",
+            DetectorNameSpace.opensmile.value + "default",
             String,
             self._detecting_callback,
         )
         rospy.loginfo(f"Testside-Image source: {SensorNameSpace.camera.value}default")
         rospy.loginfo(
-            f"Testside-expected detection: {DetectorNameSpace.detcustom.value}default"
+            f"Testside-expected detection: {DetectorNameSpace.opensmile.value}default"
         )
 
-        # startup detcustom node
-        self.server = "/harmoni/detecting/detcustom/default"
+        # startup opensmile node
+        self.server = "/harmoni/detecting/opensmile/default"
         self.client = HarmoniActionClient(self.server)
         rospy.loginfo("***********SETTING UP CLIENT")
         self.client.setup_client(
             self.server, self._result_callback, self._feedback_callback, wait=True
         )
         rospy.loginfo("DONE SETTING UP****************")
-        rospy.loginfo("TestFaceExprRec: Turning ON detcustom server")
+        rospy.loginfo("TestFaceExprRec: Turning ON opensmile server")
         self.client.send_goal(
             action_goal=ActionType.ON, optional_data="Setup", wait=False
         )
@@ -126,8 +126,8 @@ class TestFaceExprRec_Valid(TestFaceExprRec_Common):
 def main():
     import rostest
 
-    rospy.loginfo("Testdetcustom: sys.argv: %s" % str(sys.argv))
-    rostest.rosrun(PKG, "test_detcustom", TestFaceExprRec_Valid, sys.argv)
+    rospy.loginfo("Testopensmile: sys.argv: %s" % str(sys.argv))
+    rostest.rosrun(PKG, "test_opensmile", TestFaceExprRec_Valid, sys.argv)
 
 
 if __name__ == "__main__":
