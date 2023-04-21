@@ -70,9 +70,9 @@ class ScriptService(py_trees.behaviour.Behaviour):
         self.blackboard_scene.scene.rl = self.context[self.session][self.blackboard_scene.scene.scene_counter]["rl"]
         if self.blackboard_scene.scene.scene_counter !=0:
             rospy.loginfo(self.blackboard_bot.result["message"])
-            previous_bot_response = self.blackboard_bot.result["message"]
+            self.previous_bot_response = self.blackboard_bot.result["message"]
         else:
-            previous_bot_response = ""
+            self.previous_bot_response = ""
         if not self.blackboard_scene.scene.rl: ## RL == 0
             utterance = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
             ## the chatGPT leave will handle the NLP == 0 and NLP ==  1 cases
@@ -83,7 +83,7 @@ class ScriptService(py_trees.behaviour.Behaviour):
                     self.utterance_to_nlp.append( context + self.ai_stopper + self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"] + self.human_stopper + self.blackboard_stt.result + self.ai_stopper)
                 else:
                     context = "*assistant*"
-                    self.utterance_to_nlp.append(context + previous_bot_response)
+                    self.utterance_to_nlp.append(context + self.previous_bot_response)
                     context = "*user*"
                     self.utterance_to_nlp.append(context + self.human_stopper + self.blackboard_stt.result + self.ai_stopper)
                 utterance = self.utterance_to_nlp

@@ -164,7 +164,7 @@ def main():
     behaviour_tree.visitors.append(snapshot_visitor)
     behaviour_tree.add_post_tick_handler(functools.partial(post_tick_handler, snapshot_visitor))
     
-    behaviour_tree.setup(timeout=15)
+    behaviour_tree.setup(timeout=20)
 
     ####################
     # Tick Tock

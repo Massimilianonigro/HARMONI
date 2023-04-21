@@ -81,7 +81,7 @@ class FERDetector(HarmoniServiceManager):
             rospy.loginfo("BASELINE DONE")
             rospy.loginfo(str(valence_values))
             self._face_baseline_pub.publish(str(valence_values))
-        rospy.Timer(rospy.Duration(60), baseline_cb)
+        rospy.Timer(rospy.Duration(15), baseline_cb)
         rospy.loginfo("==== STARTED")
         self.state = State.START
         self._rate = rate

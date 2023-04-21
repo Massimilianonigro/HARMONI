@@ -7,8 +7,8 @@ from harmoni_common_lib.constants import *
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
-from std_msgs.msg import String, Bool
-from harmoni_rl.rl_client import RLCore, RLActionsName
+from std_msgs.msg import String, Bool, Float32
+from harmoni_rl.rl_client import RLCore, RLActionsName, PPEnv
 # Specific Imports
 import os
 import ast
@@ -32,9 +32,13 @@ class RLService(HarmoniServiceManager):
         super().__init__(name)
         """ Initialization of variables and lex parameters """
         self.subscriber_id = param['subscriber_id']
+        self.model_name = param['model_name']
+        self.model_dir = param['model_dir']
+        self.dataset = param['dataset']
         self.state = State.INIT
-        #self._fer_sub = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id, String, self._fer_detector_cb, queue_size=1)
-        #self._fer_sub_baseline = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id + "/baseline", String, self._fer_detector_base_cb, queue_size=1)
+        self._duration_sub = rospy.Subscriber(DetectorNameSpace.stt.value + self.subscriber_id + '/duration', Float32, self._speech_duration_cb, queue_size=1)  
+        self._fer_sub = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id, String, self._fer_detector_cb, queue_size=1)
+        self._fer_sub_baseline = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id + "/baseline", String, self._fer_detector_base_cb, queue_size=1)
         self._detcustom_sub = rospy.Subscriber(DetectorNameSpace.detcustom.value + self.subscriber_id, Bool, self._detcustom_detector_cb, queue_size=1)
         self._vad_sub = rospy.Subscriber(DetectorNameSpace.vad.value + self.subscriber_id, Bool, self._vad_detector_cb, queue_size=1)
         self._stt_sub = rospy.Subscriber(DetectorNameSpace.stt.value + self.subscriber_id, String, self._stt_detector_cb, queue_size=1)
@@ -42,18 +46,23 @@ class RLService(HarmoniServiceManager):
         self.detcustom = []
         self.fer = []
         self.stt = []
+        self.speech_features = []
         self.fer_baseline = []
         self.stt_received = False
-        ### TO SIMULATE STT RECEIVED
-        #def baseline_cb(event):
-        #self.stt_received = True
-        #rospy.Timer(rospy.Duration(1), baseline_cb)
+        self.duration = 0
+        self.baseline = True
+        self._setup()
         return
+
+
+    def _setup(self):
+        self.rl = RLCore()
+        self.rl.setup(self.model_dir, self.model_name, self.dataset)
+        
 
     def _fer_detector_cb(self, data):
         data = ast.literal_eval(data.data)
-        rospy.loginfo("==================== FER DETECTION RECEIVED")
-        rospy.loginfo(data)
+        #rospy.loginfo("==================== FER DETECTION RECEIVED")
         #if self.state == State.REQUEST:
         self.fer.append(data)
         return
@@ -61,10 +70,16 @@ class RLService(HarmoniServiceManager):
 
     def _fer_detector_base_cb(self, data):
         data = ast.literal_eval(data.data)
-        rospy.loginfo("==================== FER DETECTION BASELINE RECEIVED")
-        rospy.loginfo(data)
+        
         #if self.state == State.REQUEST:
-        self.fer_baseline = data
+        if self.baseline:
+            rospy.loginfo("==================== FER DETECTION BASELINE RECEIVED")
+            rospy.loginfo(data[0])
+            rospy.loginfo(data[1])
+            self.fer_baseline.append(float(data[0]))
+            self.fer_baseline.append(float(data[1]))
+            rospy.loginfo(self.fer_baseline)
+            self.baseline = False
         return
 
 
@@ -93,12 +108,20 @@ class RLService(HarmoniServiceManager):
         self.vad.append(data)
         return
 
+    def _speech_duration_cb(self, data):
+        data = data.data
+        rospy.loginfo("==================== DURATION DETECTION RECEIVED")
+        #rospy.loginfo(data)
+        #if self.state ==  State.REQUEST:
+        self.duration = data
+        return
+
     def _stt_detector_cb(self, data):
         data = data.data
         rospy.loginfo("==================== STT DETECTION RECEIVED")
         rospy.loginfo(data)
-        #if data:
-        #    self.stt_received = True
+        if data:
+            self.stt_received = True
         return
 
     def request(self, exercise):
@@ -116,18 +139,20 @@ class RLService(HarmoniServiceManager):
         self.state = State.REQUEST
         result = {"response": False, "message": None}
         try:
-            ####
-            #while not self.stt_received:
-            #    rospy.sleep(1)
-            #to uncomment once the FER is working again
-            #Vmax = self.fer_baseline[1]
-            #Vmin = self.fer_baseline[0]
-            #V = np.mean(self.fer)
-            #fer_reward = 20*(V-Vmin)/(Vmax - Vmin) -10
-            #vad_observation = [len(self.var) - np.count_nonzero(self.var), np.count_nonzero(self.var)]
-            #ir_observation = [len(self.detcustom) - np.count_nonzero(self.detcustom), np.count_nonzero(self.detcustom)]
-            #interaction_observation = [exercise]
-            rospy.loginfo("++++++++++++++++++++++++++++++ HERE")
+            while not self.stt_received:
+                rospy.sleep(0.1)
+            
+            Vmax = self.fer_baseline[1]
+            Vmin = self.fer_baseline[0]
+            V = np.mean(self.fer)
+            fer_reward = 20*(V-Vmin)/(Vmax - Vmin) -10
+            vad_observation = [len(self.vad) - self.duration, self.duration]
+            ir_observation = [len(self.detcustom) - np.count_nonzero(self.detcustom), np.count_nonzero(self.detcustom)]
+            interaction_observation = [0]*4
+            interaction_observation[int(exercise)-1] = 1
+            observations = interaction_observation + vad_observation
+            reward = np.exp(fer_reward)
+            env = PPEnv(observations, reward)
             rospy.loginfo(self.detcustom)
             if len(self.detcustom)!=0:
                 errors = int(self.detcustom.count(1))
@@ -137,7 +162,9 @@ class RLService(HarmoniServiceManager):
             if errors > 3:
                 self.result_msg = "4"
             else:
-                self.result_msg = RLCore.test()
+                #self.result_msg = RLCore.start_training(env)
+                self.result_msg = self.rl.batch_rl(observations)
+                rospy.loginfo("--------------- THE ACTION WAS:" + self.result_msg)
             self.response_received = True
             self.state = State.SUCCESS
             self.vad = []
@@ -145,7 +172,6 @@ class RLService(HarmoniServiceManager):
             self.fer = []
             self.stt = []
             self.stt_received = False
-            self.fer_baseline = []
             rospy.loginfo("++++++ responded")
             rospy.loginfo(self.result_msg)
         except rospy.ServiceException:
@@ -158,7 +184,6 @@ class RLService(HarmoniServiceManager):
             self.fer = []
             self.stt = []
             self.stt_received = False
-            self.fer_baseline = []
         return {"response": self.state, "message": self.result_msg}
 
 def main():

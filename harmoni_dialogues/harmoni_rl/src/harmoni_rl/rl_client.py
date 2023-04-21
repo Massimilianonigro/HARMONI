@@ -1,11 +1,23 @@
 import os
 import ast
 import pandas as pandas
-import numpy as np
 import d3rlpy
 import gym
 import rospy
 import random
+import json
+from gym import spaces
+import pandas as pd
+import numpy as np
+from sklearn import preprocessing as pre
+from d3rlpy.dataset import MDPDataset
+from d3rlpy.algos import DQN, DoubleDQN, NFQ, SAC, DDPG
+
+
+N_DISCRETE_ACTIONS = 3
+N_DISCRETE_OBSERVATIONS = 6
+MIN_REWARD = -50
+MAX_REWARD = 50
 
 class RLActionsName:
     ACTION1 = "1"
@@ -13,35 +25,110 @@ class RLActionsName:
     ACTION3 = "3"
 
 
-class RLCore:
-    def setup():
-        env = gym.make("custom")
-        eval_env = gym.make("custom")
-        dqn = d3rlpy.algos.DQN(
-            batch_size = 32,
-            learning_rate = 2.5e-4,
-            target_update_interval = 100,
-            use_gpu = False,
-        )
-        dqn.build_with_env(env)
-        # experience replay buffer
-        buffer = d3rlpy.online.buffers.ReplayBuffer(maxlen=100000, env=env)
 
+
+class PPEnv(gym.Env):
+    metadata = {'render.modes': ['human']}
+
+    def __init__(self, observations, rewards):
+        super(PPEnv, self).__init__()
+
+        self.observation = observations
+        #self.action = 
+        self.reward = rewards
+        self.reward_range = (MIN_REWARD, MAX_REWARD)
+        self.action_space = spaces.Discrete(N_DISCRETE_ACTIONS)#spaces.Box(low=0, high=1, shape=(N_DISCRETE_ACTIONS, ), dtype=np.float32)#spaces.Discrete(N_DISCRETE_ACTIONS)
+        self.observation_space = spaces.Box(low=0, high=100.0, shape=(N_DISCRETE_OBSERVATIONS, ), dtype=np.float32)#spaces.Discrete(N_DISCRETE_OBSERVATIONS)
+        print(self.action_space, self.observation_space)
+        #print(self.action[1])
+
+    def _next_observation(self):
+        # Append additional data and scale each value to between 0-1
+        #reshape array so that it works with sklearn
+        len_obs = len(self.observation)
+        #self.observation = self.observation.reshape(-1, 1)
+        #n_features = int(len(self.observation)/len_obs)
+        #normalize all values to be between 0 and 1
+        #obs = pre.MinMaxScaler().fit_transform(self.observation)
+        #self.observation = obs.reshape(len_obs, n_features)
+        ob = self.observation[int(self.current_step)]
+        print(f'Step: {self.current_step}')
+        print(f'Observation: {self.observation[self.current_step]}')
+        print(f'Reward: {self.reward[self.current_step]}')
+        return ob
+
+   
+
+    def step(self, action):
+        # Execute one time step within the environment
+        print(action)
+        
+        #action = self.action[self.current_step]
+        #if self.current_step > len(self.df.loc[:, 'Open'].values) - 6:
+        #    self.current_step = 0
+        #delay_modifier = (self.current_step / MAX_STEPS)
+        reward = self.reward[int(self.current_step)]
+        done = True
+        obs = self._next_observation()
+        self.current_step += 1
+        return obs, reward, done, {}
+
+    def reset(self):
+        # Set the current step to a random point within the data frame
+        self.current_step = random.randint(0, len(self.observation))
+        
+        return self._next_observation()
+
+    def render(self, mode='human', close=False):
+        # Render the environment to the screen
+        print(f'Step: {self.current_step}')
+        print(f'Observation: {self.observation[self.current_step]}')
+        print(f'Reward: {self.reward[self.current_step]}')
+
+class RLCore():
+    def __init__(self):
+        super(RLCore, self).__init__()
+
+
+    def setup(self, model_dir, model_name, dataset):
+        # setup algorithm
+        
+        dataset = MDPDataset.load(dataset)
+        self.dqn = DQN(use_gpu = False)
+        # initialize neural networks before loading parameters
+        self.dqn.build_with_dataset(dataset)
+        # load pretrained policy
+        self.dqn.load_model(model_dir + model_name)
+        
+
+    def start_training(self, env, observations):
+       
+        # experience replay buffer
+        self.buffer = d3rlpy.online.buffers.ReplayBuffer(maxlen=100000, env=env)
         # exploration strategy
         # in this tutorial, epsilon-greedy policy with static epsilon=0.3
-        explorer = d3rlpy.online.explorers.ConstantEpsilonGreedy(0.3)
-
-    def start_training():
-        dqn.fit_online(
+        self.explorer = d3rlpy.online.explorers.ConstantEpsilonGreedy(0.3)
+        self.dqn.fit_online(
             env,
-            buffer,
-            explorer,
-            n_steps=100000,  # train for 100K steps
-            eval_env=eval_env,
-            n_steps_per_epoch=1000,  # evaluation is performed every 1K steps
-            update_start_step=1000,  # parameter update starts after 1K steps
+            self.buffer,
+            self.explorer,
+            n_steps=1,  # train for 100K steps
+            #eval_env=eval_env,
+            #n_steps_per_epoch=1,  # evaluation is performed every 1K steps
+            #update_start_step=1,  # parameter update starts after 1K steps
         )
+        action = self.dqn.predict([observations])[0]
+        return action + 1
 
-    def test():
+    def test(self):
         action = random.choices(["1", "2", "3"])
         return action[0]
+
+    def batch_rl(self, observation):
+        print("----- OBSERVATION")
+        print(observation)
+        observation = np.array(observation)
+        action = self.dqn.predict([observation])[0]
+        print(action)
+        return str(action + 1)
+

@@ -13,7 +13,7 @@ import harmoni_common_lib.helper_functions as hf
 from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
 from audio_common_msgs.msg import AudioData
 from google.cloud import speech
-from std_msgs.msg import String
+from std_msgs.msg import String, Float32
 import numpy as np
 import os
 import io
@@ -60,6 +60,10 @@ class STTGoogleService(HarmoniServiceManager):
 
         self.text_pub = rospy.Publisher(
             DetectorNameSpace.stt.value + self.service_id, String, queue_size=10
+        )
+
+        self.duration_pub = rospy.Publisher(
+            DetectorNameSpace.stt.value + self.subscriber_id + '/duration', Float32, queue_size=1
         )
 
         rospy.Subscriber(
@@ -132,6 +136,9 @@ class STTGoogleService(HarmoniServiceManager):
                     rospy.loginfo("STT response text: "+ result.alternatives[0].transcript)
                     self.stt_response = result.alternatives[0].transcript
                     self.text_pub.publish(self.stt_response)
+                    self.end_duration = rospy.get_rostime()
+                    duration = self.end_duration - self.start_duration
+                    self.duration_pub.publish(duration)
                     self.response_received = True
     
     def listen_print_untill_result_is_final(self,responses):
@@ -157,6 +164,9 @@ class STTGoogleService(HarmoniServiceManager):
                     rospy.loginfo("STT response text: "+ result.alternatives[0].transcript)
                     self.stt_response = result.alternatives[0].transcript
                     self.text_pub.publish(self.stt_response)
+                    self.end_duration = rospy.get_time()
+                    duration = self.end_duration - self.start_duration
+                    self.duration_pub.publish(duration)
                     self.response_received = True
                     return
 
@@ -204,6 +214,7 @@ class STTGoogleService(HarmoniServiceManager):
         self.state = State.REQUEST
         self.stt_response = "null"
         self.response_received = False
+        self.start_duration = rospy.get_time()
         try:
             # Transcribes data coming from microphone 
 
@@ -229,11 +240,11 @@ class STTGoogleService(HarmoniServiceManager):
             r = rospy.Rate(1)
             while not self.response_received:
                 r.sleep()
-
+            
             self.state = State.SUCCESS
             self.result_msg = self.stt_response
             self.response_received = True
-
+            
         except rospy.ServiceException:
             self.start = State.FAILED
             rospy.loginfo("Service call failed")

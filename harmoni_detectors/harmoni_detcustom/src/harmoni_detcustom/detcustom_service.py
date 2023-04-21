@@ -62,6 +62,8 @@ class CustomDetector(HarmoniServiceManager):
         self._custom_model_audio = tf.keras.models.model_from_json(loaded_model_json_audio) 
         self._custom_model_audio.load_weights(self.model_dir + self.model_name_audio + '.h5')
         self.prediction = 0
+        self.prediction_audio = 0
+        self.prediction_face = 0
         self.state = State.INIT
 
 
@@ -108,8 +110,13 @@ class CustomDetector(HarmoniServiceManager):
             input_data = input_data.reshape(1, input_data.shape[0], input_data.shape[1])
             rospy.loginfo(input_data.shape)
             prediction = self._custom_model_audio.predict(input_data)
-            self.prediction = np.argmax(prediction)
-            self._ir_pub.publish(self.prediction)
+            self.prediction_audio = prediction #
+            if self.prediction_audio < 0.5:
+                prediction = min(self.prediction_audio, self.prediction_face)
+            else:
+                prediction = max(self.prediction_audio, self.prediction_face)
+            prediction = np.argmax(prediction)
+            self._ir_pub.publish(prediction)
 
 
     def detect_callback(self, data):
@@ -126,8 +133,8 @@ class CustomDetector(HarmoniServiceManager):
             input_data = input_data.reshape(1, input_data.shape[0], input_data.shape[1])
             rospy.loginfo(input_data.shape)
             prediction = self._custom_model_face.predict(input_data)
-            self.prediction = np.argmax(prediction)
-            self._ir_pub.publish(self.prediction)
+            self.prediction_face = prediction # np.argmax(prediction)
+            #self._ir_pub.publish(float(prediction))
 
 def main():
 

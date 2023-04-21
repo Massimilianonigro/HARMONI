@@ -103,6 +103,8 @@ class ChatGPTService(HarmoniServiceManager):
                 response = gpt_response['choices'][0]['message']['content']
                 ai_response = response.split("AI:")[-1]
                 ai_response = ai_response.replace("Sure", "")
+                if "!" in ai_response:
+                    ai_response = ai_response.replace("!", "")
                 moderation_check = openai.Moderation.create(
                     input = ai_response
                 )
