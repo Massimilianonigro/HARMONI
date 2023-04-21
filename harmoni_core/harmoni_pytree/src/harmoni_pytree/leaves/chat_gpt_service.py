@@ -27,6 +27,8 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/request", access=py_trees.common.Access.READ)
+        
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
@@ -57,11 +59,14 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         if self.blackboard_scene.scene.nlp!=0:           
             if self.send_request:
                 self.send_request = False
+                utterance = self.blackboard_scene.scene.utterance
+                if self.blackboard_scene.scene.nlp == 2:
+                    utterance = self.blackboard_scene.scene.request
                 rospy.loginfo("The utterance is " + str(self.blackboard_scene.scene.utterance))
                 self.logger.debug(f"Sending goal to {self.server_name}")
                 self.service_client_chatgpt.send_goal(
                     action_goal = ActionType["REQUEST"].value,
-                    optional_data=str(self.blackboard_scene.scene.utterance),
+                    optional_data=str(utterance),
                     wait=False,
                 )
                 self.logger.debug(f"Goal sent to {self.server_name}")

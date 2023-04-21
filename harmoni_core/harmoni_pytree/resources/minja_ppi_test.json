@@ -12,7 +12,7 @@
     	},
     	{
         	"id"        	:  1,
-        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. You may already be familiar with some of these exercises. To remind you, the aim of positive psychology is to guide you towards focusing on positive things in your life. And the reason for this is that often negative things in our life can get a lot of our attention while the positive things are harder to focus on. Focusing on the positive can help increase happiness and life satisfaction. So in total we'll be doing 4 sessions together, with four different exercises. Is that okay?",
+        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. You may already be familiar with some of these exercises, but it can be useful to do them again. To remind you, the aim of positive psychology is to guide you towards focusing on positive things in your life. Often, the negative things in our life can get a lot of our attention while the positive things are harder to focus on. Focusing on the positive can help increase happiness and life satisfaction. So in total we'll be doing 4 sessions together, with four different exercises. Is that okay?",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -22,7 +22,7 @@
     	},
     	{
         	"id"        	:  2,
-        	"utterance" 	: "The first exercise is called savouring. So savouring is about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could think of something small, a small positive thing that's happened, maybe if you cast your memory back to the last week. So something good that's either happening right now or a pleasant memory from the last week or so. I'll give you about 30 seconds to think about that. <break time='10s'/><break time='10s'/>. Please share a positive memory with me.",
+        	"utterance" 	: "The first exercise is called savouring. It's about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could think of a small positive thing that's happened, maybe if you cast your memory back to the last week. A pleasant memory from the last week or so. I'll give you about 30 seconds to think about that. <break time='10s'/><break time='10s'/>. Please share your positive memory with me.",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -48,7 +48,7 @@
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
-            "sound"         : "<break time='5s'/> And what did you think?",
+            "sound"         : "<break time='3s'/> And what did you think?",
             "back_channel"    : ""
         },
         {
@@ -63,7 +63,7 @@
         },
         {
             "id"            :  6,
-            "utterance"     : "Thank you for sharing this. Let's take a moment to appreciate and savour the experience. Just take some time to quietly think about how special the experience is. What the experience was <break time='3s'/> and what was positive about it. <break time='10s'/> Nice. <break time='2s'/> Now, could you think of a second example of a memory, a positive memory, that you could savour, maybe something from the last month or so? <break time='5s'/> Please share it with me now.",
+            "utterance"     : "Thank you for sharing this. Let's take a moment to appreciate and savour the experience. Just take some time to quietly think about what the experience was <break time='3s'/> and what was positive about it. <break time='10s'/> Nice. <break time='2s'/> Now, could you think of a second example of a positive memory, that you could savour, maybe something from the last month or so? <break time='5s'/> Now, please share your second experience with me.",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
@@ -94,7 +94,7 @@
         },
         {
             "id"            :  9,
-            "utterance"     : "Thank you for sharing this USERNAME. Again, let's take a small quiet moment to savour this experience. What the experience was <break time='3s'/> how it made you feel <break time='5s'/> and what difference this small thing made to you. <break time ='7s'/> Great. And so we've tried the savouring exercise. It's about focusing on the detail of positive experiences to to make sure we give them enough attention so that they're memorable. So between now and our next session, you might just like to practice savouring. So asking yourself the same questions of, how did I notice this was a positive experience? <break time ='3s'/> Next time, we'll have a session on gratitude. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
+            "utterance"     : "Thank you for sharing this USERNAME. Again, let's take a small quiet moment to savour this experience. What the experience was <break time='3s'/> how it made you feel <break time='5s'/> and what difference this small thing made to you. <break time ='7s'/> Great. And so we've tried the savouring exercise. It's about focusing on the detail of positive experiences to to make sure we give them enough attention so that they're memorable. So between now and our next session, you might just like to practice savouring. So asking yourself the questions of, how did I notice this was a positive experience? <break time ='1s'/> What was positive about it? <break time ='3s'/> Next time, we'll have a session on gratitude. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
@@ -117,7 +117,7 @@
     	},
     	{
         	"id"        	:  1,
-        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. I'll remind you what it is.  The aim of positive psychology is to guide you towards focusing on positive things in your life. And the reason for this is that often negative things in our life can get a lot of our attention while the positive things are harder to focus on. And if we don't focus on them, they're then harder to recall when we try and remember them later on. So in total we'll be doing 4 sessions together, focusing on four different exercises from positive psychology approaches. Is that okay?",
+        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. You may already be familiar with some of these exercises, but it can be useful to do them again. To remind you, the aim of positive psychology is to guide you towards focusing on positive things in your life. Often, the negative things in our life can get a lot of our attention while the positive things are harder to focus on. Focusing on the positive can help increase happiness and life satisfaction. So in total we'll be doing 4 sessions together, with four different exercises. Is that okay?",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -127,7 +127,7 @@
     	},
     	{
         	"id"        	:  2,
-        	"utterance" 	: "The first exercise is called savouring. So savouring is about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could kind of think of something small, a small positive thing that's happened, maybe if you cast your memory back to the last week. So something good that's either happening right now or a pleasant memory from the last week or so. It could actually be something that will happen in the future. I'll give you about 30 seconds to think about that. <break time='10s'/>. Please share this with me.",
+        	"utterance" 	: "The first exercise is called savouring. It's about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could think of a small positive thing that's happened, maybe if you cast your memory back to the last week. A pleasant memory from the last week or so. I'll give you about 30 seconds to think about that. <break time='10s'/><break time='10s'/>. Please share your positive memory with me.",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -135,9 +135,19 @@
         	"sound"     	: "",
         	"back_channel"	: ""
     	},
-
         {
             "id"            :  3,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+
+        {
+            "id"            :  4,
             "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
             "error"         :  0, 
             "nlp"           :  1,
@@ -147,7 +157,7 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  4,
+            "id"            :  5,
             "utterance"     : "",
             "error"         : "interruption", 
             "nlp"           :  0,
@@ -157,7 +167,7 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  5,
+            "id"            :  6,
             "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma. ",
             "error"         : "interruption", 
             "nlp"           :  2,
@@ -167,7 +177,7 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  6,
+            "id"            :  7,
             "utterance"     : "",
             "error"         : "followup_interruption_", 
             "nlp"           :  0,
@@ -177,22 +187,22 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  7,
-            "utterance"     : "",
+            "id"            :  8,
+            "utterance"     : "Thank you for sharing this. Let's take a moment to appreciate and savour the experience. Just take some time to quietly think about what the experience was <break time='3s'/> and what was positive about it. <break time='10s'/> Nice. <break time='2s'/> Now, could you think of a second example of a positive memory, that you could savour, maybe something from the last month or so? <break time='5s'/> Now, please share your second experience with me.",
             "error"         :  0, 
-            "nlp"           :  1,
+            "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
             "back_channel"    : ""
         },
         {
-            "id"            :  8,
-            "utterance"     : "Thank you for sharing this. Could you think of another example of a memory, a positive memory, that you could savour, maybe something from the last month or so?",
+            "id"            :  9,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
             "error"         :  0, 
-            "nlp"           :  0,
+            "nlp"           :  1,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },        
@@ -217,7 +227,7 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  5,
+            "id"            :  11,
             "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma. ",
             "error"         : "non-responding", 
             "nlp"           :  2,
@@ -227,7 +237,7 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  11,
+            "id"            :  12,
             "utterance"     : "",
             "error"         : "followup_non-responding_", 
             "nlp"           :  0,
@@ -237,10 +247,135 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  12,
-            "utterance"     : "",
+            "id"            :  13,
+            "utterance"     : "Thank you for sharing this USERNAME. Again, let's take a small quiet moment to savour this experience. What the experience was <break time='3s'/> how it made you feel <break time='5s'/> and what difference this small thing made to you. <break time ='7s'/> Great. And so we've tried the savouring exercise. It's about focusing on the detail of positive experiences to to make sure we give them enough attention so that they're memorable. So between now and our next session, you might just like to practice savouring. So asking yourself the questions of, how did I notice this was a positive experience? <break time ='1s'/> What was positive about it? <break time ='3s'/> Next time, we'll have a session on gratitude. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+
+     ],
+     "session1_empathic_test" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hi, my name is Botty. We may have already met or you may have met my little robotic friend, and since then I have had some updates. What is your name?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  1,
+        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. Is that okay?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  2,
+        	"utterance" 	: "The first exercise is called savouring. I'll give you about 30 seconds to think about that. Please share your positive memory with me.",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+
+        {
+            "id"            :  4,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
             "error"         :  0, 
             "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "<break time='3s'/> What did you think?",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  5,
+            "utterance"     : "",
+            "error"         : "interruption", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  6,
+            "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma. ",
+            "error"         : "interruption", 
+            "nlp"           :  2,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  7,
+            "utterance"     : "",
+            "error"         : "followup_interruption_", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  6,
+            "utterance"     : "Thank you for sharing this. Let's take a moment to appreciate and savour the experience. <break time='5s'/> Now, please share your second experience with me.",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        
+        {
+            "id"            :  9,
+            "utterance"     : "Can you ask me a follow up question on this savouring exercise?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  10,
+            "utterance"     : "",
+            "error"         : "non-responding", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  11,
+            "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma. ",
+            "error"         : "non-responding", 
+            "nlp"           :  2,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  12,
+            "utterance"     : "",
+            "error"         : "followup_non-responding_", 
+            "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
@@ -248,7 +383,7 @@
         },
         {
             "id"            :  13,
-            "utterance"     : "Thank you for sharing this USERNAME. Bye!!",
+            "utterance"     : "Thank you for sharing this USERNAME. Again, let's take a small quiet moment to savour this experience. What the experience was <break time='3s'/> how it made you feel <break time='5s'/> and what difference this small thing made to you. <break time ='7s'/> Great. And so we've tried the savouring exercise. It's about focusing on the detail of positive experiences to to make sure we give them enough attention so that they're memorable. So between now and our next session, you might just like to practice savouring. So asking yourself the questions of, how did I notice this was a positive experience? <break time ='1s'/> What was positive about it? <break time ='3s'/> Next time, we'll have a session on gratitude. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",

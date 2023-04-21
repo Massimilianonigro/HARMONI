@@ -30,6 +30,7 @@ class ScriptErrorsService(py_trees.behaviour.Behaviour):
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/errors", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/request", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/exercise", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/max_number_scene", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/scene_counter", access=py_trees.common.Access.READ)
@@ -95,18 +96,31 @@ class ScriptErrorsService(py_trees.behaviour.Behaviour):
                 self.utterance_to_play = self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]
                 utterance = self.utterance_to_play
         else: ## ERRORS == "interruption" or "non-responding"
+            rospy.loginfo(self.blackboard_scene.scene.errors)
             #session_dict = self.errors_dictonary[self.condition][key_dict][repair_strategies_id] #0 is not empathic  
-            if self.blackboard_scene.scene.nlp: #NLP ==  1
+            if self.blackboard_scene.scene.nlp ==1: #NLP ==  1
+                print("======== NLP === 1")
                 context = "*user*"
                 self.utterance_to_nlp.append(context + self.human_stopper + self.blackboard_stt.result +self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]+ self.ai_stopper)
                 utterance = self.utterance_to_nlp
+            elif self.blackboard_scene.scene.nlp == 2: #NLP ==  2
+                print("======== NLP === 2 ")
+                context = "*user*"
+                #self.utterance_to_nlp.append(context + self.human_stopper + self.blackboard_stt.result + self.ai_stopper)
+                #utterance = self.utterance_to_nlp
+                utterance = ""
+                self.blackboard_scene.scene.request = [context + self.human_stopper + self.blackboard_stt.result + self.context[self.session][self.blackboard_scene.scene.scene_counter]["utterance"]]
             else: #NLP == 0
+                print("======== NLP === 0")
                 if 'followup_' in self.blackboard_scene.scene.errors:
+                    
                     sentiment = self.blackboard_bot.sentiment
                     feeling = self.blackboard_bot.feeling
                     rospy.loginfo(sentiment)
                     rospy.loginfo(feeling)
                     if 'ositive' in sentiment: 
+                        key_dict = self.blackboard_scene.scene.errors + "pos"
+                    elif 'eutral' in sentiment: 
                         key_dict = self.blackboard_scene.scene.errors + "pos"
                     else:
                         key_dict = self.blackboard_scene.scene.errors + "neg"
@@ -115,6 +129,8 @@ class ScriptErrorsService(py_trees.behaviour.Behaviour):
                     if "$FEELINGWORD" in session_dict:
                         session_dict = session_dict.replace("$FEELINGWORD", feeling)
                     context = "*assistant*"
+                    print("+++++++++++ session DICT")
+                    print(session_dict)
                     self.utterance_to_play = session_dict
                     self.utterance_to_nlp.append(context + self.ai_stopper + session_dict)
                     utterance = self.utterance_to_play
