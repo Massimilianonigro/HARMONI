@@ -16,6 +16,9 @@ import pandas as pandas
 import numpy as np
 #import d3rlpy
 
+
+MAX_DURATION = 30 #max speech duration
+
 class RLService(HarmoniServiceManager):
     """This is a class representation of a harmoni_dialogue service
     (HarmoniServiceManager). It is essentially an extended combination of the
@@ -35,6 +38,7 @@ class RLService(HarmoniServiceManager):
         self.model_name = param['model_name']
         self.model_dir = param['model_dir']
         self.dataset = param['dataset']
+        self.log_dir = param['log_dir']
         self.state = State.INIT
         self._duration_sub = rospy.Subscriber(DetectorNameSpace.stt.value + self.subscriber_id + '/duration', Float32, self._speech_duration_cb, queue_size=1)  
         self._fer_sub = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id, String, self._fer_detector_cb, queue_size=1)
@@ -42,12 +46,20 @@ class RLService(HarmoniServiceManager):
         self._detcustom_sub = rospy.Subscriber(DetectorNameSpace.detcustom.value + self.subscriber_id, Bool, self._detcustom_detector_cb, queue_size=1)
         self._vad_sub = rospy.Subscriber(DetectorNameSpace.vad.value + self.subscriber_id, Bool, self._vad_detector_cb, queue_size=1)
         self._stt_sub = rospy.Subscriber(DetectorNameSpace.stt.value + self.subscriber_id, String, self._stt_detector_cb, queue_size=1)
+        self._actions_pub = rospy.Publisher(DialogueNameSpace.rl.value + self.subscriber_id + '/actions', String, queue_size=1)
+        self._obs_pub = rospy.Publisher(DialogueNameSpace.rl.value + self.subscriber_id + '/observations', String, queue_size=1)
+        self._rewards_pub = rospy.Publisher(DialogueNameSpace.rl.value + self.subscriber_id + '/rewards', String, queue_size=1)
         self.vad = []
         self.detcustom = []
         self.fer = []
         self.stt = []
         self.speech_features = []
         self.fer_baseline = []
+        self.actions = [0]*3
+        self.actions[2] += 1
+        self.actions[1] += 4
+        self.actions[0] += 2
+        self.max_action_limit = 3
         self.stt_received = False
         self.duration = 0
         self.baseline = True
@@ -145,14 +157,18 @@ class RLService(HarmoniServiceManager):
             Vmax = self.fer_baseline[1]
             Vmin = self.fer_baseline[0]
             V = np.mean(self.fer)
-            fer_reward = 20*(V-Vmin)/(Vmax - Vmin) -10
-            vad_observation = [len(self.vad) - self.duration, self.duration]
+            fer_reward = 20*(self.duration)/(MAX_DURATION) -10
+            speech_reward = 20*(V-Vmin)/(Vmax - Vmin) -10
+            vad_observation = [(len(self.vad) - self.duration)/10, self.duration] #to fix the silence duration
             ir_observation = [len(self.detcustom) - np.count_nonzero(self.detcustom), np.count_nonzero(self.detcustom)]
             interaction_observation = [0]*4
             interaction_observation[int(exercise)-1] = 1
-            observations = interaction_observation + vad_observation
-            reward = np.exp(fer_reward)
+            observations = interaction_observation + vad_observation + self.actions + ir_observation
+            rospy.loginfo(observations)
+            reward = fer_reward + speech_reward
             env = PPEnv(observations, reward)
+            self._obs_pub.publish(str(observations))
+            self._rewards_pub.publish(str(reward))
             rospy.loginfo(self.detcustom)
             if len(self.detcustom)!=0:
                 errors = int(self.detcustom.count(1))
@@ -160,11 +176,16 @@ class RLService(HarmoniServiceManager):
             else:
                 errors = 0
             if errors > 3:
-                self.result_msg = "4"
+                action =  "4"
             else:
-                #self.result_msg = RLCore.start_training(env)
-                self.result_msg = self.rl.batch_rl(observations)
-                rospy.loginfo("--------------- THE ACTION WAS:" + self.result_msg)
+                action = self.rl.start_training(env, observations, self.log_dir)
+                #action = self.rl.batch_rl(observations)
+                rospy.loginfo("--------------- THE ACTION WAS:" + action)
+                
+            self.result_msg = action
+            action = int(action) - 1
+            self.actions[action] += 1
+            self._actions_pub.publish(str(action))
             self.response_received = True
             self.state = State.SUCCESS
             self.vad = []

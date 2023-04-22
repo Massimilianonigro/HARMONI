@@ -15,14 +15,14 @@ from d3rlpy.algos import DQN, DoubleDQN, NFQ, SAC, DDPG
 
 
 N_DISCRETE_ACTIONS = 3
-N_DISCRETE_OBSERVATIONS = 6
-MIN_REWARD = -50
-MAX_REWARD = 50
+N_DISCRETE_OBSERVATIONS = 11
+MIN_REWARD = -20
+MAX_REWARD = 20
 
 class RLActionsName:
-    ACTION1 = "1"
-    ACTION2 = "2"
-    ACTION3 = "3"
+    ACTION1 = "1" #do nothing
+    ACTION2 = "2" #ask follow up question
+    ACTION3 = "3" #move to the next episode
 
 
 
@@ -51,10 +51,9 @@ class PPEnv(gym.Env):
         #normalize all values to be between 0 and 1
         #obs = pre.MinMaxScaler().fit_transform(self.observation)
         #self.observation = obs.reshape(len_obs, n_features)
-        ob = self.observation[int(self.current_step)]
-        print(f'Step: {self.current_step}')
-        print(f'Observation: {self.observation[self.current_step]}')
-        print(f'Reward: {self.reward[self.current_step]}')
+        ob = np.array(self.observation)
+        print(f'Observation: {self.observation}')
+        print(f'Reward: {self.reward}')
         return ob
 
    
@@ -62,28 +61,19 @@ class PPEnv(gym.Env):
     def step(self, action):
         # Execute one time step within the environment
         print(action)
-        
-        #action = self.action[self.current_step]
-        #if self.current_step > len(self.df.loc[:, 'Open'].values) - 6:
-        #    self.current_step = 0
-        #delay_modifier = (self.current_step / MAX_STEPS)
-        reward = self.reward[int(self.current_step)]
+        reward = self.reward
         done = True
         obs = self._next_observation()
-        self.current_step += 1
         return obs, reward, done, {}
 
     def reset(self):
         # Set the current step to a random point within the data frame
-        self.current_step = random.randint(0, len(self.observation))
-        
         return self._next_observation()
 
     def render(self, mode='human', close=False):
         # Render the environment to the screen
-        print(f'Step: {self.current_step}')
-        print(f'Observation: {self.observation[self.current_step]}')
-        print(f'Reward: {self.reward[self.current_step]}')
+        print(f'Observation: {self.observation}')
+        print(f'Reward: {self.reward}')
 
 class RLCore():
     def __init__(self):
@@ -101,7 +91,7 @@ class RLCore():
         self.dqn.load_model(model_dir + model_name)
         
 
-    def start_training(self, env, observations):
+    def start_training(self, env, observations, logdir):
        
         # experience replay buffer
         self.buffer = d3rlpy.online.buffers.ReplayBuffer(maxlen=100000, env=env)
@@ -113,22 +103,21 @@ class RLCore():
             self.buffer,
             self.explorer,
             n_steps=1,  # train for 100K steps
+            logdir = logdir,
             #eval_env=eval_env,
             #n_steps_per_epoch=1,  # evaluation is performed every 1K steps
             #update_start_step=1,  # parameter update starts after 1K steps
         )
-        action = self.dqn.predict([observations])[0]
-        return action + 1
+        observation = np.array(observations)
+        action = self.dqn.predict([observation])[0]
+        return str(action + 1)
 
     def test(self):
         action = random.choices(["1", "2", "3"])
         return action[0]
 
     def batch_rl(self, observation):
-        print("----- OBSERVATION")
-        print(observation)
         observation = np.array(observation)
         action = self.dqn.predict([observation])[0]
-        print(action)
         return str(action + 1)
 
