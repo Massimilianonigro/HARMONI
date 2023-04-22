@@ -854,7 +854,7 @@
      "session4" :   [ 
         {
         	"id"        	:  0,
-        	"utterance" 	: "Hello USERNAME! Welcome to the fourth and final session of positive psychology exercises. This one is called, one door closes, another one opens. So we're going to focus on cultivating the feeling of optimism. So focus specifically on situations that you might have encountered at work. Could you recall a time in your life when you lost out on something important at work, or a plan fell through? Or maybe something didn't go your way at work. And then consider what door opened after this important door closed. And then when you think of an example, can you consider what doors opened after the important door was closed? Again, I'll give you some time to think about this, and then ask you to share. <break time ='10s'/> <break time ='10s'/> Okay, now, could you please share what door closed in your work, and what door opened as a result?",
+        	"utterance" 	: "Hello USERNAME! Welcome to the fourth and final session of positive psychology exercises. This one is called, one door closes, another one opens. We're going to focus on cultivating the feeling of optimism. So focus specifically on situations that you might have encountered at work. Could you recall a time in your life when you lost out on something important at work, or a plan fell through? Or maybe something didn't go your way at work. And then consider what door opened after this important door closed. And then when you think of an example, can you consider what doors opened after the important door was closed? Again, I'll give you some time to think about this, and then ask you to share. <break time ='10s'/> <break time ='10s'/> Okay, now, could you please share what door closed in your work, and what door opened as a result?",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -894,7 +894,7 @@
         },
         {
             "id"            :  4,
-            "utterance"     : "Thanks for sharing that instance of one door closing and another door opening, USERNAME. Could you think of another time at work when one door closed and another door opened as a result? I'll give you a bit of time to think about that, and then ask you to share your second example. <break time='10s'/> <break time='10s'/> Okay, could you share your second experience of one door closing and another door opening?",
+            "utterance"     : "Thanks USERNAME for sharing that instance of one door closing and another door opening. Could you think of another time at work when one door closed and another door opened as a result? I'll give you a bit of time to think about that, and then ask you to share your second example. <break time='10s'/> <break time='10s'/> Okay, could you share your second experience of one door closing and another door opening?",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
@@ -949,7 +949,7 @@
      "session4_empathic" :   [ 
         {
         	"id"        	:  0,
-        	"utterance" 	: "Hello USERNAME! Welcome to the fourth and final session of positive psychology exercises. This one is called, one door closes, another one opens. So we're going to focus on cultivating the feeling of optimism. So focus specifically on situations that you might have encountered at work. Could you recall a time in your life when you lost out on something important at work, or a plan fell through? Or maybe something didn't go your way at work. And then consider what door opened after this important door closed. And then when you think of an example, can you consider what doors opened after the important door was closed? Again, I'll give you some time to think about this, and then ask you to share. <break time ='10s'/> <break time ='10s'/> Okay, now, could you please share what door closed in your work, and what door opened as a result?",
+        	"utterance" 	: "Hello USERNAME! Welcome to the fourth and final session of positive psychology exercises. This one is called, one door closes, another one opens. We're going to focus on cultivating the feeling of optimism. So focus specifically on situations that you might have encountered at work. Could you recall a time in your life when you lost out on something important at work, or a plan fell through? Or maybe something didn't go your way at work. And then consider what door opened after this important door closed. And then when you think of an example, can you consider what doors opened after the important door was closed? Again, I'll give you some time to think about this, and then ask you to share. <break time ='10s'/> <break time ='10s'/> Okay, now, could you please share what door closed in your work, and what door opened as a result?",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -1010,7 +1010,7 @@
         },
         {
             "id"            :  6,
-            "utterance"     : "Thanks for sharing that instance of one door closing and another door opening, USERNAME. Could you think of another time at work when one door closed and another door opened as a result? I'll give you a bit of time to think about that, and then ask you to share your second example. <break time='10s'/> <break time='10s'/> Okay, could you share your second experience of one door closing and another door opening?",
+            "utterance"     : "Thanks USERNAME for sharing that instance of one door closing and another door opening. Could you think of another time at work when one door closed and another door opened as a result? I'll give you a bit of time to think about that, and then ask you to share your second example. <break time='10s'/> <break time='10s'/> Okay, could you share your second experience of one door closing and another door opening?",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
