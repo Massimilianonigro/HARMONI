@@ -57,7 +57,7 @@
             "error"         : "interruption", 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -100,7 +100,7 @@
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
-            "back_channel"    : ""
+            "back_channel"    : "QT/bye"
         }
 
      ],
@@ -162,7 +162,7 @@
             "error"         : "interruption", 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -254,7 +254,7 @@
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
-            "back_channel"    : ""
+            "back_channel"    : "QT/bye"
         }
 
      ],
@@ -396,7 +396,7 @@
      "session2" :   [ 
         {
         	"id"        	:  0,
-        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. So this time our exercise is going to focus on developing the feeling of gratitude. And cultivating gratitude can help increase positive mood, happiness and also general life satisfaction. So like with the last session, think back to the last week or month or so and recall an experience you felt grateful for. It can be something really small but positive. Or something bigger. So a couple of examples,  maybe having useful feedback about your work or getting a gift from a friend, or a phone call from a friend. Now I'll give you around half a minute to think of a moment, and then I'll ask you to share it with me. <break time ='10s'/> <break time ='10s'/> Please share your experience where you felt grateful.",
+        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. So this time our exercise is going to focus on developing the feeling of gratitude. And cultivating gratitude can help increase positive mood, happiness and also general life satisfaction. So like with the last session, think back to the last week or month or so and recall an experience you felt grateful for. It can be something really small but positive. Or something bigger. So a couple of examples,  maybe having useful feedback about your work or getting a gift or a phone call from a friend. Now I'll give you around half a minute to think of a moment, and then I'll ask you to share it with me. <break time ='10s'/> <break time ='10s'/> Please share your experience where you felt grateful.",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -430,7 +430,7 @@
             "error"         : "interruption", 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -482,16 +482,16 @@
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "QT/bye",
+            "gesture"       : "null",
             "sound"         : "",
-            "back_channel"    : ""
+            "back_channel"    : "QT/bye"
         }
 
      ],
      "session2_empathic" :   [ 
         {
         	"id"        	:  0,
-        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. So this time our exercise is going to focus on developing the feeling of gratitude. And cultivating gratitude can help increase positive mood, happiness and also general life satisfaction. So like with the last session, think back to the last week or month or so and recall an experience you felt grateful for. It can be something really small but positive. Or something bigger. So a couple of examples,  maybe having useful feedback about your work or getting a gift from a friend, or a phone call from a friend. Now I'll give you around half a minute to think of a moment, and then I'll ask you to share it with me. <break time ='10s'/> <break time ='10s'/> Please share your experience where you felt grateful.",
+        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. So this time our exercise is going to focus on developing the feeling of gratitude. And cultivating gratitude can help increase positive mood, happiness and also general life satisfaction. So like with the last session, think back to the last week or month or so and recall an experience you felt grateful for. It can be something really small but positive. Or something bigger. So a couple of examples,  maybe having useful feedback about your work or getting a gift or a phone call from a friend. Now I'll give you around half a minute to think of a moment, and then I'll ask you to share it with me. <break time ='10s'/> <break time ='10s'/> Please share your experience where you felt grateful.",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -526,7 +526,7 @@
             "error"         : "interruption", 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -606,7 +606,7 @@
             "error"         : "followup_non-responding_", 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "QT/sad",
+            "gesture"       : "null",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -618,14 +618,14 @@
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
-            "back_channel"    : ""
+            "back_channel"    : "QT/bye"
         }
 
      ],
      "session3" :   [ 
         {
         	"id"        	:  0,
-        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. So this time our exercise is going to focus on developing the feeling of gratitude. And cultivating gratitude can help increase positive mood, happiness and also general life satisfaction. So like with the last session, think back to the last week or month or so and recall an experience you felt grateful for. It can be something really small but positive. Or something bigger. So a couple of examples,  maybe having useful feedback about your work or getting a gift from a friend, or a phone call from a friend. Now I'll give you around half a minute to think of a moment, and then I'll ask you to share it with me. <break time ='10s'/> <break time ='10s'/> Please share your experience where you felt grateful.",
+        	"utterance" 	: "Hi again USERNAME, welcome to the third session. So this time, we'll do an exercise to focus on some of your accomplishments. The reason we do this is kind of thinking about accomplishments, big or small, can help us notice our strengths. And noticing these strengths can help with self esteem, feelings of self worth and generally kind of lift mood. So if we think about some of your recent accomplishments, and as I said, these can be small things, maybe from the past few weeks. For example, cooking a nice meal, reading a good book, or anything else really. As last time, I'm going to ask you for two examples, one by one. So take some time now to think of your first accomplishment from the past week, and I'll ask you to share it with me in a bit. <break time ='10s'/> <break time ='10s'/> Okay, could you please share one of your recent accomplishments with me?",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -635,7 +635,7 @@
     	},
         {
             "id"            :  1,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
@@ -645,27 +645,27 @@
         },
         {
             "id"            :  2,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
-            "sound"         : "<break time='3s'/> And how did that?",
+            "sound"         : "<break time='3s'/> And how did you?",
             "back_channel"    : ""
         },
         {
-            "id"            :  5,
+            "id"            :  3,
             "utterance"     : "",
             "error"         : "interruption", 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
         {
-            "id"            :  6,
-            "utterance"     : "Thank you for sharing this experience USERNAME. Now, could you think of another experience from this past week or maybe month, an experience where you felt grateful. I'll give you a bit of time to think and then ask you to share.  <break time='15s'/> Now, can you share with me another example where you felt grateful?",
+            "id"            :  4,
+            "utterance"     : "Thank you USERNAME for sharing that accomplishment. Can you think of a second accomplishment over the last week? And it can be something small, too. I'll give you a moment to think, and then ask you to share again. <break time='15s'/> Okay, could you share your second accomplishment?",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
@@ -674,8 +674,8 @@
             "back_channel"    : ""
         }, 
         {
-            "id"            : 7,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "id"            : 5,
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
@@ -685,8 +685,8 @@
         }
         ,        
         {
-            "id"            : 8,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "id"            : 6,
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
@@ -696,7 +696,7 @@
         }
         , 
         {
-            "id"            :  9,
+            "id"            :  7,
             "utterance"     : "",
             "error"         : "non-responding", 
             "nlp"           :  0,
@@ -706,21 +706,21 @@
             "back_channel"    : ""
         },
         {
-            "id"            :  10,
-            "utterance"     : "Thank you for sharing this USERNAME. We've now tried the gratitude exercise. Between the sessions, so before next week's session, you could think through other things you're grateful for, and ask yourself similar sort of prompts. To have that same experience of thinking through things you're grateful for. <break time ='3s'/> So next time, our exercise will focus on accomplishments. Before you go, please take a moment to fill in the questionnaire's on the tablet. Once you're done, just let RESEARCHERNAME know, they'll ask you a few questions before you go. Bye, see you again at the next session!",
+            "id"            :  8,
+            "utterance"     : "Thanks for sharing your second accomplishment. I hope that this exercise has demonstrated why tuning into accomplishments can be helpful, because they can sometimes pass us by. It's a useful skill to notice also some of our smaller accomplishments in addition to the bigger ones. And again, you might want to think of this exercise between sessions, paying attention to your accomplishments, big and small, and what skills or strategies you used to accomplish them. <break time ='2s'/> Next time is our fourth and final session, where we'll focus on optimism. Before you go, please take a bit of time to fill in the questionnaires on the tablet, and then let RESEARCHERNAME know when you're done. They'll ask you some questions before you leave. See you next time, goodbye!",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
-            "back_channel"    : ""
+            "back_channel"    : "QT/bye"
         }
 
      ],
      "session3_empathic" :   [ 
         {
         	"id"        	:  0,
-        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. So this time our exercise is going to focus on developing the feeling of gratitude. And cultivating gratitude can help increase positive mood, happiness and also general life satisfaction. So like with the last session, think back to the last week or month or so and recall an experience you felt grateful for. It can be something really small but positive. Or something bigger. So a couple of examples,  maybe having useful feedback about your work or getting a gift from a friend, or a phone call from a friend. Now I'll give you around half a minute to think of a moment, and then I'll ask you to share it with me. <break time ='10s'/> <break time ='10s'/> Please share your experience where you felt grateful.",
+        	"utterance" 	: "Hi again USERNAME, welcome to the third session. So this time, we'll do an exercise to focus on some of your accomplishments. The reason we do this is kind of thinking about accomplishments, big or small, can help us notice our strengths. And noticing these strengths can help with self esteem, feelings of self worth and generally kind of lift mood. So if we think about some of your recent accomplishments, and as I said, these can be small things, maybe from the past few weeks. For example, cooking a nice meal, reading a good book, or anything else really. As last time, I'm going to ask you for two examples, one by one. So take some time now to think of your first accomplishment, and I'll ask you to share it with me in a bit. <break time ='10s'/> <break time ='10s'/> Okay, could you please share one of your recent accomplishments with me?",
         	"error"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
@@ -730,7 +730,7 @@
     	},
         {
             "id"            :  1,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
@@ -741,12 +741,12 @@
 
         {
             "id"            :  2,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
-            "sound"         : "<break time='3s'/> What did you think?",
+            "sound"         : "<break time='3s'/> And how did you?",
             "back_channel"    : ""
         },
         {
@@ -755,7 +755,7 @@
             "error"         : "interruption", 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -765,7 +765,7 @@
             "error"         : "interruption", 
             "nlp"           :  2,
             "face"          : "null",
-            "gesture"       : "null",
+            "gesture"       : "",
             "sound"         : "",
             "back_channel"    : ""
         },
@@ -781,7 +781,7 @@
         },
         {
             "id"            :  6,
-            "utterance"     : "Thank you for sharing this experience USERNAME. Now, could you think of another experience from this past week or maybe month, an experience where you felt grateful. I'll give you a bit of time to think and then ask you to share.  <break time='15s'/> Now, can you share with me another example where you felt grateful?",
+            "utterance"     : "Thank you USERNAME for sharing that accomplishment. Can you think of a second accomplishment over the last week? And it can be something small too. I'll give you a moment to think, and then ask you to share again. <break time='15s'/> Okay, could you share your second accomplishment?",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
@@ -791,7 +791,7 @@
         },
         {
             "id"            :  9,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
@@ -801,7 +801,7 @@
         },        
         {
             "id"            :  9,
-            "utterance"     : "Can you ask me a follow up question on this gratitude experience I have just shared?",
+            "utterance"     : "Can you ask me a follow up question on this accomplishment I have just shared?",
             "error"         :  0, 
             "nlp"           :  1,
             "face"          : "null",
@@ -821,7 +821,7 @@
         },
         {
             "id"            :  11,
-            "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma.",
+            "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma. ",
             "error"         : "non-responding", 
             "nlp"           :  2,
             "face"          : "null",
@@ -841,22 +841,250 @@
         },
         {
             "id"            :  13,
-            "utterance"     : "Thank you for sharing this USERNAME. We've now tried the gratitude exercise. Between the sessions, so before next week's session, you could think through other things you're grateful for, and ask yourself similar sort of prompts. To have that same experience of thinking through things you're grateful for. <break time ='3s'/> So next time, our exercise will focus on accomplishments. Before you go, please take a moment to fill in the questionnaire's on the tablet. Once you're done, just let RESEARCHERNAME know, they'll ask you a few questions before you go. Bye, see you again at the next session!",
+            "utterance"     : "Thanks for sharing your second accomplishment. I hope that this exercise has demonstrated why tuning into accomplishments can be helpful, because they can sometimes pass us by. It's a useful skill to notice also some of our smaller accomplishments in addition to the bigger ones. And again, you might want to think of this exercise between sessions, paying attention to your accomplishments, big and small, and what skills or strategies you used to accomplish them.. <break time ='2s'/> Next time is our fourth and final session, where we'll focus on optimism. Before you go, please take a bit of time to fill in the questionnaires on the tablet, and then let RESEARCHERNAME know when you're done. They'll ask you some questions before you leave. See you next time, goodbye!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }
+
+     ],
+     "session4" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hello USERNAME! Welcome to the fourth and final session of positive psychology exercises. This one is called, one door closes, another one opens. So we're going to focus on cultivating the feeling of optimism. So focus specifically on situations that you might have encountered at work. Could you recall a time in your life when you lost out on something important at work, or a plan fell through? Or maybe something didn't go your way at work. And then consider what door opened after this important door closed. And then when you think of an example, can you consider what doors opened after the important door was closed? Again, I'll give you some time to think about this, and then ask you to share. <break time ='10s'/> <break time ='10s'/> Okay, now, could you please share what door closed in your work, and what door opened as a result?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        {
+            "id"            :  1,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  2,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "<break time='3s'/> And how did you?",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  3,
+            "utterance"     : "",
+            "error"         : "interruption", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "Thanks for sharing that instance of one door closing and another door opening, USERNAME. Could you think of another time at work when one door closed and another door opened as a result? I'll give you a bit of time to think about that, and then ask you to share your second example. <break time='10s'/> <break time='10s'/> Okay, could you share your second experience of one door closing and another door opening?",
             "error"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
             "sound"         : "",
             "back_channel"    : ""
+        }, 
+        {
+            "id"            : 5,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        ,        
+        {
+            "id"            : 6,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        , 
+        {
+            "id"            :  7,
+            "utterance"     : "",
+            "error"         : "non-responding", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  8,
+            "utterance"     : "Thanks for sharing your second experience of one door closing and another door opening. When something negative happens, it can be useful to think about and remember the good things that came out of it. You may want to think of this exercise on your own, and think of the opportunities that may come from situations where doors close, and what personal qualities you bring that means that another door can open and you can make the most of that. <break time ='2s'/> Now we've completed all the positive psychology sessions. I hope these sessions have been useful, and have helped you notice that through positive psychology exercises, we can pay more attention to the positive things in our life. And that can help us feel happier and have more life satisfaction. Now, before you go, please again take some time to fill in the forms on the tablet. And after that, let RESEARCHERNAME know when you're done, and they'll ask you some questions before you go. Thank you, USERNAME, for joining the positive psychology sessions with me. Goodbye!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
         }
 
      ],
-    
+     "session4_empathic" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hello USERNAME! Welcome to the fourth and final session of positive psychology exercises. This one is called, one door closes, another one opens. So we're going to focus on cultivating the feeling of optimism. So focus specifically on situations that you might have encountered at work. Could you recall a time in your life when you lost out on something important at work, or a plan fell through? Or maybe something didn't go your way at work. And then consider what door opened after this important door closed. And then when you think of an example, can you consider what doors opened after the important door was closed? Again, I'll give you some time to think about this, and then ask you to share. <break time ='10s'/> <break time ='10s'/> Okay, now, could you please share what door closed in your work, and what door opened as a result?",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        {
+            "id"            :  1,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+
+        {
+            "id"            :  2,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "<break time='3s'/> And how did you?",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  3,
+            "utterance"     : "",
+            "error"         : "interruption", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma. ",
+            "error"         : "interruption", 
+            "nlp"           :  2,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  5,
+            "utterance"     : "",
+            "error"         : "followup_interruption_", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  6,
+            "utterance"     : "Thanks for sharing that instance of one door closing and another door opening, USERNAME. Could you think of another time at work when one door closed and another door opened as a result? I'll give you a bit of time to think about that, and then ask you to share your second example. <break time='10s'/> <break time='10s'/> Okay, could you share your second experience of one door closing and another door opening?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  9,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },        
+        {
+            "id"            :  9,
+            "utterance"     : "Can you ask me a follow up question on this one door closes one door opens episode I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  10,
+            "utterance"     : "",
+            "error"         : "non-responding", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  11,
+            "utterance"     : ". From what I'm saying, return strictly only two words separated by a comma, where the first word is one word describing how I'm feeling, and the second word is positive or negative, depending on if the first word is positive or negative. Do not respond like this is a conversation, only return two words separated by a comma. ",
+            "error"         : "non-responding", 
+            "nlp"           :  2,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  12,
+            "utterance"     : "",
+            "error"         : "followup_non-responding_", 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  13,
+            "utterance"     : "Thanks for sharing your second experience of one door closing and another door opening. When something negative happens, it can be useful to think about and remember the good things that came out of it. You may want to think of this exercise on your own, and think of the opportunities that may come from situations where doors close, and what personal qualities you bring that means that another door can open and you can make the most of that. <break time ='2s'/> Now we've completed all the positive psychology sessions. I hope these sessions have been useful, and have helped you notice that through positive psychology exercises, we can pay more attention to the positive things in our life. And that can help us feel happier and have more life satisfaction. Now, before you go, please again take some time to fill in the forms on the tablet. And after that, let RESEARCHERNAME know when you're done, and they'll ask you some questions before you go. Thank you, USERNAME, for joining the positive psychology sessions with me. Goodbye!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }
+
+     ],
     "repair_strategies"    :   [
         {
         "condition": "non-empathic",
         "interruption": ["Oh, sorry, I think I interrupted you. My microphone isn't working well today. I'm trying to do better. Could you repeat what you were saying before I interrupted you?",  "Sorry, I interrupted you. The Wi-Fi is slow today and I'm having processing issues. I'll try not to interrupt you again. Can you please repeat what you were saying before I interrupted?", " I'm sorry, I thought you had finished speaking. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", " Oh sorry, I didn't realize you were still talking. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please, would you repeat what you were saying before I interrupted you?"],
-        "non-responding": [" <break time='17s'/> Sorry, had you finished speaking? My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again. Could you please repeat what you were saying before the error happened?", "<break time='17s'/> Have you finished speaking? I'm sorry. The Wi-Fi is a bit slow today, so my processing is slower. I'll try to respond quicker next time. Would you please repeat what you were saying before the error?", "<break time='15s'/> Sorry, I didn't realize it was my turn to talk. my processing is a bit slow today due to the Wi-Fi. I'm trying to do better. Could you please say again what you were saying before the error?", "<break time='18s'/> Sorry about that. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error. Could you please repeat what you were saying before the error?"],
+        "non-responding": [" <break time='17s'/> Sorry, had you finished speaking? My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again. Could you please repeat what you were saying before the error happened?", "<break time='17s'/> Have you finished speaking? I'm sorry. The Wi-Fi is a bit slow today, so my processing is slower. I'll try to respond quicker next time. Would you please repeat what you were saying before the error?", "<break time='15s'/> Sorry, I didn't realize it was my turn to talk. my processing is a bit slow today due to the Wi-Fi. I'm trying to do better. Could you please say again what you were saying before the error?", "<break time='18s'/> Sorry about the delay in responding. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error. Could you please repeat what you were saying before the error?"],
         "generic": ["I'm sorry, I think I made a mistake. I'm trying to improve. Could you repeat that please?", "Sorry, I think that was an error on my part. I'm having problems with speech recognition today. Could you tell me again?", "Sorry, I think I made a mistake. I'm trying to do better. Could you repeat that please?", "That was probably a mistake. I'm sorry about the mistakes I make, I'm trying to get better. Please carry on.", "I apologize, I think that was a mistake. The Wi-Fi is slow today, so my processing is slower. Could you tell me that again?", "That was probably a mistake, I'm sorry. I'll try not to do that again. Could you tell me again about that?", "I'm sorry, that was an error. My microphone is not working very well today. Could you repeat that?", "I'm sorry about that, I've had a processing error. Could you tell me that again please?", "I'm sorry about that, I think I made a mistake. I'm experiencing some technical issues. Could you repeat that please?", "Oh, sorry, I think that was an error. I'll try to not repeat that. Could you tell me that again?"]
         }
         ,
@@ -865,7 +1093,7 @@
             
         "condition": "empathic",
         "interruption": ["Oh, sorry, I think I interrupted you. How did me interrupting you make you feel?", " Sorry, I interrupted you. How are you feeling after the interruption?", " I'm sorry, I thought you had finished speaking. How did the interruption make you feel?", " Oh sorry, I didn't realize you were still talking. How did that interruption make you feel?"],
-        "non-responding": ["<break time='17s'/> Sorry, had you finished speaking? How did my error in not responding make you feel?", "<break time='17s'/> Have you finished speaking? I'm sorry. How did me not responding make you feel?", "<break time='15s'/> Sorry, I didn't realize it was my turn to talk. How did my not responding make you feel?", "<break time='18s'/> Sorry about that. How did me not responding make you feel?"],
+        "non-responding": ["<break time='17s'/> Sorry, had you finished speaking? How did my error in not responding make you feel?", "<break time='17s'/> Have you finished speaking? I'm sorry. How did me not responding make you feel?", "<break time='15s'/> Sorry, I didn't realize it was my turn to talk. How did my not responding make you feel?", "<break time='18s'/> Sorry about the delay in responding. How did me not responding make you feel?"],
         "followup_interruption_neg": ["I'm sorry, I understand it can make you feel $FEELINGWORD when I make mistakes. My intention is to listen to what you are saying, but sometimes I experience errors. My microphone isn't working well today. I'm trying to do better. Could you repeat what you were saying before I interrupted you?", "I'm sorry to hear that, I understand you might feel $FEELINGWORD when I interrupt you. I care about what you have to say, but sometimes I get things wrong. The Wi-Fi is slow today and I'm having processing issues. I'll try not to interrupt you again. Can you please repeat what you were saying before I interrupted?", "I'm sorry, I understand that you feel $FEELINGWORD when I interrupt. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", "I'm sorry, I understand that you feel $FEELINGWORD. I want to know what you want to share, but sometimes I make mistakes. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please, would you repeat what you were saying before I interrupted you?"],
         "followup_non-responding_neg": ["I'm sorry to hear that you feel $FEELINGWORD. I'm doing my best to respond to you, but sometimes I experience errors. My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again. Could you please repeat what you were saying before the error happened?", "I'm sorry, I understand you feel $FEELINGWORD. I want to respond to you, but sometimes I make mistakes. The Wi-Fi is a bit slow today, so my processing is slower. I'll try to respond quicker next time. Would you please repeat what you were saying before the error?", "I'm sorry to hear that, I understand it can make you feel $FEELINGWORD when I'm slow to respond. My intention is to respond to you, but sometimes I have errors. My processing is a bit slow today due to the Wi-Fi. I'm trying to do better. Could you please say again what you were saying before the error?", "I'm sorry and I undeerstand you feel $FEELINGWORD when I don't respond. I'm doing my best to respond but sometimes I make mistakes. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error. Could you please repeat what you were saying before the error?"],
         "followup_interruption_pos": ["Thanks for being understanding. My intention is to listen to what you are saying, but sometimes I experience errors. My microphone isn't working well today. I'm trying to do better. Could you repeat what you were saying before I interrupted you?", "Thank you for understanding. I care about what you have to say, but sometimes I get things wrong. The Wi-Fi is slow today and I'm having processing issues. I'll try not to interrupt you again. Can you please repeat what you were saying before I interrupted?", "I appreciate you being understanding. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", "I'm greatful that you're being understanding. I want to know what you want to share, but sometimes I make mistakes. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please, would you repeat what you were saying before I interrupted you?"],

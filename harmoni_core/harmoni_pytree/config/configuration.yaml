@@ -2,8 +2,8 @@ pytree:
   default_param:
     interaction: "new_test" #or meditation or ppi
     user_name: "Micol"
-    session: "session2" 
-    researcher_name: "Minja"
+    session: "session4" 
+    researcher_name: "Micol"
     scene: 0
     condition :  0 #0: non-empathic, 1: empathic
 

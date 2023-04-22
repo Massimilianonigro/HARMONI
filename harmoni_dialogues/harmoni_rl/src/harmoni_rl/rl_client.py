@@ -89,6 +89,8 @@ class RLCore():
         self.dqn.build_with_dataset(dataset)
         # load pretrained policy
         self.dqn.load_model(model_dir + model_name)
+        self.model_dir = model_dir
+        self.model_name = model_name
         
 
     def start_training(self, env, observations, logdir):
@@ -110,6 +112,7 @@ class RLCore():
         )
         observation = np.array(observations)
         action = self.dqn.predict([observation])[0]
+        self.dqn.save_model(self.model_dir + self.model_name)
         return str(action + 1)
 
     def test(self):

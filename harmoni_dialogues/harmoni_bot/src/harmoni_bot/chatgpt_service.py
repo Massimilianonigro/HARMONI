@@ -44,7 +44,7 @@ class ChatGPTService(HarmoniServiceManager):
         env_path="/root/harmoni_catkin_ws/src/HARMONI/.env"
         load_dotenv(env_path)
         rospy.loginfo("Connecting to GPT")
-        openai.organization = "org-c177RgKPMbEYIWkVXobIkNcv"
+        openai.organization = os.getenv("OPENAI_ORGANIZATION")#"org-c177RgKPMbEYIWkVXobIkNcv"
         openai.api_key = os.getenv("OPENAI_API_KEY")
         openai.Model.list()
         rospy.loginfo("Connected")
@@ -69,7 +69,6 @@ class ChatGPTService(HarmoniServiceManager):
         messages_array = []
         for message in input_text:
             m =  message.split("*")
-            rospy.loginfo(m)
             role = m[1]
             content = m[2]
             if content!="":
@@ -97,9 +96,6 @@ class ChatGPTService(HarmoniServiceManager):
                 frequency_penalty=0,
                 presence_penalty=0.6
                 )
-                
-                rospy.loginfo("++++++++++++++++++++++++++++++++++++")
-                rospy.loginfo(gpt_response)
                 #rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
                 #response = gpt_response['choices'][0]['text']
                 response = gpt_response['choices'][0]['message']['content']

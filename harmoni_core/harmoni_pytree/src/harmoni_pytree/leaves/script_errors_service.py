@@ -124,7 +124,11 @@ class ScriptErrorsService(py_trees.behaviour.Behaviour):
                         key_dict = self.blackboard_scene.scene.errors + "pos"
                     else:
                         key_dict = self.blackboard_scene.scene.errors + "neg"
-                    repair_strategies_id = randrange(4)
+                    if "_" in self.session:
+                        session = self.session.split("_")[0]
+                    else:
+                        session = self.session
+                    repair_strategies_id = int(session[-1]) - 1
                     session_dict = self.errors_dictonary[self.condition][key_dict][repair_strategies_id] #0 is not empathic
                     if "$FEELINGWORD" in session_dict:
                         session_dict = session_dict.replace("$FEELINGWORD", feeling)
@@ -135,7 +139,11 @@ class ScriptErrorsService(py_trees.behaviour.Behaviour):
                     self.utterance_to_nlp.append(context + self.ai_stopper + session_dict)
                     utterance = self.utterance_to_play
                 else:
-                    repair_strategies_id = randrange(4)
+                    if "_" in self.session:
+                        session = self.session.split("_")[0]
+                    else:
+                        session = self.session
+                    repair_strategies_id = int(session[-1]) - 1
                     session_dict = self.errors_dictonary[self.condition][self.blackboard_scene.scene.errors][repair_strategies_id] #0 is not empathic
                     context = "*assistant*"
                     self.utterance_to_play = session_dict

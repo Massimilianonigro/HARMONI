@@ -24,7 +24,7 @@
         {
             "name"          : "newepisode",
             "id"            : 2,
-            "utterance"     : "Thank you for sharing this. Could you think of another example of a memory, a positive memory, that you could savour, maybe something from the last month or so? I'll give you some seconds to think about that. <break time='10s'/> Now please share it.",
+            "utterance"     : "Thank you for sharing this. Could you think of another example of a memory, a positive memory, that you could savour, maybe something from the last month or so? I'll give you some seconds to think about that. <break time='10s'/>  <break time='10s'/> Now please share it.",
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
@@ -67,7 +67,7 @@
         {
             "name"          : "newepisode",
             "id"            : 2,
-            "utterance"     : "That it's a lovely example.Feel free to take a bit more time to think of another example. So maybe if you think of something that you've been grateful for in the last couple of days. <break time='10s'/> Please share it with me. ",
+            "utterance"     : "That it's a lovely example. Feel free to take a bit more time to think of another example. So maybe if you think of something that you've been grateful for in the last couple of days. <break time='10s'/> <break time='10s'/> Please share it with me. ",
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
@@ -110,7 +110,7 @@
         {
             "name"          : "newepisode",
             "id"            : 2,
-            "utterance"     : "And can you think of another example of an accomplishment, something smaller over the last week? I'll give you around 30 seconds to think about that.<break time='10s'/> Please share it with me.",
+            "utterance"     : "And can you think of another example of an accomplishment, something smaller over the last week? I'll give you around 30 seconds to think about that. <break time='10s'/>  <break time='10s'/> Please share it with me.",
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
@@ -153,7 +153,7 @@
         {
             "name"          : "newepisode",
             "id"            : 2,
-            "utterance"     : "That's a really nice example. Can you think of another for me of when one opportunity might have closed down in another opened up? I'll give you around 30 seconds to think about that.<break time='10s'/> Please share it with me.",
+            "utterance"     : "That's a really nice example. Can you think of another for me of when one opportunity might have closed down in another opened up? I'll give you around 30 seconds to think about that.<break time='10s'/>  <break time='10s'/> Please share it with me.",
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
@@ -365,7 +365,181 @@
         }
 
                 ],
+        "session3" :   [ 
+            {
+                "id"            : 0, 
+                "utterance"     : "Hi again USERNAME, welcome to the third session. So this time, we'll do an exercise to focus on some of your accomplishments. The reason we do this is kind of thinking about accomplishments, big or small, can help us notice our strengths. And noticing these strengths can help with self esteem, feelings of self worth and generally kind of lift mood. So if we think about some of your recent accomplishments, and as I said, these can be small things, maybe from the past few weeks. For example, cooking a nice meal, reading a good book, or anything else really. As last time, I'm going to ask you for few examples, one by one. So take some time now to think of your first accomplishment, and I'll ask you to share it with me in a bit. <break time ='10s'/> <break time ='10s'/> Okay, could you please share one of your recent accomplishments with me?",
+                "rl"            :  0,
+                "nlp"           :  0,
+                "face"          : "null",
+                "gesture"       : "QT/hi",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },        
+            
+            {
+                "id"            :  13,
+                "utterance"     : "Thanks for sharing your last accomplishment. I hope that this exercise has demonstrated why tuning into accomplishments can be helpful, because they can sometimes pass us by. It's a useful skill to notice also some of our smaller accomplishments in addition to the bigger ones. And again, you might want to think of this exercise between sessions, paying attention to your accomplishments, big and small. <break time ='2s'/> Next time is our fourth and final session, where we'll focus on optimism. Before you go, please take a bit of time to fill in the questionnaires on the tablet, and then let RESEARCHERNAME know when you're done. They'll ask you some questions before you leave. See you next time, goodbye!",
+                "rl"         :  0, 
+                "nlp"           :  0,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : "QT/bye"
+            }
     
+                    ],
+        "session4" :   [ 
+            {
+                "id"            : 0, 
+                "utterance"     : "Hello USERNAME! Welcome to the fourth and final session of positive psychology exercises. This one is called, one door closes, another one opens. So we're going to focus on cultivating the feeling of optimism. So focus specifically on situations that you might have encountered at work. Could you recall a time in your life when you lost out on something important at work, or a plan fell through? Or maybe something didn't go your way at work. And then consider what door opened after this important door closed. And then when you think of an example, can you consider what doors opened after the important door was closed? Again, I'll give you some time to think about this, and then ask you to share. <break time ='10s'/> <break time ='10s'/> Okay, now, could you please share what door closed in your work, and what door opened as a result?",
+                "rl"            :  0,
+                "nlp"           :  0,
+                "face"          : "null",
+                "gesture"       : "QT/hi",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },
+            {
+                "utterance"     : "",
+                "rl"            :  1, 
+                "nlp"           :  1,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : ""
+            },        
+            
+            {
+                "id"            :  13,
+                "utterance"     : "Thanks for sharing your second experience of one door closing and another door opening. Through this exercise, we can think about the experiences where something didn't go how we wanted it to, but there may have been a silver lining. And when something negative happens, it can be nice to think about and remember the good things that came out of it. Our mind naturally reminds us of those negatives, but we can try to give a fair and balanced weight to the positives that may have passed us by. <break time ='2s'/> You may want to think of this exercise on your own, and think of the opportunities that may come from situations where doors close, and what personal qualities you bring that means that another door can open and you can make the most of that. <break time ='2s'/> Now we've completed all the positive psychology sessions. I hope these sessions have been useful, and have helped you notice that through positive psychology exercises, we can pay more attention to the positive things in our life. And that can help us feel happier and have more life satisfaction. Now, before you go, please again take some time to fill in the forms on the tablet. And after that, let RESEARCHERNAME know when you're done, and they'll ask you some questions before you go. Thank you, USERNAME, for joining the positive psychology sessions with me. Goodbye!",
+                "rl"         :  0, 
+                "nlp"           :  0,
+                "face"          : "null",
+                "gesture"       : "null",
+                "sound"         : "",
+                "back_channel"    : "QT/bye"
+            }
+    
+                    ],
+
         "repair_strategies"    :   [
             {
              "generic": ["I'm sorry, I think I made a mistake. I'm trying to improve. Could you repeat that please?", "Sorry, I think that was an error on my part. I'm having problems with speech recognition today. Could you tell me again?", "Sorry, I think I made a mistake. I'm trying to do better. Could you repeat that please?", "That was probably a mistake. I'm sorry about the mistakes I make, I'm trying to get better. Please carry on.", "I apologize, I think that was a mistake. The Wi-Fi is slow today, so my processing is slower. Could you tell me that again?", "That was probably a mistake, I'm sorry. I'll try not to do that again. Could you tell me again about that?", "I'm sorry, that was an error. My microphone is not working very well today. Could you repeat that?", "I'm sorry about that, I've had a processing error. Could you tell me that again please?", "I'm sorry about that, I think I made a mistake. I'm experiencing some technical issues. Could you repeat that please?", "Oh, sorry, I think that was an error. I'll try to not repeat that. Could you tell me that again?"]
