@@ -9,6 +9,7 @@ from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
 # Specific Imports
 from harmoni_common_lib.constants import DialogueNameSpace
+from std_msgs.msg import String
 import openai
 import os
 import ast
@@ -35,6 +36,7 @@ class ChatGPTService(HarmoniServiceManager):
         self.stop_request = False
         self.flagged_sentence = []
         self.state = State.INIT
+        self._utterance_pub = rospy.Publisher(DialogueNameSpace.bot.value + "default", String, queue_size=1)
         return
 
     def setup_chat_gpt(self):
@@ -116,6 +118,7 @@ class ChatGPTService(HarmoniServiceManager):
             else:
                 self.result_msg = "I found your sentence very inappropriate. Let's finish the interaction here!"
                 self.stop_request = False
+            self._utterance_pub.publish(self.result_msg)
             self.response_received = True
             self.state = State.SUCCESS
         except rospy.ServiceException:

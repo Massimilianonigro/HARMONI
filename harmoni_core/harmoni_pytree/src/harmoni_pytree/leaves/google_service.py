@@ -111,7 +111,7 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
                     new_status = py_trees.common.Status.RUNNING
                 else:
                     new_status = py_trees.common.Status.FAILURE
-                    raise
+                    #raise
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         

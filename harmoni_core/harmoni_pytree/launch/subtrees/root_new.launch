@@ -17,8 +17,8 @@
     <include file="$(find harmoni_opensmile)/launch/opensmile_service.launch"></include>
     <include file="$(find harmoni_detcustom)/launch/detcustom_service.launch"></include>
     <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
-    <!-- <include file="$(find harmoni_recorder)/launch/recording_rosbag_ppi.launch"></include>
-    <include file="$(find harmoni_sentiment)/launch/sentiment_service.launch"></include>-->
+    <include file="$(find harmoni_recorder)/launch/recording_rosbag_new.launch"></include>
+    <!-- <include file="$(find harmoni_sentiment)/launch/sentiment_service.launch"></include>-->
 
     <node pkg="harmoni_pytree" type="pytree_new.py" name="harmoni_pytree_default" output="screen"/>
     

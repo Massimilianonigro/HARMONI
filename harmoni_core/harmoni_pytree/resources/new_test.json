@@ -24,7 +24,7 @@
         {
             "name"          : "newepisode",
             "id"            : 2,
-            "utterance"     : "Thank you for sharing this. Could you think of another example of a memory, a positive memory, that you could savour, maybe something from the last month or so? <break time='10s'/> Now please share it.",
+            "utterance"     : "Thank you for sharing this. Could you think of another example of a memory, a positive memory, that you could savour, maybe something from the last month or so? I'll give you some seconds to think about that. <break time='10s'/> Now please share it.",
             "nlp"           :  0,
             "face"          : "null",
             "gesture"       : "null",
@@ -173,23 +173,35 @@
     ],
     "session1" :   [ 
         {
+            "id"            : 0, 
             "utterance"     : "Hi, my name is Botty. What is your name?",
             "rl"            :  0,
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "",
+            "gesture"       : "QT/hi",
             "sound"         : "",
             "back_channel"    : ""
         },
         {
-            "utterance"     : "We'll do an exercise on gratitude. Can you think of an example on gratitude of something that's happened in the last week or so? ",
-            "rl"            :  0,
-            "nlp"           :  0,
-            "face"          : "null",
-            "gesture"       : "null",
-            "sound"         : "",
-            "back_channel"    : ""
-        },
+        	"id"        	:  1,
+        	"utterance" 	: "Nice to meet you USERNAME. So we're going to do 4 sessions of positive psychology practices. You may already be familiar with some of these exercises, but it can be useful to do them again. To remind you, the aim of positive psychology is to guide you towards focusing on positive things in your life. Often, the negative things in our life can get a lot of our attention while the positive things are harder to focus on. Focusing on the positive can help increase happiness and life satisfaction. So in total we'll be doing 4 sessions together, with four different exercises. Is that okay?",
+        	"rl"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  2,
+        	"utterance" 	: "The first exercise is called savouring. It's about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could think of a small positive thing that's happened, maybe if you cast your memory back to the last week. A pleasant memory from the last week or so. I'll give you about 30 seconds to think about that. <break time='10s'/><break time='10s'/>. Please share your positive memory with me.",
+        	"rl"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
         {
             "utterance"     : "",
             "rl"            :  1, 
@@ -255,43 +267,31 @@
         },        
         
         {
-            "utterance"     : "Thank you for having share this with me!",
-            "rl"            :  0, 
+            "id"            :  13,
+            "utterance"     : "Thank you for sharing this USERNAME. Again, let's take a small quiet moment to savour this experience. What the experience was <break time='3s'/> how it made you feel <break time='5s'/> and what difference this small thing made to you. <break time ='7s'/> Great. And so we've tried the savouring exercise. It's about focusing on the detail of positive experiences to to make sure we give them enough attention so that they're memorable. So between now and our next session, you might just like to practice savouring. So asking yourself the questions of, how did I notice this was a positive experience? <break time ='1s'/> What was positive about it? <break time ='3s'/> Next time, we'll have a session on gratitude. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
+            "rl"         :  0, 
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "",
+            "gesture"       : "null",
             "sound"         : "",
-            "back_channel"    : ""
+            "back_channel"    : "QT/bye"
         }
 
                 ],
     "session2" :   [ 
         {
-            "utterance"     : "Hi, my name is Botty. What is your name?",
+            "id"            : 0, 
+            "utterance"     : "Hi, nice to see you again USERNAME. Welcome back. So this time our exercise is going to focus on developing the feeling of gratitude. And cultivating gratitude can help increase positive mood, happiness and also general life satisfaction. So like with the last session, think back to the last week or month or so and recall an experience you felt grateful for. It can be something really small but positive. Or something bigger. So a couple of examples,  maybe having useful feedback about your work or getting a gift from a friend, or a phone call from a friend. Now I'll give you around half a minute to think of a moment, and then I'll ask you to share it with me. <break time ='10s'/> <break time ='10s'/> Please share your experience where you felt grateful.",
+            "rl"            :  0,
             "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "QT/bye",
+            "gesture"       : "QT/hi",
             "sound"         : "",
             "back_channel"    : ""
         },
         {
-            "utterance"     : "Nice to meet you USERNAME! Today we are going to do a positive psychology exercise. Is that okay?",
-            "nlp"           :  0,
-            "face"          : "null",
-            "gesture"       : "null",
-            "sound"         : "",
-            "back_channel"    : ""
-        },
-        {
-            "utterance"     : "Can you think of an example on gratitude of something that's happened in the last week or so? ",
-            "nlp"           :  0,
-            "face"          : "null",
-            "gesture"       : "null",
-            "sound"         : "",
-            "back_channel"    : ""
-        },
-        {
-            "utterance"     : "", 
+            "utterance"     : "",
+            "rl"            :  1, 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "",
@@ -300,6 +300,7 @@
         },
         {
             "utterance"     : "",
+            "rl"            :  1, 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "null",
@@ -308,6 +309,7 @@
         },
         {
             "utterance"     : "",
+            "rl"            :  1, 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "null",
@@ -316,6 +318,34 @@
         },
         {
             "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "",
+            "rl"            :  1, 
             "nlp"           :  1,
             "face"          : "null",
             "gesture"       : "null",
@@ -324,12 +354,14 @@
         },        
         
         {
-            "utterance"     : "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today? \nHuman: I want to do a positive psychology exercise. \nAI: Sure, what king of positive psychology exercise would you like to do? \nHuman: Gratitude exercise.",
-            "nlp"           :  1,
+            "id"            :  13,
+            "utterance"     : "Thank you for sharing this USERNAME. We've now tried the gratitude exercise. Between the sessions, so before next week's session, you could think through other things you're grateful for, and ask yourself similar sort of prompts. To have that same experience of thinking through things you're grateful for. <break time ='3s'/> So next time, our exercise will focus on accomplishments. Before you go, please take a moment to fill in the questionnaire's on the tablet. Once you're done, just let RESEARCHERNAME know, they'll ask you a few questions before you go. Bye, see you again at the next session!",
+            "rl"         :  0, 
+            "nlp"           :  0,
             "face"          : "null",
-            "gesture"       : "",
+            "gesture"       : "null",
             "sound"         : "",
-            "back_channel"    : ""
+            "back_channel"    : "QT/bye"
         }
 
                 ],
