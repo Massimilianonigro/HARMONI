@@ -108,7 +108,7 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
                     self.logger.debug(f"Goal cancelled to {self.server_name}")
                     #self.service_client_stt.stop_tracking_goal()
                     #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
-                    new_status = py_trees.common.Status.RUNNING
+                    new_status = py_trees.common.Status.FAILURE
                 else:
                     new_status = py_trees.common.Status.FAILURE
                     #raise

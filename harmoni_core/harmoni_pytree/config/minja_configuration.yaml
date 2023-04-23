@@ -5,5 +5,5 @@ pytree:
     session: "session1" #session1_empathic, session1
     researcher_name: "Minja"
     scene: 0
-    condition :  1 #0: non-empathic, 1: empathic
+    condition :  0 #0: non-empathic, 1: empathic
 
