@@ -79,8 +79,7 @@ class RLCore():
     def __init__(self):
         super(RLCore, self).__init__()
 
-
-    def setup(self, model_dir, model_name, dataset):
+    def setup(self, model_dir, model_name, dataset, participant_name, session):
         # setup algorithm
         
         dataset = MDPDataset.load(dataset)
@@ -88,9 +87,16 @@ class RLCore():
         # initialize neural networks before loading parameters
         self.dqn.build_with_dataset(dataset)
         # load pretrained policy
-        self.dqn.load_model(model_dir + model_name)
+        if session == 1:
+            self.dqn.load_model(model_dir + model_name)
+            self.first_time = True
+        else:
+            self.dqn.load_model(model_dir + participant_name+ "-" + model_name)
+            self.first_time = False
         self.model_dir = model_dir
         self.model_name = model_name
+        self.participant_name = participant_name
+        
         
 
     def start_training(self, env, observations, logdir):
@@ -112,7 +118,10 @@ class RLCore():
         )
         observation = np.array(observations)
         action = self.dqn.predict([observation])[0]
-        self.dqn.save_model(self.model_dir + self.model_name)
+        self.dqn.save_model(self.model_dir + self.participant_name+ "-" + self.model_name )
+        if self.first_time:
+            self.dqn.load_model(self.model_dir + self.participant_name+ "-" + self.model_name )
+            self.first_time = False
         return str(action + 1)
 
     def test(self):

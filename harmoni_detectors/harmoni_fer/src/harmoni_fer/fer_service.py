@@ -74,14 +74,15 @@ class FERDetector(HarmoniServiceManager):
                 TODO: actually use this rate. Rate currently matches camera publish rate regardless of this setting
         """
         def baseline_cb(event):
-            self.baseline = False
-            maxval = np.max(self.valence_baseline)
-            minval = np.min(self.valence_baseline)
-            valence_values = [minval, maxval]
-            rospy.loginfo("BASELINE DONE")
-            rospy.loginfo(str(valence_values))
-            self._face_baseline_pub.publish(str(valence_values))
-        rospy.Timer(rospy.Duration(15), baseline_cb)
+            if len(self.valence_baseline)!=0:
+                self.baseline = False
+                maxval = np.max(self.valence_baseline)
+                minval = np.min(self.valence_baseline)
+                valence_values = [minval, maxval]
+                rospy.loginfo("BASELINE DONE")
+                rospy.loginfo(str(valence_values))
+                self._face_baseline_pub.publish(str(valence_values))
+        rospy.Timer(rospy.Duration(60), baseline_cb)
         rospy.loginfo("==== STARTED")
         self.state = State.START
         self._rate = rate

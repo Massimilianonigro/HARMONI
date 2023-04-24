@@ -30,7 +30,7 @@ class RLService(HarmoniServiceManager):
     :type param: from yaml
     """
 
-    def __init__(self, name, param):
+    def __init__(self, name, param, participant_name, session):
         """Constructor method: Initialization of variables and lex parameters + setting up"""
         super().__init__(name)
         """ Initialization of variables and lex parameters """
@@ -39,6 +39,9 @@ class RLService(HarmoniServiceManager):
         self.model_dir = param['model_dir']
         self.dataset = param['dataset']
         self.log_dir = param['log_dir']
+        self.participant_name = participant_name
+        if session == "session1":
+            self.session = 1
         self.state = State.INIT
         self._duration_sub = rospy.Subscriber(DetectorNameSpace.stt.value + self.subscriber_id + '/duration', Float32, self._speech_duration_cb, queue_size=1)  
         self._fer_sub = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id, String, self._fer_detector_cb, queue_size=1)
@@ -54,10 +57,10 @@ class RLService(HarmoniServiceManager):
         self.fer = []
         self.stt = []
         self.speech_features = []
-        self.fer_baseline = []
+        self.fer_baseline = [-10,10]
         self.actions = [0]*3
         self.actions[2] += 1
-        self.actions[1] += 4
+        self.actions[1] += 3
         self.actions[0] += 2
         self.max_action_limit = 3
         self.stt_received = False
@@ -69,7 +72,7 @@ class RLService(HarmoniServiceManager):
 
     def _setup(self):
         self.rl = RLCore()
-        self.rl.setup(self.model_dir, self.model_name, self.dataset)
+        self.rl.setup(self.model_dir, self.model_name, self.dataset, self.participant_name, self.session)
         
 
     def _fer_detector_cb(self, data):
@@ -88,8 +91,8 @@ class RLService(HarmoniServiceManager):
             rospy.loginfo("==================== FER DETECTION BASELINE RECEIVED")
             rospy.loginfo(data[0])
             rospy.loginfo(data[1])
-            self.fer_baseline.append(float(data[0]))
-            self.fer_baseline.append(float(data[1]))
+            self.fer_baseline[0] = float(data[0])
+            self.fer_baseline[1] = float(data[1])
             rospy.loginfo(self.fer_baseline)
             self.baseline = False
         return
@@ -181,7 +184,8 @@ class RLService(HarmoniServiceManager):
                 action = self.rl.start_training(env, observations, self.log_dir)
                 #action = self.rl.batch_rl(observations)
                 rospy.loginfo("--------------- THE ACTION WAS:" + action)
-                
+            if self.actions[0] == 5:
+                action = "2"
             self.result_msg = action
             action = int(action) - 1
             self.actions[action] += 1
@@ -217,7 +221,9 @@ def main():
     try:
         rospy.init_node(service_name, log_level=rospy.DEBUG)
         params = rospy.get_param(service_name + "/" + instance_id + "_param/")
-        s = RLService(service_id, params)
+        participant_name = rospy.get_param("pytree/default_param/user_name")
+        session_number = rospy.get_param("pytree/default_param/session")
+        s = RLService(service_id, params, participant_name, session_number)
         service_server = HarmoniServiceServer(service_id, s)
         #s.request("savouring")
         print(service_name)

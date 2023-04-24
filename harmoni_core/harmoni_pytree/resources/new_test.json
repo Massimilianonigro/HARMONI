@@ -194,7 +194,7 @@
     	},
     	{
         	"id"        	:  2,
-        	"utterance" 	: "The first exercise is called savouring. It's about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of two examples one by one. So if we start the exercise, if you could think of a small positive thing that's happened, maybe if you cast your memory back to the last week. A pleasant memory from the last week or so. I'll give you about 30 seconds to think about that. <break time='10s'/><break time='10s'/>. Please share your positive memory with me.",
+        	"utterance" 	: "The first exercise is called savouring. It's about the ability to notice a positive experience and be aware of the positive feelings associated with that experience so that we can remember that experience later. And so I'll ask you to think of few examples one by one. So if we start the exercise, if you could think of a small positive thing that's happened, maybe if you cast your memory back to the last week. A pleasant memory from the last week or so. I'll give you about 30 seconds to think about that. <break time='10s'/><break time='10s'/>. Please share your positive memory with me.",
         	"rl"        	:  0,
         	"nlp"       	:  0,
         	"face"      	: "null",
