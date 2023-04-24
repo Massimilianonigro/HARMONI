@@ -13,8 +13,7 @@
     <include file="$(find harmoni_face)/launch/face_service.launch"></include>
     <include file="$(find harmoni_bot)/launch/bot_service.launch"></include>
     <include file="$(find harmoni_gesture)/launch/gesture_service.launch"></include>
-    <!-- <include file="$(find harmoni_recorder)/launch/recording_rosbag_ppi.launch"></include>
-    <include file="$(find harmoni_sentiment)/launch/sentiment_service.launch"></include>-->
+    <include file="$(find harmoni_recorder)/launch/recording_rosbag_minja.launch"></include>
 
     <node pkg="harmoni_pytree" type="pytree_minja.py" name="harmoni_pytree_default" output="screen"/>
     
