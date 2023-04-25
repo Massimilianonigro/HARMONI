@@ -45,7 +45,7 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         
         self.blackboard_rl.result = "null"
-        self.blackboard_scene.scene.action = 1
+        self.blackboard_scene.scene.action = 2
 
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 

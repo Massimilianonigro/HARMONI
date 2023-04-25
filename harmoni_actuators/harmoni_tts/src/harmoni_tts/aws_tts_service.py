@@ -12,6 +12,7 @@ import harmoni_common_lib.helper_functions as hf
 # Specific Imports
 from harmoni_common_lib.constants import ActuatorNameSpace
 from botocore.exceptions import BotoCoreError, ClientError
+from std_msgs.msg import String, Bool, Float32
 from contextlib import closing
 import soundfile as sf
 import numpy as np
@@ -36,6 +37,7 @@ class AWSTtsService(HarmoniServiceManager):
         self.language = param["language"]
         self.outdir = param["outdir"]
         self.wav_header_length = param["wav_header_length"]
+        self.tts_pub = rospy.Publisher(ActuatorNameSpace.tts.value + "default", String, queue_size = 1)
         """ Setup the tts request """
         self._setup_aws_tts()
         """Setup the tts service as server """
@@ -265,6 +267,7 @@ class AWSTtsService(HarmoniServiceManager):
         self.state = State.REQUEST
         text = input_text
         [text, actions] = self._get_text_and_actions(text)
+        self.tts_pub.publish(text)
         try:
             text = (
                 '<speak><lang xml:lang="'

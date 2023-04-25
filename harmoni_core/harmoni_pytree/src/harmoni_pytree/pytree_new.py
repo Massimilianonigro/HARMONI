@@ -93,7 +93,7 @@ def create_root(params):
     fer = FERServicePytree("FER")
     rl = RLPytreeService("RL")
     detcustom = DetCustomServicePytree("DetCustom")
-    detectors_parallel.add_children([opensmile, fer, detcustom, vad])
+    detectors_parallel.add_children([openface, opensmile, fer, detcustom, vad])
     #detectors_parallel.add_children([openface, detcustom, vad])
     dialogue_sequence = py_trees.composites.Sequence("Dialogue")#, memory=True)
     sequence_speaking = py_trees.composites.Sequence("Speaking")#, memory=True)

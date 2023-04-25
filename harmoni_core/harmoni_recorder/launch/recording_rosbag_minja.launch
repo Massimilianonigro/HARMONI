@@ -1,6 +1,6 @@
 <launch>
 <!-- record topics listed below -->
-<arg name="topics_name" default="/harmoni/detecting/stt/default/duration /harmoni/detecting/stt/default /harmoni/dialoging/bot/default"/>
+<arg name="topics_name" default="/harmoni/detecting/stt/default/duration /harmoni/detecting/stt/default /harmoni/dialoging/bot/default /harmoni/actuating/tts/default"/>
 
 <!-- record topics -->
 <node name="record_topics_for_verification" pkg="rosbag" type="record" output="screen"

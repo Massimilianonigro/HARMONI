@@ -133,3 +133,4 @@ temp_data
 temp_output
 logs
 private-keys_old.json
+*.wav
