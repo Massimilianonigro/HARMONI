@@ -1,0 +1,3 @@
+sentiment:
+  default_param:
+    model_name: "roberta-base"
