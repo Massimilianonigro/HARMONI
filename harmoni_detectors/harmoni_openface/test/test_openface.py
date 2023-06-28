@@ -123,6 +123,9 @@ class TestOpenFace_Valid(TestOpenFace_Common):
         #    )
         
         while not rospy.is_shutdown() and not self.result:
+            self.image_pub.publish(
+               self.cv_bridge.cv2_to_imgmsg(self.image, encoding=self.img_encoding)
+            )
             print('WAIT')
             rospy.sleep(2)
         self.client.send_goal(

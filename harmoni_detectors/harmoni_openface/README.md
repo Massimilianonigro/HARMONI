@@ -62,7 +62,7 @@ DESTDIR=/root/diff ninja install
 
 ``` 
 And then (if necessary remove the CMakeCache.txt):
-
+cd to the OpenFace directory
 
 ``` 
 mkdir -p build && cd build && \
