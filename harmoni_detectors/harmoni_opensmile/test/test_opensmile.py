@@ -15,11 +15,10 @@ from harmoni_common_lib.constants import (
     State,
 )
 from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
-from cv_bridge import CvBridge, CvBridgeError
 from harmoni_common_lib.constants import SensorNameSpace
 from std_msgs.msg import String
-from sensor_msgs.msg import Image
-import cv2
+from audio_common_msgs.msg import AudioData
+import wave
 
 
 # from std_msgs.msg import String
@@ -27,22 +26,20 @@ import time
 import os, io
 
 
-class TestFaceExprRec_Common(unittest.TestCase):
+class TestOpenSmile_Common(unittest.TestCase):
        
     def setUp(self):
         self.feedback = State.INIT
         self.result = False
         self.detections = []
-        self.img_encoding = "rgb8"  # NOTE: There's a weird bug with facenet and ROS Kinetic which will crash if this is set to "bgr8"
-        self.image = cv2.imread(rospy.get_param("test_opensmile_input"))
         rospy.init_node("test_opensmile", log_level=rospy.INFO)
         self.rate = rospy.Rate(1)
-        self.cv_bridge = CvBridge()
-        # provide mock camera
-        self.camera_topic = "/camera/color/image_raw" #SensorNameSpace.camera.value + "default"
-        self.image_pub = rospy.Publisher(
-            self.camera_topic,
-            Image,
+        self.test_file = rospy.get_param('test_opensmile_input')
+        # provide mock mic
+        self.mic_topic = SensorNameSpace.microphone.value + "default"
+        self.audio_pub = rospy.Publisher(
+            self.mic_topic,
+            AudioData,
             queue_size=10,
         )
 
@@ -51,7 +48,7 @@ class TestFaceExprRec_Common(unittest.TestCase):
             String,
             self._detecting_callback,
         )
-        rospy.loginfo(f"Testside-Image source: {SensorNameSpace.camera.value}default")
+        rospy.loginfo(f"Testside-Audio source: {SensorNameSpace.microphone.value}default")
         rospy.loginfo(
             f"Testside-expected detection: {DetectorNameSpace.opensmile.value}default"
         )
@@ -64,61 +61,64 @@ class TestFaceExprRec_Common(unittest.TestCase):
             self.server, self._result_callback, self._feedback_callback, wait=True
         )
         rospy.loginfo("DONE SETTING UP****************")
-        rospy.loginfo("TestFaceExprRec: Turning ON opensmile server")
+        rospy.loginfo("TestOpenSmile: Turning ON opensmile server")
         self.client.send_goal(
             action_goal=ActionType.ON, optional_data="Setup", wait=False
         )
-        rospy.loginfo("TestFaceExprRec: Started up. waiting for face detect startup")
+        rospy.loginfo("TestOpenSmile: Started up. waiting for face detect startup")
 
         # wait for start state
         # while not rospy.is_shutdown() and self.feedback != State.START:
         #     self.rate.sleep()
 
-        rospy.loginfo("TestFaceExprRec: publishing image")
+        rospy.loginfo("TestOpenSmile: publishing audio")
 
-        self.image_pub.publish(
-            self.cv_bridge.cv2_to_imgmsg(self.image, encoding=self.img_encoding)
-        )
-        # self.image_pub.publish(self.image[:14000])
+        chunk_size = 512 #only 54 iterations on test file for chunk size 1024
+        wf = wave.open(self.test_file)
+        index = 0
+        audio_length = wf.getnframes()
+        while index+chunk_size < audio_length:
+            data = wf.readframes(chunk_size)
+            self.audio_pub.publish(data)
+            index = index+chunk_size
+            time.sleep(0.2)
 
         rospy.loginfo(
-            f"TestFaceExprRec: image subscribed to by #{self.output_sub.get_num_connections()} connections."
+            f"TestOpenSmile: audio subscribed to by #{self.output_sub.get_num_connections()} connections."
         )
 
     def _feedback_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Feedback: {data}")
+        rospy.loginfo(f"TestOpenSmile: Feedback: {data}")
         self.feedback = data["state"]
 
     def _status_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Status: {data}")
+        rospy.loginfo(f"TestOpenSmile: Status: {data}")
         # self.result = True
 
     def _result_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Result: {data}")
+        rospy.loginfo(f"TestOpenSmile: Result: {data}")
         # self.result = True
 
     def text_received_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Text back: {data}")
+        rospy.loginfo(f"TestOpenSmile: Text back: {data}")
         # self.result = True
 
     def _detecting_callback(self, data):
-        rospy.logdebug(f"TestFaceExprRec: Detecting: {data}")
+        rospy.logdebug(f"TestOpenSmile: Detecting: {data}")
         print(data)
         self.detections = data.data
         self.result = True
 
 
 
-class TestFaceExprRec_Valid(TestFaceExprRec_Common):
+class TestOpenSmile_Valid(TestOpenSmile_Common):
     def test_IO(self):
         rospy.loginfo(
-            "TestFaceExprRec[TEST]: basic IO test to ensure data "
-            + "(example image) is received and responded to. Waiting for detection..."
+            "TestOpenSmile[TEST]: basic IO test to ensure data "
+            + "(example audio) is received and responded to. Waiting for detection..."
         )
         while not rospy.is_shutdown() and not self.result:
-            self.image_pub.publish(
-                self.cv_bridge.cv2_to_imgmsg(self.image, encoding=self.img_encoding)
-            )
+            print('Waiting')
             self.rate.sleep()
         assert self.result == True
 
@@ -127,7 +127,7 @@ def main():
     import rostest
 
     rospy.loginfo("Testopensmile: sys.argv: %s" % str(sys.argv))
-    rostest.rosrun(PKG, "test_opensmile", TestFaceExprRec_Valid, sys.argv)
+    rostest.rosrun(PKG, "test_opensmile", TestOpenSmile_Valid, sys.argv)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,6 @@
         <arg name="instance_id" value = "default"/> 
     </include>
 
-    <param name="test_opensmile_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <param name="test_opensmile_input" value="$(find harmoni_stt)/test_data/hello.wav"/>
     <test test-name="test_opensmile" pkg="harmoni_opensmile" type="test_opensmile.py"/>
 </launch>

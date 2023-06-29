@@ -1,0 +1,6 @@
+opensmile:
+  default_param:
+    rate_frame: 1
+    subscriber_id: default
+    output_dir: output/
+    sampling_rate: 16000
