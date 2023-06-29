@@ -17,7 +17,8 @@ from harmoni_common_lib.constants import (
 from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
 from harmoni_common_lib.constants import SensorNameSpace
 from std_msgs.msg import String, Bool
-
+from audio_common_msgs.msg import AudioData
+import wave
 
 # from std_msgs.msg import String
 import time
@@ -32,13 +33,20 @@ class TestVoiceDetection_Common(unittest.TestCase):
         self.detections = []
         rospy.init_node("test_vad", log_level=rospy.INFO)
         self.rate = rospy.Rate(1)
-        # provide mock camera
+        self.test_file = rospy.get_param('test_vad_input')
+        # provide mock mic
+        self.mic_topic = SensorNameSpace.microphone.value + "default"
+        self.audio_pub = rospy.Publisher(
+            self.mic_topic,
+            AudioData,
+            queue_size=10,
+        )
         self.output_sub = rospy.Subscriber(
             DetectorNameSpace.vad.value + "default",
             Bool,
             self._detecting_callback,
         )
-        rospy.loginfo(f"Testside-Image source: {SensorNameSpace.camera.value}default")
+        rospy.loginfo(f"Testside-Audio source: {SensorNameSpace.microphone.value}default")
         rospy.loginfo(
             f"Testside-expected detection: {DetectorNameSpace.vad.value}default"
         )
@@ -55,10 +63,19 @@ class TestVoiceDetection_Common(unittest.TestCase):
         self.client.send_goal(
             action_goal=ActionType.ON, optional_data="Setup", wait=False
         )
-        rospy.loginfo("TestVoiceDetection: Started up. waiting for face detect startup")
+        rospy.loginfo("TestVoiceDetection: Started up. waiting for vad startup")
 
         rospy.loginfo("TestVoiceDetection: publishing vad")
 
+        chunk_size = 1024
+        wf = wave.open(self.test_file)
+        index = 0
+        audio_length = wf.getnframes()
+        while index+chunk_size < audio_length:
+            data = wf.readframes(chunk_size)
+            self.audio_pub.publish(data)
+            index = index+chunk_size
+            time.sleep(0.2)
 
     def _feedback_callback(self, data):
         rospy.loginfo(f"TestVoiceDetection: Feedback: {data}")
@@ -90,12 +107,9 @@ class TestVoiceDetection_Valid(TestVoiceDetection_Common):
             "TestVoiceDetection_Valid[TEST]: basic IO test to ensure data "
             + "(example image) is received and responded to. Waiting for detection..."
         )
-        self.output_sub = rospy.Subscriber(
-            DetectorNameSpace.vad.value + "default",
-            Bool,
-            self._detecting_callback,
-        )
-        rospy.sleep(4)
+        while not rospy.is_shutdown() and not self.result:
+            print('Waiting')
+            rospy.sleep(2)
         assert self.result == True
 
 

@@ -3,6 +3,6 @@
         <arg name="instance_id" value = "default"/> 
     </include>
 
-    <param name="test_vad_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <param name="test_vad_input" value="$(find harmoni_stt)/test_data/hello.wav"/>
     <test test-name="test_vad" pkg="harmoni_vad" type="test_vad.py"/>
 </launch>
