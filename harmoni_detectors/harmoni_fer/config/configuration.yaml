@@ -1,0 +1,5 @@
+fer:
+  default_param:
+    rate_frame: 30
+    subscriber_id: "default"
+    robot_subscriber_id: "/camera/color/image_raw"

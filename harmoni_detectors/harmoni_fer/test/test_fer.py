@@ -35,6 +35,7 @@ class TestFaceExprRec_Common(unittest.TestCase):
         self.detections = []
         self.img_encoding = "rgb8"  # NOTE: There's a weird bug with facenet and ROS Kinetic which will crash if this is set to "bgr8"
         self.image = cv2.imread(rospy.get_param("test_fer_input"))
+        rospy.loginfo(f'Mock Image Source {rospy.get_param("test_fer_input")}')
         rospy.init_node("test_fer", log_level=rospy.INFO)
         self.rate = rospy.Rate(1)
         self.cv_bridge = CvBridge()
@@ -45,6 +46,7 @@ class TestFaceExprRec_Common(unittest.TestCase):
             Image,
             queue_size=10,
         )
+        rospy.loginfo("Started Mock Image Publisher")
 
         self.output_sub = rospy.Subscriber(
             DetectorNameSpace.fer.value + "default",
