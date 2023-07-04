@@ -1,0 +1,7 @@
+detcustom:
+  default_param:
+    rate_frame: 30
+    subscriber_id: "default"
+    model_dir: "$(find harmoni_detcustom)/harmoni_models/ir/"
+    model_name_face: "face-model-b-lstm10"
+    model_name_audio: "audio-model-b-lstm10"

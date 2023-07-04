@@ -16,8 +16,8 @@ from harmoni_common_lib.constants import (
 )
 from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResult
 from cv_bridge import CvBridge, CvBridgeError
-from harmoni_common_lib.constants import SensorNameSpace
-from std_msgs.msg import String
+from harmoni_common_lib.constants import SensorNameSpace, DetectorNameSpace
+from std_msgs.msg import String, Bool
 from sensor_msgs.msg import Image
 import cv2
 
@@ -27,31 +27,40 @@ import time
 import os, io
 
 
-class TestFaceExprRec_Common(unittest.TestCase):
+class TestDetCustom_Common(unittest.TestCase):
        
     def setUp(self):
         self.feedback = State.INIT
         self.result = False
         self.detections = []
         self.img_encoding = "rgb8"  # NOTE: There's a weird bug with facenet and ROS Kinetic which will crash if this is set to "bgr8"
-        self.image = cv2.imread(rospy.get_param("test_detcustom_input"))
+        self.openface_data_file = rospy.get_param('test_detcustom_input_openface')
+        self.opensmile_data_file = rospy.get_param('test_detcustom_input_opensmile')
+        with open(self.openface_data_file,'r') as f:
+            self.openface_data = f.readline().rstrip('\n')
+        with open(self.opensmile_data_file,'r') as f:
+            self.opensmile_data = f.readline().rstrip('\n')
         rospy.init_node("test_detcustom", log_level=rospy.INFO)
         self.rate = rospy.Rate(1)
-        self.cv_bridge = CvBridge()
-        # provide mock camera
-        self.camera_topic = "/camera/color/image_raw" #SensorNameSpace.camera.value + "default"
-        self.image_pub = rospy.Publisher(
-            self.camera_topic,
-            Image,
-            queue_size=10,
-        )
 
+        self.openface_topic = DetectorNameSpace.openface.value + 'default'
+        self.opensmile_topic = DetectorNameSpace.opensmile.value + 'default'
+        self.openface_pub = rospy.Publisher(
+            self.openface_topic,
+            String,
+            queue_size=1,
+        )
+        self.opensmile_pub = rospy.Publisher(
+            self.opensmile_topic,
+            String,
+            queue_size=1,
+        )
         self.output_sub = rospy.Subscriber(
             DetectorNameSpace.detcustom.value + "default",
-            String,
+            Bool,
             self._detecting_callback,
         )
-        rospy.loginfo(f"Testside-Image source: {SensorNameSpace.camera.value}default")
+        # rospy.loginfo(f"Testside-Image source: {SensorNameSpace.camera.value}default")
         rospy.loginfo(
             f"Testside-expected detection: {DetectorNameSpace.detcustom.value}default"
         )
@@ -64,60 +73,59 @@ class TestFaceExprRec_Common(unittest.TestCase):
             self.server, self._result_callback, self._feedback_callback, wait=True
         )
         rospy.loginfo("DONE SETTING UP****************")
-        rospy.loginfo("TestFaceExprRec: Turning ON detcustom server")
+        rospy.loginfo("TestDetCustom: Turning ON detcustom server")
         self.client.send_goal(
             action_goal=ActionType.ON, optional_data="Setup", wait=False
         )
-        rospy.loginfo("TestFaceExprRec: Started up. waiting for face detect startup")
+        rospy.loginfo("TestDetCustom: Started up. waiting for face detect startup")
 
         # wait for start state
         # while not rospy.is_shutdown() and self.feedback != State.START:
         #     self.rate.sleep()
 
-        rospy.loginfo("TestFaceExprRec: publishing image")
-
-        self.image_pub.publish(
-            self.cv_bridge.cv2_to_imgmsg(self.image, encoding=self.img_encoding)
-        )
+        rospy.loginfo("TestDetCustom: publishing openface and opensmile")
         # self.image_pub.publish(self.image[:14000])
 
         rospy.loginfo(
-            f"TestFaceExprRec: image subscribed to by #{self.output_sub.get_num_connections()} connections."
+            f"TestDestCustom: data subscribed to by #{self.output_sub.get_num_connections()} connections."
         )
 
     def _feedback_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Feedback: {data}")
+        rospy.loginfo(f"TestDetCustom: Feedback: {data}")
         self.feedback = data["state"]
 
     def _status_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Status: {data}")
+        rospy.loginfo(f"TestDetCustom: Status: {data}")
         # self.result = True
 
     def _result_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Result: {data}")
+        rospy.loginfo(f"TestDetCustom: Result: {data}")
         # self.result = True
 
     def text_received_callback(self, data):
-        rospy.loginfo(f"TestFaceExprRec: Text back: {data}")
+        rospy.loginfo(f"TestDetCustom: Text back: {data}")
         # self.result = True
 
     def _detecting_callback(self, data):
-        rospy.logdebug(f"TestFaceExprRec: Detecting: {data}")
+        rospy.logdebug(f"TestDetCustom: Detecting: {data}")
         print(data)
         self.detections = data.data
         self.result = True
 
 
 
-class TestFaceExprRec_Valid(TestFaceExprRec_Common):
+class TestDetCustom_Valid(TestDetCustom_Common):
     def test_IO(self):
         rospy.loginfo(
-            "TestFaceExprRec[TEST]: basic IO test to ensure data "
-            + "(example image) is received and responded to. Waiting for detection..."
+            "TestDetCustom[TEST]: basic IO test to ensure data "
+            + "(example data) is received and responded to. Waiting for detection..."
         )
         while not rospy.is_shutdown() and not self.result:
-            self.image_pub.publish(
-                self.cv_bridge.cv2_to_imgmsg(self.image, encoding=self.img_encoding)
+            self.openface_pub.publish(
+                self.openface_data
+            )
+            self.opensmile_pub.publish(
+                self.opensmile_data
             )
             self.rate.sleep()
         assert self.result == True
@@ -127,7 +135,7 @@ def main():
     import rostest
 
     rospy.loginfo("Testdetcustom: sys.argv: %s" % str(sys.argv))
-    rostest.rosrun(PKG, "test_detcustom", TestFaceExprRec_Valid, sys.argv)
+    rostest.rosrun(PKG, "test_detcustom", TestDetCustom_Valid, sys.argv)
 
 
 if __name__ == "__main__":

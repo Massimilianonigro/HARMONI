@@ -3,6 +3,7 @@
         <arg name="instance_id" value = "default"/> 
     </include>
 
-    <param name="test_detcustom_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <param name="test_detcustom_input_openface" value="$(find harmoni_detcustom)/test_data/openface_data.txt"/>
+    <param name="test_detcustom_input_opensmile" value="$(find harmoni_detcustom)/test_data/opensmile_data.txt"/>
     <test test-name="test_detcustom" pkg="harmoni_detcustom" type="test_detcustom.py"/>
 </launch>
