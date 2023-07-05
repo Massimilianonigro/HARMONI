@@ -11,6 +11,7 @@ import harmoni_common_lib.helper_functions as hf
 from harmoni_common_lib.constants import DialogueNameSpace
 from std_msgs.msg import String
 import openai
+import time
 import os
 import ast
 
@@ -36,6 +37,10 @@ class ChatGPTService(HarmoniServiceManager):
         self.stop_request = False
         self.flagged_sentence = []
         self.state = State.INIT
+        self.start_request = 0
+        self._repeat_request = False
+        self._max_waiting_time = 5
+        self.message = []
         self._utterance_pub = rospy.Publisher(DialogueNameSpace.bot.value + "default", String, queue_size=1)
         return
 
@@ -50,6 +55,17 @@ class ChatGPTService(HarmoniServiceManager):
         rospy.loginfo("Connected")
         return
 
+    def _check_time(self):
+        r = rospy.Rate(20)
+        while not self._repeat_request:
+            if self.start_request!=0:
+                duration = time.time() - self.start_request
+                if duration > self._max_waiting_time:
+                    self.request(self.message)
+                    
+                r.sleep()
+            
+
     def request(self, input_text):
         """[summary]
 
@@ -62,10 +78,11 @@ class ChatGPTService(HarmoniServiceManager):
                 message: str
         """
         rospy.loginfo("Start the %s request" % self.name)
+        self.message = input_text
         self.state = State.REQUEST
         input_text = ast.literal_eval(input_text)
         result = {"response": False, "message": None}
-        rospy.loginfo("=============================== UTTERANCE IS")
+        
         messages_array = []
         for message in input_text:
             m =  message.split("*")
@@ -79,14 +96,21 @@ class ChatGPTService(HarmoniServiceManager):
                     flagged = moderation_check["results"][0]["flagged"]
                 else:
                     flagged = False
-        
+            else:
+                content = "Thank you"
             if not flagged:
                 messages_array.append({"role": role, "content": content})
             else:
                 self.stop_request = True
                 self.flagged_sentence.append(content)
+        if len(messages_array)==0:
+            messages_array.append({"role": "user", "content": "Thank you"})
+        
         try:
+            rospy.loginfo("=============================== TRYYYYING")
             if not self.stop_request:
+                rospy.loginfo("============ REQUESTING")
+                self.start_request = time.time()
                 gpt_response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages = messages_array,
@@ -96,7 +120,9 @@ class ChatGPTService(HarmoniServiceManager):
                 frequency_penalty=0,
                 presence_penalty=0.6
                 )
-                #rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
+                self._repeat_request = True
+                print(gpt_response)
+                rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['message']['content']}")
                 #response = gpt_response['choices'][0]['text']
                 response = gpt_response['choices'][0]['message']['content']
                 ai_response = response.split("AI:")[-1]
@@ -112,12 +138,21 @@ class ChatGPTService(HarmoniServiceManager):
                 else:
                     self.result_msg = "Can you please repeat that?"
             else:
+                rospy.loginfo("++++++++++ STOP REQUEST")
                 self.result_msg = "I found your sentence very inappropriate. Let's finish the interaction here!"
                 self.stop_request = False
             self._utterance_pub.publish(self.result_msg)
             self.response_received = True
             self.state = State.SUCCESS
+            self.start_request=0
+        except openai.error.APIError as e:
+            print(f"OpenAI API returned an error: {e}")
+            self.request(self.message)
+        except openai.error.APIConnectionError as e:
+            print(f"Failed to connect to OpenAI API: {e}")
+            self.request(self.message)
         except rospy.ServiceException:
+            rospy.loginfo("=============================== EXCEPTS")
             self.state = State.FAILED
             rospy.loginfo("Service call failed")
             self.response_received = True

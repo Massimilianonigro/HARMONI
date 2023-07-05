@@ -42,6 +42,8 @@ class RLService(HarmoniServiceManager):
         self.participant_name = participant_name
         if session == "session1":
             self.session = 1
+        else:
+            self.session = 2
         self.state = State.INIT
         self._duration_sub = rospy.Subscriber(DetectorNameSpace.stt.value + self.subscriber_id + '/duration', Float32, self._speech_duration_cb, queue_size=1)  
         self._fer_sub = rospy.Subscriber(DetectorNameSpace.fer.value + self.subscriber_id, String, self._fer_detector_cb, queue_size=1)
