@@ -22,7 +22,7 @@
                         "back_channel"    : ""
                     },
                     {
-                        "utterance"     : "What is it about the experience that you find so positive? Please share with me.",
+                        "utterance"     : "<prosody rate='slow'>What is it about the experience that you find so positive? Please share with me.</prosody>",
                         "face"          : "null",
                         "gesture"       : "null",
                         "sound"         : "",
