@@ -1,0 +1,7 @@
+rl:
+  default_param:
+    subscriber_id: "default"
+    model_name: 'dqn.pt'
+    model_dir: "$(find harmoni_rl)/../../harmoni_models/rl/"
+    dataset: "$(find harmoni_rl)/../../harmoni_models/rl/dataset.h5"
+    log_dir: "$(find harmoni_rl)/logs/"

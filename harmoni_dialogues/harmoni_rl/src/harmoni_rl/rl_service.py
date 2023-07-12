@@ -2,12 +2,12 @@
 
 # Common Imports
 import rospy
-from dotenv import load_dotenv
 from harmoni_common_lib.constants import *
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
 from std_msgs.msg import String, Bool, Float32
+from harmoni_common_lib.constants import DialogueNameSpace, ActionType, DetectorNameSpace
 from harmoni_rl.rl_client import RLCore, RLActionsName, PPEnv
 # Specific Imports
 import os
