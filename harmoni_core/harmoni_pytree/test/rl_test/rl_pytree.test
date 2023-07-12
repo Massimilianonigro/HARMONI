@@ -1,0 +1,10 @@
+<launch>
+    <include file="$(find harmoni_rl)/launch/rl_service.launch">
+    </include>
+
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_pytree" type="RL_service.py" name="harmoni_rl_default_pytree" output="screen"/>
+
+	<param name="test_rl_input" value="Hello"/>
+    <test test-name="test_rl" pkg="harmoni_pytree" type="rostest_rl_pytree.py" />
+</launch>
