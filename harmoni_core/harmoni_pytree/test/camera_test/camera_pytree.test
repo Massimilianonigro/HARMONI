@@ -1,0 +1,9 @@
+<launch>
+    <include file="$(find harmoni_camera)/launch/camera_service.launch">
+    </include>
+
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_pytree" type="camera_service.py" name="harmoni_camera_default_pytree" output="screen"/>
+
+    <test test-name="test_camera" pkg="harmoni_pytree" type="rostest_camera_pytree.py" />
+</launch>
