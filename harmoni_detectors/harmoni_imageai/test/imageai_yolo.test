@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find harmoni_imageai)/launch/yolo_service.launch">
+        <arg name="instance_id" value = "default"/> 
+    </include>
+
+    <param name="test_imageai_yolo_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <test test-name="test_imageai_yolo" pkg="harmoni_imageai" type="test_imageai_yolo.py"/>
+</launch>
