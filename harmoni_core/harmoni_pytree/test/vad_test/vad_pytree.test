@@ -1,0 +1,10 @@
+<launch>
+    <include file="$(find harmoni_vad)/launch/vad_service.launch">
+    </include>
+
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_pytree" type="vad_service.py" name="harmoni_vad_default_pytree" output="screen"/>
+
+    <param name="test_vad_input" value="$(find harmoni_stt)/test_data/hello.wav"/>
+    <test test-name="test_vad" pkg="harmoni_pytree" type="rostest_vad_pytree.py" />
+</launch>

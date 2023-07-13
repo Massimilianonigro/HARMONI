@@ -1,0 +1,10 @@
+<launch>
+    <include file="$(find harmoni_fer)/launch/fer_service.launch">
+    </include>
+
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_pytree" type="fer_service.py" name="harmoni_fer_default_pytree" output="screen"/>
+
+    <param name="test_fer_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <test test-name="test_fer" pkg="harmoni_pytree" type="rostest_fer_pytree.py" />
+</launch>

@@ -75,10 +75,6 @@ class OpenSmileDetector(HarmoniServiceManager):
     def stop(self):
         rospy.loginfo("Face detector stopped.")
         self.state = State.SUCCESS
-        try:
-            self._image_sub.unregister()
-        except rospy.ROSInternalException:
-            pass
 
     def pause(self):
         self.stop()

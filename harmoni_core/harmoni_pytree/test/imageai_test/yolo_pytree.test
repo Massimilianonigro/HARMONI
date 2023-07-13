@@ -1,0 +1,10 @@
+<launch>
+    <include file="$(find harmoni_imageai)/launch/yolo_service.launch">
+    </include>
+
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_pytree" type="yolo_service.py" name="harmoni_yolo_default_pytree" output="screen"/>
+
+    <param name="test_imageai_yolo_input" value="$(find harmoni_face_detect)/test/test_data/composer.jpg"/>
+    <test test-name="test_yolo" pkg="harmoni_pytree" type="rostest_yolo_pytree.py" />
+</launch>

@@ -19,7 +19,7 @@ import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.RL_service import RLPytreeService
+from harmoni_pytree.leaves.RL_service import RLPytreeService
 
 class TestRLPyTree(unittest.TestCase):
 

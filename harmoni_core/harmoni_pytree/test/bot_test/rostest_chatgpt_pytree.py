@@ -19,7 +19,7 @@ import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.chat_gpt_service import ChatGPTServicePytree
+from harmoni_pytree.leaves.chat_gpt_service import ChatGPTServicePytree
 
 class TestChatGPTPyTree(unittest.TestCase):
 
