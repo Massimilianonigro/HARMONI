@@ -1,0 +1,17 @@
+<launch>
+    <include file="$(find harmoni_microphone)/launch/microphone_service.launch"></include>
+
+    <include file="$(find harmoni_stt)/launch/stt_deepspeech_service.launch"></include>
+
+    <include file="$(find harmoni_speaker)/launch/speaker_service.launch"></include>
+
+    <include file="$(find harmoni_tts)/launch/tts_service.launch"></include>
+
+    <rosparam file="$(find harmoni_bot)/config/configuration.yaml" subst_value="True"/>
+    <param name="instance_id" value="default"/>
+    <param name="name_bot" value="chat_gpt"/>
+    <node pkg="harmoni_bot" type="chat_gpt_service.py" name="harmoni_bot_chatgpt_default" output="screen"/>
+    <param name="test_bot_input" value="Hello"/>
+
+    <test test-name="test_mic_stt_bot_tts_speaker" pkg="harmoni_pytree" type="rostest_mic_stt_bot_tts_speaker_pytree.py"/>
+</launch>

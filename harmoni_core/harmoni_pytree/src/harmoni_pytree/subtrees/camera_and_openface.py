@@ -17,8 +17,8 @@ import py_trees.console as console
 
 from harmoni_common_lib.constants import *
 
-from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
-from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
+from harmoni_pytree.leaves.openface_service import OpenFaceServicePytree
+from harmoni_pytree.leaves.camera_service import CameraServicePytree
 
 ##############################################################################
 # Classes
@@ -78,13 +78,13 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
     print(py_trees.display.unicode_blackboard())
 
 
-def create_root(name= "MicAndSTT"):
+def create_root(name= "CamAndOpenFace"):
 
-    microphone=MicrophoneServicePytree("MicrophoneMainActivity")
-    stt=SpeechToTextServicePytree("SpeechToTextMainActivity")
+    camera=CameraServicePytree("CameraMainActivity")
+    openface=OpenFaceServicePytree("OpenFaceMainActivity")
 
-    root = py_trees.composites.Sequence(name="MicAndSTT",memory=False)
-    root.add_children([microphone, stt])
+    root = py_trees.composites.Sequence(name="CamAndOpenFace",memory=False)
+    root.add_children([camera, openface])
 
     return root
 
@@ -100,7 +100,7 @@ def main():
     root = create_root()
     print(description(root))
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.stt.name)
+    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.openface.name)
     blackboardProva.register_key("result", access=py_trees.common.Access.READ)
     print(blackboardProva)
         
@@ -108,7 +108,7 @@ def main():
     # Tree Stewardship
     ####################
 
-    rospy.init_node("test_default", log_level=rospy.INFO)
+    rospy.init_node("cam_and_openface", log_level=rospy.INFO)
 
     behaviour_tree = py_trees.trees.BehaviourTree(root)
     behaviour_tree.add_pre_tick_handler(pre_tick_handler)

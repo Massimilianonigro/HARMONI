@@ -17,8 +17,11 @@ import py_trees.console as console
 
 from harmoni_common_lib.constants import *
 
-from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
 from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
+from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
+from harmoni_pytree.leaves.chat_gpt_service import ChatGPTServicePytree
+from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
+from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
 
 ##############################################################################
 # Classes
@@ -78,13 +81,15 @@ def post_tick_handler(snapshot_visitor, behaviour_tree):
     print(py_trees.display.unicode_blackboard())
 
 
-def create_root(name= "MicAndSTT"):
+def create_root(name= "MicAndSttAndBotAndTtsAndSpeaker"):
 
     microphone=MicrophoneServicePytree("MicrophoneMainActivity")
     stt=SpeechToTextServicePytree("SpeechToTextMainActivity")
-
-    root = py_trees.composites.Sequence(name="MicAndSTT",memory=False)
-    root.add_children([microphone, stt])
+    bot = ChatGPTServicePytree('ChatGptMainActivity')
+    tts = AWSTtsServicePytree('AwsTtsMainActivity')
+    speaker = SpeakerServicePytree('SpeakerMainActivity')
+    root = py_trees.composites.Sequence(name="MicAndSttAndBotAndTtsAndSpeaker",memory=False)
+    root.add_children([microphone, stt, bot, tts, speaker])
 
     return root
 
@@ -100,15 +105,24 @@ def main():
     root = create_root()
     print(description(root))
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.stt.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.READ)
-    print(blackboardProva)
+    blackboard_tts = py_trees.blackboard.Client(name="blackboard_tts", namespace=ActuatorNameSpace.tts.name)
+    blackboard_tts.register_key("result", access=py_trees.common.Access.READ) 
+    blackboard_scene = py_trees.blackboard.Client(name="blackboard_scene", namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
+    # blackboard_scene.scene.nlp = 1
+    # blackboard_scene.scene.request = "Hello?"
+    # blackboard_scene.scene.utterance = "Hello"
+
+    blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+    blackboard_bot.register_key("result", access=py_trees.common.Access.READ) 
+    blackboard_stt = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.stt.name)
+    blackboard_stt.register_key("result", access=py_trees.common.Access.READ)
         
     ####################
     # Tree Stewardship
     ####################
 
-    rospy.init_node("test_default", log_level=rospy.INFO)
+    rospy.init_node("mic_stt_bot_tts_speaker", log_level=rospy.INFO)
 
     behaviour_tree = py_trees.trees.BehaviourTree(root)
     behaviour_tree.add_pre_tick_handler(pre_tick_handler)
