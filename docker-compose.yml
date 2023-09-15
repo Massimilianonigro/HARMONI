@@ -122,6 +122,123 @@ services:
     working_dir: /root/harmoni_catkin_ws/src/HARMONI
     command: tail  -f /dev/null
 
+  harmoni_imageai:
+    container_name: harmoni_imageai
+    build:
+      context: .
+      dockerfile: dockerfiles/harmoni/$ROS_DISTRO/imageai/dockerfile
+      network: host
+    image: harmoniteam/harmoni:$ROS_DISTRO-imageai
+    init: true
+    environment:
+      DISPLAY: $DISPLAY
+      QT_GRAPHICSSYSTEM: native
+      ROS_DISTRO: $ROS_DISTRO
+      IS_DOCKER_ENV: "true"
+      CATKIN_WS: harmoni_catkin_ws
+      ROS_HOSTNAME: harmoni_imageai
+      ROS_MASTER_URI: http://172.18.3.4:11311
+    privileged: true
+    networks:
+      ros_net:
+        ipv4_address: 172.18.3.8
+    hostname: harmoni_imageai
+    depends_on:
+      - "harmoni_full"
+      - "harmoni_hardware"
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/video0:/dev/video0
+    volumes:
+      - ../HARMONI/:/root/local_mount/HARMONI/
+      # Configuration
+      - ~/.aws:/root/.aws/
+      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      # Other
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    working_dir: /root/harmoni_catkin_ws/src/HARMONI
+    command: tail  -f /dev/null
+
+  harmoni_fer:
+    container_name: harmoni_fer
+    build:
+      context: .
+      dockerfile: dockerfiles/harmoni/$ROS_DISTRO/fer/dockerfile
+      network: host
+    image: harmoniteam/harmoni:$ROS_DISTRO-fer
+    init: true
+    environment:
+      DISPLAY: $DISPLAY
+      QT_GRAPHICSSYSTEM: native
+      ROS_DISTRO: $ROS_DISTRO
+      IS_DOCKER_ENV: "true"
+      CATKIN_WS: harmoni_catkin_ws
+      ROS_HOSTNAME: harmoni_fer
+      ROS_MASTER_URI: http://172.18.3.4:11311
+    privileged: true
+    networks:
+      ros_net:
+        ipv4_address: 172.18.3.6
+    hostname: harmoni_fer
+    depends_on:
+      - "harmoni_full"
+      - "harmoni_hardware"
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/video0:/dev/video0
+    volumes:
+      - ../HARMONI/:/root/local_mount/HARMONI/
+      # Configuration
+      - ~/.aws:/root/.aws/
+      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      # Other
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    working_dir: /root/harmoni_catkin_ws/src/HARMONI
+    command: tail  -f /dev/null
+
+  harmoni_detectors:
+    container_name: harmoni_detectors
+    build:
+      context: .
+      dockerfile: dockerfiles/harmoni/$ROS_DISTRO/detectors/dockerfile
+      network: host
+    image: harmoniteam/harmoni:$ROS_DISTRO-detectors
+    init: true
+    environment:
+      DISPLAY: $DISPLAY
+      QT_GRAPHICSSYSTEM: native
+      ROS_DISTRO: $ROS_DISTRO
+      IS_DOCKER_ENV: "true"
+      CATKIN_WS: harmoni_catkin_ws
+      ROS_HOSTNAME: harmoni_detectors
+      ROS_MASTER_URI: http://172.18.3.4:11311
+    privileged: true
+    networks:
+      ros_net:
+        ipv4_address: 172.18.3.7
+    hostname: harmoni_detectors
+    depends_on:
+      - "harmoni_full"
+      - "harmoni_hardware"
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/video0:/dev/video0
+    volumes:
+      - ../HARMONI/:/root/local_mount/HARMONI/
+      # Configuration
+      - ~/.aws:/root/.aws/
+      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      # Other
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    working_dir: /root/harmoni_catkin_ws/src/HARMONI
+    command: tail  -f /dev/null
+
   harmoni_hardware:
     container_name: harmoni_hardware
     build:
