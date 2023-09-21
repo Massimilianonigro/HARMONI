@@ -13,3 +13,4 @@ All the things that do something
    harmoni_speaker
    harmoni_tts
    harmoni_web
+   harmoni_sentiment

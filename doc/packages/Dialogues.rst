@@ -9,3 +9,4 @@ All the things that take raw sensor data and turn it into something useful
    :glob:
 
    harmoni_bot
+   harmoni_rl
