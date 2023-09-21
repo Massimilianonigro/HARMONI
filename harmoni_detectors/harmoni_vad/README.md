@@ -27,4 +27,11 @@ It publish at /harmoni/detecting/vad/default a boolean (1: VAD present, 0: VAD a
 
 ## Testing
 
-microphone will open and one frame will be captured and put as input of the FER model. Once the output of the VAD service arrives another frame will be captured and again used as input for FER model and so on. 
+The module can be tested using
+
+```  bash
+rostest harmoni_vad vad.test
+```
+
+The mock audio used is harmoni_stt/test_data/hello.wav
+It can be changed using the param test_vad_input

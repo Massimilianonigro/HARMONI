@@ -30,4 +30,11 @@ It is a detector that subscribe from a camera sensor (either the robots or an ex
 
 ## Testing
 
-Camera will open and one frame will be captured and put as input of the FER model. Once the output of the FER service arrives another frame will be captured and again used as input for FER model and so on. 
+Run using the following command
+
+```  bash
+rostest harmoni_fer fer.test
+```
+
+The mock image used is harmoni_face_detect/test/test_data/composer.jpg
+It can be changed using the param test_openface_input

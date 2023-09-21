@@ -22,4 +22,12 @@ It returns a boolean with interaction rupture dection (1: present, 0: absent )
 
 ## Testing
 
+The module can be tested using
+
+```  bash
+rostest harmoni_opensmile opensmile.test
+```
+
+The mock audio used is harmoni_stt/test_data/hello.wav
+It can be changed using the param test_opensmile_input
 

@@ -33,8 +33,6 @@ At the end of this process you will obtain 2 files: a model.h5 and a config.json
 Full documentation of ImageAI: [https://github.com/OlafenwaMoses/ImageAI#readme](https://github.com/OlafenwaMoses/ImageAI#readme)
 
 
-## Testing
-
 Here are the steps that you can follow in order to run the ImageAI service in HARMONI.
 
 **YoloV3**  
@@ -56,3 +54,17 @@ roslaunch harmoni_imageai custom_service.launch
 ```
 
 Camera will open and one frame will be captured and put as input of the custom model. Once the output of the imageai service arrives another frame will be captured and again used as input for custom model and so on. 
+
+## Testing
+
+The module can be tested using
+
+**YoloV3**
+```  bash
+rostest harmoni_imageai imageai_yolo.test
+```
+
+**Custom Yolo**
+```  bash
+rostest harmoni_imageai imageai_custom.test
+```

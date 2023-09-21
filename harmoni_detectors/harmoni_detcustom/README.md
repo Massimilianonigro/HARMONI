@@ -27,4 +27,10 @@ It returns a boolean with interaction rupture dection (1: present, 0: absent )
 
 ## Testing
 
+To test the module use the following command
+
+```  bash
+rostest harmoni_detcustom detcustom.test
+```
+It utilizes mock harmoni_openface and harmoni_opensmile data as given in test_data/openface_data.txt and test_data/opensmile_data.txt respectively. Alternate data may be provided using the param test_detcustom_input_openface and test_detcustom_input_opensmile.
 

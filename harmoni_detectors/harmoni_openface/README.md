@@ -82,5 +82,11 @@ roslaunch harmoni_openface openface_service.launch
 ```
 
 ## Testing
+The module can be tested using
 
-Camera will open and one frame will be captured and put as input of the openface model. Once the output of the openface service arrives another frame will be captured and again used as input for openface model and so on. 
+```  bash
+rostest harmoni_openface openface.test
+```
+
+The mock image used is harmoni_face_detect/test/test_data/composer.jpg
+It can be changed using the param test_openface_input
