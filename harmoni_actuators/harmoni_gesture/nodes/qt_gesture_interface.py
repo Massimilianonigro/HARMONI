@@ -58,10 +58,10 @@ class GestureInterface(HarmoniServiceManager):
             String,
             queue_size=1,
         )
-        self.joint_sub = rospy.Subscriber(
-            self.joint_sub_topic, JointState, self._handle_degree
-        )
-        self.joint_pub = rospy.Publisher(self.joint_pub_topic, JointState, queue_size=1)
+        #self.joint_sub = rospy.Subscriber(
+        #    self.joint_sub_topic, JointState, self._handle_degree
+        #)
+        #self.joint_pub = rospy.Publisher(self.joint_pub_topic, JointState, queue_size=1)
         """Setup the gesture service as server """
         self.read_gestures(param["path"])
         self.state = State.INIT

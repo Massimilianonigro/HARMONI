@@ -1,0 +1,7 @@
+<launch>
+    <include file="$(find harmoni_tts)/launch/tts_service.launch"></include>
+
+    <include file="$(find harmoni_face)/launch/face_service.launch"></include>
+
+    <test test-name="test_camera_and_openface" pkg="harmoni_pytree" type="rostest_tts_face_lips_pytree.py"/>
+</launch>

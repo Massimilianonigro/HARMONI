@@ -1,0 +1,10 @@
+FROM harmoniteam/harmoni:noetic-full
+
+RUN \
+    PIP_INSTALL="python3.8 -m pip --no-cache-dir install --upgrade" && \
+    $PIP_INSTALL \
+    imageai==2.1.6 \
+    tensorflow==2.4.0 \
+    packaging==19.1
+    
+CMD ["/bin/bash"]

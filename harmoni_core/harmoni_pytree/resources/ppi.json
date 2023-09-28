@@ -1,0 +1,234 @@
+{
+    "session1" :   [   
+                    {
+                        "utterance"     : "Hi, my name is Botty! What is your name?",
+                        "face"          : "null",
+                        "gesture"       : "QT/point_front",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "It is a pleasure meeting you USERNAME. <prosody rate='slow'>  We are going to do positive psychology practices today. I’ll explain what that means in a minute. Is that okay? </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "cambridge/QT/nod2",
+                        "sound"         : "",
+                        "back_channel"    :""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'>  <p>Okay. Positive psychology practices aim to guide you towards focusing on the positive things in your life. Often, the negative things in our life get much of our attention, while the positive things are harder to focus on and therefore harder to remember later on. </p> <p>In total, we will have four sessions together, focusing on different aspects of positive psychology. Today is the first one. </p> <p>We have up to ten minutes together. This time we will focus on savouring.</p> <p>Savouring is the ability to notice positive experiences and to be aware of positive feelings about these experiences.</p> <break time='2s'/>  <p>Let’s begin the exercise. </p> <p>First, think of a small positive thing. Something good that’s happening in your life at the moment, a pleasant memory, or something positive that will happen in the future. I’ll give you about a minute to think about that.</p> <break time='10s'/>  <break time='10s'/> <break time='10s'/>  <break time='10s'/>  <break time='10s'/> <break time='10s'/> <p>Ok, Please tell me what you thought of.</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : "cambridge/QT/nod"
+                    },
+                    {
+                        "utterance"     : "What is it about the experience that you find so positive? Please share with me.",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='6s'/> I see</prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'> <p>Now, please notice the positive feelings that occur when you think about the experience. These could be for example amusement, interest, excitement, or contentment.</p><p> I’ll give you around a minute to think about this <break time='10s'/>  <break time='10s'/> <break time='10s'/>  <break time='10s'/>  <break time='10s'/> <break time='10s'/>. Now please share those feelings with me. </p></prosody> ",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='4s'/> uh huh</prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'> Thank you for sharing this with me.<p> Finally, let’s take a moment to appreciate and savour the experience.</p>  <p> Just take some time to think about how special the experience is and how grateful you are for it. </p> <p> Let’s take a quiet minute or so to really think about this - what the experience was, <break time='2s'/> why it came to mind as a positive, <break time='2s'/> what was positive about it, <break time='2s'/> how it made you feel, <break time='2s'/> and what difference this small thing made to you. </p> <break time='10s'/>  <break time='10s'/> <break time='10s'/> Ok, that was about a minute. And now we’ve tried the savouring exercise. You might like to think about this between our sessions and practise savouring other positive experiences. How have you found the exercise?</prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/>  exercise on savouring! </p><p>This was the first session of positive psychology exercises. </p><p>We have three sessions left, over the next three weeks. </p><p> Before you leave, please take some time to fill in the survey on the tablet. </p><p> Once you’re done, let RESEARCHERNAME know by calling out to them. </p><p> RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you next time! </p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : "QT/bye"
+                    }
+
+                ],
+    "session2" :   [   
+        {
+            "utterance"     : "Hi! Nice to see you again USERNAME. <prosody rate='slow'> <p>Today is our second session of positive psychology exercises.</p> <p>We have up to ten minutes together today.</p> <p> As a reminder, positive psychology helps us to focus on the positive things in life, which can help improve feelings of happiness. </p> <p> Last week we did a savouring exercise, which is intended to increase the appreciation of positive feelings and emotions.   </p> <p> Before starting the second session, have you had the chance to think about the last week savouring exercise or try it out? If you did it, how did you find it?</p>  </prosody>",
+            "face"          : "null",
+            "gesture"       : "QT/hi",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow'>  <p> Okay. Today’s exercise will focus on developing gratitude.  </p>   <p> Cultivating gratitude can help <break time='1s'/>  increase positive affect, subjective happiness and life satisfaction. </p>  <p>  Let’s begin. </p> <p>Please recall two things that you felt grateful for in the past month or a couple of  weeks.</p><p> These can be small but positive  things that happened, for example having useful feedback about  your work, or receiving a gift from a friend.</p><p> I’ll give you around a minute to think about this. <break time='10s'/>  <break time='10s'/> <break time='10s'/>  <break time='10s'/>  <break time='10s'/> <break time='10s'/> </p><p> Please start by sharing the first thing that you are grateful for with me. </p> </prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "<prosody volume='x-soft'><break time='5s'/> uh huh</prosody>",
+            "back_channel"    : "cambridge/QT/nod2"
+        },
+        {
+            "utterance"     : " <prosody rate='slow'>How did that thing make you feel?</prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow'>How did this impact your life?</prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "<prosody volume='x-soft'><break time='6s'/> I see </prosody>",
+            "back_channel"    : "cambridge/QT/nod2"
+        },
+        {
+            "utterance"     : "<prosody rate='slow'>Thank you for sharing this with me. That sounds nice. It’s great that you could notice this positive thing. <p>Could you tell me another experience that made you feel grateful?</p></prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "cambridge/QT/nod2"
+        },
+        {
+            "utterance"     : "<prosody rate='slow'>What significance does this have to you?</prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "<prosody volume='x-soft'><break time='7s'/> I see </prosody>",
+            "back_channel"    : "cambridge/QT/nod2"
+        },
+        {
+            "utterance"     : " <prosody rate='slow'>Did you tell someone else about this event and how it made you feel  grateful?</prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "<prosody volume='x-soft'><break time='4s'/> uh huh</prosody>",
+            "back_channel"    : "cambridge/QT/nod2"
+        },
+        {
+            "utterance"     : " <prosody rate='slow'><p>And now we’ve tried the gratitude exercise.</p><p> You might like to think about this between our sessions and practise noticing feelings of gratitude, and what events make you feel grateful.</p>How have you found the exercise?</prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/> exercise on gratitude! </p><p>This was the second session of positive psychology exercises. We have two more sessions left, so we are halfway through the sessions. </p><p>Before you leave, please take some time to fill in the survey on the tablet. </p><p>Once you’re done, let RESEARCHERNAME know by calling out to them. </p><p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you next time!</p></prosody>",
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }
+
+                ],
+                "session3" :     [   
+                    {
+                        "utterance"     : "Hi! Nice to see you again USERNAME. <prosody rate='slow'> <p>Today is our third session of positive psychology exercises.</p> <p>We have up to ten minutes together today.</p> <p> As a reminder, positive psychology helps us to focus on the positive things in life, which are sometimes difficult to focus on.</p> <p> Last week we did an exercise focusing on gratitude, which is intended to increase positive affect, subjective happiness and life satisfaction.</p> <p> Before starting the third session, have you had the chance to think about the last week gratitude exercise or try it out? If you did it, how did you find it?</p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "QT/hi",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'> <p> Okay, great. Today’s exercise will focus on some of your accomplishments. </p>   <p> Thinking about accomplishments, small or big ones, can help us notice our strengths, and help with our self-esteem.</p>  <p>  Let’s begin, Let’s think about some of your recent two accomplishments.  </p> <p>These can be small accomplishments, for example cooking a tasty meal or reading a good book.</p><p> I’ll give you around a minute to think about this <break time='10s'/>  <break time='10s'/> <break time='10s'/>  <break time='10s'/>  <break time='10s'/> <break time='10s'/></p><p> Please, name one of your accomplishments from the past few weeks.</p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : " <prosody rate='slow'>How do you think you were able to accomplish that?</prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='6s'/> I see </prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'>How did your accomplishment make you feel then? </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='4s'/> uh huh</prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'>Thank you for sharing this with me. That sounds great. <p>Could you tell me about another accomplishment you have had in the recent past?</p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='6s'/> oh I see </prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'>What personal strengths and qualities do you think you used to accomplish that?</prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : " <prosody rate='slow'>What difference did this make to you?</prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='4s'/> uh huh</prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : " <prosody rate='slow'><p>And now we’ve tried the accomplishments <break time='0.5s'/> exercise.</p><p> You might like to think about this between our sessions and practise noticing your accomplishments, and what strengths you have used to accomplish them.</p>How have you found the exercise?</prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : ""
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week’s <break time='0.5s'/>  exercise on accomplishments!</p><p> This was the third session of positive psychology exercises.</p><p> We have one more session left next week. Before you leave, please take some time to fill in the survey on the tablet.</p><p> Once you’re done, let RESEARCHERNAME know by calling out to them. </p><p>RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p> See you for our final session next week! </p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : "QT/bye"
+                    }
+            
+                            ],
+                "session4" :   [   
+                    {
+                        "utterance"     : "Hi! Nice to see you again USERNAME. <prosody rate='slow'> <p>Today is our final session of positive psychology exercises. </p> <p>We have up to ten minutes together.</p> <p> As a reminder, positive psychology helps us notice and give time to the positive things in life.</p> <p>Last week we did an exercise focusing on accomplishments, which is intended to help us notice our strengths, and help with our self-esteem.</p>   <p> Before starting the last session, have you had the chance to think about the last week accomplishment exercise or try it out? If you did it, how did you find it?</p> </prosody>",
+                        "face"          : "null",
+                        "gesture"       : "QT/hi",
+                        "sound"         : "<prosody volume='x-soft'><break time='6s'/> oh I see </prosody>",
+                        "back_channel"   : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : " <prosody rate='slow'><p>  Okay, great.  In this final exercise, we will focus on developing optimistic thoughts about the future. This can help us feel happier.</p>   <p>  Let’s begin, Imagine yourself in the future, for example 6 months from now.   </p> <p>Imagine you are in a place where you have resolved some of the things that are concerning you now.</p><p> Just take a moment to really visualise this future, where things are better.  I’ll give you about a minute to think about that. <break time='10s'/>  <break time='10s'/> <break time='10s'/>  <break time='10s'/>  <break time='10s'/> <break time='10s'/></p><p>Now describe where you are, what you are doing, and what is happening in your life. </p><p>Describe it with as much detail as possible to create a vivid picture.</p><p>Please go ahead and describe this to me.</p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : " <prosody rate='slow'>And now let’s think about any possible steps you would take to get there? Please take a moment to think about these <break time='10s'/> <break time='10s'/> <break time='10s'/>. Please share any steps with me.</prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='4s'/> uh huh</prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'> Okay. Imagine your future self, and if you could give you advice from the future.<p> What wise advice would the future you give yourself now? <break time='2s'/>. Take a moment to think about this<break time='10s'/> <break time='10s'/> <break time='10s'/>.  What might you say to yourself?</p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "<prosody volume='x-soft'><break time='7s'/> I see</prosody>",
+                        "back_channel"    : "cambridge/QT/nod2"
+                    },
+                    {
+                        "utterance"     : "<prosody rate='slow'><p>Thank you, USERNAME, for trying out this week's <break time='0.5s'/>  exercise on future optimism! </p><p>This was the fourth and final session of positive psychology exercises.</p><p> To summarize the positive psychology exercises we’ve tried, over the four weeks we’ve had together, we’ve tried a savouring exercise to prolong positive feelings,<break time='1s'/> an exercise focusing on feelings of gratitude,<break time='1s'/> an exercise thinking about your accomplishments,<break time='1s'/> and today an exercise about optimism for the future. </p><p> You may want to try noticing some of the things we’ve discussed we’ve discussed going forward, and see if you can incorporate these exercises into your daily life. </p><p> For example you might try savouring a positive experience, noticing experiences that make you feel grateful, paying attention to your accomplishments, or thinking about the future in an optimistic light. </p><p> Positive psychology practices aim to guide you towards focusing on the positive things in your life. Often, the negative things in our life get much of our attention, while the positive things are harder to focus on and therefore harder to remember later on.</p><p>  <break time='2s'/> Before you leave, please take some time to fill in the survey on the tablet. </p><p>Once you’re done, let RESEARCHERNAME know by calling out to them.</p><p> RESEARCHERNAME will then enter the room to ask you a few questions before you leave. </p><p>Thank you for taking part in the four sessions about positive psychology exercises! I hope these sessions have been useful for you.</p></prosody>",
+                        "face"          : "null",
+                        "gesture"       : "null",
+                        "sound"         : "",
+                        "back_channel"    : "QT/bye"
+                    }
+
+                ],
+    "error_handling"    :   
+                            {   
+                                "call_researcher"   :   {
+                                                        "utterance"     : "I will call the researcher to help you! Please come in RESEARCHERNAME.",
+                                                        "face"          : "null",
+                                                        "gesture"       : "null",
+                                                        "sound"         : "",
+                                                        "back_channel"    : ""
+                                                    }
+                            }                  
+}

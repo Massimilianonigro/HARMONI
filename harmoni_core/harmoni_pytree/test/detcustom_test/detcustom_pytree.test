@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find harmoni_detcustom)/launch/detcustom_service.launch">
+    </include>
+
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_pytree" type="detcustom_service.py" name="harmoni_detcustom_default_pytree" output="screen"/>
+
+    <param name="test_detcustom_input_openface" value="$(find harmoni_detcustom)/test_data/openface_data.txt"/>
+    <param name="test_detcustom_input_opensmile" value="$(find harmoni_detcustom)/test_data/opensmile_data.txt"/>
+    <test test-name="test_detcustom" pkg="harmoni_pytree" type="rostest_detcustom_pytree.py" />
+</launch>

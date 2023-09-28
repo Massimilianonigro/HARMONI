@@ -1,0 +1,9 @@
+<!-- This is an example launch file for how a ROS application could use a node -->
+<launch>
+	<rosparam file="$(find harmoni_sentiment)/config/configuration.yaml" subst_value="True"/>
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_sentiment" type="sentiment_service.py" name="harmoni_sentiment_default" output="screen"/>
+
+	<param name="test_sentiment_input" value="I really hate you"/>
+    <test test-name="test_sentiment" pkg="harmoni_sentiment" type="test_sentiment.py" />
+</launch>

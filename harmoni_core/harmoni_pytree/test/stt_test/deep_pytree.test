@@ -1,0 +1,10 @@
+<launch>
+    <include file="$(find harmoni_stt)/launch/stt_deepspeech_service.launch">
+    </include>
+
+    <param name="instance_id" value="default"/>
+    <node pkg="harmoni_pytree" type="deep_stt.py" name="harmoni_deepspeech_default_pytree" output="screen"/>
+
+	<param name="test_deepspeech_input" value="$(find harmoni_stt)/test_data/hello_16k.wav"/>
+    <test test-name="test_deepspeech" pkg="harmoni_pytree" type="rostest_deep_pytree.py" />
+</launch>

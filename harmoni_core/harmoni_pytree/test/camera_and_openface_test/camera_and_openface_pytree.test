@@ -1,0 +1,7 @@
+<launch>
+    <include file="$(find harmoni_camera)/launch/camera_service.launch"></include>
+
+    <include file="$(find harmoni_openface)/launch/openface_service.launch"></include>
+
+    <test test-name="test_camera_and_openface" pkg="harmoni_pytree" type="rostest_camera_and_openface_pytree.py"/>
+</launch>

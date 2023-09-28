@@ -1,0 +1,5 @@
+vad:
+  default_param:
+    rate_frame: 30
+    subscriber_id: "default"
+    sampling_rate: 16000

@@ -44,16 +44,39 @@ class ActuatorNameSpace(Enum):
     tts = "/harmoni/actuating/tts/"
     web = "/harmoni/actuating/web/"
     gesture = "/harmoni/actuating/gesture/"
+    sentiment = "/harmoni/actuating/sentiment/"
 
 
 class DialogueNameSpace(Enum):
     bot = "/harmoni/dialoging/bot/"
+    rl = "/harmoni/dialoging/rl/"
 
 
 class DetectorNameSpace(Enum):
     stt = "/harmoni/detecting/stt/"
     face_detect = "/harmoni/detecting/face_detect/"
+    imageai_yolo = "/harmoni/detecting/imageai/yolo"
+    imageai_custom_yolo = "/harmoni/detecting/imageai/custom_yolo"
+    fer = "/harmoni/detecting/fer/"
+    detcustom = "/harmoni/detecting/detcustom/"
+    openface = "/harmoni/detecting/openface/"
+    opensmile = "/harmoni/detecting/opensmile/"
+    vad = "/harmoni/detecting/vad/"
 
 
 class Resources(Enum):
     face = ["eyes", "mouth", "nose"]
+
+
+class PyTreeNameSpace(Enum):
+    scene = "scene"
+    visual = "visual"
+    interaction = "interaction"
+    mainactivity = "mainactivity"
+    timer = "timer"
+    invalid_response = "invalid_response"
+    analyzer = "analyzer"
+    trigger = "trigger"
+    buttons = "buttons"
+
+

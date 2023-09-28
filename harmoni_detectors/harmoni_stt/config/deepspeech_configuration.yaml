@@ -5,5 +5,5 @@ stt:
         lm_alpha: 0.75 
         lm_beta: 1.85
         beam_width: 700
-        t_wait: 0.5
+        t_wait: 3
         subscriber_id: "default"

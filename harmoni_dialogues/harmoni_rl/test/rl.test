@@ -1,0 +1,11 @@
+<!-- This is an example launch file for how a ROS application could use a node -->
+<launch>
+	<rosparam file="$(find harmoni_pytree)/config/configuration.yaml" subst_value="True"/>
+    <include file="$(find harmoni_rl)/launch/rl_service.launch">
+        <arg name="instance_id" value = "default"/> 
+    </include>
+    <param name="instance_id" value="default"/>
+
+	<param name="test_rl_input" value="Hello"/>
+    <test test-name="test_rl" pkg="harmoni_rl" type="test_rl.py"/>
+</launch>

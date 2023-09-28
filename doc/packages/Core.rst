@@ -11,3 +11,4 @@ Everything needed to make the HARMONI packages function together.
    harmoni_decision
    harmoni_pattern
    harmoni_recorder
+   harmoni_pytree
