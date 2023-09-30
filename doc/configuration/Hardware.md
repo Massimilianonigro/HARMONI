@@ -64,7 +64,7 @@ For example running `arecord -l`:
 ```
 card 1: PCH [HDA Intel PCH], device 0: ALC283 Analog [ALC283 Analog]
 ```
-In this case, to make your microphone working, change the [configuration file](https://github.com/interaction-lab/HARMONI/blob/develop/harmoni_sensors/harmoni_microphone/config/configuration.yaml) of your `harmoni_microphone` package.
+In this case, to make your microphone working, change the [configuration file](https://github.com/micolspitale93/HARMONI/blob/dev/harmoni2.0/harmoni_sensors/harmoni_microphone/config/configuration.yaml) of your `harmoni_microphone` package.
 Generally, you need to modify only few parameters to get the microphone working. For example, check and substitute your _device_name_ and you microphone sample rate (_audio_rate_).
 
 Look at the package README for further details!
@@ -88,7 +88,7 @@ Then modify your docker-compose file and container (e.g. in `docker-compose.yml`
 
 ### Camera
 
-To work with your camera, again change the [configuration file](https://github.com/interaction-lab/HARMONI/blob/develop/harmoni_sensors/harmoni_camera/config/configuration.yaml) of your `harmoni_camera` package.You may need to change the _input_device_index_ (i.e., the index of your camera device plugged in), and the _video_format_ (i.e., how video format is encoded, for example "rgb8" or "bgr8").
+To work with your camera, again change the [configuration file](https://github.com/micolspitale93/HARMONI/blob/dev/harmoni2.0/harmoni_sensors/harmoni_camera/config/configuration.yaml) of your `harmoni_camera` package.You may need to change the _input_device_index_ (i.e., the index of your camera device plugged in), and the _video_format_ (i.e., how video format is encoded, for example "rgb8" or "bgr8").
 
 Look at the package README for further details!
 

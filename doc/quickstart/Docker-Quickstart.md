@@ -20,7 +20,7 @@ You will also need to install docker-compose. Instructions can be found here: [h
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/interaction-lab/HARMONI.git
+   git clone https://github.com/micolspitale93/HARMONI.git
    cd HARMONI
    ```
 
@@ -30,7 +30,7 @@ You will also need to install docker-compose. Instructions can be found here: [h
     You may either build or pull containers to run harmoni. Pulling containers is generally faster and can be done as:
 
     ```bash
-    docker pull harmoniteam/harmoni:kinetic-full
+    docker pull harmoni02/harmoni2.0:full
     ```
 
     *Note: If you would like to use all the containers we have provided a script in dockerfiles/pull_images.sh for getting all the current images, which includes both kinetic and noetic. If you run a compose file without pulling, the images will be automatically built.*
