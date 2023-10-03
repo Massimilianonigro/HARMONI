@@ -10,7 +10,7 @@ _We recommend using docker whenever possible, however it is particularly challen
    ```bash
    mkdir -p catkin_ws/src
    cd catkin_ws/src
-   git clone https://github.com/interaction-lab/HARMONI.git
+   git clone https://github.com/micolspitale93/HARMONI.git
    cd ..
    ```
 

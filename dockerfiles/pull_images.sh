@@ -10,8 +10,14 @@ docker pull harmoniteam/harmoni:kinetic-face_detect
 
 docker pull harmoniteam/harmoni:noetic-base
 
-docker pull harmoniteam/harmoni:noetic-full
+docker pull harmoni02/harmoni2.0:full
+
+docker pull harmoni02/harmoni2.0:detectors
+
+docker pull harmoni02/harmoni2.0:imageai
+
+docker pull harmoni02/harmoni2.0:fer
 
 # docker pull harmoniteam/harmoni:noetic-w2l
 
-docker pull harmoniteam/harmoni:noetic-face_detect
+docker pull harmoni02/harmoni2.0:face_detect

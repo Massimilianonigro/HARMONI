@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: dockerfiles/harmoni/$ROS_DISTRO/full/dockerfile
       network: host
-    image: harmoniteam/harmoni:$ROS_DISTRO-full
+    image: harmoni02/harmoni2.0:full
     init: true
     environment:
       DISPLAY: $DISPLAY
@@ -48,7 +48,7 @@ services:
       context: .
       dockerfile: dockerfiles/harmoni/kinetic/w2l/dockerfile
       network: host
-    image: harmoniteam/harmoni:kinetic-w2l
+    image: harmoni02/harmoni2.0:kinetic-w2l
     init: true
     environment:
       DISPLAY: $DISPLAY
@@ -89,7 +89,7 @@ services:
       context: .
       dockerfile: dockerfiles/harmoni/$ROS_DISTRO/face_detect/dockerfile
       network: host
-    image: harmoniteam/harmoni:$ROS_DISTRO-face_detect
+    image: harmoni02/harmoni2.0:face_detect
     init: true
     environment:
       DISPLAY: $DISPLAY
@@ -128,7 +128,7 @@ services:
       context: .
       dockerfile: dockerfiles/harmoni/$ROS_DISTRO/imageai/dockerfile
       network: host
-    image: harmoniteam/harmoni:$ROS_DISTRO-imageai
+    image: harmoni02/harmoni2.0:imageai
     init: true
     environment:
       DISPLAY: $DISPLAY
@@ -167,7 +167,7 @@ services:
       context: .
       dockerfile: dockerfiles/harmoni/$ROS_DISTRO/fer/dockerfile
       network: host
-    image: harmoniteam/harmoni:$ROS_DISTRO-fer
+    image: harmoni02/harmoni2.0:fer
     init: true
     environment:
       DISPLAY: $DISPLAY
@@ -206,7 +206,7 @@ services:
       context: .
       dockerfile: dockerfiles/harmoni/$ROS_DISTRO/detectors/dockerfile
       network: host
-    image: harmoniteam/harmoni:$ROS_DISTRO-detectors
+    image: harmoni02/harmoni2.0:detectors
     init: true
     environment:
       DISPLAY: $DISPLAY
@@ -245,7 +245,7 @@ services:
       context: .
       dockerfile: dockerfiles/harmoni/$ROS_DISTRO/full/dockerfile
       network: host
-    image: harmoniteam/harmoni:$ROS_DISTRO-full
+    image: harmoni02/harmoni2.0:full
     init: true
     environment:
       DISPLAY: $DISPLAY
