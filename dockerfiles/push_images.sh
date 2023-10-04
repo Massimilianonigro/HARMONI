@@ -1,17 +1,19 @@
 #!/bin/bash
 
-docker push harmoniteam/harmoni:kinetic-base
+#docker pull harmoniteam/harmoni:kinetic-base
 
-docker push harmoniteam/harmoni:kinetic-full
+#docker pull harmoniteam/harmoni:kinetic-full
 
-docker push harmoniteam/harmoni:kinetic-w2l
+#docker pull harmoniteam/harmoni:kinetic-face_detect
 
-docker push harmoniteam/harmoni:kinetic-face_detect
+#docker pull harmoniteam/harmoni:noetic-base
 
-docker push harmoniteam/harmoni:noetic-base
+docker pull harmoni02/harmoni2.0:full
 
-docker push harmoniteam/harmoni:noetic-full
+docker pull harmoni02/harmoni2.0:detectors
 
-# docker push harmoniteam/harmoni:noetic-w2l
+docker pull harmoni02/harmoni2.0:imageai
 
-docker push harmoniteam/harmoni:noetic-face_detect
+docker pull harmoni02/harmoni2.0:fer
+
+docker pull harmoni02/harmoni2.0:face_detect

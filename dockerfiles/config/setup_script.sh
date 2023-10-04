@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 'Hello! Welcome to Harmoni'
+echo 'Hello! Welcome to Harmoni 2.0'
 
 source /opt/ros/$ROS_DISTRO/setup.bash 
 source /root/harmoni_catkin_ws/devel/setup.bash
@@ -19,13 +19,6 @@ alias cbs="roscd; cd ..; catkin build; source devel/setup.bash"
 alias sd="roscd; cd ..; source devel/setup.bash"
 alias rlspeech="roslaunch harmoni_stt stt_service.launch"
 alias rlfacedetect="roslaunch harmoni_face_detect face_detect_service.launch"
-alias rlhardwareservices="roslaunch harmoni_decision launcher.launch service:='hardware'"
-alias rlharmoniservices="roslaunch harmoni_decision launcher.launch service:='harmoni'"
-alias rlmultiplechoice="roslaunch harmoni_decision harmoni_decision.launch"
-alias rldemo="roslaunch harmoni_pattern sequence_pattern.launch pattern_name:='demo' use_pattern_dialogue:=true use_pattern_multiple_choice:=false"
-#alias rldemo="roslaunch harmoni_decision harmoni_decision.launch pattern_name:='demo'"
-alias rldialog="roslaunch harmoni_pattern sequence_pattern.launch pattern_name:='dialogue' use_pattern_dialogue:=true use_pattern_multiple_choice:=false"
-
 
 # get current branch in git repo
 function parse_git_branch() {

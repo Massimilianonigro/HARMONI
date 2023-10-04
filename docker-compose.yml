@@ -42,47 +42,6 @@ services:
     working_dir: /root/harmoni_catkin_ws/src/HARMONI
     command: tail  -f /dev/null
 
-  harmoni_w2l:
-    container_name: harmoni_w2l
-    build:
-      context: .
-      dockerfile: dockerfiles/harmoni/kinetic/w2l/dockerfile
-      network: host
-    image: harmoni02/harmoni2.0:kinetic-w2l
-    init: true
-    environment:
-      DISPLAY: $DISPLAY
-      QT_GRAPHICSSYSTEM: native
-      ROS_DISTRO: kinetic
-      IS_DOCKER_ENV: "true"
-      CATKIN_WS: harmoni_catkin_ws
-      ROS_HOSTNAME: harmoni_w2l
-      ROS_MASTER_URI: http://172.18.3.4:11311
-    depends_on:
-      - "harmoni_full"
-    privileged: true
-    # network_mode: host
-    networks:
-      ros_net:
-        ipv4_address: 172.18.3.3
-    hostname: harmoni_w2l
-    ports:
-      - "1022:22"
-    devices:
-      - /dev/dri:/dev/dri
-      - /dev/snd:/dev/snd
-    volumes:
-      - ../HARMONI/:/root/local_mount/HARMONI/
-      # Configuration
-      - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
-      # Other
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-    working_dir: /root/harmoni_catkin_ws/src/HARMONI
-    command: tail  -f /dev/null
-
   harmoni_face_detector:
     container_name: harmoni_face_detector
     build:

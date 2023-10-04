@@ -1,5 +1,5 @@
 
-# Docker
+# Docker [recommended]
 
 ## Setup
 
@@ -65,7 +65,7 @@ You will also need to install docker-compose. Instructions can be found here: [h
 
    If this is successful, you will see:
    ```bash
-   Hello! Welcome to Harmoni
+   Hello! Welcome to Harmoni 2.0
    11:47 AM [develop] ~/harmoni_catkin_ws/src/HARMONI :
    root@harmoni_full# 
    ``` 
