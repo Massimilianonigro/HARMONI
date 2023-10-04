@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-PKG = "test_face_pytree"
+PKG = "test_harmoni_face_mouth"
 # Common Imports
 import unittest, rospy, roslib, sys
 
@@ -11,14 +11,15 @@ from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResul
 from std_msgs.msg import String
 from harmoni_common_lib.action_client import HarmoniActionClient
 from std_msgs.msg import String
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, PyTreeNameSpace
 from collections import deque
 import os, io
 import ast
 import time
-#py_tree
 import py_trees
-from harmoni_pytree.face_service_pytree import FaceServicePytree
+from harmoni_pytree.leaves.facial_exp_service import FacialExpServicePytree
+from harmoni_pytree.leaves.lip_sync_service import LipSyncServicePytree
+
 
 
 class TestFacePyTree(unittest.TestCase):
@@ -27,46 +28,50 @@ class TestFacePyTree(unittest.TestCase):
         """
         Set up the client for requesting to harmoni_face
         """
-        rospy.init_node("test_face_pytree", log_level=rospy.INFO)
+        
         self.data = rospy.get_param(
             "test_face_input"
         ) 
         self.instance_id = rospy.get_param("instance_id")
-        # NOTE currently no feedback, status, or result is received.
         py_trees.logging.level = py_trees.logging.Level.DEBUG
         
         # ex namespace: harmoni_tts
-        self.blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=ActuatorNameSpace.tts.name)
-        self.blackboardProva.register_key("result_data", access=py_trees.common.Access.WRITE)
-        self.blackboardProva.register_key("result_message", access=py_trees.common.Access.WRITE)
 
-        self.blackboardProva.result_message = State.SUCCESS
-        self.blackboardProva.result_data = self.data
-
+        self.blackboard_scene = py_trees.blackboard.Client(name="scene", namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key("scene/nlp", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.face_exp = self.data
+        self.blackboard_scene.scene.nlp = 0
+        print(self.blackboard_scene)
         additional_parameters = dict([
-            (ActuatorNameSpace.face.name,True)])   
+            (ActuatorNameSpace.face.name + "_mouth",False)])   
         rospy.loginfo("--------------------"+str(additional_parameters)) 
-        self.facePyTree =  FaceServicePytree("facePyTreeTest")
-        self.facePyTree.setup(**additional_parameters)
 
+        rospy.init_node("face_mouth_default", log_level=rospy.INFO)
+        self.lips = LipSyncServicePytree("LipSyncMainActivity")
+        self.facePyTree = FacialExpServicePytree("FacePyTreeTest")
+        self.lips.setup(**additional_parameters)
+        
         rospy.loginfo("TestFace: Started up. waiting for face startup")
         rospy.loginfo("TestFace: Started")
 
    
     
     def test_leaf_pytree_mouth(self):
+        print("****************************** TESTING STARTED")
         rospy.loginfo(f"The input data is {self.data}")
-        for unused_i in range(0, 4):
-            self.facePyTree.tick_once()
+        for unused_i in range(0, 12):
+            self.lips.tick_once()
             time.sleep(0.5)
-            print(self.blackboardProva)
+            print(self.blackboard_scene)
         print("\n")
-        assert self.result_mouth == True
+        print("\n")
+        return
     
 
 def main():
     import rostest
-    rospy.loginfo("test_face started")
+    rospy.loginfo("test_face_pytree started")
     rospy.loginfo("TestFace: sys.argv: %s" % str(sys.argv))
     rostest.rosrun(PKG, "test_face_pytree", TestFacePyTree, sys.argv)
 

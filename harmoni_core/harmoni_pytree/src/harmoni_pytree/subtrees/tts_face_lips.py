@@ -5,8 +5,6 @@
 
 import argparse
 import functools
-from py_trees.behaviours import dummy
-from py_trees.idioms import either_or
 import py_trees
 import time
 import rospy
@@ -86,7 +84,7 @@ def create_root(name= "TtsAndFaceLips"):
     tts = AWSTtsServicePytree("TtsMainActivity")
 
     root = py_trees.composites.Sequence(name="TtsAndFaceLips",memory=False)
-    parallel = py_trees.composites.Parallel(name = "FaceAndLips")
+    parallel = py_trees.composites.Parallel(name = "FaceAndLips", policy = py_trees.common.ParallelPolicy.SuccessOnAll(synchronise=False))
     parallel.add_children([face, lips])
     root.add_children([tts, parallel])
 

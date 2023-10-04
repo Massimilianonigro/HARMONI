@@ -11,14 +11,14 @@ from harmoni_common_msgs.msg import harmoniAction, harmoniFeedback, harmoniResul
 from std_msgs.msg import String
 from harmoni_common_lib.action_client import HarmoniActionClient
 from std_msgs.msg import String
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace, PyTreeNameSpace
 from collections import deque
 import os, io
 import ast
 import time
 #py_tree
 import py_trees
-from harmoni_pytree.aws_tts_service_pytree import AWSTtsServicePytree
+from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
 
 
 class TestPollyPyTree(unittest.TestCase):
@@ -39,17 +39,20 @@ class TestPollyPyTree(unittest.TestCase):
         # ex namespace: harmoni_tts
         py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-        self.blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=ActuatorNameSpace.tts.name)
-        self.blackboardProva.register_key("result_data", access=py_trees.common.Access.READ)
-        self.blackboardProva.register_key("result_message", access=py_trees.common.Access.READ)
-        self.blackboard_output_bot = py_trees.blackboard.Client(name="blackboardProva", namespace=DialogueNameSpace.bot.name+"output")
-        self.blackboard_output_bot.register_key("result_data", access=py_trees.common.Access.WRITE)
-        self.blackboard_output_bot.register_key("result_message", access=py_trees.common.Access.WRITE)
-
-        self.blackboard_output_bot.result_message = State.SUCCESS
-        self.blackboard_output_bot.result_data = self.data
-        print(self.blackboardProva)
-        print(self.blackboard_output_bot)
+        self.blackboard_output_tts = py_trees.blackboard.Client(name="output_tts", namespace=ActuatorNameSpace.tts.name)
+        self.blackboard_scene = py_trees.blackboard.Client(name="scene", namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_output_tts.register_key("result_data", access=py_trees.common.Access.READ)
+        self.blackboard_output_tts.register_key("result_message", access=py_trees.common.Access.READ)
+        self.blackboard_input_tts = py_trees.blackboard.Client(name="input_tts", namespace=DialogueNameSpace.bot.name+"/trigger")
+        self.blackboard_input_tts.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_input_tts.register_key("result_message", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key = PyTreeNameSpace.scene.name + "/nlp", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.scene.nlp = 0
+        self.blackboard_input_tts.result_message = State.SUCCESS
+        self.blackboard_input_tts.result = self.data
+        print(self.blackboard_output_tts)
+        print(self.blackboard_scene)
+        print(self.blackboard_input_tts)
 
         additional_parameters = dict([
             (ActuatorNameSpace.tts.name,False)])   
@@ -67,7 +70,7 @@ class TestPollyPyTree(unittest.TestCase):
         for unused_i in range(0, 4):
             self.ttsPyTree.tick_once()
             time.sleep(0.5)
-            print(self.blackboardProva)
+            print(self.blackboard_output_tts)
         print("\n")
         return
     

@@ -75,5 +75,18 @@ You will also need to install docker-compose. Instructions can be found here: [h
    ```bash
    started core service [/rosout]
    ```
+4. Stop `roscore` with Ctrl-C, and then change the branch to set it to HARMONI 2.0 with the following command:
+   ```bash
+   git checkout dev/harmoni2.0
+   ```
+5. Make sure that all the packages are build correctly. Build all the packages following these commands:
+   ```bash
+   catkin build
+   source ../../devel/setup.bash
+   ``` 
+6. Install all the dependencies. If you are in `harmoni_full`, you need to install the `requirements_full.txt` as follows:
+   ```bash
+   pip install -r requirements_full.txt
+   ``` 
 
 You are now set up for Harmoni with Docker! Check on your [configuration here](../Configuration) and then [start some services here](../tutorials/Launching-Services).

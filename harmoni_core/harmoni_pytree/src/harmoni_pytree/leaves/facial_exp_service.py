@@ -4,18 +4,12 @@
 import rospy, rospkg, roslib
 
 from harmoni_common_lib.constants import *
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
 import harmoni_common_lib.helper_functions as hf
-from harmoni_face.face_service import EyesService, MouthService, NoseService
-from harmoni_face.face_client import Face
 
 # Specific Imports
-from audio_common_msgs.msg import AudioData
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from botocore.exceptions import BotoCoreError, ClientError
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, PyTreeNameSpace
 from contextlib import closing
 from collections import deque 
 import soundfile as sf
@@ -52,7 +46,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.READ)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
         
-
+        print(self.blackboard_scene)
         super(FacialExpServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -61,13 +55,13 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.instance_id = "default"
         self.name_mouth = ActuatorNameSpace.face.name + "_mouth_" + self.instance_id
         self.service_client_mouth = HarmoniActionClient(self.name_mouth)
-        self.name_nose = ActuatorNameSpace.face.name + "_nose_" + self.instance_id
-        self.service_client_nose = HarmoniActionClient(self.name_nose)
-        self.name_eyes = ActuatorNameSpace.face.name + "_eyes_" + self.instance_id
-        self.service_client_eyes = HarmoniActionClient(self.name_eyes)
+        #self.name_nose = ActuatorNameSpace.face.name + "_nose_" + self.instance_id
+        #self.service_client_nose = HarmoniActionClient(self.name_nose)
+        #self.name_eyes = ActuatorNameSpace.face.name + "_eyes_" + self.instance_id
+        #self.service_client_eyes = HarmoniActionClient(self.name_eyes)
         self.service_client_mouth.setup_client(self.name_mouth, self._result_callback, self._feedback_callback)
-        self.service_client_eyes.setup_client(self.name_eyes, self._result_callback, self._feedback_callback)
-        self.service_client_nose.setup_client(self.name_nose, self._result_callback, self._feedback_callback)
+        #self.service_client_eyes.setup_client(self.name_eyes, self._result_callback, self._feedback_callback, wait=False)
+        #self.service_client_nose.setup_client(self.name_nose, self._result_callback, self._feedback_callback, wait=False)
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
@@ -119,7 +113,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
-        """ Recieve and store result with timestamp """
+        """ Receive and store result with timestamp """
         self.logger.debug("The result of the request has been received")
         self.logger.debug(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
@@ -129,7 +123,7 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
 
     def _feedback_callback(self, feedback):
         """ Feedback is currently just logged """
-        self.logger.debug("The feedback recieved is %s." % feedback)
+        self.logger.debug("The feedback received is %s." % feedback)
         self.server_state = feedback["state"]
         return
 
@@ -139,8 +133,9 @@ def main():
     
     blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=PyTreeNameSpace.scene.name)
     blackboardProva.register_key("face_exp", access=py_trees.common.Access.WRITE)
-
+    blackboardProva.register_key("scene/nlp", access=py_trees.common.Access.WRITE)
     blackboardProva.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+    blackboardProva.scene.nlp = 0
     """
     [{'start':10, 'type': 'gaze', 'id':'target', 'point': [1,5,10]}]
     [{'start': 1, 'type': 'au', 'id': 'au13', 'pose': 1}]

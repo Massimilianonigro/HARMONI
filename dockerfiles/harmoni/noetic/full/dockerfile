@@ -98,6 +98,15 @@ RUN sudo apt-get update && sudo apt-get install espeak -y \
     && pip install -r requirements.txt \
     && python setup.py install
 
+RUN \
+    PIP_INSTALL="python3.8 -m pip --no-cache-dir install --upgrade" && \
+    $PIP_INSTALL \
+    py_trees \ 
+    pickle5 \
+    torch \
+    torchaudio 
+
+
 # ==================================================================
 # For convenience add a source script to bashrc and update without clearing
 # ------------------------------------------------------------------

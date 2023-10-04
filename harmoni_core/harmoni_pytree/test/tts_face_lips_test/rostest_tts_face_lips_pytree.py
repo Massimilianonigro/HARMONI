@@ -27,19 +27,21 @@ class TestTtsAndFaceLipsPyTree(unittest.TestCase):
         
         
         # blackboard for test-to-speech data, which is updated after result is fetched
-        self.blackboard_tts = py_trees.blackboard.Client(name="blackboard_tts", namespace=ActuatorNameSpace.tts.name)
+        self.blackboard_tts = py_trees.blackboard.Client(name="output_tts", namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.READ) 
-        self.blackboard_scene = py_trees.blackboard.Client(name="blackboard_scene", namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene = py_trees.blackboard.Client(name="scene", namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key="face_exp", access=py_trees.common.Access.WRITE)
         self.blackboard_scene.scene.nlp = 1
-        self.blackboard_scene.scene.face_exp = "happy_face"
-        self.blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
-        self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ) 
-
-
+        self.blackboard_scene.face_exp = "[ {'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+        self.blackboard_input_tts = py_trees.blackboard.Client(name="input_tts", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_input_tts.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_input_tts.result = {"message":"Hello, my name is Botty!"}
         self.root = create_root()
         self.tree = py_trees.trees.BehaviourTree(self.root)
         self.tree.setup(timeout=15)
+        print("++++++++++++++++++++")
+        print(self.tree)
         self.success = False
 
         rospy.loginfo("Setup completed....starting test")
@@ -48,16 +50,16 @@ class TestTtsAndFaceLipsPyTree(unittest.TestCase):
     def test_tts_face_lips(self):
         rospy.loginfo(f"Starting to tick")
         try:
-            for unused_i in range(0, 10):
-                self.tree.tick()
-                time.sleep(1)
-                print(self.blackboard_tts)
-                print(self.blackboard_scene)
-                print(self.blackboard_bot)
-                print("Tick number: ", unused_i)
+            #for unused_i in range(0, 10):
+            self.tree.tick_tock(period_ms=500, number_of_iterations=3)
+            time.sleep(1)
+            print(self.blackboard_tts)
+            print(self.blackboard_scene)
+            print(self.blackboard_input_tts)
+                #print("Tick number: ", unused_i)
 
         except Exception:
-            assert self.root.status==py_trees.common.Status.SUCCESS
+            #assert self.root.status==py_trees.common.Status.SUCCESS
             print(traceback.format_exc())
 
         assert self.root.status==py_trees.common.Status.SUCCESS

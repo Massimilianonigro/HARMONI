@@ -44,7 +44,7 @@ class ChatGPTService(HarmoniServiceManager):
         env_path="/root/harmoni_catkin_ws/src/HARMONI/.env"
         load_dotenv(env_path)
         rospy.loginfo("Connecting to GPT")
-        openai.organization = os.getenv("OPENAI_ORGANIZATION")#"org-c177RgKPMbEYIWkVXobIkNcv"
+        openai.organization = os.getenv("OPENAI_ORGANIZATION")
         openai.api_key = os.getenv("OPENAI_API_KEY")
         openai.Model.list()
         rospy.loginfo("Connected")

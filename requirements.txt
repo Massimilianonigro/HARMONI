@@ -15,7 +15,7 @@ schedule
 func_timeout
 datetimerange
 wget
-pytrees
+py_trees==2.0
 tensorflow
 openai
 python-dotenv
