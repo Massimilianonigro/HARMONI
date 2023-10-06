@@ -5,6 +5,8 @@ RUN \
     $PIP_INSTALL \
     facechannel==0.0.2 \ 
     numpy==1.19.5 \
-    protobuf==3.20.1
+    protobuf==3.20.1 \
+    py_trees
+
 
 CMD ["/bin/bash"]

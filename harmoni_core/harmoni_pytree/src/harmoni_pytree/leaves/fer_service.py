@@ -111,15 +111,14 @@ class FERServicePytree(py_trees.behaviour.Behaviour):
 
 def main():
     #command_line_argument_parser().parse_args()
-
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
     #rospy init node mi fa diventare un nodo ros
     rospy.init_node("fer_default", log_level=rospy.INFO)
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.fer.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.READ)
-    print(blackboardProva)
+    blackboard_output = py_trees.blackboard.Client(name=DetectorNameSpace.fer.name, namespace=DetectorNameSpace.fer.name)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)
+    print(blackboard_output)
 
     ferPyTree = FERServicePytree("FERServicePytreeTest")
 
@@ -128,10 +127,10 @@ def main():
 
     ferPyTree.setup(**additional_parameters)
     try:
-        for unused_i in range(0, 10):
+        for unused_i in range(0, 5):
             ferPyTree.tick_once()
             time.sleep(2)
-            print(blackboardProva)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

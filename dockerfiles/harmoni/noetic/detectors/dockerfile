@@ -5,7 +5,9 @@ RUN \
     $PIP_INSTALL \
     opensmile \
     tensorflow \
+    torch \
     torchaudio \
-    onnxruntime
+    onnxruntime==1.15 \
+    py_trees 
     
 CMD ["/bin/bash"]

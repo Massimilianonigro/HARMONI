@@ -84,9 +84,7 @@ You will also need to install docker-compose. Instructions can be found here: [h
    catkin build
    source ../../devel/setup.bash
    ``` 
-6. Install all the dependencies. If you are in `harmoni_full`, you need to install the `requirements_full.txt` as follows:
-   ```bash
-   pip install -r requirements_full.txt
-   ``` 
+
+If you want to use also the other containers, repeat the same process, and remeber to build (step 5) the catking packages in all containers opened.
 
 You are now set up for Harmoni with Docker! Check on your [configuration here](../Configuration) and then [start some services here](../tutorials/Launching-Services).

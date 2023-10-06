@@ -5,6 +5,7 @@ RUN \
     $PIP_INSTALL \
     imageai==2.1.6 \
     tensorflow==2.4.0 \
-    packaging==19.1
+    packaging==19.1 \
+    py_trees
     
 CMD ["/bin/bash"]

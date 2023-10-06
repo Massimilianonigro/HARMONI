@@ -112,7 +112,8 @@ RUN \
     deepspeech \
     google-cloud-speech \
     python-dotenv \
-    openai
+    openai \
+    protobuf==3.20.1
 
 
 # ==================================================================

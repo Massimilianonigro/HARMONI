@@ -62,6 +62,8 @@ The `harmoni_imageai` container is responsible for the following:
       - harmoni_imageai (to recognize objects)
 
 
+Note that if you try to run a module that belongs to a different container (e.g., running harmoni_fer into the harmoni_full container) it is not going to work because we decide to allocate it to a separate container for dependencies issues. The containers provided have already the required versioning libraries for each of the module to run correctly.
+
 ## Getting started
 Unless adding a new node which requires additional libraries that have not been included, it unlikely you will need to modify the dockerfiles. Once Docker has been installed, you should be able to quickly get up and running with docker-compose. Docker-compose files have been provided which launch core, hardware, and detector containers. You may need to modify the network, devices, or volumes to suit your hardware configuration.
 

@@ -118,9 +118,9 @@ def main():
     #rospy init node mi fa diventare un nodo ros
     rospy.init_node("opensmile_default", log_level=rospy.INFO)
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.opensmile.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.READ)
-    print(blackboardProva)
+    blackboard_output = py_trees.blackboard.Client(name=DetectorNameSpace.opensmile.name, namespace=DetectorNameSpace.opensmile.name)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)
+    print(blackboard_output)
 
     opensmilePyTree = OpenSmileServicePytree("opensmileServicePytree")
 
@@ -129,10 +129,10 @@ def main():
 
     opensmilePyTree.setup(**additional_parameters)
     try:
-        for unused_i in range(0, 10):
+        for unused_i in range(0, 5):
             opensmilePyTree.tick_once()
-            time.sleep(2)
-            print(blackboardProva)
+            time.sleep(1)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

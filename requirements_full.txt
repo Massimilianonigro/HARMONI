@@ -1,5 +1,0 @@
-py_trees==2.0
-pickle5
-torch
-#onnxruntime
-transformers
