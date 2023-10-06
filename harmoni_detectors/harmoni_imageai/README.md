@@ -28,7 +28,7 @@ As far custom models are concerned, there are some steps that have to be followe
 
 1. Create your own model following the steps in the documentation of ImageAI here: [https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/Custom/CUSTOMDETECTIONTRAINING.md](https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/Custom/CUSTOMDETECTIONTRAINING.md).  
 At the end of this process you will obtain 2 files: a model.h5 and a config.json. 
-2. Put these two files in the following path  `HARMONI/harmoni_detectors/harmoni_imageai/src/[PUT HERE]` in the container. Be sure that names coincide with the ones in `custom_configuration.yaml` file under `harmoni_imageai` folder.
+2. Put these two files in the following path  `HARMONI/harmoni_model/yolo/[PUT HERE]` in the container. Be sure that names coincide with the ones in `custom_configuration.yaml` file under `harmoni_imageai` folder.
 
 Full documentation of ImageAI: [https://github.com/OlafenwaMoses/ImageAI#readme](https://github.com/OlafenwaMoses/ImageAI#readme)
 

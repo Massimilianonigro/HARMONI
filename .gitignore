@@ -128,6 +128,7 @@ harmoni_detectors/harmoni_imageai/src/*.json
 harmoni_models/stt/*
 harmoni_models/ir/*
 harmoni_models/rl/*
+harmoni_models/yolo/*
 OpenFace/
 
 temp_data

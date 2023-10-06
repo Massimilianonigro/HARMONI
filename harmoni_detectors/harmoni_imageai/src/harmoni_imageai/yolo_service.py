@@ -35,9 +35,8 @@ class ImageAIYoloService(HarmoniServiceManager):
         self.minimum_percentage_probability = param["minimum_percentage_probability"]
         self.return_detected_frame = param["return_detected_frame"]
         self.log_progress = param["log_progress"]
-    
-        self.model_path = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_detectors/harmoni_imageai/src/"
-        self.temp_path = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_detectors/harmoni_imageai/temp_data/"
+        self.model_path = param["model_path"]
+        self.temp_path = param["temp_path"] 
         self.service_id = hf.get_child_id(self.name)
         self.result_msg = ""
         self.state = None

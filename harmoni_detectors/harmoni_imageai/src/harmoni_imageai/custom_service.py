@@ -2,7 +2,6 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import State
 from harmoni_common_lib.service_server import HarmoniServiceServer
@@ -15,10 +14,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from imageai.Detection.Custom import CustomObjectDetection
 from std_msgs.msg import String
-import numpy as np
 import os
-import io
-import cv2
 from six.moves import queue
 
 class ImageAICustomService(HarmoniServiceManager):
@@ -38,14 +34,14 @@ class ImageAICustomService(HarmoniServiceManager):
         self.minimum_percentage_probability = param["minimum_percentage_probability"]
         self.return_detected_frame = param["return_detected_frame"]
     
-        self.model_path = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_detectors/harmoni_imageai/src/"
+        self.model_path = param["model_path"]
         self.service_id = hf.get_child_id(self.name)
         self.result_msg = ""
         self.state = None
 
         self.detector = CustomObjectDetection()
         self.detector.setModelTypeAsYOLOv3()
-        self.detector.setJsonPath("/root/harmoni_catkin_ws/src/HARMONI/harmoni_detectors/harmoni_imageai/src/detection_config_card.json") 
+        self.detector.setJsonPath(param["json_config_path"]) 
         self.detector.setModelPath(os.path.join(self.model_path, self.model_name))
         self.detector.loadModel()
         self.capture_frame = False

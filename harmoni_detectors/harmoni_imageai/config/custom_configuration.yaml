@@ -9,3 +9,6 @@ imageai_custom_yolo:
     log_progress: True
     minimum_percentage_probability: 95 #minimum percentage for recognizing objects
     return_detected_frame: False #if true, allows you to obtain the detected video frame as a Numpy array
+    model_path: "/root/harmoni_catkin_ws/src/HARMONI/harmoni_models/yolo/"
+    temp_path: "/root/harmoni_catkin_ws/src/HARMONI/harmoni_detectors/harmoni_imageai/temp_data/"
+    json_config_path: "/root/harmoni_catkin_ws/src/HARMONI/harmoni_detectors/harmoni_imageai/src/detection_config_card.json"
