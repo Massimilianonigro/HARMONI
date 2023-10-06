@@ -2,33 +2,10 @@
 
 # Common Imports
 import rospy
-import roslib
 
-from harmoni_common_lib.constants import State
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-#from harmoni_microphone.microphone_service import MicrophoneService
-# Other Imports
-from harmoni_common_lib.constants import SensorNameSpace
-from audio_common_msgs.msg import AudioData
-import pyaudio
-import wave
-import numpy as np
-# Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
-
-#py_tree
+from harmoni_common_lib.constants import SensorNameSpace , ActionType
 import py_trees
 import time
 
@@ -138,12 +115,12 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace="harmoni_microphone")
-    blackboardProva.register_key("result_message", access=py_trees.common.Access.READ)
+    blackboard_output = py_trees.blackboard.Client(name=SensorNameSpace.microphone.name, namespace=SensorNameSpace.microphone.name)
+    blackboard_output.register_key("result_message", access=py_trees.common.Access.READ)
 
     rospy.init_node("microphone_default", log_level=rospy.INFO)
 
-    print(blackboardProva)
+    print(blackboard_output)
 
     microphonePyTree = MicrophoneServicePytree("MicrophoneServicePytreeTest")
 
@@ -155,7 +132,7 @@ def main():
         for unused_i in range(0, 3):
             microphonePyTree.tick_once()
             time.sleep(0.5)
-            print(blackboardProva)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

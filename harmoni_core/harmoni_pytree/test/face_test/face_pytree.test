@@ -1,8 +1,0 @@
-<launch>
-    <param name="instance_id" value="default"/>
-    <rosparam file="$(find harmoni_face)/config/configuration.yaml"/>
-    <include ns="harmoni_face" file="$(find harmoni_face)/launch/face_service.launch">
-	</include>
-	<param name="test_face_input" value="[ {'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"/>
-    <test test-name="test_face" pkg="harmoni_pytree" type="rostest_face_pytree.py" />
-</launch>

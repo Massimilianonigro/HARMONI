@@ -2,7 +2,6 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus

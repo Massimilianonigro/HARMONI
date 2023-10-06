@@ -6,3 +6,10 @@ gesture:
     robot_joint_radians_topic: "/qt_robot/joints/state"
     robot_gesture_topic: "/qt_robot/gesture/play"
     time_interval: 0.01
+  qt_param:
+    path: "$(find harmoni_gesture)/data"
+    rate: 10
+    robot_joint_topic: "/qt_robot/joints/state"
+    robot_joint_radians_topic: "/qt_robot/joints/state"
+    robot_gesture_topic: "/qt_robot/gesture/play"
+    time_interval: 0.01

@@ -5,21 +5,11 @@ import rospy
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-from harmoni_bot.aws_lex_service import AWSLexService
-
+from harmoni_common_lib.constants import ActionType, DialogueNameSpace, PyTreeNameSpace
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace
-import numpy as np
-import re
-import json
-import ast
-import sys
-import os
 import py_trees
 import time
 
-from harmoni_common_lib.constants import *
 
 class RLPytreeService(py_trees.behaviour.Behaviour):
     def __init__(self, name):
@@ -137,9 +127,16 @@ def main():
     #rospy init node mi fa diventare un nodo ros
     rospy.init_node("rl_default", log_level=rospy.INFO)
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DialogueNameSpace.rl.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.READ)
-    print(blackboardProva)
+    blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.rl.name, namespace=DialogueNameSpace.rl.name)
+    blackboard_input.register_key("result", access=py_trees.common.Access.READ)
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/rl", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/exercise", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/action", access=py_trees.common.Access.WRITE)
+    blackboard_scene.scene.rl = 0
+    blackboard_scene.scene.rl = 1
+    blackboard_scene.scene.rl = 4
+    print(blackboard_input)
 
     rlPyTree = RLPytreeService("RLPytreeServiceTest")
 
@@ -148,10 +145,10 @@ def main():
 
     rlPyTree.setup(**additional_parameters)
     try:
-        for unused_i in range(0, 10):
+        for unused_i in range(0, 5):
             rlPyTree.tick_once()
             time.sleep(2)
-            print(blackboardProva)
+            print(blackboard_input)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

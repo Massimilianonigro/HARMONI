@@ -2,31 +2,16 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
 # Other Imports
-from harmoni_common_lib.constants import SensorNameSpace
+from harmoni_common_lib.constants import SensorNameSpace, ActionType
 
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
-
-#py_tree
 import py_trees
 import time
-
 import py_trees.console
 
 class CameraServicePytree(py_trees.behaviour.Behaviour):
@@ -125,12 +110,12 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace="harmoni_camera")
-    blackboardProva.register_key("result_message", access=py_trees.common.Access.READ)
+    blackboard_output = py_trees.blackboard.Client(name=SensorNameSpace.camera.name, namespace=SensorNameSpace.camera.name)
+    blackboard_output.register_key("result_message", access=py_trees.common.Access.READ)
 
     rospy.init_node("camera_default", log_level=rospy.INFO)
     
-    print(blackboardProva)
+    print(blackboard_output)
 
     cameraPyTree = CameraServicePytree("CameraServicePytreeTest")
 
@@ -139,10 +124,10 @@ def main():
 
     cameraPyTree.setup(**additional_parameters)
     try:
-        for unused_i in range(0, 10):
+        for unused_i in range(0, 5):
             cameraPyTree.tick_once()
             time.sleep(0.5)
-            print(blackboardProva)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

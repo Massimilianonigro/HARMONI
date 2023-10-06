@@ -1,29 +1,14 @@
 #!/usr/bin/env python3
 
 # Common Imports
-import rospy, rospkg, roslib
+import rospy
 
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-import harmoni_common_lib.helper_functions as hf
-
-# Specific Imports
-from harmoni_web.web_service import WebService
+from harmoni_common_lib.constants import PyTreeNameSpace
 from harmoni_common_lib.constants import *
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import re
-import json
-import ast
-import sys
+# Specific Imports
 import time
-
-# import wget
-import ast
-
-#py_tree
 import py_trees
 
 class WebServicePytree(py_trees.behaviour.Behaviour):
@@ -131,27 +116,23 @@ def main():
     
     rospy.init_node("web_default" , log_level=rospy.INFO)
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=PyTreeNameSpace.scene.name)
-    blackboardProva.register_key("image", access=py_trees.common.Access.WRITE)
-    print(blackboardProva)
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key("image", access=py_trees.common.Access.WRITE)
+    print(blackboard_scene)
 
-    blackboardProva.image = "[{'component_id':'img_only', 'set_content':'https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png'},{'component_id':'raccolta_container', 'set_content': ''}]"
+    blackboard_scene.image = "[{'component_id':'img_only', 'set_content':'https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png'},{'component_id':'raccolta_container', 'set_content': ''}]"
 
-    yoloPyTree = WebServicePytree("WebServicePytreeTest")
+    webPyTree = WebServicePytree("WebServicePytreeTest")
 
     additional_parameters = dict([
         ("WebServicePytree_mode",False)])
 
-    yoloPyTree.setup(**additional_parameters)
+    webPyTree.setup(**additional_parameters)
     try:
-        for unused_i in range(0, 16):
-            yoloPyTree.tick_once()
-            if unused_i%2:
-                blackboardProva.image = "[{'component_id':'img_only', 'set_content':'https://firebasestorage.googleapis.com/v0/b/harmonithesis.appspot.com/o/land.jpeg?alt=media&token=79c113ec-4e61-49c1-bbdf-b865a946247e'},{'component_id':'raccolta_container', 'set_content': ''}]"
-            else:
-                blackboardProva.image = "[{'component_id':'img_only', 'set_content':'https://firebasestorage.googleapis.com/v0/b/harmonithesis.appspot.com/o/land2.jpeg?alt=media&token=a3437794-a763-4b47-9052-485fd5c61ae5'},{'component_id':'raccolta_container', 'set_content': ''}]"
-            print(blackboardProva)
-            time.sleep(2)
+        for unused_i in range(0, 5):
+            webPyTree.tick_once()
+            print(blackboard_scene)
+            time.sleep(0.5)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

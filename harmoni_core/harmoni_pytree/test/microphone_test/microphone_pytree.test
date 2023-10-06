@@ -1,9 +1,0 @@
-<launch>
-    <include file="$(find harmoni_microphone)/launch/microphone_service.launch">
-    </include>
-
-    <param name="instance_id" value="default"/>
-    <node pkg="harmoni_pytree" type="microphone_service.py" name="harmoni_microphone_default_pytree" output="screen"/>
-
-    <test test-name="test_microphone" pkg="harmoni_pytree" type="rostest_microphone_pytree.py" />
-</launch>

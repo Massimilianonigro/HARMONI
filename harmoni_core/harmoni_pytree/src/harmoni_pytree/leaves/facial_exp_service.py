@@ -1,33 +1,14 @@
 #!/usr/bin/env python3
 
 # Common Imports
-import rospy, rospkg, roslib
-
-from harmoni_common_lib.constants import *
+import rospy
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, PyTreeNameSpace
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, PyTreeNameSpace
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+
 import time
-
-# import wget
-import contextlib
-import ast
-import wave
-import os
-
-#py_tree
 import py_trees
 
 class FacialExpServicePytree(py_trees.behaviour.Behaviour):
@@ -55,13 +36,13 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.instance_id = "default"
         self.name_mouth = ActuatorNameSpace.face.name + "_mouth_" + self.instance_id
         self.service_client_mouth = HarmoniActionClient(self.name_mouth)
-        #self.name_nose = ActuatorNameSpace.face.name + "_nose_" + self.instance_id
-        #self.service_client_nose = HarmoniActionClient(self.name_nose)
-        #self.name_eyes = ActuatorNameSpace.face.name + "_eyes_" + self.instance_id
-        #self.service_client_eyes = HarmoniActionClient(self.name_eyes)
+        self.name_nose = ActuatorNameSpace.face.name + "_nose_" + self.instance_id
+        self.service_client_nose = HarmoniActionClient(self.name_nose)
+        self.name_eyes = ActuatorNameSpace.face.name + "_eyes_" + self.instance_id
+        self.service_client_eyes = HarmoniActionClient(self.name_eyes)
         self.service_client_mouth.setup_client(self.name_mouth, self._result_callback, self._feedback_callback)
-        #self.service_client_eyes.setup_client(self.name_eyes, self._result_callback, self._feedback_callback, wait=False)
-        #self.service_client_nose.setup_client(self.name_nose, self._result_callback, self._feedback_callback, wait=False)
+        self.service_client_eyes.setup_client(self.name_eyes, self._result_callback, self._feedback_callback, wait=False)
+        self.service_client_nose.setup_client(self.name_nose, self._result_callback, self._feedback_callback, wait=False)
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
@@ -131,11 +112,11 @@ def main():
     #command_line_argument_parser().parse_args()
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=PyTreeNameSpace.scene.name)
-    blackboardProva.register_key("face_exp", access=py_trees.common.Access.WRITE)
-    blackboardProva.register_key("scene/nlp", access=py_trees.common.Access.WRITE)
-    blackboardProva.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
-    blackboardProva.scene.nlp = 0
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key("scene/nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+    blackboard_scene.scene.nlp = 0
     """
     [{'start':10, 'type': 'gaze', 'id':'target', 'point': [1,5,10]}]
     [{'start': 1, 'type': 'au', 'id': 'au13', 'pose': 1}]
@@ -144,18 +125,17 @@ def main():
     [{'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]
     """
    
-    print(blackboardProva)
+    print(blackboard_scene)
 
     rospy.init_node("face_default", log_level=rospy.INFO)
 
     facePyTree = FacialExpServicePytree("FaceServiceTest")
-
     facePyTree.setup()
     try:
-        for unused_i in range(0, 12):
+        for unused_i in range(0, 5):
             facePyTree.tick_once()
             time.sleep(0.5)
-            print(blackboardProva)
+            print(blackboard_scene)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

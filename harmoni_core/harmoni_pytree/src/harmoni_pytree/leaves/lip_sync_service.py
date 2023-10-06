@@ -1,39 +1,14 @@
 #!/usr/bin/env python3
 
 # Common Imports
-import rospy, rospkg, roslib
+import rospy
 
 from harmoni_common_lib.constants import *
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-import harmoni_common_lib.helper_functions as hf
-from harmoni_face.face_service import EyesService, MouthService, NoseService
-from harmoni_face.face_client import Face
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, PyTreeNameSpace, Resources
 
-# Specific Imports
-from audio_common_msgs.msg import AudioData
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
 import time
-
-# import wget
-import contextlib
-import ast
-import wave
-import os
-
-#py_tree
 import py_trees
 
 class LipSyncServicePytree(py_trees.behaviour.Behaviour):
@@ -143,34 +118,37 @@ class LipSyncServicePytree(py_trees.behaviour.Behaviour):
 
 def main():
     #command_line_argument_parser().parse_args()
-    pass
-    """
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace="harmoni_gesture")
-    blackboardProva.register_key("result_data", access=py_trees.common.Access.WRITE)
-    blackboardProva.register_key("result_message", access=py_trees.common.Access.WRITE)
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key("scene/nlp", access=py_trees.common.Access.WRITE)
+    blackboard_input = py_trees.blackboard.Client(name=ActuatorNameSpace.tts.name, namespace=ActuatorNameSpace.tts.name)
+    blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
+    blackboard_input.result = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+    blackboard_scene.scene.nlp = 0
+    """
+    [{'start':10, 'type': 'gaze', 'id':'target', 'point': [1,5,10]}]
+    [{'start': 1, 'type': 'au', 'id': 'au13', 'pose': 1}]
+    [{'start': 2, 'type': 'action', 'id': 'breath_face'}]
+    [{'start': 5, 'type': 'action', 'id': 'saucy_face'}]
+    [{'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]
+    """
+   
+    print(blackboard_scene)
 
-    blackboardProva.result_message = "SUCCESS"
-    blackboardProva.result_data = "{'gesture':'QT/sad', 'timing': 2}"
+    rospy.init_node("face_default", log_level=rospy.INFO)
 
-    rospy.init_node
-
-    print(blackboardProva)
-
-    gesturePyTree = GestureServicePytree("GestureServiceTest")
-
-    additional_parameters = dict([
-        ("GestureServicePytree_mode",False)])
-
-    gesturePyTree.setup(**additional_parameters)
+    facePyTree = LipSyncServicePytree("FaceServiceTest")
+    facePyTree.setup()
     try:
-        for unused_i in range(0, 7):
-            gesturePyTree.tick_once()
+        for unused_i in range(0, 5):
+            facePyTree.tick_once()
             time.sleep(0.5)
-            print(blackboardProva)
+            print(blackboard_scene)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")
         pass
-    """
+
+if __name__ == "__main__":
+    main()

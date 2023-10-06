@@ -2,32 +2,14 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-from harmoni_sentiment.sentiment_service import SentimentService
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
-
-#py_tree
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, DialogueNameSpace,PyTreeNameSpace
 import py_trees
 import time
-
 import py_trees.console
 
 class SentimentServicePytree(py_trees.behaviour.Behaviour):
@@ -141,26 +123,26 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.WRITE)
-    blackboardProva.result = {
-                                "message": "Ciao sono Kitty"
+    blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+    blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
+    blackboard_input.result = {
+                                "message": "i really hate you"
                             }
-    blackboardProva2 = py_trees.blackboard.Client(name="blackboardProva2", namespace=ActuatorNameSpace.sentiment.name)
-    blackboardProva2.register_key("result", access=py_trees.common.Access.READ)                        
-    print(blackboardProva)
-    print(blackboardProva2)
+    blackboard_output = py_trees.blackboard.Client(name=ActuatorNameSpace.sentiment.name, namespace=ActuatorNameSpace.sentiment.name)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)                        
+    print(blackboard_input)
+    print(blackboard_output)
 
     rospy.init_node("sentiment_default", log_level=rospy.INFO)
     
     sentimentPyTree = SentimentServicePytree("SentimentServicePytree")
     sentimentPyTree.setup()
     try:
-        for unused_i in range(0, 10):
+        for unused_i in range(0, 5):
             sentimentPyTree.tick_once()
             time.sleep(0.5)
-            print(blackboardProva)
-            print(blackboardProva2)
+            print(blackboard_input)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

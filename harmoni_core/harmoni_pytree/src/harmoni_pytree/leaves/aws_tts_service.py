@@ -6,23 +6,11 @@ import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 import harmoni_common_lib.helper_functions as hf
-from harmoni_tts.aws_tts_service import AWSTtsService
 # Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State, DialogueNameSpace, PyTreeNameSpace
+
 
 #py_tree
 import py_trees
@@ -145,27 +133,29 @@ def main():
     #command_line_argument_parser().parse_args()
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.WRITE)
-    blackboardProva.result = {
-                                "message": "Ciao sono Kitty"
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.scene.nlp = 0
+    blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+    blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
+    blackboard_input.result = {
+                                "message": "Hi, my name is QT"
                             }
-    blackboardProva2 = py_trees.blackboard.Client(name="blackboardProva2", namespace=ActuatorNameSpace.tts.name)
-    blackboardProva2.register_key("result", access=py_trees.common.Access.READ)                        
-    print(blackboardProva)
-    print(blackboardProva2)
+    blackboard_output = py_trees.blackboard.Client(name=ActuatorNameSpace.tts.name, namespace=ActuatorNameSpace.tts.name)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)                        
+    print(blackboard_input)
+    print(blackboard_output)
 
     rospy.init_node("tts_default", log_level=rospy.INFO)
     
     ttsPyTree = AWSTtsServicePytree("AWSTtsServicePytreeTest")
     ttsPyTree.setup()
     try:
-        for unused_i in range(0, 10):
+        for unused_i in range(0, 5):
             ttsPyTree.tick_once()
             time.sleep(0.5)
-            print(blackboardProva)
-            print(blackboardProva2)
+            print(blackboard_input)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

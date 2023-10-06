@@ -5,11 +5,9 @@ import rospy
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-from harmoni_bot.chatgpt_service import ChatGPTService
 
 # Specific Imports
-from harmoni_common_lib.constants import ActionType, DialogueNameSpace
+from harmoni_common_lib.constants import ActionType, DialogueNameSpace, PyTreeNameSpace
 
 #py_tree
 import py_trees
@@ -28,7 +26,6 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.READ)
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/request", access=py_trees.common.Access.READ)
-        
         self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
@@ -143,3 +140,31 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.server_state = feedback["state"]
         return
 
+def main():
+    #command_line_argument_parser().parse_args()
+
+    py_trees.logging.level = py_trees.logging.Level.DEBUG
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/utterance", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/request", access=py_trees.common.Access.WRITE)
+    blackboard_scene.scene.nlp = 0
+    blackboard_scene.scene.utterance = "['*user* Can you help me out with a code?']"
+    blackboard_scene.scene.request = True
+    
+    rospy.init_node("bot_default", log_level=rospy.INFO)
+    
+    chatgptPyTree = ChatGPTServicePytree("ChatGPTServicePytreeTest")
+    chatgptPyTree.setup()
+    try:
+        for unused_i in range(0, 5):
+            chatgptPyTree.tick_once()
+            time.sleep(0.5)
+            print(blackboard_scene)
+        print("\n")
+    except KeyboardInterrupt:
+        print("Exception occurred")
+        pass
+
+if __name__ == "__main__":
+    main()

@@ -6,28 +6,11 @@ import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-from harmoni_gesture.gesture_service import GestureService
-# Specific Imports
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
-
+from harmoni_common_lib.constants import ActionType, PyTreeNameSpace
 #py_tree
-import py_trees
 import time
-
+import py_trees
 import py_trees.console
 
 class GestureServicePytree(py_trees.behaviour.Behaviour):
@@ -111,3 +94,31 @@ class GestureServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("The feedback recieved is %s." % feedback)
         self.server_state = feedback["state"]
         return
+
+
+def main():
+    #command_line_argument_parser().parse_args()
+    py_trees.logging.level = py_trees.logging.Level.DEBUG
+    
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key("gesture", access=py_trees.common.Access.WRITE)
+    blackboard_scene.gesture = "{'gesture':'QT/bye', 'timing': 0.5}"
+   
+    print(blackboard_scene)
+
+    rospy.init_node("gesture_default", log_level=rospy.INFO)
+
+    gesturePyTree = GestureServicePytree("GestureServiceTest")
+    gesturePyTree.setup()
+    try:
+        for unused_i in range(0, 5):
+            gesturePyTree.tick_once()
+            time.sleep(0.5)
+            print(blackboard_scene)
+        print("\n")
+    except KeyboardInterrupt:
+        print("Exception occurred")
+        pass
+
+if __name__ == "__main__":
+    main()

@@ -2,32 +2,15 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
-import harmoni_common_lib.helper_functions as hf
-
-# Specific Imports
-from harmoni_common_lib.constants import DetectorNameSpace, ActionType
-from sensor_msgs.msg import Image
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+from harmoni_common_lib.constants import DetectorNameSpace, ActionType, PyTreeNameSpace, SensorNameSpace
 
 #py_tree
 import py_trees
 import time
-
 import py_trees.console
 
 class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
@@ -153,21 +136,23 @@ def main():
     #command_line_argument_parser().parse_args()
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.stt.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.READ)
-    print(blackboardProva)
+    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_scene.register_key(PyTreeNameSpace.scene.name + "/nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.scene.nlp = 0
+    blackboard_output = py_trees.blackboard.Client(name=DetectorNameSpace.stt.name, namespace=DetectorNameSpace.stt.name)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)
+    print(blackboard_output)
 
     rospy.init_node("stt_default", log_level=rospy.INFO)
     
-    sttPyTree = SpeechToTextServicePytree("GoogleSSTPytreeTest")
+    sttPyTree = SpeechToTextServicePytree("GoogleSTTPytreeTest")
 
     sttPyTree.setup()
     try:
         for unused_i in range(0, 20):
             sttPyTree.tick_once()
             time.sleep(2)
-            print(blackboardProva)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

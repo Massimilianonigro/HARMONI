@@ -104,7 +104,15 @@ RUN \
     py_trees \ 
     pickle5 \
     torch \
-    torchaudio 
+    transformers \
+    gdown \
+    pandas \
+    d3rlpy==1.1.1 \
+    scikit-learn \
+    deepspeech \
+    google-cloud-speech \
+    python-dotenv \
+    openai
 
 
 # ==================================================================

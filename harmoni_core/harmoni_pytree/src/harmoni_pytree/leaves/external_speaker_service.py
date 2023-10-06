@@ -1,38 +1,17 @@
 #!/usr/bin/env python3
 
 # Common Imports
-import rospy, rospkg, roslib
+import rospy
 
 from harmoni_common_lib.constants import *
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-import harmoni_common_lib.helper_functions as hf
-from harmoni_speaker.speaker_service import SpeakerService
 
 # Specific Imports
-from audio_common_msgs.msg import AudioData
-from harmoni_common_lib.constants import ActuatorNameSpace, ActionType, State
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import soundfile as sf
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+from harmoni_common_lib.constants import  ActionType, PyTreeNameSpace, ActuatorNameSpace
+
 import time
-
-# import wget
-import contextlib
 import ast
-import wave
-import os
-
-#py_tree
 import py_trees
 
 class ExternalSpeakerServicePytree(py_trees.behaviour.Behaviour):
@@ -126,4 +105,27 @@ class ExternalSpeakerServicePytree(py_trees.behaviour.Behaviour):
         return
 
 def main():
+    #command_line_argument_parser().parse_args()
+
+    py_trees.logging.level = py_trees.logging.Level.DEBUG
+    blackboard_input = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
+    blackboard_input.register_key("sound", access=py_trees.common.Access.WRITE)
+    blackboard_input.sound = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
+    print(blackboard_input)
+
     rospy.init_node("speaker_default", log_level=rospy.INFO)
+    
+    extspeakerPyTree = ExternalSpeakerServicePytree("ExternalSpeakerServicePytreeTest")
+    extspeakerPyTree.setup()
+    try:
+        for unused_i in range(0, 5):
+            extspeakerPyTree.tick_once()
+            time.sleep(0.5)
+            print(blackboard_input)
+        print("\n")
+    except KeyboardInterrupt:
+        print("Exception occurred")
+        pass
+
+if __name__ == "__main__":
+    main()

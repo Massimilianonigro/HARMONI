@@ -28,5 +28,12 @@ The module can be tested using
 rostest harmoni_rl rl.test
 ```
 
+## Troubleshooting
+If an error like that appears give permission to write to the harmoni_models folder (using the command `chmod +777`)
+```  bash
+This script should be run from the HARMONI directory in order to place the models in a parallel directory
+mkdir: cannot create directory ‘harmoni_models’: Permission denied
+``` 
+
 ## References
 [Documentation](https://harmoni.readthedocs.io/en/latest/packages/harmoni_rl.html)

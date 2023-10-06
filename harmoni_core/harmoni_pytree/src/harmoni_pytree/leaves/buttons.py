@@ -4,7 +4,6 @@
 from harmoni_common_lib.constants import *
 import rospy
 import py_trees
-import random
 import serial
 import time
 
@@ -80,9 +79,9 @@ def main():
     
     rospy.init_node("buttons_default", log_level=rospy.INFO)
 
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=PyTreeNameSpace.buttons.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.READ)
-    print(blackboardProva)
+    blackboard_output = py_trees.blackboard.Client(name=PyTreeNameSpace.buttons.name, namespace=PyTreeNameSpace.buttons.name)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)
+    print(blackboard_output)
 
     buttons = Buttons("ButtonsPytreeTest")
 
@@ -91,7 +90,7 @@ def main():
         for unused_i in range(0, 50):
             buttons.tick_once()
             time.sleep(1)
-            print(blackboardProva)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

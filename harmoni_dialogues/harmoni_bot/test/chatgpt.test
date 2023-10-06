@@ -1,0 +1,10 @@
+<!-- This is an example launch file for how a ROS application could use a node -->
+<launch>
+	<rosparam file="$(find harmoni_bot)/config/configuration.yaml" subst_value="True"/>
+    <param name="instance_id" value="default"/>
+    <param name="name_bot" value="chatgpt"/>
+    <node pkg="harmoni_bot" type="chatgpt_service.py" name="harmoni_bot_chatgpt_default" output="screen"/>
+
+	<param name="test_chatgpt_input" value="['*user* Can you help me out with a code?']"/>
+    <test test-name="test_chatgpt" pkg="harmoni_bot" type="rostest_chatgpt.py" />
+</launch>

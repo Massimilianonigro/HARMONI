@@ -2,29 +2,12 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
-# from harmoni_imageai.custom_service import ImageAICustomService
-import harmoni_common_lib.helper_functions as hf
 
-# Specific Imports
 from harmoni_common_lib.constants import DetectorNameSpace, ActionType
-from sensor_msgs.msg import Image
-# from imageai.Detection.Custom import CustomVideoObjectDetection
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
 
 #py_tree
 import py_trees
@@ -167,9 +150,9 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboardProva = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.stt.name)
-    blackboardProva.register_key("result", access=py_trees.common.Access.READ)
-    print(blackboardProva)
+    blackboard_output = py_trees.blackboard.Client(name=DetectorNameSpace.stt.name, namespace=DetectorNameSpace.stt.name)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)
+    print(blackboard_output)
 
     rospy.init_node("deep_stt_default", log_level=rospy.INFO)
     
@@ -177,10 +160,10 @@ def main():
 
     sttPyTree.setup()
     try:
-        for unused_i in range(0, 20):
+        for unused_i in range(0, 10):
             sttPyTree.tick_once()
             time.sleep(2)
-            print(blackboardProva)
+            print(blackboard_output)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")
