@@ -9,16 +9,8 @@ In particular we created two different services
 - the first one use the state of art model for object detection yoloV3 
 - the other one use a custom model trained on the top of yoloV3
 
-## Setup
 
-In order to use ImageAI import the python library by running the following commands:
-
-```bash 
-$ pip install imageai --upgrade
-$ pip install tensorflow==2.4.0
-``` 
-
-**(recommended)** For more information follow the official documentation: [https://github.com/OlafenwaMoses/ImageAI#dependencies](https://github.com/OlafenwaMoses/ImageAI#dependencies)
+You have to run this module into the `harmoni_imageai` container.
 
 ## Usage
 
@@ -28,12 +20,30 @@ As far custom models are concerned, there are some steps that have to be followe
 
 1. Create your own model following the steps in the documentation of ImageAI here: [https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/Custom/CUSTOMDETECTIONTRAINING.md](https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/Custom/CUSTOMDETECTIONTRAINING.md).  
 At the end of this process you will obtain 2 files: a model.h5 and a config.json. 
-2. Put these two files in the following path  `HARMONI/harmoni_model/yolo/[PUT HERE]` in the container. Be sure that names coincide with the ones in `custom_configuration.yaml` file under `harmoni_imageai` folder.
+2. Put these two files in the following path  `HARMONI/harmoni_models/yolo/[PUT HERE]` in the container. Be sure that names coincide with the ones in `custom_configuration.yaml` file under `harmoni_imageai` folder.
 
 Full documentation of ImageAI: [https://github.com/OlafenwaMoses/ImageAI#readme](https://github.com/OlafenwaMoses/ImageAI#readme)
 
 
+The following documentation refers to the ImageAI request.
+
+The API for ImageAI has:
+
+- Request Name: ActionType: START (to start the ImageAI detection)
+- Body: no body 
+- Response: no response only State (int)
+
+
+- Request Name: ActionType: STOP (to stop the ImageAI detection)
+- Body: no body 
+- Response: no response only State (int)
+   
+
+
 Here are the steps that you can follow in order to run the ImageAI service in HARMONI.
+
+
+
 
 **YoloV3**  
 Run the following commands in order to run camera service and yolo service in two different terminals:
@@ -55,6 +65,24 @@ roslaunch harmoni_imageai custom_service.launch
 
 Camera will open and one frame will be captured and put as input of the custom model. Once the output of the imageai service arrives another frame will be captured and again used as input for custom model and so on. 
 
+
+## Parameters
+
+Parameters input for the yolo service corresponds the the $instand_id_param which includes:
+
+|Parameters| Definition| Value |
+|---|-----------|------------|
+| frame_per_second  | frames per second |     int; 30|
+| output_file name  |   directory path where the output files are stored| string; "$(find harmoni_openface)/output/ "   |
+| subscriber_id  | name of the subscriber id |  string; "default"   |
+| log_progress  | logging of the model |  bool; True   |
+| minimum_percentage_probability  | minimum percentage for recognizing objects |  int; 50   |
+| return_detected_frame  | if true, allows you to obtain the detected video frame as a Numpy array |  bool; False   |
+| model_path  | path of the model stored |  string; "/root/harmoni_catkin_ws/src/HARMONI/harmoni_models/yolo/"   |
+| temp_path  | temporary directory where to store results |  string; "/root/harmoni_catkin_ws/src/HARMONI/harmoni_detectors/harmoni_imageai/temp_data/"   |
+
+
+
 ## Testing
 
 The module can be tested using
@@ -68,3 +96,6 @@ rostest harmoni_imageai imageai_yolo.test
 ```  bash
 rostest harmoni_imageai imageai_custom.test
 ```
+
+## References
+[Documentation](https://harmoni20.readthedocs.io/en/latest/packages/harmoni_imageai.html)

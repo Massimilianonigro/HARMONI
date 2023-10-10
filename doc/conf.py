@@ -24,8 +24,8 @@ sys.path.insert(0, os.path.abspath("../"))
 
 # -- Project information -----------------------------------------------------
 
-project = "HARMONI"
-copyright = "2021, Chris, Micol, Michael"
+project = "HARMONI2.0"
+copyright = "2023, Chris, Micol, Michael"
 author = "Chris, Micol, Michael"
 
 

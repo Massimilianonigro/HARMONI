@@ -66,11 +66,7 @@ Parameters input for the gesture service corresponds the the $ROBOT_param which 
 
 ## Testing
 
-To test that the gesture has been configured properly, use the command ```rostest harmoni_gesture gesture.test``` which will play a short phrase through the configured device.
-This testing works for the simulator on kinetic.
-
-TODO:
-- Testing to perform on the real robot
+To test that the gesture has been configured properly, use the command ```rostest harmoni_gesture gesture.test``` which will play a short gesture to the robot used.
 
 ## References
-[Documentation](https://harmoni.readthedocs.io/en/latest/packages/harmoni_gesture.html)
+[Documentation](https://harmoni20.readthedocs.io/en/latest/packages/harmoni_gesture.html)

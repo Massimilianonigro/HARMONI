@@ -129,6 +129,7 @@ harmoni_models/stt/*
 harmoni_models/ir/*
 harmoni_models/rl/*
 harmoni_models/yolo/*
+OpenFace/*
 OpenFace/
 
 temp_data

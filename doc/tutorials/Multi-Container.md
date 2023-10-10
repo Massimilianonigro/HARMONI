@@ -24,9 +24,11 @@ docker exec -it $CONTAINER_NAME bash
 
 To connect to each of the containers you should connect with four seperate terminals:
 1. harmoni_full (the ROS master)
-2. ros_hardware (hardware services)
-3. ros_w2l (Words-to-Letter for the speech-to-text detector)
-4. harmoni_face_detector (face detector)
+2. harmoni_hardware (hardware services)
+3. harmoni_detectors (opensmile, vad and other detectors)
+4. harmoni_face_detector (face detector and openface)
+5. harmoni_imageai (for running object recognition)
+6. harmoni_fer (for running facial expression recognition)
 
 
 ## Executing Across Containers

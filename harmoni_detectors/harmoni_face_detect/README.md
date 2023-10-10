@@ -1,6 +1,6 @@
 # HARMONI Face Detector
 
-The face detection module works by subscribing to an image topic and detecting faces in the recieved images, which are then published to another topic.
+The face detection module works by subscribing to an image topic and detecting faces in the received images, which are then published to another topic.
 
 ## Usage
 

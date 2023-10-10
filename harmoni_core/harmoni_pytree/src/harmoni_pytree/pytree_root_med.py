@@ -6,15 +6,9 @@
 
 import argparse
 import functools
-from py_trees.behaviours import dummy
 import py_trees.console as console
-from py_trees.idioms import either_or
 import py_trees
-import time
 import rospy
-from random import randint
-import subprocess
-import operator
 from harmoni_common_lib.constants import *
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
 from harmoni_pytree.leaves.script_service import ScriptService
@@ -26,7 +20,6 @@ from harmoni_pytree.leaves.microphone_service import MicrophoneServicePytree
 from harmoni_pytree.leaves.check_stt_result import CheckSTTResult
 from harmoni_pytree.leaves.gesture_service import GestureServicePytree
 from harmoni_pytree.leaves.wait_results import WaitResults
-from harmoni_common_lib.constants import ActuatorNameSpace, DialogueNameSpace, State
 import sys
 
 ##############################################################################

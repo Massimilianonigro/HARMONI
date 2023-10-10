@@ -2,22 +2,16 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import State
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
-import harmoni_common_lib.helper_functions as hf
-
-# Specific Imports
 from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 import cv2
-from std_msgs.msg import String, Float64MultiArray
-import numpy as np
+from std_msgs.msg import String
 import os
-import io
 import subprocess
 import pandas as pd
 

@@ -4,7 +4,7 @@ openface:
     fps: 1
     window_size: 1
     overlap: 0
-    executable_dir: $(find harmoni_openface)/OpenFace/build/bin/FaceLandmarkImg
+    executable_dir: /root/OpenFace/build/bin/FaceLandmarkImg
     input_dir: $(find harmoni_openface)/input/
     output_dir: $(find harmoni_openface)/output/
     subscriber_id: default
