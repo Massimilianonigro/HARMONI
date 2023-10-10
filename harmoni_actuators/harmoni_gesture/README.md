@@ -21,6 +21,8 @@ For QT for example, the available gestures are:
 - ...
 and all the available xml files in the data/QT folder.
 
+
+You can run this module in the `harmoni_full` container.
 ## Usage
 
 The following documentation refers to the gesture request.

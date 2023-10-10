@@ -13,9 +13,6 @@ bot:
 
 chat_gpt:
   default_param:
-    user_id: "Micol"
-    bot_name: "QTRobot"
-    bot_alias: "DemoBot"
 
 
 google:

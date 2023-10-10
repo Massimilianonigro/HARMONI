@@ -26,13 +26,9 @@ class ChatGPTService(HarmoniServiceManager):
     """
 
     def __init__(self, name, param):
-        """Constructor method: Initialization of variables and lex parameters + setting up"""
+        """Constructor method: Initialization of variables and chatgpt parameters + setting up"""
         super().__init__(name)
-        """ Initialization of variables and lex parameters """
-        self.user_id = param["user_id"]
-        self.bot_name = param["bot_name"]
-        self.bot_alias = param["bot_alias"]
-        self.region_name = param["region_name"]
+        """ Initialization of variables and chatgpt parameters """
         self.stop_request = False
         self.flagged_sentence = []
         self.state = State.INIT
@@ -40,7 +36,7 @@ class ChatGPTService(HarmoniServiceManager):
         return
 
     def setup_chat_gpt(self):
-        """[summary] Setup the lex request, connecting to ChatGPT services"""
+        """[summary] Setup the chatgpt request, connecting to ChatGPT services"""
         env_path="/root/harmoni_catkin_ws/src/HARMONI/.env"
         load_dotenv(env_path)
         rospy.loginfo("Connecting to GPT")
@@ -54,7 +50,7 @@ class ChatGPTService(HarmoniServiceManager):
         """[summary]
 
         Args:
-            input_text (str): User request (or input text) for triggering Lex Intent
+            input_text (str): User request (or input text) for triggering chatgpt
 
         Returns:
             object: It containes information about the response received (bool) and response message (str)

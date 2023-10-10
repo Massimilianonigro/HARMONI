@@ -1,7 +1,7 @@
 # HARMONI Web
 
 Harmoni web supports the creation of a custom web interface for use with HARMONI.
-
+You can run this module in the `harmoni_full`  container. 
 ## Usage
 
 

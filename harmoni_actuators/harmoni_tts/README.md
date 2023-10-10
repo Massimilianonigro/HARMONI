@@ -1,6 +1,7 @@
 # HARMONI TTS
 
-The Text To Speech package takes text as action arguments and produces audio and visemes for speech. 
+The Text To Speech package takes text as action arguments and produces audio and visemes for speech.
+You can run this module in the `harmoni_full`  container. 
 
 ## Usage
 

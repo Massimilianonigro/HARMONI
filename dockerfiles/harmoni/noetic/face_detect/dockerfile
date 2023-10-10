@@ -155,4 +155,7 @@ RUN \
     py_trees \
     pandas
 
+WORKDIR /$ROS_WS/harmoni_catkin_ws/
+
+
 CMD ["/bin/bash"]

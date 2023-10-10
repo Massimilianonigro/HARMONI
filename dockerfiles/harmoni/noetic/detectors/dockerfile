@@ -9,5 +9,6 @@ RUN \
     torchaudio \
     onnxruntime==1.15 \
     py_trees 
-    
+
+
 CMD ["/bin/bash"]

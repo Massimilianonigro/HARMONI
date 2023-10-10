@@ -2,6 +2,8 @@
 
 Sentiment analysis service to get whether a text has a positive or negative sentiment using the huggingface transformers library.
 
+You can run this module in the `harmoni_full` container.
+
 ## Usage
 
 The following documentation refers to the sentiment request.

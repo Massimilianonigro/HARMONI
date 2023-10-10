@@ -1,5 +1,9 @@
 # HARMONI Speaker
 
+
+You can run this module in the `harmoni_full` or/and  `harmoni_hardware` containers.
+
+
 ## Usage
 The speaker device is configured in the dockerfiles/config/asoundrc file, whose contents are shown below:
 

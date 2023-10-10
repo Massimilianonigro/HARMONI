@@ -8,12 +8,12 @@
 
 #docker pull harmoniteam/harmoni:noetic-base
 
-docker pull harmoni02/harmoni2.0:full
+docker push harmoni02/harmoni2.0:full
 
-docker pull harmoni02/harmoni2.0:detectors
+docker push harmoni02/harmoni2.0:detectors
 
-docker pull harmoni02/harmoni2.0:imageai
+docker push harmoni02/harmoni2.0:imageai
 
-docker pull harmoni02/harmoni2.0:fer
+docker push harmoni02/harmoni2.0:fer
 
-docker pull harmoni02/harmoni2.0:face_detect
+docker push harmoni02/harmoni2.0:face_detect

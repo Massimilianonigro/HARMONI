@@ -18,6 +18,9 @@ The mouth service handles also:
 The eyes service handles also:
 - Gaze direction (where the face is looking at)
 
+
+You can run this module in the `harmoni_full` container.
+
 ## Usage
 
 The following documentation refers to the facial expression and action units requests (the ones that are managed by all the services). These requests can be called from every face service: mouth, eyes, and nose.
