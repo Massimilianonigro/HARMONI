@@ -33,14 +33,14 @@ class STTGoogleService(HarmoniServiceManager):
         self.audio_channel = param["audio_channel"]
         self.credential_path = param["credential_path"]
         self.subscriber_id = param["subscriber_id"]
-        self.max_duration = param["max_duration"]
-        self._t_wait = param["waiting_time"]
+        self.wait_duration = param["wait_duration"]
+        self.max_silence = param["max_silence"]
+        self.time_start_request = None
         self.start_time = None
         self.elapsed_time = None
         self.service_id = hf.get_child_id(self.name)
         self.result_msg = ""
         self.stt_response = ""
-        self._text = ''
         self._first_response = True
         self._buff = queue.Queue()
         self.closed = False
@@ -106,70 +106,6 @@ class STTGoogleService(HarmoniServiceManager):
         #rospy.loginfo("Add data to buffer")
         if self.state == State.REQUEST:
             self._buff.put(data.data)
-        # rospy.loginfo("Items in buffer: "+ str(self._buff.qsize()))
-
-        # else:
-            # rospy.loginfo("Not Transcribing data")
-
-    def listen_print_loop(self,responses):
-        """ Prints responses coming from Google STT """ 
-        self.stt_response = ""
-
-        for response in responses:
-            if not response.results:
-                continue
-
-            rospy.loginfo(f"Response: {response}")
-
-            # The `results` list is consecutive. For streaming, we only care about
-            # the first result being considered, since once it's `is_final`, it
-            # moves on to considering the next utterance.
-            result = response.results[0]
-            if not result.alternatives:
-                continue
-
-            # Display the transcription of the top alternative.
-            transcript = result.alternatives[0].transcript
-            # self.text_pub.publish(transcript)
-            # self.response_received = True
-            
-            for result in response.results:
-                if result.is_final:
-                    # rospy.loginfo(result.alternatives[0].transcript)
-                    rospy.loginfo("STT response text: "+ result.alternatives[0].transcript)
-                    self.stt_response = result.alternatives[0].transcript
-                    self.text_pub.publish(self.stt_response)
-                    self.end_duration = rospy.get_rostime()
-                    duration = self.end_duration - self.start_duration
-                    self.duration_pub.publish(duration)
-                    self.response_received = True
-    
-    def listen_print_untill_result_is_final(self,responses):
-        """ Prints responses coming from Google STT """ 
-        self.stt_response = ""
-
-        self.start_time = time.time()
-        
-        for response in responses:
-            if not response.results:
-                continue
-            #rospy.loginfo(f"Response: {response}")
-            self.start_time = time.time()
-            
-            result = response.results[0]
-            if not result.alternatives:
-                continue
-
-            #transcript = result.alternatives[0].transcript
-            for result in response.results:
-                if result.is_final:
-                    text = result.alternatives[0].transcript
-                    if self._first_response:
-                        self._text = text
-                        self._first_response = False
-                    else:
-                        self._text += text
-                    
 
     def transcribe_file_request(self, data):
         """ Transcribes a single audio file """
@@ -204,6 +140,51 @@ class STTGoogleService(HarmoniServiceManager):
             self.response_received = True
             self.result_msg = ""
         return
+    
+    def listen_print_until_result_is_final(self,responses):
+        """ Prints responses coming from Google STT """ 
+        self.stt_response = ""
+
+        self.start_time = time.time()
+        
+        num_chars_printed = 0
+        for response in responses:
+            if not response.results:
+                continue
+            self.start_time = time.time()
+            # The `results` list is consecutive. For streaming, we only care about
+            # the first result being considered, since once it's `is_final`, it
+            # moves on to considering the next utterance.
+            result = response.results[0]
+            if not result.alternatives:
+                continue
+
+            # Display the transcription of the top alternative.
+            transcript = result.alternatives[0].transcript
+
+            # Display interim results, but with a carriage return at the end of the
+            # line, so subsequent lines will overwrite them.
+            #
+            # If the previous result was longer than this one, we need to print
+            # some extra spaces to overwrite the previous result
+            overwrite_chars = " " * (num_chars_printed - len(transcript))
+          
+            if not result.is_final:
+                self._first_response = False
+                rospy.loginfo(transcript + overwrite_chars + "\r")
+                num_chars_printed = len(transcript)
+            else:
+                rospy.loginfo("STT response text: "+ transcript + overwrite_chars)
+                self.stt_response = result.alternatives[0].transcript
+                self.text_pub.publish(self.stt_response)
+                self.end_duration = rospy.get_time()
+                duration = self.end_duration - self.start_duration
+                self.duration_pub.publish(duration)
+                self.response_received = True
+                return
+            num_chars_printed = 0
+
+   
 
     def stt_callback(self, data):
         """ Callback function subscribing to the microphone topic"""
@@ -219,44 +200,35 @@ class STTGoogleService(HarmoniServiceManager):
         self.start_duration = rospy.get_time()
         try:
             # Transcribes data coming from microphone 
-
             audio_generator = self.generator()
             self.requests = (
                 speech.StreamingRecognizeRequest(audio_content=content)
                 for content in audio_generator
             )
 
-            self.start_time = time.time() #time.time() is the current time
-            print("Timer started at: ", self.start_time)
+            self.time_start_request = time.time() #time.time() is the current time
+            self.start_time = time.time()
 
             responses = self.client.streaming_recognize(self.streaming_config, self.requests)
-
-            if self.max_duration < self.elapsed_time:
-                print("Timeout!")
-                print("STT response text: "+ self.stt_response)
-                self.response_received = True
-                self.state = State.SUCCESS
+            if not self._first_response:
+                if self.wait_duration < self.elapsed_time:
+                    print("Timeout!")
+                    print("STT response text: "+ self.stt_response)
+                    self.response_received = True
+                    self.state = State.SUCCESS
+                else:
+                    self.listen_print_until_result_is_final(responses)
             else:
-                self.listen_print_untill_result_is_final(responses)
+                self.listen_print_until_result_is_final(responses)
 
-            r = rospy.Rate(10)
+            r = rospy.Rate(1)
             while not self.response_received:
                 r.sleep()
-                if (self.elapsed_time > self._t_wait):
-                    if not self._first_response:
-                        self.response_received = True
-                        self._first_response = True
-                        self.closed = True
-            rospy.loginfo("STT response text: "+ self._text)
-            self.stt_response = self._text 
+            rospy.loginfo("STT response text: "+ self.stt_response)
             self.text_pub.publish(self.stt_response)
             self.state = State.SUCCESS
             self.result_msg = self.stt_response
             self.response_received = True
-            self.end_duration = rospy.get_time()
-            duration = self.end_duration - self.start_duration
-            self.duration_pub.publish(duration)
-            self._text = ""
         except rospy.ServiceException:
             self.state = State.FAILED
             rospy.loginfo("Service call failed")
@@ -274,39 +246,43 @@ class STTGoogleService(HarmoniServiceManager):
     def generator(self):
         """ Generator of data for Google STT """
         # From https://cloud.google.com/speech-to-text/docs/streaming-recognize
-        
-        while not self.closed:
-            self.elapsed_time = time.time() - self.start_time
-            print("elapsed: ",self.elapsed_time)
 
+        while not self.closed:
             # Use a blocking get() to ensure there's at least one chunk of
             # data, and stop iteration if the chunk is None, indicating the
             # end of the audio stream.
+            self.elapsed_time = time.time() - self.start_time
+            self.elapsed_time_from_start = time.time() - self.time_start_request
+            print("elapsed: ",self.elapsed_time)
             chunk = self._buff.get()
-            
             if chunk is None:
-                print("chunk is None")
                 return
             data = [chunk]
 
-            if self._first_response:
-                if self.max_duration < self.elapsed_time:
+            
+                
+            if not self._first_response:
+                if self.wait_duration < self.elapsed_time:
                     print("end")
                     return
             else:
-                if (self.elapsed_time > self._t_wait):
+                if  self.max_silence < self.elapsed_time_from_start:
                     print("end")
+                    self._first_response = True
+                    self.response_received = True
+                    self.state = State.FAILED
                     return
+                else:
+                    self.start_time = time.time()
+
             # Now consume whatever other data's still buffered.
-            
             while True:
                 try:
                     chunk = self._buff.get(block=False)
                     if chunk is None:
-                        print("chunk is None")
                         return
                     data.append(chunk)
-                except queue.Empty:  
+                except queue.Empty:
                     break
 
             yield b"".join(data)
@@ -369,7 +345,6 @@ def main():
         s = STTGoogleService(service_id, params)
 
         service_server = HarmoniServiceServer(name=service_id, service_manager=s)
-
         print(service_name)
         print("**********************************************************************************************")
         print(service_id)
