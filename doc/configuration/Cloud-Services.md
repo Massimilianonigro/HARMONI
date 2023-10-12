@@ -2,6 +2,25 @@
 
 _What is needed to connect to cloud services._
 
+
+## Setup OpenAI ChatGPT
+Set up your OpenAI account: https://platform.openai.com/
+
+Then create in the HARMONI repository a .env file
+
+Then, in the terminal,
+```bash
+$ cd HARMONI
+$ nano .env
+# Enter the IAM user access and secret keys here.
+```
+and then add:
+
+OPENAI_ORGANIZATION = $ORGANIZATION_ID
+OPENAI_API_KEY = $API_KEY
+
+Substitute the $ORGANIZATION_ID and the $API_KEY with your personal one that you find the in your OpenAI account setting. 
+
 ## Setup Amazon Accounts
 (If you are planning to use Lex or Polly) Set up AWS account following these steps: 
 
