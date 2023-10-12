@@ -52,5 +52,13 @@ rostest harmoni_vad vad.test
 The mock audio used is harmoni_stt/test_data/hello.wav
 It can be changed using the param test_vad_input
 
+
+## Troubleshooting
+
+If an error like: "ImportError: cannot import name 'Self' from 'typing_extensions' (/usr/local/lib/python3.8/dist-packages/typing_extensions.py)" raises, run the following command in the harmoni_detector container:
+```
+pip install typing-extensions --upgrade
+```
+
 ## References
 [Documentation](https://harmoni20.readthedocs.io/en/latest/packages/harmoni_vad.html)

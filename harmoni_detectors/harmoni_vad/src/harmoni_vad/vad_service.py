@@ -2,28 +2,21 @@
 
 # Common Imports
 import rospy
-import roslib
 
 from harmoni_common_lib.constants import State
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
-import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
 from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
 from std_msgs.msg import String, Bool
 from audio_common_msgs.msg import AudioData
 import numpy as np
-import os
-import io
 import torch
 
 class VoiceActivityDetector(HarmoniServiceManager):
-    """Face expression recognition detector based off of FaceChannels
-    Args:
-        detector_threshold(float): Confidence threshold for faces. Positive values
-            will return fewer detections, and negative values more detections.
-            This value can be changed at any time with no major side-effects.
+    """Voice activity detector
+    
     """
 
 
