@@ -31,7 +31,7 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
         self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.READ)
         super(AWSTtsServicePytree, self).__init__(name)
@@ -135,7 +135,7 @@ def main():
     blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
     blackboard_scene.register_key("nlp", access=py_trees.common.Access.WRITE)
     blackboard_scene.nlp = 0
-    blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+    blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name )
     blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
     blackboard_input.result = {
                                 "message": "Hi, my name is QT"

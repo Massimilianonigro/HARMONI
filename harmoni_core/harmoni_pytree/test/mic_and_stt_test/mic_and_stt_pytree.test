@@ -1,7 +1,7 @@
 <launch>
     <include file="$(find harmoni_microphone)/launch/microphone_service.launch"></include>
 
-    <include file="$(find harmoni_stt)/launch/stt_deepspeech_service.launch"></include>
+    <include file="$(find harmoni_stt)/launch/stt_google_service.launch"></include>
 
     <test test-name="test_mic_and_stt" pkg="harmoni_pytree" type="rostest_mic_and_stt_pytree.py"/>
 </launch>

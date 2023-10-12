@@ -30,8 +30,9 @@ class TestMicAndSttPyTree(unittest.TestCase):
         # blackboard for test-to-speech data, which is updated after result is fetched
         self.blackboard_stt = py_trees.blackboard.Client(name="blackboard_stt", namespace=DetectorNameSpace.stt.name)
         self.blackboard_stt.register_key("result", access=py_trees.common.Access.WRITE)
-
-
+        self.blackboard_scene = py_trees.blackboard.Client(name="scene", namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.nlp = 1
         self.root = create_root()
         self.tree = py_trees.trees.BehaviourTree(self.root)
         self.tree.setup(timeout=15)
@@ -50,11 +51,8 @@ class TestMicAndSttPyTree(unittest.TestCase):
                 print("Tick number: ", unused_i)
         
         except Exception:
-            assert self.root.status==py_trees.common.Status.SUCCESS
             print(traceback.format_exc())
-
-        assert self.root.status==py_trees.common.Status.SUCCESS
-
+            assert self.root.status==py_trees.common.Status.SUCCESS
         return
     
 

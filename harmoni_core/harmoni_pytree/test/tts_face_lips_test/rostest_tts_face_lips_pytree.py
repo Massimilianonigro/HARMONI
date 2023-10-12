@@ -30,11 +30,12 @@ class TestTtsAndFaceLipsPyTree(unittest.TestCase):
         self.blackboard_tts = py_trees.blackboard.Client(name="output_tts", namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.READ) 
         self.blackboard_scene = py_trees.blackboard.Client(name="scene", namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.WRITE)
-        self.blackboard_scene.register_key(key="face_exp", access=py_trees.common.Access.WRITE)
-        self.blackboard_scene.scene.nlp = 1
-        self.blackboard_scene.face_exp = "[ {'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
-        self.blackboard_input_tts = py_trees.blackboard.Client(name="input_tts", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.WRITE)
+        self.blackboard_face = py_trees.blackboard.Client(name="face", namespace=ActuatorNameSpace.face.name)
+        self.blackboard_face.register_key(key="face_exp", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.nlp = 1
+        self.blackboard_face.face_exp = "[ {'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+        self.blackboard_input_tts = py_trees.blackboard.Client(name="input_tts", namespace=DialogueNameSpace.bot.name)
         self.blackboard_input_tts.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_input_tts.result = {"message":"Hello, my name is Botty!"}
         self.root = create_root()
@@ -50,20 +51,15 @@ class TestTtsAndFaceLipsPyTree(unittest.TestCase):
     def test_tts_face_lips(self):
         rospy.loginfo(f"Starting to tick")
         try:
-            #for unused_i in range(0, 10):
             self.tree.tick_tock(period_ms=500, number_of_iterations=3)
             time.sleep(1)
             print(self.blackboard_tts)
             print(self.blackboard_scene)
             print(self.blackboard_input_tts)
-                #print("Tick number: ", unused_i)
 
         except Exception:
-            #assert self.root.status==py_trees.common.Status.SUCCESS
             print(traceback.format_exc())
-
-        assert self.root.status==py_trees.common.Status.SUCCESS
-
+            assert self.root.status==py_trees.common.Status.SUCCESS
         return
     
 

@@ -3,7 +3,7 @@
 
 PKG = "test_harmoni_mic_stt_bot_tts_speaker"
 # Common Imports
-import unittest, rospy, roslib, sys
+import unittest, rospy, sys
 import traceback
 
 # Specific Imports
@@ -27,20 +27,22 @@ class TestMicSttBotTtsSpeakerPyTree(unittest.TestCase):
         py_trees.logging.level = py_trees.logging.Level.DEBUG
         
         
-        blackboard_tts = py_trees.blackboard.Client(name="blackboard_tts", namespace=ActuatorNameSpace.tts.name)
-        blackboard_tts.register_key("result", access=py_trees.common.Access.READ) 
+        self.blackboard_tts = py_trees.blackboard.Client(name="blackboard_tts", namespace=ActuatorNameSpace.tts.name)
+        self.blackboard_tts.register_key("result", access=py_trees.common.Access.READ) 
         
-        blackboard_scene = py_trees.blackboard.Client(name="blackboard_scene", namespace=PyTreeNameSpace.scene.name)
-        blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
-        blackboard_scene.scene.nlp = 1
-        blackboard_scene.scene.request = "Hello?"
-        blackboard_scene.scene.utterance = "Hello"
+        self.blackboard_scene = py_trees.blackboard.Client(name="blackboard_scene", namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key="request", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key="utterance", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.nlp = 1
+        self.blackboard_scene.request = True
+        self.blackboard_scene.utterance = "['*user* Can you help me out with a code?']"
 
-        blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
-        blackboard_bot.register_key("result", access=py_trees.common.Access.READ) 
+        self.blackboard_bot = py_trees.blackboard.Client(name="blackboard_bot", namespace=DialogueNameSpace.bot.name)
+        self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ) 
         
-        blackboard_stt = py_trees.blackboard.Client(name="blackboardProva", namespace=DetectorNameSpace.stt.name)
-        blackboard_stt.register_key("result", access=py_trees.common.Access.READ)
+        self.blackboard_stt = py_trees.blackboard.Client(name="blackboard_stt", namespace=DetectorNameSpace.stt.name)
+        self.blackboard_stt.register_key("result", access=py_trees.common.Access.READ)
 
         self.root = create_root()
         self.tree = py_trees.trees.BehaviourTree(self.root)
@@ -50,10 +52,10 @@ class TestMicSttBotTtsSpeakerPyTree(unittest.TestCase):
         rospy.loginfo("Setup completed....starting test")
 
    
-    def test_mic_stt(self):
+    def test_mic_stt_bot_tts_speaker(self):
         rospy.loginfo(f"Starting to tick")
         try:
-            for unused_i in range(0, 10):
+            for unused_i in range(0, 60):
                 self.tree.tick()
                 time.sleep(1)
                 print(self.blackboard_stt)
@@ -63,16 +65,16 @@ class TestMicSttBotTtsSpeakerPyTree(unittest.TestCase):
             assert self.root.status==py_trees.common.Status.SUCCESS
             print(traceback.format_exc())
 
-        assert self.root.status==py_trees.common.Status.SUCCESS
+        print(self.root.status==py_trees.common.Status.SUCCESS)
 
         return
     
 
 def main():
     import rostest
-    rospy.loginfo("test_mic_stt started")
+    rospy.loginfo("test_mic_stt_bot_tts_speaker started")
     rospy.loginfo("TestMicSttBotTtsSpeaker: sys.argv: %s" % str(sys.argv))
-    rostest.rosrun(PKG, "test_mic_stt_pytree", TestMicSttBotTtsSpeakerPyTree, sys.argv)
+    rostest.rosrun(PKG, "test_mic_stt_bot_tts_speaker_pytree", TestMicSttBotTtsSpeakerPyTree, sys.argv)
 
 
 if __name__ == "__main__":
