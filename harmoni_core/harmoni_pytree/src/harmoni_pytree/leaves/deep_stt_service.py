@@ -7,7 +7,7 @@ from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
 
-from harmoni_common_lib.constants import DetectorNameSpace, ActionType
+from harmoni_common_lib.constants import DetectorNameSpace, ActionType, SensorNameSpace
 
 #py_tree
 import py_trees
@@ -28,8 +28,6 @@ class DeepSpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.send_request = True
         self.service_id = 'default'
         self.blackboards = []
-        self.blackboard_microphone = self.attach_blackboard_client(name=self.name, namespace=SensorNameSpace.microphone.name)
-        self.blackboard_microphone.register_key("state", access=py_trees.common.Access.READ)
         self.blackboard_stt = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.stt.name)
         self.blackboard_stt.register_key("result", access=py_trees.common.Access.WRITE)
         rospy.Subscriber(

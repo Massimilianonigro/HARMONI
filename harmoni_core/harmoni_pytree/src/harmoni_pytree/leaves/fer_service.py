@@ -40,8 +40,8 @@ class FERServicePytree(py_trees.behaviour.Behaviour):
         self.send_request = True
 
         self.blackboards = []
-        self.blackboard_face_detection = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.fer.name)
-        #self.blackboard_face_detection.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_fer = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.fer.name)
+        self.blackboard_fer.register_key("result", access=py_trees.common.Access.WRITE)
         super(FERServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -76,6 +76,7 @@ class FERServicePytree(py_trees.behaviour.Behaviour):
             new_status = py_trees.common.Status.SUCCESS
         else:
             new_status = py_trees.common.Status.FAILURE
+        self.blackboard_fer.result = new_status
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         

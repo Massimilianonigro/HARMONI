@@ -32,12 +32,6 @@ class ExternalSpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
-        """
-        for parameter in additional_parameters:
-            print(parameter, additional_parameters[parameter])  
-            if(parameter ==ActuatorNameSpace.speaker.name):
-                self.mode = additional_parameters[parameter]  
-        """
         self.service_client_ext_speaker = HarmoniActionClient(self.name)
         self.server_name = "speaker_default"
         self.service_client_ext_speaker.setup_client(self.server_name, 
@@ -53,14 +47,15 @@ class ExternalSpeakerServicePytree(py_trees.behaviour.Behaviour):
     
     def update(self):
         if self.send_request:
+            self.send_request = False
             self.logger.debug(f"Sending goal to {self.server_name}")
             self.service_client_ext_speaker.send_goal(
                 action_goal = ActionType["DO"].value,
-                optional_data="",
+                optional_data=self.blackboard_ext_speaker.sound,
                 wait=False,
             )
             self.logger.debug(f"Goal sent to {self.server_name}")
-            new_status =  py_trees.common.Status.RUNNING
+            new_status = py_trees.common.Status.RUNNING
         else:
             new_state = self.service_client_ext_speaker.get_state()
             print(new_state)
@@ -70,7 +65,7 @@ class ExternalSpeakerServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.SUCCESS
             else:
                 new_status = py_trees.common.Status.FAILURE
-
+                raise
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
 
@@ -90,12 +85,12 @@ class ExternalSpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
-        """ Recieve and store result with timestamp """
+        """ Receive and store result with timestamp """
         self.logger.debug("The result of the request has been received")
         self.logger.debug(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
-        self.client_result = result["response"]
+        self.client_result = result
         return
 
     def _feedback_callback(self, feedback):

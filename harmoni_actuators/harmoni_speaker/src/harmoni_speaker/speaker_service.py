@@ -39,6 +39,9 @@ class SpeakerService(HarmoniServiceManager):
         self.state = State.INIT
         self.rospack = rospkg.RosPack()
         return
+    
+    def stop(self):
+        return
 
     def do(self, data):
         """Publishes audio to the "/audio/audio" topic for the audio_play module
@@ -56,7 +59,7 @@ class SpeakerService(HarmoniServiceManager):
         self.actuation_completed = False
         try:
             if type(data) == str:
-                if ".wav" in data:
+                if "wav" in data:
                     data = self.file_path_to_audio_data(data)
                     duration = data["duration"] - AUDIO_DELAY
                 else:

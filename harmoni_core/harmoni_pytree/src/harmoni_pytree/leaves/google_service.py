@@ -25,23 +25,15 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.send_request = True
         
         self.blackboards = []
-        self.blackboard_microphone = self.attach_blackboard_client(name=self.name, namespace=SensorNameSpace.microphone.name)
-        self.blackboard_microphone.register_key("state", access=py_trees.common.Access.READ)
         self.blackboard_stt = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.stt.name)
         self.blackboard_stt.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.READ)
         
         super(SpeechToTextServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
-        """
-         for parameter in additional_parameters:
-            print(parameter, additional_parameters[parameter])  
-            if(parameter =="SpeechToTextServicePytree_mode"):
-                self.mode = additional_parameters[parameter]
-        """
         self.service_client_stt = HarmoniActionClient(self.name)
         self.server_name = "stt_default"
         self.service_client_stt.setup_client(self.server_name, 
@@ -56,7 +48,7 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-        if self.blackboard_scene.scene.nlp == 2:
+        if self.blackboard_scene.nlp == 2:
             new_status = py_trees.common.Status.SUCCESS
         else:  
             if self.send_request:
@@ -137,8 +129,8 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name + "/nlp", access=py_trees.common.Access.WRITE)
-    blackboard_scene.scene.nlp = 0
+    blackboard_scene.register_key("nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.nlp = 0
     blackboard_output = py_trees.blackboard.Client(name=DetectorNameSpace.stt.name, namespace=DetectorNameSpace.stt.name)
     blackboard_output.register_key("result", access=py_trees.common.Access.READ)
     print(blackboard_output)

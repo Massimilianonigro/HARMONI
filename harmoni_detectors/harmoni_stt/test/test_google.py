@@ -49,7 +49,7 @@ class TestGoogle_Common(unittest.TestCase):
         )
         rospy.loginfo("TestGoogle: Turning ON stt server")
         self.client.send_goal(
-            action_goal=ActionType.ON, optional_data="Setup", wait=False
+            action_goal=ActionType.REQUEST, optional_data="Setup", wait=False
         )
         rospy.loginfo("TestGoogle: Started up. waiting for Google startup")
 

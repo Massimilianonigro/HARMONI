@@ -24,7 +24,7 @@ class SentimentServicePytree(py_trees.behaviour.Behaviour):
         self.blackboards = []
         self.blackboard_sentiment = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.sentiment.name)
         self.blackboard_sentiment.register_key("result", access=py_trees.common.Access.WRITE)
-        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
 
         super(SentimentServicePytree, self).__init__(name)
@@ -123,7 +123,7 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
+    blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name )
     blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
     blackboard_input.result = {
                                 "message": "i really hate you"

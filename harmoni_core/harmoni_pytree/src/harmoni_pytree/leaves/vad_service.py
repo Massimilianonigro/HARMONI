@@ -25,7 +25,7 @@ class VADServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
         self.blackboard_vad = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.vad.name)
-        #self.blackboard_vad.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_vad.register_key("result", access=py_trees.common.Access.WRITE)
         super(VADServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -60,6 +60,7 @@ class VADServicePytree(py_trees.behaviour.Behaviour):
             new_status = py_trees.common.Status.SUCCESS
         else:
             new_status = py_trees.common.Status.FAILURE
+        self.blackboard_vad.result = new_status
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         

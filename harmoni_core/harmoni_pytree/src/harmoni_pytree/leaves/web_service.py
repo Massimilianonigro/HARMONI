@@ -5,7 +5,7 @@ import rospy
 
 from harmoni_common_lib.action_client import HarmoniActionClient
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.constants import PyTreeNameSpace
+from harmoni_common_lib.constants import PyTreeNameSpace, ActuatorNameSpace, ActionType
 from harmoni_common_lib.constants import *
 # Specific Imports
 import time
@@ -22,7 +22,7 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
         self.old_image = None
 
         self.blackboards = []
-        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
+        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.web.name)
         self.blackboard_scene.register_key("image", access=py_trees.common.Access.READ)
 
         super(WebServicePytree, self).__init__(name)
@@ -63,10 +63,10 @@ class WebServicePytree(py_trees.behaviour.Behaviour):
             elif new_state == GoalStatus.PENDING:
                 self.send_request = True
                 self.logger.debug(f"Cancelling goal to {self.server_name}")
-                self.service_client_yolo.cancel_all_goals()
+                self.service_client_web.cancel_all_goals()
                 self.client_result = None
                 self.logger.debug(f"Goal cancelled to {self.server_name}")
-                #self.service_client_yolo.stop_tracking_goal()
+                #self.service_client_web.stop_tracking_goal()
                 #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
                 new_status = py_trees.common.Status.RUNNING
             else:
@@ -116,11 +116,11 @@ def main():
     
     rospy.init_node("web_default" , log_level=rospy.INFO)
 
-    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key("image", access=py_trees.common.Access.WRITE)
-    print(blackboard_scene)
+    blackboard_web = py_trees.blackboard.Client(name=ActuatorNameSpace.web.name, namespace=ActuatorNameSpace.web.name)
+    blackboard_web.register_key("image", access=py_trees.common.Access.WRITE)
+    print(blackboard_web)
 
-    blackboard_scene.image = "[{'component_id':'img_only', 'set_content':'https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png'},{'component_id':'raccolta_container', 'set_content': ''}]"
+    blackboard_web.image = "[{'component_id':'img_only', 'set_content':'https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png'},{'component_id':'raccolta_container', 'set_content': ''}]"
 
     webPyTree = WebServicePytree("WebServicePytreeTest")
 
@@ -131,7 +131,7 @@ def main():
     try:
         for unused_i in range(0, 5):
             webPyTree.tick_once()
-            print(blackboard_scene)
+            print(blackboard_web)
             time.sleep(0.5)
         print("\n")
     except KeyboardInterrupt:

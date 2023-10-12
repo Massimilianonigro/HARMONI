@@ -29,12 +29,11 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         # here there is the inizialization of the blackboards
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.READ)
         super(AWSTtsServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -54,7 +53,7 @@ class AWSTtsServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):    
-        if self.blackboard_scene.scene.nlp == 2:
+        if self.blackboard_scene.nlp == 2:
             new_status = py_trees.common.Status.SUCCESS
         else:  
             if self.send_request:
@@ -134,8 +133,8 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/nlp", access=py_trees.common.Access.WRITE)
-    blackboard_scene.scene.nlp = 0
+    blackboard_scene.register_key("nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.nlp = 0
     blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name +"/"+PyTreeNameSpace.trigger.name)
     blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
     blackboard_input.result = {

@@ -25,8 +25,8 @@ class OpenFaceServicePytree(py_trees.behaviour.Behaviour):
         self.send_request = True
 
         self.blackboards = []
-        self.blackboard_face_detection = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.openface.name)
-        #self.blackboard_face_detection.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_openface = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.openface.name)
+        self.blackboard_openface.register_key("result", access=py_trees.common.Access.WRITE)
         super(OpenFaceServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -61,6 +61,7 @@ class OpenFaceServicePytree(py_trees.behaviour.Behaviour):
             new_status = py_trees.common.Status.SUCCESS
         else:
             new_status = py_trees.common.Status.FAILURE
+        self.blackboard_openface.result = new_status
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         

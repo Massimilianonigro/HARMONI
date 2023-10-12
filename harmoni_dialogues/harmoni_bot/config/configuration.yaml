@@ -1,18 +1,11 @@
 # Configuration file for the dialogue
 bot:
-  micol_param:
-    user_id: "micol_testing_1"
-    bot_name: "QTRobot"
-    bot_alias: "qt_robot_test"
-    region_name: "eu-west-2"
   default_param:
     user_id: "Micol"
     bot_name: "QTRobot"
     bot_alias: "DemoBot"
     region_name: "eu-west-2"
 
-chat_gpt:
-  default_param:
 
 
 google:
@@ -20,9 +13,9 @@ google:
     project_id: "agent1-ewhnht"
     language: "it"
     session_id: "test_bot"
-    credential_path: "$(find harmoni_stt)/config/private-keys.json"
-  en_param:
-    project_id: "interactivecanvas-ee969"
-    language: "en"
-    session_id: "testing"
-    credential_path: "$(find harmoni_bot)/config/private-keys_en.json"
+    credential_path: "$(env HOME)/.gcp/private-keys.json/private-keys.json" #path where private keys are mounted
+
+
+chat_gpt:
+  default_param:
+    model: "gpt-3.5-turbo"

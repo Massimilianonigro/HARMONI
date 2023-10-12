@@ -16,11 +16,10 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
         self.name = name
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key(key="RL", access=py_trees.common.Access.WRITE)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/action", access=py_trees.common.Access.WRITE)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/exercise", access=py_trees.common.Access.READ)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/rl", access=py_trees.common.Access.READ)
-        self.blackboard_rl = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.rl.name+"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_scene.register_key(key="action", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key="exercise", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key="rl", access=py_trees.common.Access.READ)
+        self.blackboard_rl = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.rl.name)
         self.blackboard_rl.register_key("result", access=py_trees.common.Access.WRITE)
         super(RLPytreeService, self).__init__(name)
         self.send_request = True
@@ -35,7 +34,7 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
         
         self.blackboard_rl.result = "null"
-        self.blackboard_scene.scene.action = 2
+        self.blackboard_scene.action = 2
 
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
@@ -44,14 +43,14 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
 
     def update(self): 
         rospy.loginfo("HEEEEREEEEEE ================= ")
-        rospy.loginfo(self.blackboard_scene.scene.rl)
-        if self.blackboard_scene.scene.rl:
+        rospy.loginfo(self.blackboard_scene.rl)
+        if self.blackboard_scene.rl:
             if self.send_request:
                 self.send_request = False
                 self.logger.debug(f"Sending goal to {self.server_name}")
                 self.service_client_rl.send_goal(
                     action_goal = ActionType["REQUEST"].value,
-                    optional_data = str(1), #self.blackboard_scene.scene.exercise,
+                    optional_data = str(1), #self.blackboard_scene.exercise,
                     wait=True,
                 )
                 self.logger.debug(f"Goal sent to {self.server_name}")
@@ -65,7 +64,7 @@ class RLPytreeService(py_trees.behaviour.Behaviour):
                 elif new_state == GoalStatus.SUCCEEDED:
                     if self.client_result is not None:
                         self.blackboard_rl.result = self.client_result
-                        self.blackboard_scene.scene.action = int(self.client_result)
+                        self.blackboard_scene.action = int(self.client_result)
                         self.client_result = None
                         new_status = py_trees.common.Status.SUCCESS
                     else:
@@ -130,12 +129,12 @@ def main():
     blackboard_input = py_trees.blackboard.Client(name=DialogueNameSpace.rl.name, namespace=DialogueNameSpace.rl.name)
     blackboard_input.register_key("result", access=py_trees.common.Access.READ)
     blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/rl", access=py_trees.common.Access.WRITE)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/exercise", access=py_trees.common.Access.WRITE)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/action", access=py_trees.common.Access.WRITE)
-    blackboard_scene.scene.rl = 0
-    blackboard_scene.scene.rl = 1
-    blackboard_scene.scene.rl = 4
+    blackboard_scene.register_key("rl", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key("exercise", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key("action", access=py_trees.common.Access.WRITE)
+    blackboard_scene.rl = 0
+    blackboard_scene.action = 1
+    blackboard_scene.exercise = 4
     print(blackboard_input)
 
     rlPyTree = RLPytreeService("RLPytreeServiceTest")

@@ -23,9 +23,8 @@ class ImageAIYoloServicePytree(py_trees.behaviour.Behaviour):
         self.send_request = True
 
         self.blackboards = []
-        self.blackboard_face_detection = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.face_detect.name)
-        #self.blackboard_face_detection.register_key("state", access=py_trees.common.Access.WRITE)
-        self.blackboard_face_detection.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_yolo_detection = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.imageai_yolo.name)
+        self.blackboard_yolo_detection.register_key("result", access=py_trees.common.Access.WRITE)
 
         super(ImageAIYoloServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -37,7 +36,7 @@ class ImageAIYoloServicePytree(py_trees.behaviour.Behaviour):
                                             self._result_callback,
                                             self._feedback_callback)
         self.logger.debug("Behavior %s interface action clients have been set up!" % (self.server_name))
-        self.blackboard_face_detection.result = "person"
+        self.blackboard_yolo_detection.result = "person"
         self.logger.debug("%s.setup()" % (self.__class__.__name__))
 
     def initialise(self):
@@ -61,7 +60,7 @@ class ImageAIYoloServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.RUNNING
             elif new_state == GoalStatus.SUCCEEDED:
                 if self.client_result is not None:
-                    self.blackboard_face_detection.result = self.client_result
+                    self.blackboard_yolo_detection.result = self.client_result
                     self.client_result = None
                     new_status = py_trees.common.Status.SUCCESS
                 else:
@@ -121,7 +120,7 @@ def main():
     #rospy init node mi fa diventare un nodo ros
     rospy.init_node("imageai_default", log_level=rospy.INFO)
 
-    blackboard_input = py_trees.blackboard.Client(name=DetectorNameSpace.face_detect.name, namespace=DetectorNameSpace.face_detect.name)
+    blackboard_input = py_trees.blackboard.Client(name=DetectorNameSpace.imageai_yolo.name, namespace=DetectorNameSpace.imageai_yolo.name)
     blackboard_input.register_key("result", access=py_trees.common.Access.READ)
     print(blackboard_input)
 

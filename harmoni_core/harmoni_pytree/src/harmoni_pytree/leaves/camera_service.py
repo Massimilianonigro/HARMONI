@@ -27,7 +27,7 @@ class CameraServicePytree(py_trees.behaviour.Behaviour):
         # here there is the inizialization of the blackboards
         self.blackboards = []
         self.blackboard_camera = self.attach_blackboard_client(name=self.name, namespace=SensorNameSpace.camera.name)
-        #self.blackboard_camera.register_key("state", access=py_trees.common.Access.WRITE)
+        self.blackboard_camera.register_key("result", access=py_trees.common.Access.WRITE)
 
         super(CameraServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -69,7 +69,7 @@ class CameraServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.FAILURE
                 raise
                 
-
+        self.blackboard_camera.result = new_status
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
 
@@ -111,7 +111,7 @@ def main():
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
     blackboard_output = py_trees.blackboard.Client(name=SensorNameSpace.camera.name, namespace=SensorNameSpace.camera.name)
-    blackboard_output.register_key("result_message", access=py_trees.common.Access.READ)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)
 
     rospy.init_node("camera_default", log_level=rospy.INFO)
     

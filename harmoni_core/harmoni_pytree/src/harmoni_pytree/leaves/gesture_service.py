@@ -7,7 +7,7 @@ import roslib
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
 from harmoni_common_lib.action_client import HarmoniActionClient
-from harmoni_common_lib.constants import ActionType, PyTreeNameSpace
+from harmoni_common_lib.constants import ActionType, PyTreeNameSpace, ActuatorNameSpace
 #py_tree
 import time
 import py_trees
@@ -24,8 +24,8 @@ class GestureServicePytree(py_trees.behaviour.Behaviour):
 
         # here there is the inizialization of the blackboards
         self.blackboards = []
-        self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("gesture", access=py_trees.common.Access.READ)
+        self.blackboard_gesture = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.gesture.name)
+        self.blackboard_gesture.register_key("result", access=py_trees.common.Access.READ)
         super(GestureServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -48,7 +48,7 @@ class GestureServicePytree(py_trees.behaviour.Behaviour):
             self.logger.debug(f"Sending goal to {self.server_name}")
             self.service_client_gesture.send_goal(
                 action_goal = ActionType["DO"].value,
-                optional_data = self.blackboard_scene.gesture,
+                optional_data = self.blackboard_gesture.result,
                 wait=False,
             )
             self.logger.debug(f"Goal sent to {self.server_name}")
@@ -100,11 +100,11 @@ def main():
     #command_line_argument_parser().parse_args()
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
-    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key("gesture", access=py_trees.common.Access.WRITE)
-    blackboard_scene.gesture = "{'gesture':'QT/bye', 'timing': 0.5}"
+    blackboard_gesture = py_trees.blackboard.Client(name=ActuatorNameSpace.gesture.name, namespace=ActuatorNameSpace.gesture.name)
+    blackboard_gesture.register_key("result", access=py_trees.common.Access.WRITE)
+    blackboard_gesture.result = "{'gesture':'QT/bye', 'timing': 0.5}"
    
-    print(blackboard_scene)
+    print(blackboard_gesture)
 
     rospy.init_node("gesture_default", log_level=rospy.INFO)
 
@@ -114,7 +114,7 @@ def main():
         for unused_i in range(0, 5):
             gesturePyTree.tick_once()
             time.sleep(0.5)
-            print(blackboard_scene)
+            print(blackboard_gesture)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

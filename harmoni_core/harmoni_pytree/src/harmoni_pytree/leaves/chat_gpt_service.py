@@ -24,10 +24,10 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/utterance", access=py_trees.common.Access.READ)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/request", access=py_trees.common.Access.READ)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
-        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name+"/"+PyTreeNameSpace.trigger.name)
+        self.blackboard_scene.register_key(key="utterance", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key="request", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.READ)
+        self.blackboard_bot = self.attach_blackboard_client(name=self.name, namespace=DialogueNameSpace.bot.name)
         self.blackboard_bot.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_bot.register_key("feeling", access=py_trees.common.Access.WRITE)
         self.blackboard_bot.register_key("sentiment", access=py_trees.common.Access.WRITE)
@@ -53,13 +53,13 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):   
-        if self.blackboard_scene.scene.nlp!=0:           
+        if self.blackboard_scene.nlp!=0:           
             if self.send_request:
                 self.send_request = False
-                utterance = self.blackboard_scene.scene.utterance
-                if self.blackboard_scene.scene.nlp == 2:
-                    utterance = self.blackboard_scene.scene.request
-                rospy.loginfo("The utterance is " + str(self.blackboard_scene.scene.utterance))
+                utterance = self.blackboard_scene.utterance
+                if self.blackboard_scene.nlp == 2:
+                    utterance = self.blackboard_scene.request
+                rospy.loginfo("The utterance is " + str(self.blackboard_scene.utterance))
                 self.logger.debug(f"Sending goal to {self.server_name}")
                 self.service_client_chatgpt.send_goal(
                     action_goal = ActionType["REQUEST"].value,
@@ -80,7 +80,7 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
                         self.blackboard_bot.result  = {
                                                                 "message":   self.client_result
                                             }
-                        if self.blackboard_scene.scene.nlp == 2:
+                        if self.blackboard_scene.nlp == 2:
                             if "," in self.client_result:
                                 feelings = self.client_result.split(",")
                                 self.blackboard_bot.feeling = feelings[0]
@@ -102,7 +102,7 @@ class ChatGPTServicePytree(py_trees.behaviour.Behaviour):
                     raise
         else:
             self.blackboard_bot.result = {
-                                                "message":   self.blackboard_scene.scene.utterance
+                                                "message":   self.blackboard_scene.utterance
                                             }
             new_status = py_trees.common.Status.SUCCESS
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
@@ -145,21 +145,24 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/nlp", access=py_trees.common.Access.WRITE)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/utterance", access=py_trees.common.Access.WRITE)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/request", access=py_trees.common.Access.WRITE)
-    blackboard_scene.scene.nlp = 0
-    blackboard_scene.scene.utterance = "['*user* Can you help me out with a code?']"
-    blackboard_scene.scene.request = True
+    blackboard_bot = py_trees.blackboard.Client(name=DialogueNameSpace.bot.name, namespace=DialogueNameSpace.bot.name)
+    blackboard_bot.register_key("result", access=py_trees.common.Access.READ)
+    blackboard_scene.register_key("nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key("utterance", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key("request", access=py_trees.common.Access.WRITE)
+    blackboard_scene.nlp = 1
+    blackboard_scene.utterance = "['*user* Can you help me out with a code?']"
+    blackboard_scene.request = True
     
     rospy.init_node("bot_default", log_level=rospy.INFO)
     
     chatgptPyTree = ChatGPTServicePytree("ChatGPTServicePytreeTest")
     chatgptPyTree.setup()
     try:
-        for unused_i in range(0, 5):
+        for unused_i in range(0, 10):
             chatgptPyTree.tick_once()
-            time.sleep(0.5)
+            time.sleep(1)
+            print(blackboard_bot)
             print(blackboard_scene)
         print("\n")
     except KeyboardInterrupt:

@@ -6,23 +6,12 @@ import roslib
 
 from harmoni_common_lib.constants import *
 from actionlib_msgs.msg import GoalStatus
-from harmoni_common_lib.service_server import HarmoniServiceServer
-from harmoni_common_lib.service_manager import HarmoniServiceManager
 from harmoni_common_lib.action_client import HarmoniActionClient
 import harmoni_common_lib.helper_functions as hf
 
 # Specific Imports
 from harmoni_common_lib.constants import DetectorNameSpace, ActionType
-from sensor_msgs.msg import Image
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-from collections import deque 
-import numpy as np
-import boto3
-import re
-import json
-import ast
-import sys
+
 
 #py_tree
 import py_trees
@@ -41,8 +30,8 @@ class OpenSmileServicePytree(py_trees.behaviour.Behaviour):
         self.send_request = True
 
         self.blackboards = []
-        self.blackboard_face_detection = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.opensmile.name)
-        #self.blackboard_face_detection.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_opensmile = self.attach_blackboard_client(name=self.name, namespace=DetectorNameSpace.opensmile.name)
+        self.blackboard_opensmile.register_key("result", access=py_trees.common.Access.WRITE)
         super(OpenSmileServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -77,6 +66,7 @@ class OpenSmileServicePytree(py_trees.behaviour.Behaviour):
             new_status = py_trees.common.Status.SUCCESS
         else:
             new_status = py_trees.common.Status.FAILURE
+        self.blackboard_opensmile.result = new_status
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         

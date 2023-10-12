@@ -25,7 +25,6 @@ class LipSyncServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_tts = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_tts.register_key("result", access=py_trees.common.Access.READ)
         self.blackboard_lips = self.attach_blackboard_client(name=self.name, namespace=Resources.face.value[1])
-        #self.blackboard_lips.register_key("state", access=py_trees.common.Access.WRITE)
 
         super(LipSyncServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
@@ -119,13 +118,9 @@ class LipSyncServicePytree(py_trees.behaviour.Behaviour):
 def main():
     #command_line_argument_parser().parse_args()
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    
-    blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key("scene/nlp", access=py_trees.common.Access.WRITE)
     blackboard_input = py_trees.blackboard.Client(name=ActuatorNameSpace.tts.name, namespace=ActuatorNameSpace.tts.name)
     blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
     blackboard_input.result = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
-    blackboard_scene.scene.nlp = 0
     """
     [{'start':10, 'type': 'gaze', 'id':'target', 'point': [1,5,10]}]
     [{'start': 1, 'type': 'au', 'id': 'au13', 'pose': 1}]
@@ -134,7 +129,7 @@ def main():
     [{'start': 8, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]
     """
    
-    print(blackboard_scene)
+    print(blackboard_input)
 
     rospy.init_node("face_default", log_level=rospy.INFO)
 
@@ -144,7 +139,7 @@ def main():
         for unused_i in range(0, 5):
             facePyTree.tick_once()
             time.sleep(0.5)
-            print(blackboard_scene)
+            print(blackboard_input)
         print("\n")
     except KeyboardInterrupt:
         print("Exception occurred")

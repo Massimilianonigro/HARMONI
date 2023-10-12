@@ -23,19 +23,12 @@ class MicrophoneServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
         self.blackboard_microphone = self.attach_blackboard_client(name=self.name, namespace=SensorNameSpace.microphone.name)
-        #self.blackboard_microphone.register_key("state", access=py_trees.common.Access.WRITE)
+        self.blackboard_microphone.register_key("result", access=py_trees.common.Access.WRITE)
 
         super(MicrophoneServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
     def setup(self,**additional_parameters):
-        """
-        for parameter in additional_parameters:
-            print(parameter, additional_parameters[parameter])  
-            if(parameter =="MicrophoneServicePytree_mode"):
-                self.mode = additional_parameters[parameter]        
-        """
-
         self.service_client_microphone = HarmoniActionClient(self.name)
         self.server_name = "microphone_default"
         self.service_client_microphone.setup_client(self.server_name, 
@@ -70,10 +63,11 @@ class MicrophoneServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.SUCCESS
             elif new_state == GoalStatus.SUCCEEDED:
                 new_status = py_trees.common.Status.SUCCESS
+                
             else:
                 new_status = py_trees.common.Status.FAILURE
                 raise
-
+            self.blackboard_microphone.result = new_status
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
 
@@ -95,7 +89,7 @@ class MicrophoneServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 
     def _result_callback(self, result):
-        """ Recieve and store result with timestamp """
+        """ Receive and store result with timestamp """
         self.logger.debug("The result of the request has been received")
         self.logger.debug(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
@@ -116,7 +110,7 @@ def main():
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     
     blackboard_output = py_trees.blackboard.Client(name=SensorNameSpace.microphone.name, namespace=SensorNameSpace.microphone.name)
-    blackboard_output.register_key("result_message", access=py_trees.common.Access.READ)
+    blackboard_output.register_key("result", access=py_trees.common.Access.READ)
 
     rospy.init_node("microphone_default", log_level=rospy.INFO)
 

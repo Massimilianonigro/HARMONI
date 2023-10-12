@@ -23,9 +23,10 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
 
         self.blackboards = []
 
+        self.blackboard_face = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.face.name)
+        self.blackboard_face.register_key("face_exp", access=py_trees.common.Access.READ)
         self.blackboard_scene = self.attach_blackboard_client(name=self.name, namespace=PyTreeNameSpace.scene.name)
-        self.blackboard_scene.register_key("face_exp", access=py_trees.common.Access.READ)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.READ)
         
         print(self.blackboard_scene)
         super(FacialExpServicePytree, self).__init__(name)
@@ -51,12 +52,12 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-        if self.blackboard_scene.scene.nlp == 2:
+        if self.blackboard_scene.nlp == 2:
             new_status = py_trees.common.Status.SUCCESS
         else:  
             if self.send_request:
                 self.send_request = False
-                self.data = self.blackboard_scene.face_exp
+                self.data = self.blackboard_face.face_exp
                 self.logger.debug(f"Sending goal to {self.server_name}")
                 self.service_client_mouth.send_goal(
                     action_goal=ActionType.DO.value,
@@ -111,12 +112,12 @@ class FacialExpServicePytree(py_trees.behaviour.Behaviour):
 def main():
     #command_line_argument_parser().parse_args()
     py_trees.logging.level = py_trees.logging.Level.DEBUG
-    
+    blackboard_face = py_trees.blackboard.Client(name=ActuatorNameSpace.face.name, namespace=ActuatorNameSpace.face.name)
     blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key("face_exp", access=py_trees.common.Access.WRITE)
-    blackboard_scene.register_key("scene/nlp", access=py_trees.common.Access.WRITE)
-    blackboard_scene.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
-    blackboard_scene.scene.nlp = 0
+    blackboard_face.register_key("face_exp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.register_key("nlp", access=py_trees.common.Access.WRITE)
+    blackboard_face.face_exp = "[{'start': 1, 'type': 'viseme', 'id': 'POSTALVEOLAR'}]"
+    blackboard_scene.nlp = 0
     """
     [{'start':10, 'type': 'gaze', 'id':'target', 'point': [1,5,10]}]
     [{'start': 1, 'type': 'au', 'id': 'au13', 'pose': 1}]

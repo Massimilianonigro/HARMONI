@@ -26,8 +26,8 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.blackboard_input = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.tts.name)
         self.blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
         self.blackboard_output = self.attach_blackboard_client(name=self.name, namespace=ActuatorNameSpace.speaker.name)
-        #self.blackboard_speaker.register_key("state", access=py_trees.common.Access.WRITE)
-        self.blackboard_scene.register_key(key=PyTreeNameSpace.scene.name+"/nlp", access=py_trees.common.Access.READ)
+        self.blackboard_output.register_key("result", access=py_trees.common.Access.WRITE)
+        self.blackboard_scene.register_key(key="nlp", access=py_trees.common.Access.READ)
         super(SpeakerServicePytree, self).__init__(name)
         self.logger.debug("%s.__init__()" % (self.__class__.__name__))
 
@@ -45,7 +45,7 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
     
     def update(self):
-        if self.blackboard_scene.scene.nlp == 2:
+        if self.blackboard_scene.nlp == 2:
             new_status = py_trees.common.Status.SUCCESS
         else:  
             if self.send_request:
@@ -68,7 +68,7 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
                 else:
                     new_status = py_trees.common.Status.FAILURE
                     raise
-            
+            self.blackboard_output.result = new_status
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         
@@ -105,8 +105,8 @@ def main():
 
     py_trees.logging.level = py_trees.logging.Level.DEBUG
     blackboard_scene = py_trees.blackboard.Client(name=PyTreeNameSpace.scene.name, namespace=PyTreeNameSpace.scene.name)
-    blackboard_scene.register_key(PyTreeNameSpace.scene.name+ "/nlp", access=py_trees.common.Access.WRITE)
-    blackboard_scene.scene.nlp = 0
+    blackboard_scene.register_key("nlp", access=py_trees.common.Access.WRITE)
+    blackboard_scene.nlp = 0
     blackboard_input = py_trees.blackboard.Client(name=ActuatorNameSpace.tts.name, namespace=ActuatorNameSpace.tts.name)
     blackboard_input.register_key("result", access=py_trees.common.Access.WRITE)
     blackboard_input.result = "/root/harmoni_catkin_ws/src/HARMONI/harmoni_actuators/harmoni_tts/temp_data/tts.wav"
