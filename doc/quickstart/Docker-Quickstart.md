@@ -22,6 +22,7 @@ You will also need to install docker-compose. Instructions can be found here: [h
    ```bash
    git clone https://github.com/micolspitale93/HARMONI.git
    cd HARMONI
+   git checkout dev/harmoni2.0
    ```
 
 
