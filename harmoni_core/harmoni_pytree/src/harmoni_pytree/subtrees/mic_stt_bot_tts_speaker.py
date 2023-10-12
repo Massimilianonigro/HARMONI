@@ -22,6 +22,7 @@ from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
 from harmoni_pytree.leaves.chat_gpt_service import ChatGPTServicePytree
 from harmoni_pytree.leaves.aws_tts_service import AWSTtsServicePytree
 from harmoni_pytree.leaves.speaker_service import SpeakerServicePytree
+from harmoni_pytree.leaves.script_dialogue_service import ScriptDialogueService
 
 ##############################################################################
 # Classes
@@ -85,12 +86,12 @@ def create_root(name= "MicAndSttAndBotAndTtsAndSpeaker"):
 
     microphone=MicrophoneServicePytree("MicrophoneMainActivity")
     stt=SpeechToTextServicePytree("SpeechToTextMainActivity")
+    script = ScriptDialogueService("ScriptDialogueActivity")
     bot = ChatGPTServicePytree('ChatGptMainActivity')
     tts = AWSTtsServicePytree('AwsTtsMainActivity')
     speaker = SpeakerServicePytree('SpeakerMainActivity')
-    root = py_trees.composites.Sequence(name="MicAndSttAndBotAndTtsAndSpeaker",memory=False)
-    root.add_children([microphone, stt, bot, tts, speaker])
-
+    root = py_trees.composites.Sequence(name="MicAndSttAndBotAndTtsAndSpeaker",memory=True)
+    root.add_children([microphone, stt, script, bot, tts, speaker])
     return root
 
 ##############################################################################
