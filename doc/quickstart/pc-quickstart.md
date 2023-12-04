@@ -1,4 +1,4 @@
-# Desktop Setup
+# Desktop Setup [deprecated]
 
 Prerequisites: ROS Kinetic, Melodic, or Noetic Installed
 

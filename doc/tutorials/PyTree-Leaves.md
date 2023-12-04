@@ -407,13 +407,42 @@ Variables
 
 ## Testing
 
-Here are the steps that you can follow in order to run a demo of pytree in HARMONI. This demo show how work a small three with just two behaviours: microphone and stt.
+Here are the steps that you can follow in order to run a demo of pytree in HARMONI. 
+
+### Example 1: Microphone and STT
+This demo show how work a small three with just two behaviours: microphone and stt.
 
 1.  Create a valid google credential of using stt service: [https://cloud.google.com/speech-to-text/docs/before-you-begin#setting_up_your_google_cloud_platform_project](https://cloud.google.com/speech-to-text/docs/before-you-begin#setting_up_your_google_cloud_platform_project)
+
 2.  Run the following command in the container to start the demo:
 
      ```  bash
-     roslaunch harmoni_pytree mic_and_stt.launch
+     rostest harmoni_pytree mic_and_stt_pytree.test
      ```
 
 You will see some information about the structure of the tree and the way in which pytree engines tick the tree. Some blackboards are used to show the results of the leaves and in particular in backboards stt/result shows the result of the speech to text services.
+
+### Example 2: TTS and Face
+This demo show how work a small three with just two behaviours: tts and face.
+
+1.  Run the following command in the container to start the demo:
+
+     ```  bash
+     rostest harmoni_pytree tts_face_lips_pytree.test
+     ```
+2.  Open the browser at the link: http://172.18.3.4:8081/ , and wait for the face to appear.
+
+You will see the lip-sync of the face (the mouth will move).
+
+
+### Example 3: One turn conversation
+This demo show how work one turn of conversation works.
+
+1.  Run the following command in the container to start the demo:
+
+     ```  bash
+     rostest harmoni_pytree mic_stt_bot_tts_speaker.test
+     ```
+2.  Open the browser at the link: http://172.18.3.4:8081/ , and wait for the face to appear.
+
+You can talk to the robot and hear a response.

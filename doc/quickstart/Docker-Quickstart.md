@@ -1,5 +1,5 @@
 
-# Docker [recommended]
+# Docker Setup[recommended]
 
 ## Setup
 
@@ -14,7 +14,9 @@ sudo usermod -aG docker ${USER}
 su - ${USER}
 ```
 
-You will also need to install docker-compose. Instructions can be found here: [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+You will also need to install docker-compose. Instructions can be found here: [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/).
+
+Note that if you have already installed the version V1 of docker compose, we recommend to update it to V2. Update scripts to use Compose V2 by replacing the hyphen (-) with a space, using docker compose instead of docker-compose.
 
 ## HARMONI Install
 
@@ -53,10 +55,16 @@ You will also need to install docker-compose. Instructions can be found here: [h
 
 2. Use docker compose to launch the complete system (will build if necessary, use --build to force):
    ```bash
-   docker-compose -f docker-compose.yml up
+   docker compose -f docker-compose.yml up
    ``` 
+   *Note: If you would like to install the full HARMONI V2 modules, you need XX GB of space. The image pulling and compose of the container will take around 2 hours (depending on your internet connection).
+
    If the terminal prints: "Hello, rosmaster", you successfully setup the HARMONI full container.  
+   If you have pulled and run the docker compose correctly, you should see something as follows:
+   ![packges](../images/task1.png)
+
    *Note: We provide a bash script for launching multiple containers called run_compose.sh*
+   
 
 3. Open a new terminal. To get into this container, you will need to run the following to mount a terminal into the container:
    ```bash
@@ -70,22 +78,35 @@ You will also need to install docker-compose. Instructions can be found here: [h
    11:47 AM [develop] ~/harmoni_catkin_ws/src/HARMONI :
    root@harmoni_full# 
    ``` 
-   From this point you may launch `roscore` or any other ros or harmoni command. 
-   *Note: You will need to do this step for every process you wish to run in the container. If multiple terminal processes are required, you will need to connect multiple terminals to the docker instance with the docker exec command above*  
-   If the `roscore` run is successful, you will see:
-   ```bash
-   started core service [/rosout]
-   ```
-4. Stop `roscore` with Ctrl-C, and then change the branch to set it to HARMONI 2.0 with the following command:
+  
+4. Then change the branch to set it to HARMONI 2.0 with the following command:
    ```bash
    git checkout dev/harmoni2.0
    ```
+   *Note: If you cannot see [dev/harmoni2.0], please follow the instructions in the Troubleshooting section below (step 1)
+
 5. Make sure that all the packages are build correctly. Build all the packages following these commands:
    ```bash
    catkin build
    source ../../devel/setup.bash
    ``` 
+6. From this point you may launch `roscore` or any other ros or harmoni command. 
+   *Note: You will need to do this step for every process you wish to run in the container. If multiple terminal processes are required, you will need to connect multiple terminals to the docker instance with the docker exec command above*  
+   If the `roscore` run is successful, you will see:
+   ```bash
+   started core service [/rosout]
+   ```
+   ![packges](../images/roscore.png)
+
 
 If you want to use also the other containers, repeat the same process, and remeber to build (step 5) the catking packages in all containers opened.
 
 You are now set up for Harmoni with Docker! Check on your [configuration here](../Configuration) and then [start some services here](../tutorials/Launching-Services).
+
+## Troubleshooting
+1. If you cannot see [dev/harmoni2.0], and you see the screen below:
+   ![packges](../images/troubleshooting1.png)
+   Please run the following commands:
+   ```bash
+   git config --global --add safe.directory /root/harmoni_catkin_ws/src/HARMONI
+   ```
