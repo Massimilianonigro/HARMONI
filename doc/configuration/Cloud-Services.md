@@ -18,6 +18,8 @@ Once you've created an account, create an IAM user to access Polly and/or Lex.
     
 https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html - Use this link to install the AWS CLI on your PC.
 
+> **_NOTE:_** If you have already your credentials, you can follow the instructions from here!!
+
 Then, in the terminal,
 ```bash
 $ sudo apt-get install awscli
@@ -66,6 +68,9 @@ To get an API key:
 (Remember to restrict the API key before using it in production.)
 * Save private-keys.json
 
+> **_NOTE:_** If you have already your credentials, you can follow the instructions from here!!
+
+
 Set credentials on HARMONI:
 
 ```bash
@@ -90,6 +95,9 @@ I
 
 ## Setup OpenAI ChatGPT [after having installed HARMONI]
 Set up your OpenAI account: https://platform.openai.com/
+
+> **_NOTE:_** If you have already your credentials, you can follow the instructions from here!!
+
 
 Then create in the HARMONI repository (already instealled following instructions in [here](https://harmoni-20.readthedocs.io/en/latest/quickstart/Docker-Quickstart.html#setup) a .env file
 
