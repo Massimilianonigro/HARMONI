@@ -128,15 +128,15 @@ $ nano private-keys.json
 ```
 
 Note that you then need to change the [configuration file](https://github.com/micolspitale93/HARMONI/blob/dev/harmoni2.0/harmoni_detectors/harmoni_stt/config/google_configuration.yaml) of the corresponding google service (speech to text) as follows:
-
+```bash
 stt:
   default_param:
     language_id: "en-UK" #"en-US"
     sample_rate: 48000 #16000 #44100 for wav audio file, 16000 for wav file from mic, 48000
     audio_channel: 1
     subscriber_id: "default"
-    credential_path: "$(env HOME)/.gcp/private-keys.json/private-keys.json" #path where private keys are mounted, if the credentials mount correctly this should be "$(env HOME)/.gcp/private-keys.json"
+    credential_path: "$(env HOME)/.gcp/**private-keys.json/private-keys.json**" #path where private keys are mounted, if the credentials mount correctly this should be "$(env HOME)/.gcp/private-keys.json"
     wait_duration: 2
     max_silence: 10 #s
 
-
+```
