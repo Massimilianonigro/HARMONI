@@ -55,9 +55,9 @@ Note that if you have already installed the version V1 of docker compose, we rec
 
 2. Use docker compose to launch the complete system (will build if necessary, use --build to force):
    ```bash
-   docker compose -f docker-compose.yml up
+   docker compose -f docker-compose-basic.yml up
    ``` 
-   *Note: If you would like to install the full HARMONI V2 modules, you need XX GB of space. The image pulling and compose of the container will take around 2 hours (depending on your internet connection).
+   *Note: If you would like to install the full HARMONI V2 modules, you need 20 GB of space. The image pulling and compose of the container will take around 2 hours (depending on your internet connection). In can you want to pull and build all the available HARMONI images you should run: `docker compose -f docker-compose.yml up`
 
    If the terminal prints: "Hello, rosmaster", you successfully setup the HARMONI full container.  
    If you have pulled and run the docker compose correctly, you should see something as follows:

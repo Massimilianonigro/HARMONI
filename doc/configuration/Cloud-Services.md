@@ -75,7 +75,6 @@ Set credentials on HARMONI:
 
 ```bash
 $ cd ~/harmoni_catkin_ws/src/HARMONI/dockerfiles/config/
-$ cd private-keys.json
 $ nano private-keys.json
 # Copy and paste the json content generated in the previous steps.
 ```
