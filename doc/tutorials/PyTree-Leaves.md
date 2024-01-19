@@ -422,6 +422,20 @@ This demo show how work a small three with just two behaviours: microphone and s
 
 You will see some information about the structure of the tree and the way in which pytree engines tick the tree. Some blackboards are used to show the results of the leaves and in particular in backboards stt/result shows the result of the speech to text services.
 
+#### Troubleshooting
+If the testing is not working, it is likely that your Google Credentials have not been setup correctly. 
+
+It is likely that you cannot find the private-keys.json file in ~/.gcp/ (but instead you find a folder you can do the following).
+To fix this, please follow these instructions:
+
+```bash
+$ cd ~
+$ cd .gcp
+$ cd private-keys.json
+$ nano private-keys.json
+# Copy and paste the json content generated in the previous steps.
+```
+
 ### Example 2: TTS and Face
 This demo show how work a small three with just two behaviours: tts and face.
 
@@ -433,6 +447,25 @@ This demo show how work a small three with just two behaviours: tts and face.
 2.  Open the browser at the link: http://172.18.3.4:8081/ , and wait for the face to appear.
 
 You will see the lip-sync of the face (the mouth will move).
+
+#### Troubleshooting
+
+If you get an error, it may be that the AWS credentials have not been setup correctly while building the container.
+
+Please re-set them by running the following instruction within the container:
+To check if your keys configured correctly, you can run the following:
+```bash
+$ aws configure
+```
+
+If the result will print as follows (click the Enter button to move forward without editing the keys if they are setup properly), it means that you need to copy and past again the AWS credentials INSIDE the container
+
+```bash
+AWS Access Key ID [None]: 
+AWS Secret Access Key [None]: 
+Default region name [None]: 
+Default output format [None]: 
+```
 
 
 ### Example 3: One turn conversation

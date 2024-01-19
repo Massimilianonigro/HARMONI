@@ -82,7 +82,7 @@ $ nano private-keys.json
 
 Note: Secret keys and configurations are done locally and mounted to images through the Docker-Compose.yml files. If you run the compose files before generating the keys you may need to delete and recreate the .aws and .gcp folders, as they will have been created with root only permission. Otherwise you should be able to edit them directly.
 
-To check if your keys are mounted correctly after having installed HARMONI, please check if the private-keys.json file exists in ~/.gcp/ by running the following:
+To check if your keys are mounted correctly after having installed HARMONI, please check if the private-keys.json file exists in ~/.gcp/ by running the following in the container harmoni_full:
 ```bash
 $ cd ~/.gcp
 $ ls
