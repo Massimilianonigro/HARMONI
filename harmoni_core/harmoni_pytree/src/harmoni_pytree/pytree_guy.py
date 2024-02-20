@@ -22,7 +22,7 @@ from harmoni_pytree.leaves.gesture_service import GestureServicePytree
 from harmoni_pytree.leaves.wait_results import WaitResults
 from harmoni_pytree.leaves.backchannel_service import BackchannelService
 from harmoni_pytree.leaves.google_service import SpeechToTextServicePytree
-from harmoni_pytree.leaves.script_errors_service import ScriptErrorsService
+from harmoni_pytree.leaves.script_guy_service import ScriptGuyService
 from harmoni_pytree.leaves.check_stt_result_minja import CheckSTTResultErrors
 
 
@@ -88,7 +88,7 @@ def create_root(params):
     chatbot = ChatGPTServicePytree("ChatGPTPyTreeTest")
     tts = AWSTtsServicePytree("TextToSpeech")
     tts_back = AWSTtsServicePytree("TextToSpeechBackchannel")
-    script_errors = ScriptErrorsService("ScriptErrors", params)
+    script_guy = ScriptGuyService("ScriptGuy", params)
     gesture = GestureServicePytree("Gesture")
     speaker = SpeakerServicePytree("Speaker")
     #sentiment = SentimentServicePytree("Sentiment")
@@ -103,7 +103,7 @@ def create_root(params):
     parall_speaker_face = py_trees.composites.Parallel("Playing")#, policy = SuccessOnAll)
     parall_playing_back = py_trees.composites.Parallel("PlayingBackchannel")#, policy = SuccessOnAll)
     sequence_backchanneling.add_children([backchanneling_script, tts_back, parall_playing_back])
-    sequence_speaking.add_child(script_errors)
+    sequence_speaking.add_child(script_guy)
     sequence_speaking.add_child(chatbot)
     sequence_speaking.add_child(tts)
     sequence_speaking.add_child(parall_speaker_face)

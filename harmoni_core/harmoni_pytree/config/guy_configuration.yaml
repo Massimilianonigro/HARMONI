@@ -1,6 +1,6 @@
 pytree:
   default_param:
-    interaction: "test_demo" #or meditation or ppi
+    interaction: "guy_thp" #or meditation or ppi
     user_name: "Michelle"
     session: "session1" #session1_empathic, session1
     researcher_name: "Micol"

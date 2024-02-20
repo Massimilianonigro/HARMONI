@@ -1,0 +1,505 @@
+{
+    "session1" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hi, my name is Cutie. What is your name?",
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  1,
+        	"utterance" 	: "Nice to meet you USERNAME. We're going to meet for 5 sessions where we will talk about different aspects of your life. Each session will be about a different topic, and in each session, I will ask you several questions about this topic that will follow into a chat. Is that okay?",
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+    	{
+        	"id"        	:  2,
+        	"utterance" 	: "Great. Let's start then. In this session we are going to talk about recent positive experiences. What has been the highlight of your month so far, something that made you feel really happy or content. I will give you few seconds to think about it. <break time='2s'/><break time='2s'/>. Please share your positive memory with me.",
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "null",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        
+        {
+            "id"            :  3,
+            "utterance"     : "Can you ask me a follow up question on what I just shared?",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "Can you describe another recent experience where you felt particularly joyful or excited?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  5,
+            "utterance"     : "Can you ask me a follow up question on what I just shared?",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  6,
+            "utterance"     : "Can you recall a time recently when you felt down or experienced a negative emotion, and how did you deal with that feeling?",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },        
+        {
+            "id"            : 7,
+            "utterance"     : "try to help me see the positive aspects in the negative disclosure I shared with you by addressing the positive aspects of my previous answers to the first 2 questions. In other words, try to make me be engaged in cognitive reappraisal. Make it subtle and blend it as part of the conversation so that the exercise would blend as part of a question. ",
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        , 
+        {
+            "id"            :  8,
+            "utterance"     : "can you follow up on my answer and recognize the emotions I shared?", 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  9,
+            "utterance"     : "Thank you for sharing this USERNAME. In this session we talked about your recent positive experiences. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }
+
+     ],
+     "session2" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. This time we are going to talk about your interests and passions. So like with the last session, I am going to ask you few questions to encourge you to think about the things that are important to you.  Are you ready to start? ",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        {
+            "id"            :  1,
+        	"utterance" 	: "Great. Let's start then. What activities make you lose track of time becouse you are so absorbed in them? I will give you few seconds to think about it. <break time='2s'/><break time='2s'/>. Please share with me.",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  2,
+            "utterance"     : "Can you ask me a follow up question on what I just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  3,
+            "utterance"     : "Can you think of a recent experience where you were completely engaged and focused? What were you doing and how did it make you feel?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "Can you ask me a follow up question on what I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }, 
+        {
+            "id"            : 5,
+            "utterance"     : "Have you ever felt disconnected or uninterested in activities that you usually enjoy? What do you think caused that and how did it make you feel?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        ,        
+        {
+            "id"            : 6,
+            "utterance"     : "try to help me see the positive in the negative when addressing the positive aspects of my previous answers to the first 2 questions. In other words, try to make me be engaged in cognitive reappraisal. Make it subtle and blend it as part of the conversation so that the exercise would blend as part of a question. ",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        , 
+        {
+            "id"            :  7,
+            "utterance"     : "can you follow up on my answer and recognize the emotions I shared?",
+            "error"         : "", 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  8,
+            "utterance"     : "Thank you for sharing this USERNAME. In this session we talked about your passions and interests. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }
+
+     ],
+     "session3" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hi again USERNAME. Welcome to the third session. This time we are going to talk about your social relationships. So like with the last two sessions, I am going to ask you few questions to encourge you to think about the people that are important to you.  Are you ready to start? ",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        {
+            "id"            :  1,
+            "utterance"     : "Great. Let's start then. Who do you feel closest to in your life right now, and why?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  2,
+            "utterance"     : "Can you ask me a follow up question on what I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  3,
+            "utterance"     : "Can you share a memorable moment you recently had with a friend or family member? How does this memory makes you feel?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "Can you ask me a follow up question on what I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }, 
+        {
+            "id"            :  5,
+            "utterance"     : "Do you ever feel lonely or misunderstood in your relationships? How do you cope with these feelings?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            : 6,
+            "utterance"     : "try to help me see the positive in the negative when addressing the positive aspects of my previous answers to the first 2 questions. In other words, try to make me be engaged in cognitive reappraisal. Make it subtle and blend it as part of the conversation so that the exercise would blend as part of a question. ",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        ,        
+        {
+            "id"            : 7,
+            "utterance"     : "can you follow up on my answer and recognize the emotions I shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        , 
+        {
+            "id"            :  8,
+            "utterance"     : "Thank you for sharing this USERNAME. In this session we talked about your social relationships. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }
+
+     ],
+     "session4" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hi, nice to see you again USERNAME. Welcome back. This time we are going to talk about your life's meaning. So like with the last sessions, I am going to ask you few questions to encourge you to think about the meaning of life.  Are you ready to start? ",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        {
+            "id"            :  1,
+        	"utterance" 	: "Great. Let's start then. What do you do that makes you feel like you are part of something bigger? I will give you few seconds to think about it. <break time='2s'/><break time='2s'/>. Please share with me.",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  2,
+            "utterance"     : "Can you ask me a follow up question on what I just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  3,
+            "utterance"     : "Can you tell me about a time when you felt that what you were doing was really worthwhile? What was it like, and how does it makes you fel thinking about it now?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "Can you ask me a follow up question on what I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }, 
+        {
+            "id"            : 5,
+            "utterance"     : "Have there been moments when you felt what you were doing lacked purpose or significance? How did you respond to that situation?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        ,        
+        {
+            "id"            : 6,
+            "utterance"     : "try to help me see the positive in the negative when addressing the positive aspects of my previous answers to the first 2 questions. In other words, try to make me be engaged in cognitive reappraisal. Make it subtle and blend it as part of the conversation so that the exercise would blend as part of a question. ",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        , 
+        {
+            "id"            :  7,
+            "utterance"     : "can you follow up on my answer and recognize the emotions I shared?",
+            "error"         : "", 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  8,
+            "utterance"     : "Thank you for sharing this USERNAME. In this session we talked about your life's meaning. Before you leave, please take some time to fill in the questionnaires on the tablet. Once you're done, let RESEARCHERNAME know, they will ask you a few questions before you leave. See you next time!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }],
+     "session5" :   [ 
+        {
+        	"id"        	:  0,
+        	"utterance" 	: "Hello USERNAME! Welcome to the fifth and final session! In this final session we are going to talk about your accomplishments. So like with the last sessions, I am going to ask you few questions to encourge you to think about your accomplishments.  Are you ready to start? ",
+        	"error"        	:  0,
+        	"nlp"       	:  0,
+        	"face"      	: "null",
+        	"gesture"   	: "QT/bye",
+        	"sound"     	: "",
+        	"back_channel"	: ""
+    	},
+        {
+            "id"            :  1,
+            "utterance"     : "Great. Let's start then. Can you tell me about an achievement you are particularly proud of? How does it make you feel?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  2,
+            "utterance"     : "Can you ask me a follow up question on what I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  3,
+            "utterance"     : "Can you describe a goal you are working towards and why it's important to you?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            :  4,
+            "utterance"     : "Can you ask me a follow up question on what I have just shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        }, 
+        {
+            "id"            :  5,
+            "utterance"     : "Can you think of a time recently, when you failed to achieve a goal or felt disappointed with your performance? How did that experience affect you?",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : ""
+        },
+        {
+            "id"            : 6,
+            "utterance"     : "try to help me see the positive in the negative when addressing the positive aspects of my previous answers to the first 2 questions. In other words, try to make me be engaged in cognitive reappraisal. Make it subtle and blend it as part of the conversation so that the exercise would blend as part of a question. ",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        ,        
+        {
+            "id"            : 7,
+            "utterance"     : "can you follow up on my answer and recognize the emotions I shared?",
+            "error"         :  0, 
+            "nlp"           :  1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : ""
+        }
+        , 
+        {
+            "id"            :  8,
+            "utterance"     : "Thank you for sharing this USERNAME. In this session we talked about your achievements and how they made you feel. Now, before you go, please again take some time to fill in the forms on the tablet. And after that, let RESEARCHERNAME know when you're done, and they'll ask you some questions before you go. Thank you, USERNAME, for attending the past five sessions and sharing your experiences with me. Goodbye!",
+            "error"         :  0, 
+            "nlp"           :  0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "QT/bye"
+        }
+
+     ],
+    "repair_strategies"    :   [
+        {
+        "condition": "non-empathic",
+        "interruption": ["Oh, sorry, I think I interrupted you. My microphone isn't working well today. I'm trying to do better. Could you repeat what you were saying before I interrupted you?",  "Oh, I'm sorry, I interrupted you again. Could you please repeat what you were saying before I interrupted you?", " I'm sorry, I thought you had finished speaking. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", " Oh sorry, I didn't realize you were still talking. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please, would you repeat your second example of one door closing and another opening?"],
+        "first_interruption": ["",  "Sorry, I interrupted you. I'm having processing issues. Could you repeat your first example of an experience where you felt gratitude?", " I'm sorry, I thought you had finished speaking. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", "Oh sorry, I didn't realize you were still talking, I'm still having technical issues. I'll try not to interrupt again. Please, would you repeat your second example of one door closing and another opening?"],
+        "non-responding": [" <break time='17s'/> Sorry, had you finished speaking? My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again. Could you please repeat what you were saying before the error happened?", "<break time='17s'/> Have you finished speaking? I'm sorry. My speech processing is having problems, so my processing is slower. I'll try to respond quicker next time. Could you repeat your first accomplishment experience?", "<break time='15s'/> Sorry, I didn't realize it was my turn to talk. My speech processing is having a delay. Could you repeat what you said before the delay?", "<break time='18s'/> Sorry about the delay in responding. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error. Could you please repeat what you were saying before the error?"],
+        "first_non-responding": ["", "<break time='17s'/> Have you finished speaking? I'm sorry. My speech processing is having problems, so my processing is slower. I'll try to respond quicker next time. Could you repeat your first accomplishment experience?", "<break time='15s'/> Sorry. I'm still having issues with my speech processing. Could you repeat your second example of feeling accomplished?", "<break time='18s'/> Sorry about the delay in responding, the Wi-Fi is a bit slow today. Could you please repeat your first example of one door opening and another closing?"],
+        "generic": ["I'm sorry, I think I made a mistake. I'm trying to improve. Could you repeat that please?", "Sorry, I think that was an error on my part. I'm having problems with speech recognition today. Could you tell me again?", "Sorry, I think I made a mistake. I'm trying to do better. Could you repeat that please?", "That was probably a mistake. I'm sorry about the mistakes I make, I'm trying to get better. Please carry on.", "I apologize, I think that was a mistake. The Wi-Fi is slow today, so my processing is slower. Could you tell me that again?", "That was probably a mistake, I'm sorry. I'll try not to do that again. Could you tell me again about that?", "I'm sorry, that was an error. My microphone is not working very well today. Could you repeat that?", "I'm sorry about that, I've had a processing error. Could you tell me that again please?", "I'm sorry about that, I think I made a mistake. I'm experiencing some technical issues. Could you repeat that please?", "Oh, sorry, I think that was an error. I'll try to not repeat that. Could you tell me that again?"]
+        }
+        ,
+        {
+    
+            
+        "condition": "empathic",
+        "interruption": ["Oh, sorry, I think I interrupted you. How did me interrupting you make you feel?", "Oh, I'm sorry, I interrupted you again. How are you feeling after another interruption?", " I'm sorry, I thought you had finished speaking. How did the interruption make you feel?", " Oh sorry, I didn't realize you were still talking. How did that interruption make you feel?"],
+        "first_interruption": ["", "Sorry, I interrupted you. How are you feeling after the interruption?", " I'm sorry, I thought you had finished speaking. How did the interruption make you feel?", "Oh sorry, I didn't realize you were still talking. How did that interruption make you feel?"],
+        "non-responding": ["<break time='17s'/> Sorry, had you finished speaking? How did my error in not responding make you feel?", "<break time='17s'/> Have you finished speaking? I'm sorry. How did me not responding make you feel?", "<break time='15s'/> Sorry, I didn't realize it was my turn to talk. How are you feeling after me not responding?", "<break time='18s'/> Sorry about the delay in responding. How did me not responding make you feel?"],
+        "first_non-responding": ["", "<break time='17s'/> Have you finished speaking? I'm sorry. How did me not responding make you feel?", "<break time='15s'/> Sorry. I'm still having issues with my speech processing. How are you feeling after me not responding?", "<break time='18s'/> Sorry about the delay in responding. How did me not responding make you feel?"],
+        "followup_interruption_neg": ["I'm sorry, I understand it can make you feel $FEELINGWORD when I make mistakes. My intention is to listen to what you are saying, but sometimes I experience errors. My microphone isn't working well today. I'm trying to do better. Could you repeat what you were saying before I interrupted you?", "I'm sorry to hear that, I understand you might feel $FEELINGWORD because I interrupted you again. I care about what you have to say, but sometimes I get things wrong. Could you please repeat what you were saying before I interrupted you?", "I'm sorry, I understand that you feel $FEELINGWORD when I interrupt. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", "I'm sorry, I understand that you feel $FEELINGWORD. I want to know what you want to share, but sometimes I make mistakes. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please, would you repeat your second example of one door closing and another opening?"],
+        "first_followup_interruption_neg": ["", "I'm sorry to hear that, I understand you might feel $FEELINGWORD when I interrupt you. I care about what you have to say, but sometimes I get things wrong. I'm having processing issues. Could you repeat your first example of an experience where you felt gratitude?", "I'm sorry, I understand that you feel $FEELINGWORD when I interrupt. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", "I'm sorry, I understand that you feel $FEELINGWORD. I want to know what you want to share, but sometimes I make mistakes. I'm still having technical issues. I'll try not to interrupt again. Please, would you repeat your second example of one door closing and another opening?"],
+        "followup_non-responding_neg": ["I'm sorry to hear that you feel $FEELINGWORD. I'm doing my best to respond to you, but sometimes I experience errors. My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again. Could you please repeat what you were saying before the error happened?", "I'm sorry, I understand you feel $FEELINGWORD. I want to respond to you, but sometimes I make mistakes.  My speech processing is having problems, so my processing is slower. I'll try to respond quicker next time. Could you repeat your first accomplishment experience?", "I'm sorry to hear that, I understand it can make you feel $FEELINGWORD when I'm slow to respond. My intention is to respond to you, but sometimes I have errors. My speech processing is having a delay. Could you repeat what you said before the delay?", "I'm sorry and I undeerstand you feel $FEELINGWORD when I don't respond. I'm doing my best to respond but sometimes I make mistakes. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error. Could you please repeat what you were saying before the error?"],
+        "first_followup_non-responding_neg": ["", "I'm sorry, I understand you feel $FEELINGWORD. I want to respond to you, but sometimes I make mistakes.  My speech processing is having problems, so my processing is slower. I'll try to respond quicker next time. Could you repeat your first accomplishment experience?", "I'm sorry to hear that, I understand it can make you feel $FEELINGWORD when I'm slow to respond. My intention is to respond to you, but sometimes I have errors. Could you repeat your second example of feeling accomplished?", "I'm sorry and I undeerstand you feel $FEELINGWORD when I don't respond. I'm doing my best to respond but sometimes I make mistakes. The Wi-Fi is a bit slow today. Could you please repeat your first example of one door opening and another closing?"],
+        "followup_interruption_pos": ["Thanks for being understanding. My intention is to listen to what you are saying, but sometimes I experience errors. My microphone isn't working well today. I'm trying to do better. Could you repeat what you were saying before I interrupted you?", "Thank you for understanding. I care about what you have to say, but sometimes I get things wrong. Could you please repeat what you were saying before I interrupted you?", "I appreciate you being understanding. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", "I'm greatful that you're being understanding. I want to know what you want to share, but sometimes I make mistakes. My speech recognition had an error due to the microphone. I'll try not to interrupt again. Please, would you repeat your second example of one door closing and another opening?"],
+        "first_followup_interruption_pos": ["", "Thank you for understanding. I care about what you have to say, but sometimes I get things wrong. I'm having processing issues. Could you repeat your first example of an experience where you felt gratitude?", "I appreciate you being understanding. I'm doing my best to listen, but sometimes I make mistakes. The Wi-Fi is not working very well so my processing is a bit slow today. I'm trying to improve. Could you please repeat what you were saying before I interrupted?", "I'm greatful that you're being understanding. I want to know what you want to share, but sometimes I make mistakes. I'm still having technical issues. I'll try not to interrupt again. Please, would you repeat your second example of one door closing and another opening?"],
+        "followup_non-responding_pos": ["Thank you for being understanding. I'm doing my best to respond to you, but sometimes I experience errors. My speech recognition isn't working well today because I'm having some microphone problems, so I'm a bit slow to respond. I'll try not to do that again. Could you please repeat what you were saying before the error happened?", "I'm grateful for you being understanding. I want to respond to you, but sometimes I make mistakes.  My speech processing is having problems, so my processing is slower. I'll try to respond quicker next time. Could you repeat your first accomplishment experience?", "I appreciate you being understanding when I'm slow to respond. My intention is to respond to you, but sometimes I have errors. My speech processing is having a delay. Could you repeat what you said before the delay?", "I'm thankful you're understanding when I don't respond. I'm doing my best to respond but sometimes I make mistakes. I think my microphone is having problems so I'm slower to respond when you say something. I'll try not to repeat that error. Could you please repeat what you were saying before the error?"],
+        "first_followup_non-responding_pos": ["", "I'm grateful for you being understanding. I want to respond to you, but sometimes I make mistakes.  My speech processing is having problems, so my processing is slower. I'll try to respond quicker next time. Could you repeat your first accomplishment experience?", "I appreciate you being understanding when I'm slow to respond. My intention is to respond to you, but sometimes I have errors. Could you repeat your second example of feeling accomplished?", "I'm thankful you're understanding when I don't respond. I'm doing my best to respond but sometimes I make mistakes. I'm doing my best to respond but sometimes I make mistakes. The Wi-Fi is a bit slow today. Could you please repeat your first example of one door opening and another closing?"]
+     
+        }
+    ]
+
+}
