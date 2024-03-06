@@ -1,11 +1,11 @@
 stt:
   default_param:
     language_id: "en-UK" #"en-US"
-    sample_rate: 48000 #16000 #44100 for wav audio file, 16000 for wav file from mic, 48000
+    sample_rate: 44100 #16000 #44100 for wav audio file, 16000 for wav file from mic, 48000
     audio_channel: 1
     subscriber_id: "default"
     credential_path: "$(env HOME)/.gcp/private-keys.json/private-keys.json" #path where private keys are mounted
-    wait_duration: 2
+    wait_duration: 5
     max_silence: 10 #s
   ita_param:
     language_id: "it-IT"

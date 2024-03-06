@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import py_trees
+import rospy
 
 from harmoni_common_lib.constants import *
 
@@ -34,6 +35,8 @@ class ScriptDialogueService(py_trees.behaviour.Behaviour):
             self.blackboard_scene.utterance =  "['*user* "+self.blackboard_stt.result+"']"
         else:
             self.blackboard_scene.utterance = ""
+        rospy.loginfo("============ THE UTTERANCE ARRIVED IS:")
+        rospy.loginfo(self.blackboard_scene.utterance)
         return py_trees.common.Status.SUCCESS
 
     def terminate(self, new_status):

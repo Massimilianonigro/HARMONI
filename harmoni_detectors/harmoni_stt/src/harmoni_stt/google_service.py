@@ -169,20 +169,24 @@ class STTGoogleService(HarmoniServiceManager):
             # some extra spaces to overwrite the previous result
             overwrite_chars = " " * (num_chars_printed - len(transcript))
           
-            if not result.is_final:
-                self._first_response = False
-                rospy.loginfo(transcript + overwrite_chars + "\r")
-                num_chars_printed = len(transcript)
-            else:
-                rospy.loginfo("STT response text: "+ transcript + overwrite_chars)
+            #if not result.is_final:
+            self._first_response = False
+            rospy.loginfo(transcript + overwrite_chars + "\r")
+            num_chars_printed = len(transcript)
+            if result.is_final:
+                self.stt_response += result.alternatives[0].transcript
+            if self.response_received:
+                rospy.loginfo("HERE STT response text: "+ transcript + overwrite_chars)
                 self.stt_response = result.alternatives[0].transcript
+                self.result_msg = self.stt_response
                 self.text_pub.publish(self.stt_response)
                 self.end_duration = rospy.get_time()
                 duration = self.end_duration - self.start_duration
                 self.duration_pub.publish(duration)
-                self.response_received = True
+                #self.response_received = True
                 return
             num_chars_printed = 0
+            #return
 
    
 
@@ -194,7 +198,7 @@ class STTGoogleService(HarmoniServiceManager):
     def request(self, data):
         rospy.loginfo("Start the %s request" % self.name)
         self.state = State.REQUEST
-        self.stt_response = "null"
+        self.stt_response = ""
         self.response_received = False
         self.closed = False
         self.start_duration = rospy.get_time()
@@ -210,32 +214,21 @@ class STTGoogleService(HarmoniServiceManager):
             self.start_time = time.time()
 
             responses = self.client.streaming_recognize(self.streaming_config, self.requests)
-            if not self._first_response:
-                if self.wait_duration < self.elapsed_time:
-                    print("Timeout!")
-                    print("STT response text: "+ self.stt_response)
-                    self.response_received = True
-                    self.state = State.SUCCESS
-                else:
-                    self.listen_print_until_result_is_final(responses)
-            else:
-                self.listen_print_until_result_is_final(responses)
-
+            #if not self._first_response:
+            self.listen_print_until_result_is_final(responses)
             r = rospy.Rate(1)
             while not self.response_received:
                 r.sleep()
-            rospy.loginfo("STT response text: "+ self.stt_response)
-            self.text_pub.publish(self.stt_response)
             self.state = State.SUCCESS
             self.result_msg = self.stt_response
             self.response_received = True
+            rospy.loginfo("FINAL STT response text: "+ self.stt_response)
+            self.text_pub.publish(self.stt_response)
         except rospy.ServiceException:
             self.state = State.FAILED
             rospy.loginfo("Service call failed")
             self.response_received = True
             self.result_msg = ""
-        finally:
-            self._buff.queue.clear()
         return {"response": self.state, "message": self.result_msg}
 
     def wav_to_data(self, path):
@@ -254,6 +247,7 @@ class STTGoogleService(HarmoniServiceManager):
             self.elapsed_time = time.time() - self.start_time
             self.elapsed_time_from_start = time.time() - self.time_start_request
             print("elapsed: ",self.elapsed_time)
+            #print("elapsed from start: ", self.elapsed_time_from_start)
             chunk = self._buff.get()
             if chunk is None:
                 return
@@ -263,11 +257,15 @@ class STTGoogleService(HarmoniServiceManager):
                 
             if not self._first_response:
                 if self.wait_duration < self.elapsed_time:
-                    print("end")
+                    print("+++++++++++++++++++++++++++++++++ end")
+                    self._first_response = True
+                    self.response_received = True
+                    self.result_msg = self.stt_response
+                    self.state = State.SUCCESS
                     return
             else:
                 if  self.max_silence < self.elapsed_time_from_start:
-                    print("end")
+                    print("================================= end")
                     self._first_response = True
                     self.response_received = True
                     self.state = State.FAILED

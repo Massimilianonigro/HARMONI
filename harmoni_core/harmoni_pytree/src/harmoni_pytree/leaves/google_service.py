@@ -64,10 +64,14 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
             else:
                 new_state = self.service_client_stt.get_state()
                 print(new_state)
+                print("=========== CLIENT RESULT")
+                print(self.client_result)
                 if new_state == GoalStatus.ACTIVE:
                     new_status = py_trees.common.Status.RUNNING
                 elif new_state == GoalStatus.SUCCEEDED:
                     if self.client_result is not None:
+                        print("=========== GOAL SUCCEDED AND THE RESULT IS: ")
+                        print(self.client_result)
                         self.blackboard_stt.result = self.client_result
                         rospy.loginfo(self.blackboard_stt.result)
                         self.client_result = None
@@ -83,8 +87,8 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
                     self.logger.debug(f"Goal cancelled to {self.server_name}")
                     #self.service_client_stt.stop_tracking_goal()
                     #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
-                    new_status = py_trees.common.Status.FAILURE
-                else:
+                    new_status = py_trees.common.Status.RUNNING
+                else: 
                     new_status = py_trees.common.Status.FAILURE
                     #raise
         self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
