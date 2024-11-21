@@ -8,7 +8,7 @@ from harmoni_common_lib.constants import State
 from harmoni_common_lib.service_server import HarmoniServiceServer
 from harmoni_common_lib.service_manager import HarmoniServiceManager
 import harmoni_common_lib.helper_functions as hf
-
+import numpy as np
 # Other Imports
 import sys
 
@@ -20,7 +20,7 @@ if using_kinetic:
 
 from cv_bridge import CvBridge, CvBridgeError
 from harmoni_common_lib.constants import SensorNameSpace
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 import cv2
 
 class CameraService(HarmoniServiceManager):
@@ -41,9 +41,15 @@ class CameraService(HarmoniServiceManager):
         super().__init__(name)
         self.input_device_index = param["input_device_index"]
         self.show = param["show"]
-        self.video_format = param["video_format"]
+        self.fps = param["fps"]
+        self.compressed = param["compressed"]
+        self.width = param["width"]
+        self.height = param["height"]
+        self.initial_video_format = param["video_format"]
+        self.converted_video_format = "bgr8"
         self.file_path = param["test_outdir"]
-
+        self.cam_set = "v4l2src device=/dev/video"+str(self.input_device_index)+" ! queue ! video/x-raw, width=" + str(self.width) + ", height= " + str(self.height) +",format="+str(self.initial_video_format)+",framerate="+str(self.fps)+"/1 ! videoconvert ! video/x-raw, format=BGR ! appsink drop=true"
+        
         self.service_id = hf.get_child_id(self.name)
 
         """ Setup the camera """
@@ -51,12 +57,20 @@ class CameraService(HarmoniServiceManager):
         self.setup_camera()
 
         """ Init the camera publisher"""
-        self.camera_topic = SensorNameSpace.camera.value + self.service_id
-        self._video_pub = rospy.Publisher(
-            self.camera_topic,
-            Image,
-            queue_size=1,
-        )
+        if self.compressed:
+            self.camera_topic = SensorNameSpace.camera.value + self.service_id + "/image_raw/compressed" 
+            self._video_pub = rospy.Publisher(
+                self.camera_topic,
+                CompressedImage,
+                queue_size=1,
+            )
+        else:
+            self.camera_topic = SensorNameSpace.camera.value + self.service_id + "/image_raw" 
+            self._video_pub = rospy.Publisher(
+                self.camera_topic,
+                Image,
+                queue_size=1,
+            )
 
         self.state = State.INIT
         return
@@ -92,9 +106,10 @@ class CameraService(HarmoniServiceManager):
     def setup_camera(self):
         """ Setup the camera """
         rospy.loginfo("Setting up the %s" % self.name)
-        self.video_cap = cv2.VideoCapture(self.input_device_index)
+        self.video_cap = cv2.VideoCapture(self.cam_set, cv2.CAP_GSTREAMER)
         self._open_stream()
         return
+    
 
     def _open_stream(self):
         """Opening the stream """
@@ -103,6 +118,7 @@ class CameraService(HarmoniServiceManager):
         self.height = int(self.video_cap.get(cv2.CAP_PROP_FRAME_HEIGHT) + 0.5)
         self.size = (self.width, self.height)
         self.fps = self.video_cap.get(cv2.CAP_PROP_FPS)
+        rospy.loginfo("Size of the stream is " + str(self.size))
         rospy.set_param("/" + self.name + "_param/fps/", self.fps)
         return
 
@@ -119,18 +135,26 @@ class CameraService(HarmoniServiceManager):
         While state is START publish images
         """
         while not rospy.is_shutdown():
-            _, frame = self.video_cap.read()
-            if (frame is None):
-                raise RuntimeError("No camera frame available. Is the configured device accessible?")
-            image = self.cv_bridge.cv2_to_imgmsg(frame, self.video_format)
-            self._video_pub.publish(image)
-            if self.show:
-                cv2.imwrite(self.file_path, frame)
-                # TODO: Allow showing images in docker
-                # cv2.imshow("PcCameraVideo", frame)
-                # if cv2.waitKey(1) and (0xFF == ord("x")) and self.show:
-                #     break
+            ret, frame = self.video_cap.read()
+            if ret == True:
+                if self.compressed:
+                    image = CompressedImage()
+                    image.header.stamp = rospy.Time.now()
+                    image.format = "jpeg"
+                    image.data = np.array(cv2.imencode('.jpg', frame)[1]).tostring()
+                    self._video_pub.publish(image)
+                else:
+                    image = self.cv_bridge.cv2_to_imgmsg(frame, self.converted_video_format)
+                    self._video_pub.publish(image)
+                if self.show:
+                    cv2.imshow("PcCameraVideo", frame)
+                    if cv2.waitKey(1) and (0xFF == ord("x")) and self.show:
+                        break
+            else:
+                rospy.logwarn("Camera Connection closed")
+                break
         return
+    
 
 
 def main():
@@ -156,7 +180,6 @@ def main():
 
         #TODO: comment it out and create a test for ImageAI
         s.start()
-
         service_server.start_sending_feedback()
         rospy.spin()
     except rospy.ROSInterruptException:

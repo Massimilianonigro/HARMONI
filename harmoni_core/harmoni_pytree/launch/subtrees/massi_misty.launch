@@ -1,0 +1,35 @@
+<launch>
+    
+	<arg name="instance_id" default="default"/> 
+    <arg name="robot_ip" default="192.169.0.102"/> 
+    <arg name="local_ip" default="192.169.0.103"/> 
+
+    <param name="instance_id" value="$(arg instance_id)"/> 
+	<param name="robot_ip" value="$(arg robot_ip)"/> 
+    <param name="local_ip" value="$(arg local_ip)"/> 
+    <rosparam file="$(find harmoni_pytree)/config/massi_configuration.yaml" subst_value="True"/>
+
+    
+    <!-- SENSORS -->
+    <include file="$(find harmoni_microphone)/launch/microphone_service.launch"></include>
+    <!-- <include file="$(find harmoni_camera)/launch/misty_camera_service.launch"></include>-->
+   
+     <include file="$(find harmoni_camera)/launch/camera_service.launch"></include>   
+    <!-- ACTUATORS -->
+    <include file="$(find harmoni_speaker)/launch/speaker_service_misty.launch"></include>
+    <include file="$(find harmoni_gesture)/launch/misty_head_movement.launch"></include>
+    <include file="$(find harmoni_gesture)/launch/misty_led.launch"></include>
+    <include file="$(find harmoni_gesture)/launch/misty_arms.launch"></include>
+    <include file="$(find harmoni_gesture)/launch/misty_drive.launch"></include>
+
+    <include file="$(find harmoni_tts)/launch/tts_service.launch"></include>
+    <include file="$(find harmoni_bot)/launch/bot_service.launch"></include>
+    <include file="$(find harmoni_face)/launch/face_service_misty.launch"></include>
+    <!-- PERCEPTION -->
+    <include file="$(find harmoni_stt)/launch/stt_google_service.launch"></include>
+    <include file="$(find harmoni_face_detect)/launch/face_detect_service.launch"></include>
+
+
+    <node pkg="harmoni_pytree" type="pytree_massi_misty.py" name="harmoni_pytree_default" output="screen"/>
+    
+</launch>

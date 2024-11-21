@@ -1,0 +1,114 @@
+{
+    "test" :   [ 
+        {
+            "utterance"     : "Nel gioco delle foto entrerai in una grande macchina e i medici ti faranno tante foto ma per far venire meglio le foto tu dovrai provare a stare fermo! Pensi di riuscirci?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_up_then_slowly_raising_arms",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al bambino con il maschile. Hai chiesto al bambino cosa ne pensa del gioco delle foto e del fatto che deve stare fermo, lui ti ha risposto, rispondi e chiudi il discorso con un affermazione. ", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Sai, il gioco delle foto mi piace perché la grande macchina sembra un'astronave, e tu sarai un po' come un astronauta! Sembra quasi di partire per lo spazio! Ti piacciono le astronavi?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_up_then_slowly_raising_arms",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al bambino con il maschile. Hai chiesto al bambino se gli piacciono le astronavi, rispondi adeguatamente e chiudi il discorso con un affermazione.",
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Sai mentre sei nella navicella, io e i dottori giochiamo a fare i tuoi copiloti! Monitoreremo la velocità dell’astronave e ti aiuteremo a farla andare velocissima. Tu devi solo stare più fermo possibile! Ce la puoi fare?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_up_then_slowly_raising_arms",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     :  "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso.  Usa un massimo di 10 parole. Riferisciti al bambino con il maschile. Hai chiesto il bambino al se pensa di poter stare fermo durante il gioco delle foto e lui ti ha risposto, rispondi e chiudi il discorso con un affermazione.",
+            "nlp"           :  1,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Dai io e gli altri copiloti ci fidiamo di te",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_arms_up",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }
+        ],
+    "error_handling"    :   
+                            {   
+                                "errore"   :   {
+                                                        "utterance"     : "Mhh qualcosa è andato storto!",
+                                                        "face"          : "null",
+                                                        "gesture"       : "null",
+                                                        "sound"         : "null",
+                                                        "do_trigger"    : "False"
+                                                    }
+                            }                  
+}

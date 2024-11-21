@@ -142,6 +142,7 @@ class MicrophoneService(HarmoniServiceManager):
                 raw_audio_bitstream = np.frombuffer(latest_audio_data, np.uint8)
                 raw_audio = raw_audio_bitstream.tolist()
                 self.raw_mic_pub.publish(raw_audio)  # Publishing raw AudioData
+                self._record_audio_data_callback(raw_audio_bitstream)
             elif (
                 self.state == State.SUCCESS
                 or self.state == State.FAILED
@@ -186,12 +187,13 @@ class MicrophoneService(HarmoniServiceManager):
 
     def _record_audio_data_callback(self, data):
         """Callback function to write data"""
-        data = np.fromstring(data.data, np.uint8)
+        data = np.frombuffer(data, np.uint8)
         if self.first_audio_frame:
             rospy.loginfo("Start recording")
             self.wf = wave.open(self.file_path, "wb")
-            self.wf.setnchannels(self.total_channels)
-            self.wf.setsampwidth(self.p.get_sample_size(self.audio_format))
+            self.wf.setnchannels(self.total_channels) 
+            #self.wf.setsampwidth(self.p.get_sample_size(self.audio_format))
+            self.wf.setsampwidth(self.audio_format_width)
             self.wf.setframerate(self.audio_rate)
             self.wf.setnframes(self.chunk_size)
             self.wf.writeframes(b"".join(data))

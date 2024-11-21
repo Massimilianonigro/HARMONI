@@ -101,7 +101,7 @@ class HarmoniServiceServer(HarmoniActionServer, object):
 
         # Create a thread
         # t = threading.Thread(target=self.handle_step, args=(optional_data))
-
+        
         if goal.action_type == ActionType.ON:
             rospy.loginfo(f"(Server {self.name}) Received goal. Starting")
             t = threading.Thread(target=self.service_manager.start)
@@ -140,8 +140,8 @@ class HarmoniServiceServer(HarmoniActionServer, object):
             t.start()
 
             while not self.service_manager.actuation_completed:
-                if self.get_preemption_status():
-                    preempted = True
+                if not preempted:
+                    preempted = True if self.get_preemption_status() else False
                 pr.sleep()
 
             # Once an action has completed or been preempted, we need to let
@@ -161,6 +161,7 @@ class HarmoniServiceServer(HarmoniActionServer, object):
 
             # To make sure we are ready for the next action, when we have completed
             # the prior action we should reset the initialization
+
             self.service_manager.reset_init()
 
         elif goal.action_type == ActionType.REQUEST:
@@ -181,8 +182,8 @@ class HarmoniServiceServer(HarmoniActionServer, object):
             t.start()
 
             while not self.service_manager.response_received:
-                if self.get_preemption_status():
-                    preempted = True
+                if not preempted:
+                    preempted = True if self.get_preemption_status() else False
                 pr.sleep()
 
             if not hasattr(self.service_manager, "result_msg"):

@@ -1,11 +1,14 @@
 # Configuration file for the camera
 camera:
   default_param:
-    input_device_index: 0
-    show: True
-    video_format: "bgr8"
+    input_device_index: 2
+    show: False
+    video_format: "YUY2"
     fps: 30
     test_outdir: "$(find harmoni_camera)/temp_data/test_example.png"
+    compressed: True
+    width: 640
+    height: 480
   person_param:
     input_device_index: 0
     show: True

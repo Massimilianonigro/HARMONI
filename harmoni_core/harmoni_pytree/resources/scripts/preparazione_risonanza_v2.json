@@ -1,0 +1,573 @@
+{
+    "test" :   [ 
+        {
+            "utterance"     : "Ciao! Sono Misty! Sono qui per tenerti compagnia mentre preparano il grande gioco delle foto!",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "left_arm_up",
+            "head":"counter_head_rotation_left",
+            "drive":"more_left_than_right_rotation",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Siccome sono ancora piccolo sono un pò lento quindi ci metto tanto a pensare, spero tu sia paziente con me! <break time=\"1s\"/>   Quando parlo e penso mi piace avere una luce rossa sulla pancia; mentre quando ascolto vedrai una luce verde!", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"tilting_then_back_right",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Hai delle domande da farmi? So che non capita tutti i giorni di parlare con un robot come me!", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "explaining_left_beginning",
+            "head":"tilting_then_back_left",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 30 parole. Riferisciti al bambino con il maschile. Il bambino ti ha fatto una domanda, rispondi adeguatamente e chiudi il discorso con un affermazione.", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"empty_drive",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }, 
+        {
+            "utterance"     : "Oggi faremo il gioco delle foto insieme, lo conosci?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "zigzag",
+            "head":"",
+            "drive":"left_right_rotation",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole.Riferisciti al bambino con il maschile. Hai chiesto al bambino se conosce il gioco delel foto, ti ha risposto, rispondi adeguatamente e chiudi il discorso con un affermazione.", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Nel gioco delle foto entrerai in una grande macchina e i medici ti faranno tante foto ma per far venire meglio le foto tu dovrai provare a stare fermo! Pensi di riuscirci?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_arms_up",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al bambino con il maschile. Hai chiesto al bambino cosa ne pensa del gioco delle foto e del fatto che deve stare fermo, lui ti ha risposto, rispondi e chiudi il discorso con un affermazione. ", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Sai, il gioco delle foto mi piace perché la grande macchina sembra un'astronave, e tu sarai un po' come un astronauta! Sembra quasi di partire per lo spazio! Ti piacciono le astronavi?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_arms_up",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al bambino con il maschile. Hai chiesto al bambino se gli piacciono le astronavi, rispondi adeguatamente e chiudi il discorso con un affermazione.",
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Sai mentre sei nella navicella, io e i dottori giochiamo a fare i tuoi copiloti! Monitoreremo la velocità dell’astronave e ti aiuteremo a farla andare velocissima. Tu devi solo stare più fermo possibile! Ce la puoi fare?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_arms_up",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     :  "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso.  Usa un massimo di 10 parole. Riferisciti al bambino con il maschile. Hai chiesto il bambino al se pensa di poter stare fermo durante il gioco delle foto e lui ti ha risposto, rispondi e chiudi il discorso con un affermazione.",
+            "nlp"           :  1,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Dai io e gli altri copiloti ci fidiamo di te",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_arms_up",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Anche tu puoi partecipare al gioco delle foto se vuoi! Per te abbiamo un ruolo speciale! Puoi essere il vice comandante! Per farlo devi entrare anche tu nella sala delle foto ti va?",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "explaining_right",
+            "head":"",
+            "drive":"rotate_right",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al genitore con il maschile. Hai chiesto al genitore se vuole stare nella sala delle foto ti ha risposto, rispondi e chiudi con un affermazione. ",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "So che sarai un grande alleato!",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "both_arms_up",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Sai l’astronave la migliore possibile! Per farla andare veloce però hanno messo dei motori che fanno dei rumori molto forti! Quindi se senti rumori non devi avere paura significa solo che l’astronave sta andando forte! Che ne pensi, hai paura dei rumori?",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "explaining_left",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al bambino con il maschile. Hai chiesto al bambino se ha paura dei rumori durante il gioco delle foto e lui ti ha risposto, rispondi e chiudi il discorso con un affermazione.",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Vuoi farmi qualche domanda o vuoi qualche consiglio per il gioco? Io sono qui per qui per questo puoi dirmi tutto",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 30 parole. Riferisciti al bambino con il maschile. Hai chiesto al bambino se ha delle domande e lui ti ha risposto, rispondi e chiudi il discorso con un affermazione. ",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Tu hai qualche domanda o vuoi qualche consiglio per il gioco?",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 30 parole. Riferisciti al genitore con il maschile. Hai chiesto al genitore se ha delle domande e lui ti ha risposto, rispondi e chiudi il discorso con un affermazione.",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"empty_drive",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Perfetto! Siamo quasi pronti per il gioco delle foto, sei stato molto bravo finora! Batti il pugno qui!",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "fist_bump_up",
+            "head":"",
+            "drive":"rotate_right",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Prima di spostarci nell'altra stanza per salire sulla navicella e iniziare a giocare e fare tante foto, facciamo un piccolo esercizio di respirazione per prepararci al viaggio nello spazio.  Sei pronto?",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"rotate_left",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al genitore con il maschile. Hai chiesto al genitore se vogliono fare il gioco del respiro, rispondi adeguatamente con qualcosa tipo ‘Dai sarà divertente’.",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Durante il gioco del respiro, inspirerete per 4 secondi, tratterrete il respiro per altri 4 secondi e infine butterete l'aria fuori per 4 secondi. Vi guiderò in ogni fase. Siete pronti?",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Non devi parlare mai di risonanza, ma sempre di 'gioco delle foto' e mai avere un tono cupo ma sempre essere allegro e giocoso. Usa un massimo di 10 parole. Riferisciti al genitore con il maschile. Hai chiesto al genitore se è pronto per il gioco del respiro, in caso di risposta positiva rispondi qualcosa tipo: “perfetto sarà bello”. ",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Vi guiderò io nel ritmo. Iniziate inspirando. <break time=\"1s\"/> <break time=\"1s\"/>",
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_in",
+            "head":"",
+            "drive":"",
+            "sound"         : "breath_in.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Trattenete il respiro. <break time=\"1s\"/> Uno, <break time=\"1s\"/> due, <break time=\"1s\"/> tre, <break time=\"1s\"/> quattro. ",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Buttate fuori.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_out",
+            "head":"",
+            "drive":"",
+            "sound"         : "breath_out.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Facciamolo ancora una volta. Inspirate.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_in",
+            "head":"",
+            "drive":"",
+            "sound"         : "breath_in.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Trattenete il respiro. <break time=\"1s\"/> Uno, <break time=\"1s\"/> due, <break time=\"1s\"/> tre, <break time=\"1s\"/> quattro. ",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Buttate fuori.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_out",
+            "head":"",
+            "drive":"",
+            "sound"         : "breath_out.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Per l'ultima volta, respirate",
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_in",
+            "head":"",
+            "drive":"",
+            "sound"         : "breath_in.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Tenete dentro <break time=\"1s\"/> Uno, <break time=\"1s\"/> due, <break time=\"1s\"/> tre, <break time=\"1s\"/> quattro. ",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "empty_gesture",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Buttate fuori.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_out",
+            "head":"",
+            "drive":"",
+            "sound"         : "breath_out.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Abbiamo finito! Adesso possiamo andare nell’altra stanza per iniziare il nostro viaggio nello spazio e scattare tante foto insieme. E dopo, se vuoi, passa a salutarmi!",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "head":"",
+            "drive":"",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }
+        ],
+    "error_handling"    :   
+                            {   
+                                "errore"   :   {
+                                                        "utterance"     : "Mhh qualcosa è andato storto!",
+                                                        "face"          : "null",
+                                                        "gesture"       : "null",
+                                                        "sound"         : "null",
+                                                        "do_trigger"    : "False"
+                                                    }
+                            }                  
+}

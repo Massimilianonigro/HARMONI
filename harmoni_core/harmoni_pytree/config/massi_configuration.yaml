@@ -1,0 +1,9 @@
+pytree:
+  default_param:
+    interaction: "piccola_preparazione_test" #or infotainment / preparazione_risonanza / accompagnatore 
+    user_name: "Massi"
+    session: "test" #session1_empathic, session1
+    researcher_name: "Massi"
+    scene: 0
+    condition :  0 #0: non-empathic, 1: empathic
+

@@ -34,7 +34,16 @@ class AWSTtsService(HarmoniServiceManager):
         """ Initialization of variables and tts parameters """
         self.region_name = param["region_name"]
         self.voice = param["voice"]
+        #SSML Params
         self.language = param["language"]
+        self.max_pitch = param["max_pitch"]
+        self.min_pitch = param["min_pitch"]
+        self.max_volume = param["max_volume"]
+        self.min_volume = param["min_volume"]
+        self.max_rate = param["max_rate"]
+        self.min_rate = param["min_rate"]
+        self.default_pitch = param["default_pitch"]
+        self.default_rate = param["default_rate"]
         self.outdir = param["outdir"]
         self.wav_header_length = param["wav_header_length"]
         self.tts_pub = rospy.Publisher(ActuatorNameSpace.tts.value + "default", String, queue_size = 1)
@@ -238,8 +247,8 @@ class AWSTtsService(HarmoniServiceManager):
         """
         behaviours = list(sorted(behavior_data, key=lambda i: i["start"]))
         data, samplerate = sf.read(self.outdir + "/tts.ogg")
-        sf.write(self.outdir + "/tts.wav", data, samplerate)
-        file_handle = self.outdir + "/tts.wav"
+        sf.write(self.outdir + "/tts.mp3", data, samplerate)
+        file_handle = self.outdir + "/tts.mp3"
         data = np.fromfile(file_handle, np.uint8)[
             self.wav_header_length :
         ]  # Loading wav file
@@ -252,6 +261,68 @@ class AWSTtsService(HarmoniServiceManager):
             "behavior_data": str(behaviours),
         }
         return str(response)
+
+    def text_to_ssml(
+    self,
+    text: str,
+    language: str = "en-US",   # language code (e.g., "en-US" for English US, "es-ES" for Spanish)
+    max_pitch: str = "110%",   # maximum pitch percentage (e.g., "110%")
+    min_pitch: str = "95%",    # minimum pitch percentage (e.g., "95%")
+    max_volume: str = "+4dB",  # maximum volume (e.g., "+4dB")
+    min_volume: str = "medium",# minimum volume level (e.g., "medium" or "+0dB")
+    max_rate: str = "105%",    # maximum rate percentage (e.g., "105%")
+    min_rate: str = "98%",     # minimum rate percentage (e.g., "98%")
+    default_pitch: str = "100%",# baseline pitch (e.g., "100%")
+    default_rate: str = "100%" # baseline rate (e.g., "100%")
+) -> str:
+        # Split the text into sentences based on punctuation for processing
+        sentences = re.split(r'(?<=[.!?])\s+', text.strip())
+        
+        # Initialize SSML string with language
+        ssml_text = f'<speak xml:lang="{language}">'
+
+        for sentence in sentences:
+            if not sentence:
+                continue
+            
+            # Check the sentence ending
+            ending = sentence[-1]
+            
+            # Set SSML parameters
+            pitch = default_pitch  # start with the default pitch
+            rate = default_rate    # start with the default rate
+            volume_start = max_volume
+            volume_end = min_volume
+            break_duration = "500ms"  # default pause duration
+
+            # Apply pitch and volume adjustments based on sentence type
+            if ending == '?':
+                # Raise pitch slightly at the end for questions
+                pitch = max_pitch
+                # Highlight the last 2-3 words for emphasis
+                sentence = re.sub(r'(\b\w+\W*){1,3}$', r'<prosody pitch="{}">\g<0></prosody>'.format(max_pitch), sentence)
+                break_duration = "700ms"  # longer pause for questions
+            elif ending == '!':
+                # Raise pitch and speed slightly for exclamations
+                pitch = max_pitch
+                rate = max_rate
+                sentence = re.sub(r'(\b\w+\W*){1,3}$', r'<prosody pitch="{}">\g<0></prosody>'.format(max_pitch), sentence)
+                break_duration = "600ms"  # moderate pause for exclamations
+            else:
+                # Slightly lower pitch for regular statements
+                pitch = min_pitch
+
+            # Wrap each sentence with SSML prosody tags and add a break
+            ssml_text += (
+                f'<prosody pitch="{pitch}" rate="{rate}" volume="{volume_start}">'
+                f"{sentence.strip()}"
+                f'</prosody><break time="{break_duration}"/>'
+            )
+        
+        # Close the SSML tag
+        ssml_text += "</speak>"
+        return ssml_text
+
 
     def request(self, input_text):
         """[summary]
@@ -270,11 +341,18 @@ class AWSTtsService(HarmoniServiceManager):
         self.tts_pub.publish(text)
         try:
             text = (
-                '<speak><lang xml:lang="'
-                + self.language
-                + '"><prosody rate="slow" volume= "soft">'
-                + text
-                + "</prosody></lang></speak>"
+               self.text_to_ssml(
+                   text,
+                    language=self.language,
+                    max_pitch=self.max_pitch,
+                    min_pitch=self.min_pitch,
+                    max_volume=self.max_volume,
+                    min_volume=self.min_volume,
+                    max_rate=self.max_rate,
+                    min_rate=self.min_rate,
+                    default_pitch=self.default_pitch,
+                    default_rate=self.default_rate
+               )    
             )
             json_response = self.tts.synthesize_speech(
                 Text=text,
@@ -282,6 +360,7 @@ class AWSTtsService(HarmoniServiceManager):
                 OutputFormat="json",
                 VoiceId=self.voice,
                 SpeechMarkTypes=["viseme", "word"],
+                Engine="standard"
             )
             behavior_data = self._get_behaviors(json_response, actions)
             ogg_response = self.tts.synthesize_speech(
@@ -289,6 +368,7 @@ class AWSTtsService(HarmoniServiceManager):
                 TextType="ssml",
                 OutputFormat="ogg_vorbis",
                 VoiceId=self.voice,
+                Engine="standard"
             )
             audio_data = self._get_audio(ogg_response)
             tts_response = self._get_response(behavior_data)

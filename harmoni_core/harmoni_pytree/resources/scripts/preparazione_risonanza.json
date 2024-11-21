@@ -1,0 +1,404 @@
+{
+    "test" :   [ 
+        {
+            "utterance"     : "Ciao! Sono Misty. Sono qui per aiutarti a prepararti a una piccola avventura!",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "happy_face",
+            "gesture"       : "left_arm_up",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Prima di iniziare volevo dirti che sono ancora piccolo; Quindi sono un pò lento e ci metto tanto a pensare. Spero tu sia paziente con me! <break time=\"1s\"/>   Quando parlo e penso mi piace avere una luce rossa sulla pancia; mentre quando ascolto vedrai una luce verde!",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Hai qualche domanda da farmi?",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Il bambino ti ha fatto una domanda, rispondi adeguatamente e chiudi il discorso con un affermazione. Usa massimo 30 parole. Non usare emoji. Se il bambino non dice niente, di qualcosa tipo 'Non ho sentito bene'",
+            "nlp"           :  1,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Sei pronto per iniziare?",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Fantastico! Hai mai sognato di fare l'esploratore spaziale? Nella stanza della risonanza c'è una grande macchina che sembra proprio una navicella spaziale! Ti piacciono le astronavi?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "loud_face",
+            "gesture"       : "both_arms_up",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Hai fatto una domanda al bambino, commenta la sua risposta.Usa massimo 10 parole. Sei il robot, non ripetere ciò che ti ha detto il bambino, se non hanno detto nulla, usa una generica affermazione che puo andare bene anche se non hai sentito. Non usare emoji.", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }, 
+        {
+            "utterance"     : "Quando farai la risonanza, immagina di sdraiarti dentro la navicella per una missione segreta. La navicella farà un po’ di rumore, come se stesse per partire, ma tu dovrai restare fermo come un astronauta coraggioso! Riuscirai a farlo?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "pensive_face",
+            "gesture"       : "explaining_left",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta preparando un bambino (paziente) e un suo genitore ad una risonanza magnetica. Hai appena chiesto al bambino se riuscirà a stare fermo dentro la risonanza, ti ha risposto. Rispondi adeguatamente in massimo 10 parole. Se non hanno detto nulla, usa una generica affermazione che puo andare bene anche se non hai sentito, tipo 'dai so che ce la farai' . Non usare emoji.", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Sai, mentre sei fermo, io e gli altri dottori stiamo ascoltando i suoni della navicella e raccogliendo informazioni importanti per la missione. Non sei solo, ci siamo noi a guidarti. Ok?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "explaining_right",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Dai so che ce la farai!",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "So che può sembrare un po strano vedere questa grande macchina, ma è del tutto sicura. Fa solo tanti rumori perché sta lavorando per creare delle immagini super dettagliate. Andrà tutto bene e potrai stare anche tu nella sala della risonanza. Va bene per te?",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "right",
+            "addressee_name": "genitore"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta preparando un bambino (paziente) e un suo genitore ad una risonanza magnetica. Hai appena chiesto al genitore se per lui va bene essere nella stanza della risonanza con il bambino, ti ha risposto. Rispondi adeguatamente in massimo 10 parole. Sei il robot, non ripetere ciò che ti ha detto il bambino, se non hanno detto nulla, usa una generica affermazione che puo andare bene anche se non hai sentito. Non usare emoji.",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "So che sarai un grande alleato in questa missione!",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "zigzag",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "right",
+            "addressee_name": "genitore"
+        },
+        {
+            "utterance"     :  "C'è qualcosa che ti preoccupa o che vuoi chiedermi? Puoi raccontarmi tutto, io sono qui per ascoltarti",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta preparando un bambino (paziente) e un suo genitore ad una risonanza magnetica. Ti sei già presentato e hai già spiegato la procedura, il bambino ti ha appena detto cosa lo preoccupa, rispondi adeguatamente e tranquillizzalo. Chiudi con un affermazione. Tieni conto che stai parlando con un bambino quindi usa un linguaggio semplice.",
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Tu come ti senti? Hai dubbi o domande che vuoi farmi?",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta preparando un bambino (paziente) e un suo genitore ad una risonanza magnetica. Hai chiesto al genitore se è preoccupato per il figlio. Ti ha risposto, rispondi adeguatamente alla risposta del genitore e tranquillizzalo. Chiedigli poi se prima di entrare vuole partecipare insieme al figlio a 'un esercizio di respirazione fatto spesso dagli astronauti'",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Durante l'esercizio, inspirerete per 4 secondi, tratterrete il respiro per altri 4 secondi e infine espirerete per 4 secondi. Vi guiderò in ogni fase. Siete pronti?",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Dai vi prometto che sarà carino!",
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "both_arms_up",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Vi guiderò io nel ritmo. Iniziate inspirando. <break time=\"1s\"/> <break time=\"1s\"/>",
+            "nlp":0,
+            "face"          : "breath_face",
+            "gesture"       : "breath_in",
+            "sound"         : "breath_in.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Trattenete il respiro. <break time=\"1s\"/> Uno, <break time=\"1s\"/> due, <break time=\"1s\"/> tre, <break time=\"1s\"/> quattro. ",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Buttate fuori.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_out",
+            "sound"         : "breath_out.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Facciamolo ancora una volta. Inspirate.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "breath_face",
+            "gesture"       : "breath_in",
+            "sound"         : "breath_in.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Trattenete il respiro. <break time=\"1s\"/> Uno, <break time=\"1s\"/> due, <break time=\"1s\"/> tre, <break time=\"1s\"/> quattro. ",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Buttate fuori.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_out",
+            "sound"         : "breath_out.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Per l'ultima volta, inspirate.",
+            "nlp":0,
+            "face"          : "breath_face",
+            "gesture"       : "breath_in",
+            "sound"         : "breath_in.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Tenete dentro <break time=\"1s\"/> Uno, <break time=\"1s\"/> due, <break time=\"1s\"/> tre, <break time=\"1s\"/> quattro. ",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Buttate fuori.",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "breath_out",
+            "sound"         : "breath_out.wav",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "In bocca al lupo per la tua avventura, passa a salutarmi dopo se vuoi!",
+            "rl":0,
+            "nlp":0,
+            "face"          : "happy_face",
+            "gesture"       : "both_arms_up",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }
+        ],
+    "error_handling"    :   
+                            {   
+                                "errore"   :   {
+                                                        "utterance"     : "Mhh qualcosa è andato storto!",
+                                                        "face"          : "null",
+                                                        "gesture"       : "null",
+                                                        "sound"         : "null",
+                                                        "do_trigger"    : "False"
+                                                    }
+                            }                  
+}

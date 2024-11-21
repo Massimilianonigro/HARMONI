@@ -13,7 +13,7 @@ import harmoni_common_lib.helper_functions as hf
 from harmoni_common_lib.constants import State, DetectorNameSpace, SensorNameSpace
 from audio_common_msgs.msg import AudioData
 from google.cloud import speech
-from std_msgs.msg import String, Float32
+from std_msgs.msg import String, Float32, Bool
 import numpy as np
 import os
 import io
@@ -64,11 +64,12 @@ class STTGoogleService(HarmoniServiceManager):
             DetectorNameSpace.stt.value + self.subscriber_id + '/duration', Float32, queue_size=1
         )
 
-        rospy.Subscriber(
-            DetectorNameSpace.stt.value + self.service_id,
-            String,
-            self.stt_callback,
+
+
+        self.vad_pub = rospy.Publisher(
+            DetectorNameSpace.vad.value + self.subscriber_id + '/vad_result', Bool, queue_size=10
         )
+
 
         """Setup the stt service as server """
         self.state = State.INIT
@@ -172,28 +173,19 @@ class STTGoogleService(HarmoniServiceManager):
             #if not result.is_final:
             self._first_response = False
             rospy.loginfo(transcript + overwrite_chars + "\r")
+            
             num_chars_printed = len(transcript)
+
+            if num_chars_printed != 0:
+                self.vad_pub.publish(Bool(data=True))
+            else:
+                self.vad_pub.publish(Bool(data=False))
+            
             if result.is_final:
                 self.stt_response += result.alternatives[0].transcript
-            if self.response_received:
-                rospy.loginfo("HERE STT response text: "+ transcript + overwrite_chars)
-                self.stt_response = result.alternatives[0].transcript
-                self.result_msg = self.stt_response
-                self.text_pub.publish(self.stt_response)
-                self.end_duration = rospy.get_time()
-                duration = self.end_duration - self.start_duration
-                self.duration_pub.publish(duration)
-                #self.response_received = True
-                return
             num_chars_printed = 0
-            #return
 
    
-
-    def stt_callback(self, data):
-        """ Callback function subscribing to the microphone topic"""
-        self.response_received = True
-
 
     def request(self, data):
         rospy.loginfo("Start the %s request" % self.name)
@@ -217,13 +209,14 @@ class STTGoogleService(HarmoniServiceManager):
             #if not self._first_response:
             self.listen_print_until_result_is_final(responses)
             r = rospy.Rate(1)
-            while not self.response_received:
-                r.sleep()
-            self.state = State.SUCCESS
             self.result_msg = self.stt_response
-            self.response_received = True
+            self.state = State.SUCCESS
             rospy.loginfo("FINAL STT response text: "+ self.stt_response)
             self.text_pub.publish(self.stt_response)
+            response = {"response": self.state, "message": self.result_msg}
+            rospy.loginfo("SENDING RESPONSEEEEEE " + str(response))
+            self.response_received = True
+            return response
         except rospy.ServiceException:
             self.state = State.FAILED
             rospy.loginfo("Service call failed")
@@ -259,16 +252,11 @@ class STTGoogleService(HarmoniServiceManager):
                 if self.wait_duration < self.elapsed_time:
                     print("+++++++++++++++++++++++++++++++++ end")
                     self._first_response = True
-                    self.response_received = True
-                    self.result_msg = self.stt_response
-                    self.state = State.SUCCESS
                     return
             else:
                 if  self.max_silence < self.elapsed_time_from_start:
                     print("================================= end")
                     self._first_response = True
-                    self.response_received = True
-                    self.state = State.FAILED
                     return
                 else:
                     self.start_time = time.time()

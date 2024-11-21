@@ -32,6 +32,7 @@ class VADServicePytree(py_trees.behaviour.Behaviour):
     def setup(self,**additional_parameters):    
         self.service_client_vad = HarmoniActionClient(self.name)
         self.server_name = DetectorNameSpace.vad.value + "default"
+        self.blackboard_vad.result = str(False)
         self.service_client_vad.setup_client(self.server_name, 
                                             self._result_callback,
                                             self._feedback_callback,
@@ -48,34 +49,52 @@ class VADServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug("%s.initialise()" % (self.__class__.__name__))
 
     def update(self):
-        new_state = self.service_client_vad.get_state()
-        rospy.loginfo(new_state)
-        if new_state == GoalStatus.ACTIVE:
+        rospy.loginfo("DETECTOR NAME IS" + str(DetectorNameSpace.vad.name))
+        if self.send_request:
+            self.send_request = False
+            self.logger.debug(f"Sending goal to {self.server_name}")
+            self.service_client_vad.send_goal(
+                action_goal = ActionType["REQUEST"].value,
+                wait=False
+            )
+            self.logger.debug(f"Goal sent to {self.server_name}")
             new_status = py_trees.common.Status.RUNNING
-        elif new_state == GoalStatus.SUCCEEDED:
-                new_status = py_trees.common.Status.SUCCESS
-        elif new_state == GoalStatus.PENDING:
-            new_status = py_trees.common.Status.RUNNING
-        elif new_state == GoalStatus.ABORTED:
-            new_status = py_trees.common.Status.SUCCESS
         else:
-            new_status = py_trees.common.Status.FAILURE
-        self.blackboard_vad.result = new_status
-        self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
+            new_state = self.service_client_vad.get_state()
+            rospy.loginfo("VAD SERVICE STATE IS " + str(new_state))
+            rospy.loginfo(new_state)
+            if new_state == GoalStatus.ACTIVE:
+                new_status = py_trees.common.Status.RUNNING
+            elif new_state == GoalStatus.SUCCEEDED:
+                self.send_request = True
+                self.blackboard_vad.result = self.client_result  
+                new_status = py_trees.common.Status.SUCCESS
+            elif new_state == GoalStatus.PENDING:
+                new_status = py_trees.common.Status.RUNNING
+            elif new_state == GoalStatus.ABORTED:
+                new_status = py_trees.common.Status.SUCCESS
+            else:
+                new_status = py_trees.common.Status.FAILURE
+            self.logger.debug("%s.update()[%s]--->[%s]" % (self.__class__.__name__, self.status, new_status))
         return new_status
         
     def terminate(self, new_status):
+        rospy.loginfo("INTO VAD TERMINATE")
         new_state = self.service_client_vad.get_state()
         print("terminate : ",new_state)
         if new_state == GoalStatus.SUCCEEDED or new_state == GoalStatus.ABORTED or new_state == GoalStatus.LOST:
             self.send_request = True
         if new_state == GoalStatus.PENDING:
             self.send_request = True
+            rospy.loginfo("BEFORE CANCELLING GOALS")
             self.logger.debug(f"Cancelling goal to {self.server_name}")
-            self.service_client_service_client_vad.cancel_all_goals()
+            #self.service_client_service_client_vad.cancel_all_goals()
+            self.service_client_vad.stop_tracking_goal()
+
+            rospy.loginfo("AFTER CANCELLING GOALS")
+
             self.client_result = None
             self.logger.debug(f"Goal cancelled to {self.server_name}")
-            #self.service_client_vad.stop_tracking_goal()
             #self.logger.debug(f"Goal tracking stopped to {self.server_name}")
         self.logger.debug("%s.terminate()[%s->%s]" % (self.__class__.__name__, self.status, new_status))
 

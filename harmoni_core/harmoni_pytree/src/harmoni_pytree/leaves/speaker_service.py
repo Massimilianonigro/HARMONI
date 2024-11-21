@@ -51,6 +51,8 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
             if self.send_request:
                 self.send_request = False
                 self.logger.debug(f"Sending goal to {self.server_name}")
+                rospy.logdebug("\n\n--------------------SENDING REQUESTO TO --------:" + str(self.server_name))
+
                 self.service_client_speaker.send_goal(
                     action_goal = ActionType["DO"].value,
                     optional_data=self.blackboard_input.result,
@@ -60,7 +62,7 @@ class SpeakerServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.RUNNING
             else:
                 new_state = self.service_client_speaker.get_state()
-                print(new_state)
+                rospy.logdebug("\n\n--------------------Speaker State is --------:" + str(new_state))
                 if new_state == GoalStatus.ACTIVE:
                     new_status = py_trees.common.Status.RUNNING
                 elif new_state == GoalStatus.SUCCEEDED:

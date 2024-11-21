@@ -1,0 +1,4 @@
+<launch>
+	<arg name="instance_id" default="default"/>
+	<node pkg="harmoni_gesture" type="misty_drive.py" name="harmoni_drive_$(arg instance_id)" output="screen"/>
+</launch>

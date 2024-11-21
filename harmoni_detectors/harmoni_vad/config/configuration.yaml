@@ -3,3 +3,10 @@ vad:
     rate_frame: 30
     subscriber_id: "default"
     sampling_rate: 16000
+    #512 Samples for VAD is for 16000 Hz sampling rate
+    n_samples: 512
+    test_outdir_pre: "$(find harmoni_vad)/temp_data/test_pre.wav"
+    test_outdir_post: "$(find harmoni_vad)/temp_data/test_post.wav"
+
+    waiting_time: 1
+

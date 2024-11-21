@@ -1,0 +1,10 @@
+camera:
+  default_param:
+    port: 7979
+    width: 240
+    height: 320
+    rotation: 90
+    quality: 100  
+    show: False
+    save: True
+    outdir: "$(find harmoni_camera)/temp_data"

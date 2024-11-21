@@ -63,17 +63,14 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
                 new_status = py_trees.common.Status.RUNNING
             else:
                 new_state = self.service_client_stt.get_state()
-                print(new_state)
-                print("=========== CLIENT RESULT")
-                print(self.client_result)
+                rospy.loginfo("NEW STATE IN STT IS " + str(new_state))
                 if new_state == GoalStatus.ACTIVE:
                     new_status = py_trees.common.Status.RUNNING
                 elif new_state == GoalStatus.SUCCEEDED:
                     if self.client_result is not None:
-                        print("=========== GOAL SUCCEDED AND THE RESULT IS: ")
-                        print(self.client_result)
+                        rospy.loginfo("AOOOOOOOOOOOOOOOO CLIENT RESULT IN STT IS " + str(self.client_result))
                         self.blackboard_stt.result = self.client_result
-                        rospy.loginfo(self.blackboard_stt.result)
+                        rospy.loginfo("WRITING ON BLACKBOARD STT RESULT THAT IS " + str(self.blackboard_stt.result))
                         self.client_result = None
                         new_status = py_trees.common.Status.SUCCESS
                     else:
@@ -119,6 +116,7 @@ class SpeechToTextServicePytree(py_trees.behaviour.Behaviour):
         self.logger.debug(
             f"The result callback message from {result['service']} was {len(result['message'])} long"
         )
+        rospy.loginfo("STTT RECEIVED RESULT ISSS " + str(result))
         self.client_result = result["message"]
         return
 

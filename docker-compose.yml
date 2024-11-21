@@ -34,7 +34,7 @@ services:
       - ../HARMONI/:/root/local_mount/HARMONI/
       # Configuration
       - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      - /home/massimiliano/.gcp/:/root/.gcp
       # Other
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/timezone:/etc/timezone:ro
@@ -73,7 +73,7 @@ services:
       - ../HARMONI/:/root/local_mount/HARMONI/
       # Configuration
       - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      - /home/massimiliano/.gcp/:/root/.gcp
       # Other
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/timezone:/etc/timezone:ro
@@ -112,7 +112,7 @@ services:
       - ../HARMONI/:/root/local_mount/HARMONI/
       # Configuration
       - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      - /home/massimiliano/.gcp/:/root/.gcp
       # Other
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/timezone:/etc/timezone:ro
@@ -151,7 +151,7 @@ services:
       - ../HARMONI/:/root/local_mount/HARMONI/
       # Configuration
       - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      - /home/massimiliano/.gcp/:/root/.gcp
       # Other
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/timezone:/etc/timezone:ro
@@ -190,7 +190,7 @@ services:
       - ../HARMONI/:/root/local_mount/HARMONI/
       # Configuration
       - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      - /home/massimiliano/.gcp/:/root/.gcp
       # Other
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/timezone:/etc/timezone:ro
@@ -229,7 +229,7 @@ services:
       - ../HARMONI/:/root/local_mount/HARMONI/
       # Configuration
       - ~/.aws:/root/.aws/
-      - ~/.gcp/private-keys.json:/root/.gcp/private-keys.json
+      - /home/massimiliano/.gcp/:/root/.gcp
       # Other
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/timezone:/etc/timezone:ro

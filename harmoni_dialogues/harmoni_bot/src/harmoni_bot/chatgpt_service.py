@@ -13,6 +13,7 @@ from std_msgs.msg import String
 import openai
 import os
 import ast
+import re
 
 class ChatGPTService(HarmoniServiceManager):
     """This is a class representation of a harmoni_dialogue service
@@ -45,7 +46,12 @@ class ChatGPTService(HarmoniServiceManager):
         openai.Model.list()
         rospy.loginfo("Connected")
         return
-
+    
+    def filter_out_emoji(self, text):
+        NON_BMP_RE = re.compile(u"[^\U00000000-\U0000d7ff\U0000e000-\U0000ffff]", flags=re.UNICODE)
+        cleaned_text = NON_BMP_RE.sub(u"", text)
+        return cleaned_text
+    
     def request(self, input_text):
         """[summary]
 
@@ -87,7 +93,7 @@ class ChatGPTService(HarmoniServiceManager):
                 model="gpt-3.5-turbo",
                 messages = messages_array,
                 temperature=0.9,
-                max_tokens=150,#150,
+                max_tokens=500,#150,
                 top_p=1,
                 frequency_penalty=0,
                 presence_penalty=0.6
@@ -95,6 +101,7 @@ class ChatGPTService(HarmoniServiceManager):
                 #rospy.loginfo(f"The chatgpt response is {gpt_response['choices'][0]['text']}")
                 #response = gpt_response['choices'][0]['text']
                 response = gpt_response['choices'][0]['message']['content']
+                response = self.filter_out_emoji(response)
                 ai_response = response.split("AI:")[-1]
                 ai_response = ai_response.replace("Sure", "")
                 if "!" in ai_response:
@@ -128,7 +135,7 @@ def main():
     instance_id = rospy.get_param("instance_id")  # "default"
     service_id = f"{service_name}_{instance_id}"
     try:
-        rospy.init_node(service_name, log_level=rospy.DEBUG)
+        rospy.init_node(service_name, log_level=rospy.INFO)
         params = rospy.get_param(service_name + "/" + instance_id + "_param/")
         s = ChatGPTService(service_id, params)
         s.setup_chat_gpt()

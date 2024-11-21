@@ -3,3 +3,5 @@ face_detect:
     rate_frame: 10
     up_sampling: 0
     subscriber_id : "default"
+    compressed: True
+    show: True

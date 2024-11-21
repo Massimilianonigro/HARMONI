@@ -1,0 +1,92 @@
+{
+    "rotate_left_beginning": [
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": -100,
+            "TimeMs": 1500
+        }
+    ],
+
+    "rotate_right_beginning": [
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": 100,
+            "TimeMs": 1500
+        }
+    ],
+
+    "rotate_right": [
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": 100,
+            "TimeMs": 2500
+        }
+    ],
+
+    "empty_drive": [
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": 0,
+            "TimeMs": 5000
+        }
+    ],
+
+    "rotate_left": [
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": 100,
+            "TimeMs": 2500
+        }
+    ],
+
+
+
+    
+    "left_right_rotation":
+    [
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": -100,
+            "TimeMs": 2000
+        },
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": 100,
+            "TimeMs": 2000
+        }
+    ],
+
+    "more_left_than_right_rotation":
+    [
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": -100,
+            "TimeMs": 2500
+        },
+        {
+            "LinearVelocity": 0,
+            "AngularVelocity": 100,
+            "TimeMs": 1500
+        }
+    ],
+
+    "forward":
+    [
+        {
+            "LinearVelocity": 2,
+            "AngularVelocity": 0,
+            "TimeMs": 1500
+        }
+    ],
+
+    "backward":
+    [
+        {
+            "LinearVelocity": 2,
+            "AngularVelocity": 0,
+            "TimeMs": 1500
+        }
+    ]
+
+
+}

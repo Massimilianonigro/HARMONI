@@ -1,0 +1,309 @@
+{
+    "test" :   [ 
+        {
+            "utterance"     : "Ecco! Questa è la sala d’attesa per la risonanza magnetica! Mi chiamo Misty, e sono qui per farvi compagnia.",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Avete qualche dubbio su come funzionerà l'attesa?",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "right",
+            "addressee_name": "genitore"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Hai chiesto al genitore se sa come funzionerà l'attesa prima della risonanza, ti ha risposto, in caso abbia detto no spiega sommariamente che l'attesa sarà molto breve, e verranno chiamati dal medico appena sarà il loro turno. Se non ha bisogno di spiegazioni di solo qualcosa tipo 'vi prometto che l'attesa sarà veloce e piacevole' Usa massimo 30 parole", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Tu come ti chiami e quanti anni hai?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene":false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Ora stai cercando di intrattenere e distrarre il bambino. Ti sei appena presentato al bambino e hai chiesto quanti anni ha, fai un commento sulla sua età. Usa massimo 10 parole. Se il bambino non risponde di qualcosa tipo 'Io mi chiamo Misty piacere di conoscerti'", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Hai mai visto un robot come me prima d'ora?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Hai fatto una domanda al bambino, commenta la sua risposta, non fare domande.Usa massimo 10 parole. Non usare emoji. Se il bambino non risponde di qualcosa tipo 'non ti ho sentito bene ma'", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }, 
+        {
+            "utterance"     : "Oggi è la tua giornata fortunata! Sai, oltre a essere un robot, a volte sono anche bravo a raccontare storie o giocare. Che tipo di giochi fai con i tuoi amici?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Ora stai cercando di intrattenere e distrarre il bambino. Gli hai appena chiesto qual è il suo gioco preferito da fare con i suoi amici, il bambino ti ha risposto. Rispondi adeguatamente e continua la conversazione con una domanda appropriata. Usa massimo 30 parole. Non usare emoji. Se il bambino non risponde digli qualcosa tipo: 'A me piace molto giocare a nascondino, cosa ne pensi?'", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Ora stai cercando di intrattenere e distrarre il bambino. Stai portando avanti una conversazione con il bambino riguardo i suoi giochi preferiti da fare con gli amici. Il bambino ha risposto a una tua domanda, rispondi adeguatamente e chiudi con un affermazione. Usa massimo 30 parole. Non usare emoji. Se il bambino non risponde di qualcosa tipo: 'Mhh chiediamo anche al tuo genitore che giochi fa con te'", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore.Hai parlato con il bambino dei suoi giochi preferiti da fare con gli amici, ora chiedi al genitore di quali giochi fa con il bambino. Usa massimo 30 parole.  Non usare emoji.", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore.Hai chiesto al genitore di quali giochi fa con il bambino. Ti ha risposto, rispondi adeguatamente e chiudi con un affermazione. Usa massimo 30 parole.  Non usare emoji. Se il genitore non risponde, di qualcosa tipo: 'è importante passare del tempo in famiglia'", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "right",
+            "addressee_name": "genitore"
+
+        },
+        {
+            "utterance"     : "Sai cosa dovrai fare oggi qui in reparto?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore.  Non usare emoji. Ora stai per iniziare a spiegare la risonanza magnetica. Hai appena chiesto al bambino se sa cosa dovrà fare oggi in reparto, rispondi adeguatamente (in caso non abbia risposto passa subito alla spiegazione) e poi spiega la risonanza magnetica con un'analogia relativa alle astronavi dopodichè chiedi al bambino se gli piacciono le astronavi. La spiegazione deve essere qualcosa simile a: “Oggi farai la risonanza magnetica. è come una macchina fotografica gigante che scatta delle foto del tuo corpo. Non è pericolosa e non fa male! A volte fa solo dei rumori forti. È come se fosse un'astronave in decollo, ti piacciono le astronavi?“ Usa massimo 30 parole", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Sai una cosa? Se resti immobile, aiuti la tua astronave a viaggiare velocissima nello spazio. E i rumori che sentirai sono come i motori che ruggiscono! Tu riuscirai a stare fermo come un vero astronauta, vero?", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta parlando con un bambino (che sta per fare la risonanza magnetica) e un genitore. Hai fatto una domanda al bambino, commenta la sua risposta.Usa massimo 10 parole. Non usare emoji.", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }, 
+        {
+            "utterance"     : "So sei un astronauta coraggioso! E quando tornerai dal tuo viaggio spaziale, avrai delle bellissime foto della tua missione.", 
+            "nlp"           :  0,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     :  "C'è qualcosa che ti preoccupa o che vuoi chiedermi? Puoi raccontarmi tutto, io sono qui per ascoltarti",
+            "nlp"           :  0,
+            "rl": 0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "left",
+            "addressee_name": "bambino"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta preparando un bambino (paziente) e un suo genitore ad una risonanza magnetica. Ti sei già presentato e hai già spiegato la procedura, il bambino ti ha appena detto cosa lo preoccupa, rispondi adeguatamente e tranquillizzalo. Chiudi con un affermazione. Tieni conto che stai parlando con un bambino quindi usa un linguaggio semplice.",
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta preparando un bambino (paziente) e un suo genitore ad una risonanza magnetica. Chiedi al genitore come si sente.Chiudi con una domanda.Usa massimo 30 parole", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,
+            "addressee": "right",
+            "addressee_name": "genitore"
+        },
+        {
+            "utterance"     : "Immagina di essere un robot sociale che sta preparando un bambino (paziente) e un suo genitore ad una risonanza magnetica. Ti sei già presentato e hai già spiegato la procedura, il bambino ti ha appena detto cosa lo preoccupa, lo hai tranquillizzato e hai chiesto al genitore come si sente. Ti ha risposto, rispondi adeguatamente e tranquillizzalo e poi salutalo. Usa massimo 30 parole", 
+            "nlp"           :  1,
+            "rl":0,
+            "face"          : "null",
+            "gesture"       : "",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": true,
+            "addressee": "right",
+            "addressee_name": "genitore"
+        },
+        {
+            "utterance"     : "In bocca al lupo per la tua avventura, passa a salutarmi dopo se vuoi!",
+            "rl":0,
+            "nlp":0,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        },
+        {
+            "utterance"     : "",
+            "rl":0,
+            "nlp":1,
+            "face"          : "null",
+            "gesture"       : "null",
+            "sound"         : "",
+            "back_channel"    : "",
+            "continue_to_next_scene": false,          
+            "addressee": "left",
+            "addressee_name": "bambino"
+
+        }
+        ],
+    "error_handling"    :   
+                            {   
+                                "errore"   :   {
+                                                        "utterance"     : "Mhh qualcosa è andato storto!",
+                                                        "face"          : "null",
+                                                        "gesture"       : "null",
+                                                        "sound"         : "null",
+                                                        "do_trigger"    : "False"
+                                                    }
+                            }                  
+}

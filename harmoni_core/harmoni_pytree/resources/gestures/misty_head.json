@@ -1,0 +1,115 @@
+{
+    "empty_head":[
+        {
+        "duration":3
+        }
+    ],
+
+    "counter_head_rotation_left":[
+        {
+        "yaw":25,
+        "duration":1,
+        "relative": true
+        }
+    ],
+
+    "nodding_yes": [
+        {
+            "pitch": 10,
+            "duration": 0.5
+        },
+        {
+            "pitch": -10,
+            "duration": 0.5
+        },
+        {
+            "pitch": 10,
+            "duration": 0.5
+        },
+        {
+            "pitch": -10,
+            "duration": 0.5
+        },
+        {
+            "pitch": 0,
+            "duration": 0.5
+        }
+    ],
+
+    "nodding_no": [
+        {
+            "yaw": -10,
+            "duration": 0.5
+        },
+        {
+            "yaw": 10,
+            "duration": 0.5
+        },
+        {
+            "yaw": -10,
+            "d": 0.5
+        },
+        {
+            "yaw": 10,
+            "duration": 0.5
+        },
+        {
+            "yaw": 0,
+            "duration": 0.5
+        }
+    ],
+
+    "talking_head": [
+        {
+            "roll": -5,
+            "duration": 0.2
+        },
+        {
+            "roll": 5,
+            "duration": 0.2
+        },
+        {
+            "roll": -5,
+            "duration": 0.2
+        },
+        {
+            "roll": 5,
+            "duration": 0.2
+        },
+        {
+            "roll": 0,
+            "duration": 0.2
+        }
+    ],
+
+    "tilting_then_back_right": [
+        {
+            "roll": -20,
+            "duration": 2
+        },
+        {
+            "duration": 2
+        },
+        {
+            "roll": 0,
+            "duration": 2
+        }
+    ],
+
+    "tilting_then_back_left": [
+        {
+            "roll": 20,
+            "duration": 2
+        },
+        {
+            "duration": 3
+        },
+        {
+            "roll": 0,
+            "duration": 2
+        }
+    ]
+
+
+
+}

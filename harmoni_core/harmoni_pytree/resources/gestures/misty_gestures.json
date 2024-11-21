@@ -1,0 +1,279 @@
+{
+    "left_arm_up": [
+        {
+            "LeftArmPosition": -90,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 0,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 2.0
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 0,
+            "LeftArmVelocity": 50,
+            "Units": "degrees",
+            "WaitingTime": 1.0
+        }
+    ],
+
+    "fist_bumb_up": [
+        {
+            "LeftArmPosition": -70,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 0,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 1
+        }
+    ],
+
+    "empty_gesture": [
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 0,
+            "LeftArmVelocity": 0,
+            "Units": "degrees",
+            "WaitingTime": 5
+        }
+    ],
+
+    "zigzag": [
+        {
+            "LeftArmPosition": -20,
+            "RightArmPosition": 10,
+            "RightArmVelocity": 100,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 0.1
+        },
+        {
+            "LeftArmPosition": 10,
+            "RightArmPosition": -20,
+            "RightArmVelocity": 100,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 0.1
+        },
+        {
+            "LeftArmPosition": -20,
+            "RightArmPosition": 10,
+            "RightArmVelocity": 100,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 0.1
+        },
+        {
+            "LeftArmPosition": 10,
+            "RightArmPosition": -20,
+            "RightArmVelocity": 100,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 0.1
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 50,
+            "LeftArmVelocity": 50,
+            "Units": "degrees",
+            "WaitingTime": 1.0
+        }
+    ],
+
+    "reset": [
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 50,
+            "LeftArmVelocity": 50,
+            "Units": "degrees",
+            "WaitingTime": 1.0
+        }
+    ],
+
+    "explaining_left": [
+        {
+            "LeftArmPosition": -70,
+            "RightArmPosition": 20,
+            "RightArmVelocity": 70,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 1.5
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 30,
+            "LeftArmVelocity": 30,
+            "Units": "degrees",
+            "WaitingTime": 0.2
+        }
+    ],
+
+    "explaining_left_beginning": [
+        {
+            "LeftArmPosition": -70,
+            "RightArmPosition": 20,
+            "RightArmVelocity": 70,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 1.5
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 30,
+            "LeftArmVelocity": 30,
+            "Units": "degrees",
+            "WaitingTime": 0.2
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 0,
+            "LeftArmVelocity": 0,
+            "Units": "degrees",
+            "WaitingTime": 8
+        },
+        {
+            "LeftArmPosition": -20,
+            "RightArmPosition": -70,
+            "RightArmVelocity": 100,
+            "LeftArmVelocity": 70,
+            "Units": "degrees",
+            "WaitingTime": 1.5
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 30,
+            "LeftArmVelocity": 30,
+            "Units": "degrees",
+            "WaitingTime": 0.2
+        }
+    ],
+
+    "explaining_right": [
+        {
+            "LeftArmPosition": 20,
+            "RightArmPosition": -70,
+            "RightArmVelocity": 80,
+            "LeftArmVelocity": 80,
+            "Units": "degrees",
+            "WaitingTime": 0.5
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 30,
+            "LeftArmVelocity": 30,
+            "Units": "degrees",
+            "WaitingTime": 0.2
+        }
+    ],
+
+    "both_up_then_slowly_raising_arms": [
+        {
+            "LeftArmPosition": -90,
+            "RightArmPosition": -90,
+            "RightArmVelocity": 70,
+            "LeftArmVelocity": 70,
+            "Units": "degrees",
+            "WaitingTime": 1.0
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 50,
+            "LeftArmVelocity": 50,
+            "Units": "degrees",
+            "WaitingTime": 0.5
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 0,
+            "LeftArmVelocity": 0,
+            "Units": "degrees",
+            "WaitingTime": 7
+        },
+        {
+            "LeftArmPosition": 20,
+            "RightArmPosition": -70,
+            "RightArmVelocity": 50,
+            "LeftArmVelocity": 50,
+            "Units": "degrees",
+            "WaitingTime": 2
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 30,
+            "LeftArmVelocity": 30,
+            "Units": "degrees",
+            "WaitingTime": 0.2
+        }
+    ],
+
+
+    "both_arms_up": [
+        {
+            "LeftArmPosition": -90,
+            "RightArmPosition": -90,
+            "RightArmVelocity": 70,
+            "LeftArmVelocity": 70,
+            "Units": "degrees",
+            "WaitingTime": 1.0
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 50,
+            "LeftArmVelocity": 50,
+            "Units": "degrees",
+            "WaitingTime": 0.5
+        }
+    ],
+
+    "breath_in": [
+        {
+            "LeftArmPosition": -70,
+            "RightArmPosition": -70,
+            "RightArmVelocity": 100,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 1.5
+        },
+        {
+            "LeftArmPosition": -90,
+            "RightArmPosition": -90,
+            "RightArmVelocity": 60,
+            "LeftArmVelocity": 60,
+            "Units": "degrees",
+            "WaitingTime": 1.5
+        }
+    ],
+
+
+    "breath_out": [
+        {
+            "LeftArmPosition": 0,
+            "RightArmPosition": 0,
+            "RightArmVelocity": 100,
+            "LeftArmVelocity": 100,
+            "Units": "degrees",
+            "WaitingTime": 1.5
+        },
+        {
+            "LeftArmPosition": 36,
+            "RightArmPosition": 36,
+            "RightArmVelocity": 20,
+            "LeftArmVelocity": 20,
+            "Units": "degrees",
+            "WaitingTime": 1.5
+        }
+    ]
+}

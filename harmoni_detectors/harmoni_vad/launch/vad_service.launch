@@ -4,6 +4,6 @@
 	<arg name="instance_id" default="default"/>
 	<param name="instance_id" value="$(arg instance_id)"/>
     <rosparam file="$(find harmoni_vad)/config/configuration.yaml" subst_value="True"/>
-    <node pkg="harmoni_vad" type="vad_service.py" name="harmoni_vad_$(arg instance_id)" output="screen"/>
+    <node pkg="harmoni_vad" type="vad_service_stt.py" name="harmoni_vad_$(arg instance_id)" output="screen"/>
 
 </launch>

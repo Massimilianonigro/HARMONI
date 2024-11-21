@@ -1,0 +1,9 @@
+<launch>
+    <arg name="robot_ip" default="172.20.10.3"/> 
+	<param name="robot_ip" value="$(arg robot_ip)"/>
+    <rosparam file="$(find harmoni_camera)/config/misty_configuration.yaml" subst_value="True"/>
+    <node pkg="harmoni_camera" type="misty_camera_service.py" name="harmoni_camera_default" output="screen"/>
+
+    <param name="instance_id" value="default"/>
+    <test test-name="test_camera" pkg="harmoni_camera" type="rostest_misty_camera.py" />
+</launch>

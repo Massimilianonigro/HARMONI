@@ -1,8 +1,22 @@
 # Configuration file for the microphone
 tts:
+  #default_param:
+  #  region_name: "eu-west-2"
+  #  language: "en-UK"
+  #  outdir: "$(find harmoni_tts)/temp_data"
+  #  wav_header_length: 24
+  #  voice: "Amy"
   default_param:
-    region_name: "eu-west-2"
-    language: "en-UK"
+    region_name: "eu-central-1"
     outdir: "$(find harmoni_tts)/temp_data"
     wav_header_length: 24
-    voice: "Amy"
+    language: "it-IT"
+    voice: "Bianca"
+    max_pitch: "20%"
+    min_pitch: "10%"
+    max_volume: "+4dB"
+    min_volume: "medium"
+    max_rate: "100%"
+    min_rate: "80%"
+    default_pitch: "17%"
+    default_rate: "90%"

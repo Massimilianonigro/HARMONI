@@ -1,0 +1,8 @@
+<launch>
+   
+	<arg name="instance_id" default="default"/>
+	<param name="instance_id" value="$(arg instance_id)"/>
+    <rosparam file="$(find harmoni_camera)/config/misty_configuration.yaml" subst_value="True"/>
+    <node pkg="harmoni_camera" type="misty_camera_service.py" name="harmoni_camera_$(arg instance_id)" output="screen"/>
+
+</launch>

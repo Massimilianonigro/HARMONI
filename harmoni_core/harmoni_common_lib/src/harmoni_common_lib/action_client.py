@@ -97,7 +97,6 @@ class HarmoniActionClient(object):
             optional_data=optional_data,
             condition=condition,
         )
-
         self.simple_state = SimpleGoalState.PENDING
         self.goal_handler = self.action_client.send_goal(
             goal, self._handle_transition, self._handle_feedback
@@ -136,7 +135,6 @@ class HarmoniActionClient(object):
         self.simple_state = SimpleGoalState.DONE
         self.goal_handler = None
         self.done_condition = threading.Condition()
-
         if wait:
             rospy.logdebug(
                 f"action_client waiting for {action_type} server to connect."
@@ -246,7 +244,6 @@ class HarmoniActionClient(object):
         if not self.goal_handler:
             return GoalStatus.LOST
         status = self.goal_handler.get_goal_status()
-
         if status == GoalStatus.RECALLING:
             status = GoalStatus.PENDING
         elif status == GoalStatus.PREEMPTING:
@@ -296,7 +293,6 @@ class HarmoniActionClient(object):
 
     def _handle_transition(self, gh):
         comm_state = gh.get_comm_state()
-
         error_msg = "Received comm state %s when in simple state %s with SimpleActionClient in NS %s" % (
             CommState.to_string(comm_state),
             SimpleGoalState.to_string(self.simple_state),

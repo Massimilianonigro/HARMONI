@@ -1,0 +1,4 @@
+<launch>
+	<arg name="instance_id" default="default"/>
+	<node pkg="harmoni_gesture" type="misty_head_movement_service.py" name="harmoni_head_$(arg instance_id)" output="screen"/>
+</launch>
